@@ -21,22 +21,22 @@ export const WhatIsSection = () => {
 
   const UniversalText = () => (
     <>
-      <H2>{t('home.whatis-section.titleFirst')}</H2>
+      <H2>{t('pages.home.whatis-section.titleFirst')}</H2>
       <H2 className='gradient-bg'>
-        {t('home.whatis-section.titleSecondGraditent')}
+        {t('pages.home.whatis-section.titleSecondGraditent')}
       </H2>
-      <H2>{t('home.whatis-section.titleThird')}</H2>
+      <H2>{t('pages.home.whatis-section.titleThird')}</H2>
     </>
   );
 
   const BottomSection = () => (
     <>
-      <Span>{t('home.whatis-section.bottomTextFirst')}</Span>
-      <Span>{t('home.whatis-section.bottomTextSecond')}</Span>
+      <Span>{t('pages.home.whatis-section.bottomTextFirst')}</Span>
+      <Span>{t('pages.home.whatis-section.bottomTextSecond')}</Span>
 
       <LearnMoreLink
         href='/docs'
-        title={t('home.whatis-section.bottomLinkTitle')}
+        title={t('pages.home.whatis-section.bottomLinkTitle')}
         target='_self'
         border='none'
         fontSize='1.125rem'
@@ -46,7 +46,7 @@ export const WhatIsSection = () => {
         width='100%'
         color='#E163FF'
       >
-        {t('home.whatis-section.bottomLinkText')}
+        {t('pages.home.whatis-section.bottomLinkText')}
         <TbArrowRight className='start-svg' />
       </LearnMoreLink>
     </>

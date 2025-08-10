@@ -6,27 +6,29 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
 import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
 
-// Internal Configs
-import { PageMeta } from '@site/src/config/pageMeta';
-
 function PushChainKnowledgeBase() {
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.KNOWLEDGE.pageTitle}
-      description={PageMeta.KNOWLEDGE.pageDescription}
+      title={t('pages.knowledge.seo.title')}
+      description={t('pages.knowledge.seo.description')}
       showNavbar={'chain'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/chain/knowledge' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Knowledge Base | Push Chain' />
+        <meta property='og:title' content={t('pages.knowledge.seo.og-title')} />
         <meta
           name='og:description'
-          content='Discover everything for tutorials to code base to what makes Push Chain tick at the knowledge hub.'
+          content={t('pages.knowledge.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -39,10 +41,13 @@ function PushChainKnowledgeBase() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Knowledge Base | Push Chain' />
+        <meta
+          name='twitter:title'
+          content={t('pages.knowledge.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Discover everything for tutorials to code base to what makes Push Chain tick at the knowledge hub.'
+          content={t('pages.knowledge.seo.twitter-description')}
         />
         <meta
           name='twitter:image'

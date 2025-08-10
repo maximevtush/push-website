@@ -45,7 +45,7 @@ import FinalBgImage from '../../static/assets/website/home/others/push-chain-fin
 import { FeaturesList } from '@site/src/config/HomeFeaturesList';
 import { InvList } from '@site/src/config/HomeInvestorList';
 import GLOBALS, { device, structure } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
+
 import { FeaturedSection } from '../components/Home/FeaturedSection';
 import { StatsSection } from '../components/Home/StatsSection';
 import { WhatIsSection } from '../components/Home/WhatIsSection';
@@ -68,21 +68,18 @@ export default function Home() {
 
   return (
     <Layout
-      title={PageMeta.HOME.pageTitle}
-      description={PageMeta.HOME.pageDescription}
+      title={t('pages.home.seo.title')}
+      description={t('pages.home.seo.description')}
       showNavbar='chain'
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org' />
         <meta property='og:type' content='website' />
-        <meta
-          property='og:title'
-          content='Home | Push Chain: True Universal Blockchain'
-        />
+        <meta property='og:title' content={t('pages.home.seo.og-title')} />
         <meta
           name='og:description'
-          content='Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying L1s & L2s and enabling apps from any chain to be accessed by the users of any chain.'
+          content={t('pages.home.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -97,11 +94,11 @@ export default function Home() {
         <meta name='twitter:site' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Home | Push Chain: True Universal Blockchain'
+          content={t('pages.home.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying L1s & L2s and enabling apps from any chain to be accessed by the users of any chain.'
+          content={t('pages.home.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -146,7 +143,7 @@ export default function Home() {
                     letterSpacing='normal'
                     color='#FFF'
                   >
-                    {t('home.hero-section.title')}
+                    {t('pages.home.hero-section.title')}
                   </H1>
 
                   <Span
@@ -157,13 +154,13 @@ export default function Home() {
                     lineHeight='150%'
                     letterSpacing='normal'
                   >
-                    {t('home.hero-section.description')}
+                    {t('pages.home.hero-section.description')}
                   </Span>
 
                   <HeroCTA gap='18px' flex='0'>
                     <A
                       href={useBaseUrl('/docs')}
-                      title={t('home.hero-section.primary-button-title')}
+                      title={t('pages.home.hero-section.primary-button-title')}
                       background='#D548EC'
                       borderRadius='16px'
                       border='1px solid rgba(255, 255, 255, 0.30)'
@@ -174,14 +171,16 @@ export default function Home() {
                       padding='16px 32px'
                       zIndex='2'
                     >
-                      {t('home.hero-section.primary-button')}
+                      {t('pages.home.hero-section.primary-button')}
                       <BsArrowRight className='start-svg' />
                     </A>
 
                     <PortalA
                       href='/knowledge'
                       target='_self'
-                      title={t('home.hero-section.secondary-button-title')}
+                      title={t(
+                        'pages.home.hero-section.secondary-button-title'
+                      )}
                       fontSize='1.125rem'
                       fontWeight='600'
                       letterSpacing='-0.03em'
@@ -189,7 +188,7 @@ export default function Home() {
                       padding='16px 32px'
                       zIndex='2'
                     >
-                      {t('home.hero-section.secondary-button')}
+                      {t('pages.home.hero-section.secondary-button')}
                     </PortalA>
                   </HeroCTA>
                 </HeroBody>
@@ -331,7 +330,7 @@ export default function Home() {
         <BlogSection
           id='blog'
           role='region'
-          aria-label={t('home.blog-section.section-aria-label')}
+          aria-label={t('pages.home.blog-section.section-aria-label')}
         >
           <Content alignSelf='center'>
             <ItemH>
@@ -344,9 +343,9 @@ export default function Home() {
                   letterSpacing='0.6px'
                   lineHeight='120%'
                   role='text'
-                  aria-label={t('home.blog-section.subtitle-aria-label')}
+                  aria-label={t('pages.home.blog-section.subtitle-aria-label')}
                 >
-                  {t('home.blog-section.subtitle')}
+                  {t('pages.home.blog-section.subtitle')}
                 </H2>
               </ItemH>
 
@@ -354,8 +353,10 @@ export default function Home() {
                 <ItemH justifyContent='flex-end'>
                   <SlideLink
                     href='https://push.org/blog'
-                    title={t('home.blog-section.explore-link-title')}
-                    aria-label={t('home.blog-section.explore-link-aria-label')}
+                    title={t('pages.home.blog-section.explore-link-title')}
+                    aria-label={t(
+                      'pages.home.blog-section.explore-link-aria-label'
+                    )}
                     hoverBackground='transparent'
                     hover='transparent'
                     background='transparent'
@@ -366,7 +367,7 @@ export default function Home() {
                     target='_blank'
                   >
                     <SpanLink>
-                      {t('home.blog-section.explore-link-text')}
+                      {t('pages.home.blog-section.explore-link-text')}
                     </SpanLink>
                     <BsArrowRight
                       className='anchorSVGlink'
@@ -386,9 +387,9 @@ export default function Home() {
               letterSpacing='0.6px'
               role='heading'
               aria-level='2'
-              aria-label={t('home.blog-section.title-aria-label')}
+              aria-label={t('pages.home.blog-section.title-aria-label')}
             >
-              {t('home.blog-section.title')}
+              {t('pages.home.blog-section.title')}
             </H2>
 
             <RecentBlogPosts />
@@ -416,7 +417,7 @@ export default function Home() {
                 lineHeight='130%'
                 textAlign='center'
               >
-                {t('home.investors-section.title')}
+                {t('pages.home.investors-section.title')}
               </InvestorHeader>
             </InvestorItem>
 

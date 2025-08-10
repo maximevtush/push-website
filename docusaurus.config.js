@@ -6,9 +6,9 @@ const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Push Chain: True Universal L1 Blockchain',
+  title: 'Push Chain — Universal L1 for Apps',
   tagline:
-    'Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying all L1s, L2s and enabling apps from any chain to be accessed by the users of any chain.',
+    'Shared-state L1 for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token. No network switching.',
   favicon: '/assets/website/favicon.ico',
 
   // Set the production url of your site here
@@ -85,6 +85,22 @@ const config = {
           {
             from: '/docs/chat/build/get-started/',
             to: 'https://comms.push.org/docs',
+          },
+          {
+            from: '/cheatsheet',
+            to: 'https://comms.push.org/cheatsheet',
+          },
+          {
+            from: '/chain',
+            to: '/',
+          },
+          {
+            from: '/chain/knowledge',
+            to: '/knowledge',
+          },
+          {
+            from: '/frens',
+            to: 'https://comms.push.org/frens',
           },
         ],
         createRedirects(existingPath) {

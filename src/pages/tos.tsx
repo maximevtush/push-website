@@ -30,7 +30,6 @@ import {
 
 // Internal Configs
 import { device } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 function TermsOfService() {
   // Internationalization
@@ -38,18 +37,18 @@ function TermsOfService() {
 
   return (
     <Layout
-      title={PageMeta.TOS.pageTitle}
-      description={PageMeta.TOS.pageDescription}
+      title={t('pages.tos.seo.title')}
+      description={t('pages.tos.seo.description')}
       showNavbar='website'
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/tos' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push Chain | Terms of Service' />
+        <meta property='og:title' content={t('pages.tos.seo.og-title')} />
         <meta
           property='og:description'
-          content='Explore our terms of service to understand the rules and guidelines governing your use of our platform. Learn about your rights, responsibilities, and our commitment to a fair and secure user experience.'
+          content={t('pages.tos.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -62,10 +61,10 @@ function TermsOfService() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push Chain | Terms of Service' />
+        <meta name='twitter:title' content={t('pages.tos.seo.twitter-title')} />
         <meta
           name='twitter:description'
-          content='Explore our terms of service to understand the rules and guidelines governing your use of our platform. Learn about your rights, responsibilities, and our commitment to a fair and secure user experience.'
+          content={t('pages.tos.seo.twitter-description')}
         />
         <meta
           property='twitter:image'

@@ -27,7 +27,7 @@ const RecentBlogPosts = () => {
     return (
       <BlogPostList>
         <LoadingMessage role='status' aria-live='polite'>
-          {t('home.blog-section.loading-text')}
+          {t('pages.home.blog-section.loading-text')}
         </LoadingMessage>
       </BlogPostList>
     );
@@ -37,7 +37,7 @@ const RecentBlogPosts = () => {
     return (
       <BlogPostList>
         <ErrorMessage role='status' aria-live='polite'>
-          {t('home.blog-section.no-posts-text')}
+          {t('pages.home.blog-section.no-posts-text')}
         </ErrorMessage>
       </BlogPostList>
     );
@@ -46,12 +46,15 @@ const RecentBlogPosts = () => {
   return (
     <BlogPostList
       role='list'
-      aria-label={t('home.blog-section.blog-posts-list-aria-label')}
+      aria-label={t('pages.home.blog-section.blog-posts-list-aria-label')}
     >
       {recentBlogs?.slice(0, 3).map((postItem, index) => {
-        const blogPostAriaLabel = t('home.blog-section.blog-post-aria-label', {
-          title: postItem?.title,
-        });
+        const blogPostAriaLabel = t(
+          'pages.home.blog-section.blog-post-aria-label',
+          {
+            title: postItem?.title,
+          }
+        );
         const blogPostTitle = `${t(
           'home.blog-section.blog-post-title-prefix'
         )}${postItem?.title}`;

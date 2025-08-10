@@ -30,13 +30,15 @@ export const StatsSection = () => {
     <StatsWrapper>
       <TextSection>
         <H2>
-          {t('home.stats-section.title')} {isMobile && <br />}{' '}
-          <ColoredText>{t('home.stats-section.titleGradient')}</ColoredText>{' '}
-          <br /> {t('home.stats-section.titleThird')}
+          {t('pages.home.stats-section.title')} {isMobile && <br />}{' '}
+          <ColoredText>
+            {t('pages.home.stats-section.titleGradient')}
+          </ColoredText>{' '}
+          <br /> {t('pages.home.stats-section.titleThird')}
         </H2>
 
         <Span className='regular-text'>
-          {t('home.stats-section.description')}
+          {t('pages.home.stats-section.description')}
         </Span>
       </TextSection>
 

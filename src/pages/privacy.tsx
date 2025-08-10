@@ -24,27 +24,24 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 
-// Internal Configs
-import { PageMeta } from '@site/src/config/pageMeta';
-
 function Privacy() {
   // Internationalization
   const { t } = useTranslation();
 
   return (
     <Layout
-      title={PageMeta.PRIVACY.pageTitle}
-      description={PageMeta.PRIVACY.pageDescription}
+      title={t('pages.privacy.seo.title')}
+      description={t('pages.privacy.seo.description')}
       showNavbar='website'
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/privacy' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push Chain | Privacy' />
+        <meta property='og:title' content={t('pages.privacy.seo.og-title')} />
         <meta
           property='og:description'
-          content='Our privacy policy page outlines how we protect your data and ensure your confidentiality. Learn about the measures we take to safeguard your information and maintain your trust.'
+          content={t('pages.privacy.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -57,10 +54,13 @@ function Privacy() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push | Privacy' />
+        <meta
+          name='twitter:title'
+          content={t('pages.privacy.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Our privacy policy page outlines how we protect your data and ensure your confidentiality. Learn about the measures we take to safeguard your information and maintain your trust.'
+          content={t('pages.privacy.seo.twitter-description')}
         />
         <meta
           property='twitter:image'

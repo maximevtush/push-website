@@ -6,11 +6,11 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 // External Components
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { gsap } from 'gsap';
 import { useTranslation } from 'react-i18next';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 // Internal Components
 import {
@@ -322,7 +322,7 @@ function PartnerChannels() {
             margin='0px 0px'
             lineHeight='135%'
           >
-            <b>{t('home.partners-section.partner-channels-title')}</b>
+            <b>{t('pages.home.partners-section.partner-channels-title')}</b>
           </ResponsiveH2>
 
           <Span
@@ -333,12 +333,12 @@ function PartnerChannels() {
             lineHeight='140%'
             textAlign='center'
           >
-            {t('home.partners-section.partner-channels-description')}
+            {t('pages.home.partners-section.partner-channels-description')}
           </Span>
 
           <A
             href={useBaseUrl('/frens')}
-            title={t('home.partners-section.partner-channels-button-alt')}
+            title={t('pages.home.partners-section.partner-channels-button-alt')}
             background='#D548EC'
             borderRadius='16px'
             border='1px solid rgba(255, 255, 255, 0.30)'
@@ -357,7 +357,7 @@ function PartnerChannels() {
             margin='25px 0px 0px 0px'
             alignSelf='center'
           >
-            {t('home.partners-section.partner-channels-button')}
+            {t('pages.home.partners-section.partner-channels-button')}
           </A>
         </ShowcaseMainContent>
 
