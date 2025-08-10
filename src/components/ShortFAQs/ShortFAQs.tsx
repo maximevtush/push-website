@@ -88,7 +88,7 @@ const ShortFAQs: FC = () => {
           href={useBaseUrl('/knowledge/faq')}
           title={t('components.short-faq-snippet.explore-more-title')}
           aria-label={t('components.short-faq-snippet.explore-more-aria-label')}
-          target='_blank'
+          target='_self'
           className='button'
           margin={isMobile ? '24px auto 0px 0px' : '24px 0px 0px auto'}
           hoverBackground='transparent'

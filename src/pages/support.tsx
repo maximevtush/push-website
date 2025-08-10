@@ -7,7 +7,7 @@ import Layout from '@theme/Layout';
 import React from 'react';
 
 // Internal Component
-import ChainKnowledgeBase from '../../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
+import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
 
 // Internal Configs
 import { PageMeta } from '@site/src/config/pageMeta';
@@ -23,7 +23,7 @@ function PushChainKnowledgeBase() {
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/chain/knowledge' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Knowledge Base | Push Chain' />
+        <meta property='og:title' content='Support | Push Chain' />
         <meta
           name='og:description'
           content='Discover everything for tutorials to code base to what makes Push Chain tick at the knowledge hub.'

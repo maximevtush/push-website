@@ -23,11 +23,6 @@ export const PageMeta = {
     pageTitle: 'Frens',
     pageDescription: 'Explore integrations done by our frens',
   },
-  SPACES: {
-    pageTitle: 'Spaces',
-    pageDescription:
-      "Explore Push Spaces and how to get started with it's integration",
-  },
   CHEAT: {
     pageTitle: 'Cheat Sheet',
     pageDescription: 'Explore Push Cheat Sheet and how to get started with it',
@@ -96,14 +91,5 @@ export const PageMeta = {
   FAQ: {
     pageTitle: 'Frequently Asked Questions | Knowledge Base | Push Chain',
     pageDescription: `The place to find answers to all the popular questions the community has asked. Crowdsourced from Push Fam ❤️ and curated by the Push team 💪.`,
-  },
-  NEWPAGE: {
-    pageTitle: 'Deepdives | Knowledge Base | Push Chain',
-    pageDescription:
-      'Want to know the intricate working of Push? or just a curious fellow? If so, this section is for you ❤️',
-  },
-  TEMPLATE: {
-    pageTitle: 'Push Template',
-    pageDescription: 'Push Template',
   },
 };

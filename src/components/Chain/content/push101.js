@@ -10,7 +10,7 @@ export const push101Content = {
           type: 'text',
           value: `## Why Push Chain?
 
-          Push Chain is the first **true universal L1**, purpose built to enable apps to seamlessly be interactable by users of any chain.
+          Push Chain is the first **true universal L1**, purpose built to enable apps to seamlessly be interact-able by users of any chain.
           
           Write your smart contract once, deploy it on Push Chain, and instantly reach users on Ethereum, Solana, and all other supported chains without changing on-chain code.`,
         },

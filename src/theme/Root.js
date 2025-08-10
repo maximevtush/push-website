@@ -8,14 +8,14 @@ import i18nInitialize from '@site/src/utils/i18n';
 import styled from 'styled-components';
 
 // Internal Components
+import { AccountProvider } from '@site/src/context/accountContext';
 import ServerStyle from '@site/src/theme/ServerStyle';
 import CookieComponent from '../components/CookieComponent';
-import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
-import { Notification } from '../hooks/useRewardsNotification';
-import { useChainNotification } from '../hooks/useChainNotification';
 import InfoBar from '../components/InfoBar';
 import AccountContext from '../context/accountContext';
-import { AccountProvider } from '@site/src/context/accountContext';
+import { useChainNotification } from '../hooks/useChainNotification';
+import { Notification } from '../hooks/useRewardsNotification';
+import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 
 // Initialize Internalization
 i18nInitialize();
@@ -54,7 +54,7 @@ export default function Root({ children }) {
   );
   const isHome = (location.pathname === '/' || isPreview) && showAlertBar;
 
-  const excludePaths = ['/BRB', '/DOCS', '/BOOTCAMP', '/CHAIN', '/TEMPLATE'];
+  const excludePaths = ['/BRB', '/DOCS', '/BOOTCAMP', '/CHAIN'];
   const shouldRenderFooter = excludePaths.every((path) =>
     excludeDefaultConfigAt(path)
   );

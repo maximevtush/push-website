@@ -17,219 +17,135 @@ export const getShortFAQsList = () => {
 
   return [
     {
-      question: t(
-        'components.short-faq-snippet.faqs.what-is-push-chain.question'
-      ),
-      section: 'General',
-      renderAnswer: () => (
-        <Answer role='region' aria-label='Answer about what Push Chain is'>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.what-is-push-chain.answer-1'
-              components={{
-                1: <strong />,
-                3: <strong />,
-              }}
-            />
-          </Span>
-          <Span role='text'>
-            {t('components.short-faq-snippet.faqs.what-is-push-chain.answer-2')}
-          </Span>
-        </Answer>
-      ),
-    },
-    {
-      question: t(
-        'components.short-faq-snippet.faqs.how-does-push-chain-work.question'
-      ),
-      section: 'General',
-      renderAnswer: () => (
-        <Answer role='region' aria-label='Answer about how Push Chain works'>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.how-does-push-chain-work.answer-1'
-            )}
-          </Span>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.how-does-push-chain-work.answer-2'
-            )}
-          </Span>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.how-does-push-chain-work.answer-3'
-            )}
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-4'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-5'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-6'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-7'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-8'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.how-does-push-chain-work.answer-9'
-            )}
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.how-does-push-chain-work.answer-10'
-              components={{
-                1: <strong />,
-                3: <strong />,
-              }}
-            />
-          </Span>
-        </Answer>
-      ),
-    },
-    {
-      question: t(
-        'components.short-faq-snippet.faqs.why-is-push-chain-unique.question'
-      ),
+      question: t('components.short-faq-snippet.faqs.faq1.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label='Answer about why Push Chain is unique'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq1.question')}`}
         >
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.why-is-push-chain-unique.answer-1'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.why-is-push-chain-unique.answer-2'
-              components={{ 1: <strong /> }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.why-is-push-chain-unique.answer-3'
-              components={{
-                1: <strong />,
-                3: <strong />,
-                5: <strong />,
-              }}
-            />
-          </Span>
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq1.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+            }}
+          />
         </Answer>
       ),
     },
     {
-      question: t(
-        'components.short-faq-snippet.faqs.push-chain-grants.question'
-      ),
+      question: t('components.short-faq-snippet.faqs.faq2.question'),
       section: 'General',
       renderAnswer: () => (
-        <Answer role='region' aria-label='Answer about Push Chain grants'>
-          <Span role='text'>
-            {t('components.short-faq-snippet.faqs.push-chain-grants.answer-1')}
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.push-chain-grants.answer-2'
-              components={{
-                1: (
-                  <Link
-                    href='mailto:team@push.org'
-                    aria-label='Send email to Push Chain team'
-                  />
-                ),
-                3: <strong />,
-                5: (
-                  <Link
-                    href='https://x.com/PushChain'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label='Follow Push Chain on X (Twitter)'
-                  />
-                ),
-              }}
-            />
-          </Span>
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq2.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq2.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+            }}
+          />
         </Answer>
       ),
     },
     {
-      question: t(
-        'components.short-faq-snippet.faqs.push-protocol-future.question'
-      ),
+      question: t('components.short-faq-snippet.faqs.faq3.question'),
       section: 'General',
       renderAnswer: () => (
-        <Answer role='region' aria-label='Answer about Push Protocol future'>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.push-protocol-future.answer-1'
-            )}
-          </Span>
-          <Span role='text'>
-            {t(
-              'components.short-faq-snippet.faqs.push-protocol-future.answer-2'
-            )}
-          </Span>
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq3.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq3.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+            }}
+          />
         </Answer>
       ),
     },
     {
-      question: t('components.short-faq-snippet.faqs.learn-more.question'),
+      question: t('components.short-faq-snippet.faqs.faq4.question'),
       section: 'General',
       renderAnswer: () => (
-        <Answer role='region' aria-label='Answer about learning more'>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.learn-more.answer-1'
-              components={{
-                1: (
-                  <Link
-                    href='/knowledge'
-                    target='_self'
-                    aria-label='Visit Push Chain Knowledge Base'
-                  />
-                ),
-              }}
-            />
-          </Span>
-          <Span role='text'>
-            <Trans
-              i18nKey='components.short-faq-snippet.faqs.learn-more.answer-2'
-              components={{
-                1: (
-                  <Link
-                    href='/blog/faq-push-chain/'
-                    target='_self'
-                    aria-label='Visit detailed FAQ page'
-                  />
-                ),
-              }}
-            />
-          </Span>
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq4.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq4.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+            }}
+          />
+        </Answer>
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq5.question'),
+      section: 'General',
+      renderAnswer: () => (
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq5.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq5.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+              3: (
+                <Link
+                  href='#useful-stats'
+                  title={t(
+                    'components.short-faq-snippet.faqs.faq5.answer.supported-urls-title'
+                  )}
+                />
+              ),
+              4: (
+                <Link
+                  href='/contact'
+                  title={t(
+                    'components.short-faq-snippet.faqs.faq5.answer.contact-url-title'
+                  )}
+                  target='_self'
+                />
+              ),
+            }}
+          />
+        </Answer>
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq6.question'),
+      section: 'General',
+      renderAnswer: () => (
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.faqs.faq6.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-faq-snippet.faqs.faq6.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+              3: (
+                <Link
+                  href='https://donut.push.network'
+                  title={t(
+                    'components.short-faq-snippet.faqs.faq6.answer.donut-testnet-title'
+                  )}
+                />
+              ),
+            }}
+          />
         </Answer>
       ),
     },
@@ -251,6 +167,7 @@ const Answer = styled(ItemH)`
     font-style: normal;
     font-weight: 400;
     line-height: 150%; /* 30px */
+    width: 100%;
 
     @media ${device.mobileL} {
       font-size: 16px;

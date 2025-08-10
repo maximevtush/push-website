@@ -41,8 +41,8 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { SupportedLanguagesList } from '@site/src/config/SupportedLanguagesList';
 import GLOBALS, { device, structure } from '@site/src/config/globals';
+import { SupportedLanguagesList } from '@site/src/config/SupportedLanguagesList';
 import { HeaderList } from '../config/HeaderList';
 
 // Register GSAP plugins
@@ -219,6 +219,7 @@ function Header() {
         href={item.href.includes('http') ? item.href : `${baseURL}${item.href}`}
         target={item.target}
         rel='noopener noreferrer'
+        title={item.title ? t(item.title) : t(item.subtext)}
         className='header-item'
         style={{
           userSelect: 'none',
@@ -237,7 +238,7 @@ function Header() {
                 ).default
               }
               srcSet={`${require(`@site/static/assets/website/header/${item.srcrefoff}@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/${item.srcrefoff}@3x.png`).default} 3x`}
-              alt={`${t(item.title)}`}
+              alt={`${t(item.text)}`}
               height={24}
               width={24}
             />
@@ -256,7 +257,7 @@ function Header() {
               letterSpacing='normal'
               fontWeight='600'
             >
-              {t(item.title)}
+              {t(item.text)}
 
               {item.tagitem && (
                 <TagItem style={{ marginLeft: '10px' }}>
@@ -272,7 +273,7 @@ function Header() {
               letterSpacing='normal'
               fontWeight='400'
             >
-              {t(item.subtitle)}
+              {t(item.subtext)}
             </H3>
           </ItemH>
         </HeaderItem>
@@ -351,7 +352,7 @@ function Header() {
                 <LinkTo
                   title={t('header.logo.ctatitle')}
                   to={useBaseUrl('/')}
-                  aria-label='Push'
+                  aria-label={t('header.meta.logo-aria-label')}
                 >
                   <Image
                     src={
@@ -449,7 +450,7 @@ function Header() {
                                 ).default
                               }
                               srcSet={`${require(`@site/static/assets/website/languages/world@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/world@3x.webp`).default} 3x`}
-                              alt={'Language Header Icon'}
+                              alt={t('header.meta.language-icon-alt')}
                               height={24}
                               width={24}
                               borderRadius='100%'
@@ -534,7 +535,7 @@ function Header() {
                           .default
                       }
                       srcSet={`${require(`@site/static/assets/website/header/bars@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/bars@3x.png`).default} 3x`}
-                      alt={`Bars Icon`}
+                      alt={t('header.meta.hamburger-menu-alt')}
                       width='auto'
                       height='28px'
                       onClick={toggleMobileMenu}
@@ -566,7 +567,7 @@ function Header() {
                               `@site/static/assets/website/header/donut-icon.webp`
                             ).default
                           }
-                          alt={`Push Chain Testnet Donut`}
+                          alt={t('header.meta.testnet-badge-alt')}
                           width='20px'
                           height='auto'
                         />
@@ -775,7 +776,7 @@ function Header() {
                         letterSpacing='-0.03em'
                         lineHeight='142%'
                         padding='16px 0px'
-                        aria-label={t('header.language.ctatitle')}
+                        aria-label={t('header.language.aria-label')}
                       >
                         <Image
                           src={
@@ -784,7 +785,7 @@ function Header() {
                             ).default
                           }
                           srcSet={`${require(`@site/static/assets/website/languages/world@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/world@3x.webp`).default} 3x`}
-                          alt={'Language Header Icon'}
+                          alt={t('header.meta.language-icon-alt')}
                           height={24}
                           width={24}
                           borderRadius='100%'
@@ -867,7 +868,7 @@ function Header() {
                   showMobileMenu={showMobileMenu}
                   href='https://portal.push.org/'
                   target='_blank'
-                  title={t('header.app-button.alt-title')}
+                  title={t('header.app-button.title')}
                   background='var(--ifm-link-color)'
                   borderRadius='16px'
                   border='1px solid rgba(255, 255, 255, 0.30)'
@@ -877,7 +878,7 @@ function Header() {
                   lineHeight='1rem'
                   width='100%'
                 >
-                  {t('header.app-button.title')}
+                  {t('header.app-button.text')}
                 </PrimaryLauncher>
               </HeaderFocusItems>
             </HeaderWrapper>
