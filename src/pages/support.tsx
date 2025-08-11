@@ -7,7 +7,7 @@ import Layout from '@theme/Layout';
 import React from 'react';
 
 // Internal Component
-import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
+import { Support } from '../components/Support';
 
 // Internal Configs
 import { PageMeta } from '@site/src/config/pageMeta';
@@ -68,7 +68,7 @@ function PushChainKnowledgeBase() {
         </script>
       </Head>
 
-      <ChainKnowledgeBase />
+      <Support />
     </Layout>
   );
 }
