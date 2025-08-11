@@ -70,9 +70,6 @@ export default function i18nInitialize() {
         // optional expire and domain for set cookie
         cookieMinutes: 10080, // 7 days
 
-        // optional htmlTag with lang attribute
-        htmlTag: document.documentElement,
-
         // only detect languages that are in the whitelist
         checkWhitelist: true,
       },
