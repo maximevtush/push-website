@@ -56,7 +56,7 @@ const RecentBlogPosts = () => {
           }
         );
         const blogPostTitle = `${t(
-          'home.blog-section.blog-post-title-prefix'
+          'pages.home.blog-section.blog-post-title-prefix'
         )}${postItem?.title}`;
 
         return (

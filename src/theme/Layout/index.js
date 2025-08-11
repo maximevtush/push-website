@@ -8,7 +8,11 @@ import {
   ThemeClassNames,
 } from '@docusaurus/theme-common';
 import { useKeyboardNavigation } from '@docusaurus/theme-common/internal';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import WebsiteMeta from '@site/src/components/SEO/WebsiteMeta';
 import { ItemH } from '@site/src/css/SharedStyling';
+import Footer from '@site/src/segments/Footer';
+import Header from '@site/src/segments/Header';
 import AnnouncementBar from '@theme/AnnouncementBar';
 import ErrorPageContent from '@theme/ErrorPageContent';
 import LayoutProvider from '@theme/Layout/Provider';
@@ -17,9 +21,6 @@ import SkipToContent from '@theme/SkipToContent';
 import clsx from 'clsx';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import SchemaMarkup from '../../components/SEO/SchemaMarkup';
-import Footer from '../../segments/Footer';
-import Header from '../../segments/Header';
 import styles from './styles.module.css';
 
 export default function Layout(props) {
@@ -38,14 +39,23 @@ export default function Layout(props) {
 
   return (
     <LayoutProvider>
-      <PageMetadata title={title} description={description} />
+      {/* Passing description as null since description is done custom on each page */}
+      {/* Individual blog and docs pages handle it automatically */}
+      <PageMetadata title={title} description={null} />
 
       {/* Default Schema Markup for all pages */}
+      {/* Organization */}
+      <SchemaMarkup type='Organization' />
+
+      {/* WebSite */}
       <SchemaMarkup
         type='Organization'
         pageTitle={title || t('global.site-name')}
         pageDescription={description || t('global.site-description')}
       />
+
+      {/* Website Meta */}
+      <WebsiteMeta />
 
       <SkipToContent />
       <AnnouncementBar />

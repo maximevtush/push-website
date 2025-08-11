@@ -108,13 +108,6 @@ export default function Home() {
             { absolute: true }
           )}
         />
-
-        <SchemaMarkup
-          type='WebSite'
-          pageTitle={t('pages.home.seo.title')}
-          pageDescription={t('pages.home.seo.description')}
-          pageUrl='https://push.org'
-        />
       </Head>
 
       <HomeWrapper showAlertBar={isHydrated ? shouldShowAlertBar : false}>

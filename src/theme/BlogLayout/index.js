@@ -11,9 +11,9 @@ import React from 'react';
 // External Components
 import { useTranslation } from 'react-i18next';
 
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import BlogSidebar from '@theme/BlogSidebar';
 import Layout from '@theme/Layout';
-import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import styled from 'styled-components';
 
 export default function BlogLayout(props) {
@@ -34,45 +34,48 @@ export default function BlogLayout(props) {
       description={isBlogMainPage ? t('pages.blog.seo.description') : ''}
     >
       {isBlogMainPage && (
-        <Head>
-          {/* <!-- Facebook Meta Tags --> */}
-          <meta property='og:url' content='https://push.org/blog' />
-          <meta property='og:type' content='website' />
-          <meta property='og:title' content={t('pages.blog.seo.og-title')} />
-          <meta
-            property='og:description'
-            content={t('pages.blog.seo.og-description')}
-          />
-          <meta
-            property='og:image'
-            content={
-              require('@site/static/assets/previews/blogpreview.png').default
-            }
-          />
+        <>
+          <Head>
+            {/* <!-- Facebook Meta Tags --> */}
+            <meta property='og:url' content='https://push.org/blog' />
+            <meta property='og:type' content='website' />
+            <meta property='og:title' content={t('pages.blog.seo.og-title')} />
+            <meta
+              property='og:description'
+              content={t('pages.blog.seo.og-description')}
+            />
+            <meta
+              property='og:image'
+              content={
+                require('@site/static/assets/previews/blogpreview.png').default
+              }
+            />
 
-          {/* <!-- Twitter Meta Tags --> */}
-          <meta name='twitter:card' content='summary_large_image' />
-          <meta name='twitter:site' content='@PushChain' />
-          <meta
-            name='twitter:title'
-            content={t('pages.blog.seo.twitter-title')}
-          />
-          <meta
-            name='twitter:description'
-            content={t('pages.blog.seo.twitter-description')}
-          />
-          <meta
-            name='twitter:image'
-            content={
-              require('@site/static/assets/previews/blogpreview.png').default
-            }
-          />
+            {/* <!-- Twitter Meta Tags --> */}
+            <meta name='twitter:card' content='summary_large_image' />
+            <meta name='twitter:site' content='@PushChain' />
+            <meta
+              name='twitter:title'
+              content={t('pages.blog.seo.twitter-title')}
+            />
+            <meta
+              name='twitter:description'
+              content={t('pages.blog.seo.twitter-description')}
+            />
+            <meta
+              name='twitter:image'
+              content={
+                require('@site/static/assets/previews/blogpreview.png').default
+              }
+            />
+          </Head>
+
           <SchemaMarkup
             type='Blog'
             pageDescription={t('pages.blog.seo.description')}
             pageUrl='https://push.org/blog'
           />
-        </Head>
+        </>
       )}
 
       {toc ? (
