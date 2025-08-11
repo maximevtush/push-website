@@ -4,27 +4,28 @@ import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import { device } from '@site/src/config/globals';
-import { contactFormTopics } from './Support.constants';
-import { useSendSupportMessage } from './useSendSupportMessage';
-import { supportValidationSchema } from './Support.utils';
+import { contactFormTopics } from './Contact.constants';
+import { useSendContactMessage } from './useSendContactMessage';
+import { contactValidationSchema } from './Contact.utils';
 
-const Support: FC = () => {
+const Contact: FC = () => {
   const [status, setStatus] = useState(0);
   const [contactFormAlertMsg, setContactFormAlertMsg] = useState('');
   const [validateOnReset, setValidateOnReset] = useState(true);
 
   const { mutate: sendMessage, isPending: isSendingMessage } =
-    useSendSupportMessage();
+    useSendContactMessage();
 
-  const supportFormik = useFormik({
+  const contactFormik = useFormik({
     initialValues: {
       name: '',
       email: '',
+      company: '',
       topic: contactFormTopics[0].value,
       subject: '',
       message: '',
     },
-    validationSchema: validateOnReset ? supportValidationSchema : null,
+    validationSchema: validateOnReset ? contactValidationSchema : null,
     onSubmit: () => {
       handleContactFormSubmit();
     },
@@ -32,11 +33,13 @@ const Support: FC = () => {
 
   const handleContactFormSubmit = () => {
     setValidateOnReset(false);
-    const { name, email, topic, subject, message } = supportFormik.values;
+    const { name, email, company, topic, subject, message } =
+      contactFormik.values;
     sendMessage(
       {
         from: email,
         name,
+        company,
         topic,
         sub: subject,
         msg: message,
@@ -45,11 +48,11 @@ const Support: FC = () => {
         onSuccess: () => {
           setStatus(1);
           setContactFormAlertMsg('Message Sent! We will be in Touch :)');
-          supportFormik.resetForm();
+          contactFormik.resetForm();
           setValidateOnReset(true);
         },
         onError: (error: Error) => {
-          console.log('Error sending code', error);
+          console.log('Error sending message', error);
           setContactFormAlertMsg(
             'Error in sending mail, please try again later...'
           );
@@ -79,11 +82,14 @@ const Support: FC = () => {
           </AlertContainer>
         )}
 
-        <StyledForm onSubmit={supportFormik.handleSubmit}>
+        <StyledForm onSubmit={contactFormik.handleSubmit}>
           <FormCard>
             <FormHeader>
-              <Title>Support</Title>
-              <Subtitle>Let's get in touch!</Subtitle>
+              <Title>Contact</Title>
+              <Subtitle>
+                We'd love to hear from you. Send us a message and we'll respond
+                as soon as possible.
+              </Subtitle>
             </FormHeader>
 
             <InputRow>
@@ -93,48 +99,67 @@ const Support: FC = () => {
                   required
                   type='text'
                   placeholder='Your name'
-                  value={supportFormik.values.name}
-                  onChange={supportFormik.handleChange('name')}
+                  value={contactFormik.values.name}
+                  onChange={contactFormik.handleChange('name')}
                   hasError={
-                    supportFormik.touched.name &&
-                    Boolean(supportFormik.errors.name)
+                    contactFormik.touched.name &&
+                    Boolean(contactFormik.errors.name)
                   }
                   disabled={isSendingMessage}
                 />
-                {supportFormik.touched.name && supportFormik.errors.name && (
-                  <ErrorMessage>{supportFormik.errors.name}</ErrorMessage>
+                {contactFormik.touched.name && contactFormik.errors.name && (
+                  <ErrorMessage>{contactFormik.errors.name}</ErrorMessage>
                 )}
               </InputWrapper>
 
               <InputWrapper>
-                <Label>E-mail</Label>
+                <Label>Email</Label>
                 <StyledInput
                   required
                   type='email'
                   placeholder='your.email@example.com'
-                  value={supportFormik.values.email}
-                  onChange={supportFormik.handleChange('email')}
+                  value={contactFormik.values.email}
+                  onChange={contactFormik.handleChange('email')}
                   hasError={
-                    supportFormik.touched.email &&
-                    Boolean(supportFormik.errors.email)
+                    contactFormik.touched.email &&
+                    Boolean(contactFormik.errors.email)
                   }
                   disabled={isSendingMessage}
                 />
-                {supportFormik.touched.email && supportFormik.errors.email && (
-                  <ErrorMessage>{supportFormik.errors.email}</ErrorMessage>
+                {contactFormik.touched.email && contactFormik.errors.email && (
+                  <ErrorMessage>{contactFormik.errors.email}</ErrorMessage>
                 )}
               </InputWrapper>
             </InputRow>
 
             <InputWrapper>
+              <Label>Company (Optional)</Label>
+              <StyledInput
+                type='text'
+                placeholder='Your company name'
+                value={contactFormik.values.company}
+                onChange={contactFormik.handleChange('company')}
+                hasError={
+                  contactFormik.touched.company &&
+                  Boolean(contactFormik.errors.company)
+                }
+                disabled={isSendingMessage}
+              />
+              {contactFormik.touched.company &&
+                contactFormik.errors.company && (
+                  <ErrorMessage>{contactFormik.errors.company}</ErrorMessage>
+                )}
+            </InputWrapper>
+
+            <InputWrapper>
               <Label>Topic</Label>
               <StyledSelect
                 required
-                value={supportFormik.values.topic}
-                onChange={supportFormik.handleChange('topic')}
+                value={contactFormik.values.topic}
+                onChange={contactFormik.handleChange('topic')}
                 hasError={
-                  supportFormik.touched.topic &&
-                  Boolean(supportFormik.errors.topic)
+                  contactFormik.touched.topic &&
+                  Boolean(contactFormik.errors.topic)
                 }
                 disabled={isSendingMessage}
               >
@@ -144,8 +169,8 @@ const Support: FC = () => {
                   </option>
                 ))}
               </StyledSelect>
-              {supportFormik.touched.topic && supportFormik.errors.topic && (
-                <ErrorMessage>{supportFormik.errors.topic}</ErrorMessage>
+              {contactFormik.touched.topic && contactFormik.errors.topic && (
+                <ErrorMessage>{contactFormik.errors.topic}</ErrorMessage>
               )}
             </InputWrapper>
 
@@ -154,18 +179,18 @@ const Support: FC = () => {
               <StyledInput
                 required
                 type='text'
-                placeholder='I want to tell you guys a secret!'
-                value={supportFormik.values.subject}
-                onChange={supportFormik.handleChange('subject')}
+                placeholder="Let's collaborate on something amazing!"
+                value={contactFormik.values.subject}
+                onChange={contactFormik.handleChange('subject')}
                 hasError={
-                  supportFormik.touched.subject &&
-                  Boolean(supportFormik.errors.subject)
+                  contactFormik.touched.subject &&
+                  Boolean(contactFormik.errors.subject)
                 }
                 disabled={isSendingMessage}
               />
-              {supportFormik.touched.subject &&
-                supportFormik.errors.subject && (
-                  <ErrorMessage>{supportFormik.errors.subject}</ErrorMessage>
+              {contactFormik.touched.subject &&
+                contactFormik.errors.subject && (
+                  <ErrorMessage>{contactFormik.errors.subject}</ErrorMessage>
                 )}
             </InputWrapper>
 
@@ -173,24 +198,24 @@ const Support: FC = () => {
               <Label>Message</Label>
               <StyledTextArea
                 required
-                placeholder='This is where you will tell us that secret, or a bug or whatever is on your mind.'
+                placeholder='Tell us about your project, partnership idea, or how we can help you...'
                 rows={12}
-                value={supportFormik.values.message}
-                onChange={supportFormik.handleChange('message')}
+                value={contactFormik.values.message}
+                onChange={contactFormik.handleChange('message')}
                 hasError={
-                  supportFormik.touched.message &&
-                  Boolean(supportFormik.errors.message)
+                  contactFormik.touched.message &&
+                  Boolean(contactFormik.errors.message)
                 }
                 disabled={isSendingMessage}
               />
-              {supportFormik.touched.message &&
-                supportFormik.errors.message && (
-                  <ErrorMessage>{supportFormik.errors.message}</ErrorMessage>
+              {contactFormik.touched.message &&
+                contactFormik.errors.message && (
+                  <ErrorMessage>{contactFormik.errors.message}</ErrorMessage>
                 )}
             </InputWrapper>
 
             <SubmitButton type='submit' disabled={isSendingMessage}>
-              {isSendingMessage ? 'Submitting...' : 'Submit'}
+              {isSendingMessage ? 'Sending...' : 'Send Message'}
             </SubmitButton>
           </FormCard>
         </StyledForm>
@@ -284,7 +309,6 @@ const FormCard = styled.div`
   padding: 32px 48px;
   border-radius: 12px;
   background-color: #202124;
-  // background-color: #202124;
 
   @media ${device.tablet} {
     padding: 24px;
@@ -311,6 +335,7 @@ const Subtitle = styled.p`
   font-size: 16px;
   color: #9ca3af;
   margin: 0;
+  max-width: 600px;
 `;
 
 const InputRow = styled.div`
@@ -415,4 +440,4 @@ const SubmitButton = styled.button`
   }
 `;
 
-export { Support };
+export { Contact };
