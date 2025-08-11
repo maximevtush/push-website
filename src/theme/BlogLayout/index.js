@@ -4,15 +4,16 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from 'react';
 import Head from '@docusaurus/Head';
 import { useLocation } from '@docusaurus/router';
+import React from 'react';
 
 // External Components
 import { useTranslation } from 'react-i18next';
 
-import Layout from '@theme/Layout';
 import BlogSidebar from '@theme/BlogSidebar';
+import Layout from '@theme/Layout';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import styled from 'styled-components';
 
 export default function BlogLayout(props) {
@@ -52,35 +53,25 @@ export default function BlogLayout(props) {
           {/* <!-- Twitter Meta Tags --> */}
           <meta name='twitter:card' content='summary_large_image' />
           <meta name='twitter:site' content='@PushChain' />
-          <meta name='twitter:title' content={t('pages.blog.seo.twitter-title')} />
+          <meta
+            name='twitter:title'
+            content={t('pages.blog.seo.twitter-title')}
+          />
           <meta
             name='twitter:description'
             content={t('pages.blog.seo.twitter-description')}
           />
           <meta
             name='twitter:image'
-            // content={useBaseUrl(
-            //   require("/static/assets/previews/blogpreview.png").default,
-            //   { absolute: true },
-            // )}
             content={
               require('@site/static/assets/previews/blogpreview.png').default
             }
           />
-          <script type='application/ld+json'>
-            {JSON.stringify({
-              '@context': 'https://schema.org/',
-              '@type': 'Organization',
-              name: 'Push Chain',
-              description: 'Any Chain. Any User. Any App',
-              url: 'https://push.org',
-              logo: '/assets/website/favicon.ico',
-              sameAs: [
-                'https://x.com/PushChain',
-                'https://www.linkedin.com/company/push-protocol/mycompany/',
-              ],
-            })}
-          </script>
+          <SchemaMarkup
+            type='Blog'
+            pageDescription={t('pages.blog.seo.description')}
+            pageUrl='https://push.org/blog'
+          />
         </Head>
       )}
 

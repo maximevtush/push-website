@@ -5,14 +5,15 @@ import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
+import styled from 'styled-components';
 
 // External Components
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
+import { Content, H1, ItemV, Section } from '@site/src/css/SharedStyling';
 
-function PushChainKnowledgeBase() {
+function LFPush() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -74,9 +75,30 @@ function PushChainKnowledgeBase() {
         </script>
       </Head>
 
-      <ChainKnowledgeBase />
+      <SkeletonWrapper>
+        {/* Heading Section */}
+        <Section>
+          <Content className='skeletonsmall'>
+            <H1>Let's Push</H1>
+          </Content>
+        </Section>
+
+        {/* Tweets Section */}
+        <Section>
+          <Content className='skeletonsmall'>
+            <H1>Let's Push</H1>
+          </Content>
+        </Section>
+      </SkeletonWrapper>
     </Layout>
   );
 }
 
-export default PushChainKnowledgeBase;
+const SkeletonWrapper = styled(ItemV)`
+  background: #000;
+  font-family:
+    DM Sans,
+    sans-serif;
+`;
+
+export default LFPush;

@@ -16,6 +16,8 @@ import Navbar from '@theme/Navbar';
 import SkipToContent from '@theme/SkipToContent';
 import clsx from 'clsx';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import SchemaMarkup from '../../components/SEO/SchemaMarkup';
 import Footer from '../../segments/Footer';
 import Header from '../../segments/Header';
 import styles from './styles.module.css';
@@ -31,16 +33,25 @@ export default function Layout(props) {
     showNavbar,
   } = props;
 
+  const { t } = useTranslation();
   useKeyboardNavigation();
 
   return (
     <LayoutProvider>
       <PageMetadata title={title} description={description} />
+
+      {/* Default Schema Markup for all pages */}
+      <SchemaMarkup
+        type='Organization'
+        pageTitle={title || t('global.site-name')}
+        pageDescription={description || t('global.site-description')}
+      />
+
       <SkipToContent />
       <AnnouncementBar />
       {/* navbar for docs/blogs */}
       {(showNavbar === undefined || showNavbar === 'docusaurus') && <Navbar />}
-      {/* navbar for chain pages and sub pages */}
+      {/* navbar for website pages and sub pages */}
       {showNavbar === 'website' && <Header />}
       <div
         id={SkipToContentFallbackId}

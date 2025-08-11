@@ -188,7 +188,7 @@ function TechDocItem({
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function DocsHub(): JSX.Element {
   // Internationalization
   const { t } = useTranslation();
 

@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 // Internal Component
 import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 
 function PushChainKnowledgeBase() {
   const { t } = useTranslation();
@@ -57,20 +58,12 @@ function PushChainKnowledgeBase() {
           )}
         />
 
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
+        <SchemaMarkup
+          type='WebSite'
+          pageTitle={t('pages.knowledge.seo.title')}
+          pageDescription={t('pages.knowledge.seo.description')}
+          pageUrl='https://push.org/knowledge'
+        />
       </Head>
 
       <ChainKnowledgeBase />

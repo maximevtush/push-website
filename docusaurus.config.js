@@ -31,12 +31,18 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace 'en' with 'zh-Hans'.
+  // Internationalization configuration
+  // Note: Using react-i18next for actual translations, Docusaurus i18n for base setup
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+    },
   },
 
   markdown: {

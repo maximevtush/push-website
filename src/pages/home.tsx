@@ -5,6 +5,7 @@
 // React + Web3 Essentials
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import Layout from '@theme/Layout';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
@@ -108,20 +109,12 @@ export default function Home() {
           )}
         />
 
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any Wallet. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-chain',
-            ],
-          })}
-        </script>
+        <SchemaMarkup
+          type='WebSite'
+          pageTitle={t('pages.home.seo.title')}
+          pageDescription={t('pages.home.seo.description')}
+          pageUrl='https://push.org'
+        />
       </Head>
 
       <HomeWrapper showAlertBar={isHydrated ? shouldShowAlertBar : false}>
