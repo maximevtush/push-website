@@ -5,20 +5,20 @@ import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
 // Load Languages
+import arabic from '/static/locales/ar/translation.json';
+import german from '/static/locales/de/translation.json';
 import english from '/static/locales/en/translation.json';
-import chineseSimplified from '/static/locales/zh-CN/translation.json';
 import spanish from '/static/locales/es/translation.json';
+import french from '/static/locales/fr/translation.json';
 import hindi from '/static/locales/hi/translation.json';
+import indonesian from '/static/locales/id/translation.json';
 import japanese from '/static/locales/ja/translation.json';
 import korean from '/static/locales/ko/translation.json';
 import portuguese from '/static/locales/pt/translation.json';
 import russian from '/static/locales/ru/translation.json';
 import turkish from '/static/locales/tr/translation.json';
-import french from '/static/locales/fr/translation.json';
-import indonesian from '/static/locales/id/translation.json';
 import vietnamese from '/static/locales/vi/translation.json';
-import german from '/static/locales/de/translation.json';
-import arabic from '/static/locales/ar/translation.json';
+import chineseSimplified from '/static/locales/zh-CN/translation.json';
 
 export default function i18nInitialize() {
   i18n

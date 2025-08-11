@@ -70,6 +70,7 @@ export default function BlogLayout(props) {
             />
           </Head>
 
+          {/* Schema Markup For Blog */}
           <SchemaMarkup
             type='Blog'
             pageDescription={t('pages.blog.seo.description')}

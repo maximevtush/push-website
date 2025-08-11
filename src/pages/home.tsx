@@ -5,7 +5,6 @@
 // React + Web3 Essentials
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import Layout from '@theme/Layout';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';

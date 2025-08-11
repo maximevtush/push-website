@@ -1,26 +1,35 @@
 /* eslint-disable */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
+// React + Web3 Essentials
+import React from 'react';
+
+// External Components
 import ErrorBoundary from '@docusaurus/ErrorBoundary';
+import Head from '@docusaurus/Head';
 import {
   PageMetadata,
   SkipToContentFallbackId,
   ThemeClassNames,
 } from '@docusaurus/theme-common';
 import { useKeyboardNavigation } from '@docusaurus/theme-common/internal';
-import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
-import WebsiteMeta from '@site/src/components/SEO/WebsiteMeta';
-import { ItemH } from '@site/src/css/SharedStyling';
-import Footer from '@site/src/segments/Footer';
-import Header from '@site/src/segments/Header';
 import AnnouncementBar from '@theme/AnnouncementBar';
 import ErrorPageContent from '@theme/ErrorPageContent';
 import LayoutProvider from '@theme/Layout/Provider';
 import Navbar from '@theme/Navbar';
 import SkipToContent from '@theme/SkipToContent';
 import clsx from 'clsx';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+// Internal Components
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import WebsiteMeta from '@site/src/components/SEO/WebsiteMeta';
+import { ItemH } from '@site/src/css/SharedStyling';
+import Footer from '@site/src/segments/Footer';
+import Header from '@site/src/segments/Header';
+
+// Internal Configs
 import styles from './styles.module.css';
 
 export default function Layout(props) {
@@ -48,11 +57,7 @@ export default function Layout(props) {
       <SchemaMarkup type='Organization' />
 
       {/* WebSite */}
-      <SchemaMarkup
-        type='Organization'
-        pageTitle={title || t('global.site-name')}
-        pageDescription={description || t('global.site-description')}
-      />
+      <SchemaMarkup type='WebSite' />
 
       {/* Website Meta */}
       <WebsiteMeta />

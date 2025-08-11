@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
 import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
 
@@ -51,21 +51,6 @@ function TOS() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any Wallet. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-chain',
-            ],
-          })}
-        </script>
       </Head>
 
       <PushLogoBlackContainer className='headerlogo' flex='initial'>

@@ -10,8 +10,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
 
 function PushChainKnowledgeBase() {
   const { t } = useTranslation();
@@ -56,13 +56,6 @@ function PushChainKnowledgeBase() {
             require('/static/assets/previews/knowledgebasepreview.png').default,
             { absolute: true }
           )}
-        />
-
-        <SchemaMarkup
-          type='WebSite'
-          pageTitle={t('pages.knowledge.seo.title')}
-          pageDescription={t('pages.knowledge.seo.description')}
-          pageUrl='https://push.org/knowledge'
         />
       </Head>
 

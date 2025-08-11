@@ -1,108 +1,182 @@
+// src/components/SchemaMarkup.tsx
 // React + Web3 Essentials
 import Head from '@docusaurus/Head';
-import React from 'react';
 
-// Schema markup types
+// External Components
+import { useTranslation } from 'react-i18next';
+
+type SchemaType =
+  | 'Organization'
+  | 'WebSite'
+  | 'WebPage'
+  | 'Blog'
+  | 'BlogPosting'
+  | 'FAQPage';
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
 interface SchemaMarkupProps {
-  type?: 'Organization' | 'WebSite' | 'Article' | 'Blog';
+  type?: SchemaType;
+
+  // Site-level defaults (pass origin like "https://push.org")
+  siteUrl?: string; // strongly recommended
+  siteName?: string; // default: "Push Chain"
+  logoUrl?: string; // absolute PNG/SVG (not .ico)
+  sameAs?: string[]; // socials
+
+  // Page fields
   pageTitle?: string;
   pageDescription?: string;
-  pageUrl?: string;
-  articleAuthor?: string;
-  datePublished?: string;
-  dateModified?: string;
+  pageUrl?: string; // absolute preferred
+  inLanguage?: string; // e.g., "en", "en-US"
+
+  // FAQ
+  faqs?: FAQ[];
+
+  // WebSite search
+  searchTarget?: string; // e.g., "https://push.org/search?q={search_term_string}"
 }
 
 export default function SchemaMarkup({
   type = 'Organization',
+  siteUrl = 'https://push.org',
+  logoUrl = 'https://push.org/assets/website/brand/logo-512.png',
+  sameAs = [
+    'https://x.com/PushChain',
+    'https://www.youtube.com/@PushChain',
+    'https://www.linkedin.com/company/push-chain',
+    'https://discord.com/invite/pushchain',
+    'https://www.instagram.com/pushprotocol/',
+    'https://t.me/epnsproject',
+    'https://t.me/epnsprojectnews',
+    'https://github.com/pushchain',
+  ],
+
   pageTitle,
   pageDescription,
   pageUrl,
-  articleAuthor,
-  datePublished,
-  dateModified,
+  inLanguage = 'en',
+
+  faqs,
+  searchTarget = 'https://push.org/search?q={search_term_string}',
 }: SchemaMarkupProps): JSX.Element {
-  // Base organization schema
-  const organizationSchema = {
-    '@context': 'https://schema.org/',
+  const { t } = useTranslation();
+
+  // Convert to translated description
+  const translatedSiteName = pageTitle || t('global.site-name');
+  const translatedDescription = pageDescription || t('global.site-description');
+
+  const orgId = `${siteUrl.replace(/\/$/, '')}/#organization`;
+  const webId = `${siteUrl.replace(/\/$/, '')}/#website`;
+
+  const organization = {
+    '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Pushhh Chain',
-    description: 'Any Chain. Any User. Any App',
-    url: 'https://push.org',
-    logo: '/assets/website/favicon.ico',
-    sameAs: [
-      'https://x.com/PushChain',
-      'https://www.linkedin.com/company/push-protocol/mycompany/',
+    '@id': orgId,
+    name: t('global.site-name'),
+    url: `${siteUrl}/`,
+    description: t('global.site-description'),
+    logo: {
+      '@type': 'ImageObject',
+      url: logoUrl,
+      width: 512,
+      height: 512,
+    },
+    sameAs,
+    contactPoint: [
+      // add/adjust as you create these inboxes
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: 'support@push.org',
+        availableLanguage: [
+          'en',
+          'zh',
+          'es',
+          'hi',
+          'ko',
+          'ja',
+          'pt',
+          'ru',
+          'tr',
+          'fr',
+          'id',
+          'vi',
+          'de',
+          'ar',
+        ],
+      },
     ],
   };
 
-  // Website schema
-  const websiteSchema = {
-    '@context': 'https://schema.org/',
+  const webSite = {
+    '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Push Chain',
-    description:
-      pageDescription ||
-      'Universal blockchain for any chain, any user, any app',
-    url: pageUrl || 'https://push.org',
-    publisher: {
-      '@type': 'Organization',
-      name: 'Push Chain',
-      logo: '/assets/website/favicon.ico',
+    '@id': webId,
+    url: `${siteUrl}/`,
+    name: t('global.site-name'),
+    publisher: { '@id': orgId },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: searchTarget,
+      'query-input': 'required name=search_term_string',
     },
   };
 
-  // Article schema
-  const articleSchema = {
-    '@context': 'https://schema.org/',
-    '@type': 'Article',
-    headline: pageTitle,
-    description: pageDescription,
+  const webPage = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': pageUrl ? `${pageUrl}#webpage` : undefined,
     url: pageUrl,
-    author: {
-      '@type': 'Organization',
-      name: articleAuthor || 'Push Chain Team',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Push Chain',
-      logo: '/assets/website/favicon.ico',
-    },
-    datePublished: datePublished,
-    dateModified: dateModified || datePublished,
+    name: translatedSiteName,
+    description: translatedDescription,
+    inLanguage,
+    isPartOf: { '@id': webId },
   };
 
-  // Blog schema
-  const blogSchema = {
-    '@context': 'https://schema.org/',
+  const blog = {
+    '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Push Chain Blog',
-    description:
-      pageDescription ||
-      'Latest updates, technical insights, and developer stories from Push Chain',
-    url: pageUrl || 'https://push.org/blog',
-    publisher: {
-      '@type': 'Organization',
-      name: 'Push Chain',
-      logo: '/assets/website/favicon.ico',
-    },
+    '@id': `${siteUrl.replace(/\/$/, '')}/blog#blog`,
+    url: `${siteUrl}/blog`,
+    name: t('pages.blog.seo.title'),
+    description: t('pages.blog.seo.description'),
+    publisher: { '@id': orgId },
   };
 
-  // Select appropriate schema based on type
-  let schema;
+  const faqPage =
+    faqs && faqs.length
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map(({ question, answer }) => ({
+            '@type': 'Question',
+            name: question,
+            acceptedAnswer: { '@type': 'Answer', text: answer },
+          })),
+        }
+      : null;
+
+  let schema: object | null;
   switch (type) {
     case 'WebSite':
-      schema = websiteSchema;
+      schema = webSite;
       break;
-    case 'Article':
-      schema = articleSchema;
+    case 'WebPage':
+      schema = webPage;
       break;
     case 'Blog':
-      schema = blogSchema;
+      schema = blog;
+      break;
+    case 'FAQPage':
+      schema = faqPage;
       break;
     case 'Organization':
     default:
-      schema = organizationSchema;
+      schema = organization;
       break;
   }
 
