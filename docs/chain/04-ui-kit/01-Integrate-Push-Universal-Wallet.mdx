@@ -13,7 +13,9 @@ import Details from '@theme/Details';
 import PushAPIReference from '@site/src/components/PushAPIReference/PushAPIReference';
 
 <head>
-  <title>Integrate Push Universal Wallet | Customizations | UI Kit | Push Chain Docs</title>
+  <title>
+    {`Integrate Push Universal Wallet | Customizations | UI Kit | Push Chain Docs`}
+  </title>
 </head>
 
 <!-- Content Start -->
@@ -189,7 +191,10 @@ function App() {
       <div>
         <PushUniversalAccountButton />
         {connectionStatus == PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && (
-          <p>LFG! Push Chain Executor Account (UEA): ${pushChainClient?.universal.account}</p>
+          <p>
+            LFG! Push Chain Executor Account (UEA): $
+            {pushChainClient?.universal.account}
+          </p>
         )}
       </div>
     );
@@ -241,7 +246,6 @@ function App() {
     },
   };
 
-
   // Define Your App Preview
   const appMetadata = {
     logoUrl:
@@ -251,7 +255,7 @@ function App() {
   };
 
   function WalletUI() {
-    const [txnHash, setTxnHash] = useState<string | null>(null);
+    const [txnHash, setTxnHash] = (useState < string) | (null > null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { connectionStatus } = usePushWalletContext();
@@ -294,16 +298,16 @@ function App() {
           </button>
         )}
         {txnHash && (
-            <>
-                <p>Txn Hash: {txnHash}</p>
-                <a
-                    href={pushChainClient?.explorer.getTransactionUrl(txnHash)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View in Explorer
-                </a>
-            </>
+          <>
+            <p>Txn Hash: {txnHash}</p>
+            <a
+              href={pushChainClient?.explorer.getTransactionUrl(txnHash)}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              View in Explorer
+            </a>
+          </>
         )}
       </div>
     );
@@ -330,15 +334,15 @@ Below is a list of **minimum parameters** required to customize the Push Univers
 
 <PushAPIReference>
 
-| Arguments          | Type                                           | Default  | Description                                                                                                                                                                                                                                                                                                                 |
-| ------------------ | ---------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| _`config`_         | `PushUniversalWalletProviderConfig`            | -        | Core configuration object for wallet connections.                                                                                                                                                                                                                                                                            |
-| _`config.network`_ | `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET`        | -        | Push Chain network to conenct to. For example: `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET` <Details summary="PushUI.CONSTANTS.PUSH_NETWORK" className="alert alert--minimal-api-table">`PushUI.CONSTANTS.PUSH_NETWORK.TESTNET` `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT` `PushUI.CONSTANTS.PUSH_NETWORK.LOCALNET`</Details> |
-| `config.app`       | `{ title, description, logoUrl }`              | -        | (Optional) app metadata for login/preview in the modal.                                                                                                                                                                                                                                                                      |
-| `config.login`     | `{ email, google, wallet, appPreview }`        | -        | Toggle login methods.                                                                                                                                                                                                                                                                                                        |
-| `config.modal`     | `{ loginLayout, connectedLayout, appPreview }` | -        | Customize the modal layout.                                                                                                                                                                                                                                                                                                  |
-| `themeMode`        | `'light'` \| `'dark'`            | `light` | Force a particular theme.                                                                                                                                                                                                                                                                                                    |
-| `themeOverrides`   | `Record<string,string> & { light, dark }`      | -        | Override CSS vars globally or per theme.                                                                                                                                                                                                                                                                                     |
+| Arguments          | Type                                                                 | Default | Description                                                                                                                                                                                                                                                                                                                 |
+| ------------------ | -------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _`config`_         | `PushUniversalWalletProviderConfig`                                  | -       | Core configuration object for wallet connections.                                                                                                                                                                                                                                                                           |
+| _`config.network`_ | `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET`                              | -       | Push Chain network to conenct to. For example: `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET` <Details summary="PushUI.CONSTANTS.PUSH_NETWORK" className="alert alert--minimal-api-table">`PushUI.CONSTANTS.PUSH_NETWORK.TESTNET` `PushUI.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT` `PushUI.CONSTANTS.PUSH_NETWORK.LOCALNET`</Details> |
+| `config.app`       | `{ title, description, logoUrl }`                                    | -       | (Optional) app metadata for login/preview in the modal.                                                                                                                                                                                                                                                                     |
+| `config.login`     | `{ email, google, wallet, appPreview }`                              | -       | Toggle login methods.                                                                                                                                                                                                                                                                                                       |
+| `config.modal`     | `{ loginLayout, connectedLayout, connectedInteraction, appPreview }` | -       | Customize the modal layout and interaction.                                                                                                                                                                                                                                                                                 |
+| `themeMode`        | `'light'` \| `'dark'`                                                | `light` | Force a particular theme.                                                                                                                                                                                                                                                                                                   |
+| `themeOverrides`   | `Record<string,string> & { light, dark }`                            | -       | Override CSS vars globally or per theme.                                                                                                                                                                                                                                                                                    |
 
 </PushAPIReference>
 
