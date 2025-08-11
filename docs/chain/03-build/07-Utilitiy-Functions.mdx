@@ -317,16 +317,18 @@ const { account, exists } = await PushChain.utils.account.convertExecutorToOrigi
 import { PushChain } from '@pushchain/core'
 
     async function main() {
-      const ueaAddress = '0xc16a585b95810F7D204620bb3677F73243242A8F';
+      const ueaAddress = '0x5ef53CF4B369E507C34C3eF5B24791574dCd415E';
       const result = await PushChain.utils.account.convertExecutorToOriginAccount(
         ueaAddress
       );
+      console.log('Has Executor Account');
       console.log(JSON.stringify(result, null, 2));
 
       const notUeaAddress = '0x35B84d6848D16415177c64D64504663b998A6ab4';
       const result2 = await PushChain.utils.account.convertExecutorToOriginAccount(
         notUeaAddress
       );
+      console.log('Does not have Executor Account');
       console.log(JSON.stringify(result2, null, 2));
     }
 

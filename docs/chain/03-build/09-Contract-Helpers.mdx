@@ -209,8 +209,8 @@ function checkCallerType() public view returns (bool isUEA) {
       const provider = new ethers.JsonRpcProvider(RPC_URL);
       const factory  = new ethers.Contract(FACTORY_ADDRESS, IUEAFactoryABI, provider);
 
-      // 2) <inser any address ( UEA or Native Addresses) to check its origin details >
-      const someAddress = '0xc16a585b95810F7D204620bb3677F73243242A8F';
+      // 2) <insert any address ( UEA or Native Addresses) to check its origin details >
+      const someAddress = '0x5ef53CF4B369E507C34C3eF5B24791574dCd415E';
 
       // 3) call getOriginForUEA
       console.log("Calling getOriginForUEA on PushChain");
