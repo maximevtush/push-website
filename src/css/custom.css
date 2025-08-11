@@ -61,7 +61,8 @@
   --ifm-navbar-dropdown-image: 'none';
   --ifm-docs-hero-bg: #efefef;
   --ifm-paragraph-margin-bottom: 0;
-  --docusaurus-highlighted-code-line-bg: rgba(62, 65, 83, 1);
+  /* Softer brand‑tinted highlight for code fences (light mode) */
+  --docusaurus-highlighted-code-line-bg: rgba(207, 89, 226, 0.14);
   --ifm-detail-live-play: rgb(76, 179, 212);
   --ifm-playground-header-bg: #eaebf2;
   --ifm-playground-header-tag: #000;
@@ -164,7 +165,8 @@
   --ifm-playground-buttontext-color: #757d8d;
   --ifm-playground-header-terminalbg: #17181b;
   --ifm-playground-header-terminalcolor: #c4cbd5;
-  --docusaurus-highlighted-code-line-bg: rgba(62, 65, 83, 1);
+  /* Softer brand‑tinted highlight for code fences (dark mode) */
+  --docusaurus-highlighted-code-line-bg: rgba(207, 89, 226, 0.22);
   --ifm-live-highlighted-code-line-bg-pulse-start: rgba(62, 65, 83, 1);
   --ifm-live-highlighted-code-line-bg-pulse-mid: rgba(87, 91, 117, 1);
   --ifm-border-color: #3c3c3e;
