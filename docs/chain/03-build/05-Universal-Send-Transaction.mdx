@@ -367,7 +367,7 @@ import \* as readline from 'node:readline/promises';
         // Note: This would fail in playground without funds
         // In production, ensure wallet has funds
         const txResponse = await pushChainClient.universal.sendTransaction(txParams);
-        console.log('✅ Transaction sent! Tx:', txResponse);
+        console.log('✅ Transaction sent! Tx:', JSON.stringify(txResponse));
       } catch (error) {
         console.error('❌ Transaction failed:', error.message);
         // In playground, this will fail without funds
