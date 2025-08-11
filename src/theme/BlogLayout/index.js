@@ -8,13 +8,18 @@ import React from 'react';
 import Head from '@docusaurus/Head';
 import { useLocation } from '@docusaurus/router';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 import Layout from '@theme/Layout';
 import BlogSidebar from '@theme/BlogSidebar';
 import styled from 'styled-components';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 export default function BlogLayout(props) {
   const { sidebar, toc, children } = props;
+
+  // Internationalization
+  const { t } = useTranslation();
 
   const location = useLocation();
   const pathname = location?.pathname;
@@ -24,18 +29,18 @@ export default function BlogLayout(props) {
 
   return (
     <Layout
-      title={isBlogMainPage ? PageMeta.BLOG.pageTitle : ''}
-      description={isBlogMainPage ? PageMeta.BLOG.pageDescription : ''}
+      title={isBlogMainPage ? t('pages.blog.seo.title') : ''}
+      description={isBlogMainPage ? t('pages.blog.seo.description') : ''}
     >
       {isBlogMainPage && (
         <Head>
           {/* <!-- Facebook Meta Tags --> */}
           <meta property='og:url' content='https://push.org/blog' />
           <meta property='og:type' content='website' />
-          <meta property='og:title' content='Push Blog' />
+          <meta property='og:title' content={t('pages.blog.seo.og-title')} />
           <meta
             property='og:description'
-            content='Discover the latest trends, insights, and tips about Push Chain in our blog! Stay informed and inspired with our expert articles, guides, and resources.'
+            content={t('pages.blog.seo.og-description')}
           />
           <meta
             property='og:image'
@@ -47,10 +52,10 @@ export default function BlogLayout(props) {
           {/* <!-- Twitter Meta Tags --> */}
           <meta name='twitter:card' content='summary_large_image' />
           <meta name='twitter:site' content='@PushChain' />
-          <meta name='twitter:title' content='Push Blog' />
+          <meta name='twitter:title' content={t('pages.blog.seo.twitter-title')} />
           <meta
             name='twitter:description'
-            content='Discover the latest trends, insights, and tips about Push Chain in our blog! Stay informed and inspired with our expert articles, guides, and resources.'
+            content={t('pages.blog.seo.twitter-description')}
           />
           <meta
             name='twitter:image'

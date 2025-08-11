@@ -17,6 +17,7 @@ import './styles.css';
 
 // External Components
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from 'styled-components';
 
 // Internal Components
@@ -188,22 +189,25 @@ function TechDocItem({
 }
 
 export default function HomepageFeatures(): JSX.Element {
+  // Internationalization
+  const { t } = useTranslation();
+
   const { colorMode, setColorMode } = useColorMode();
 
   return (
     <Layout
-      title={PageMeta.DOCS.pageTitle}
-      description={PageMeta.DOCS.pageDescription}
+      title={t('pages.docs.seo.title')}
+      description={t('pages.docs.seo.description')}
       showNavbar={false}
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/docs' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push | Documentation Hub' />
+        <meta property='og:title' content={t('pages.docs.seo.og-title')} />
         <meta
           property='og:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -216,10 +220,13 @@ export default function HomepageFeatures(): JSX.Element {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push | Documentation Hub' />
+        <meta
+          name='twitter:title'
+          content={t('pages.docs.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -234,12 +241,12 @@ export default function HomepageFeatures(): JSX.Element {
             '@context': 'https://schema.org/',
             '@type': 'Organization',
             name: 'Push Chain',
-            description: 'The Communication Protocol of Web3',
+            description: 'Any Chain. Any Wallet. Any App',
             url: 'https://push.org',
             logo: '/assets/website/favicon.ico',
             sameAs: [
               'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
+              'https://www.linkedin.com/company/push-chain',
             ],
           })}
         </script>

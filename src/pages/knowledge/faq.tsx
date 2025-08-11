@@ -6,19 +6,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
 import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
 
 // Internal Configs
 import { faqContent } from '@site/src/components/Chain/content/faq';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 function Page() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.FAQ.pageTitle}
-      description={PageMeta.FAQ.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.faq.seo.title')}
+      description={t('pages.knowledge.faq.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
@@ -27,10 +32,13 @@ function Page() {
           content='https://push.org/chain/knowledge/faq-push-chain'
         />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='FAQ | Knowledge Base | Push Chain' />
+        <meta
+          property='og:title'
+          content={t('pages.knowledge.faq.seo.og-title')}
+        />
         <meta
           name='og:description'
-          content='The place to find answers to all the popular questions the community has asked. Crowdsourced from Push Fam ❤️ and curated by the Push team 💪.'
+          content={t('pages.knowledge.faq.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -45,11 +53,11 @@ function Page() {
         <meta name='twitter:site' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='FAQ | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.faq.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='The place to find answers to all the popular questions the community has asked. Crowdsourced from Push Fam ❤️ and curated by the Push team 💪.'
+          content={t('pages.knowledge.faq.seo.twitter-description')}
         />
         <meta
           name='twitter:image'

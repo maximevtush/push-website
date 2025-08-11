@@ -24,27 +24,27 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 
-// Internal Configs
-import { PageMeta } from '@site/src/config/pageMeta';
-
 function PrivacyMobile() {
   // Internationalization
   const { t } = useTranslation();
 
   return (
     <Layout
-      title={PageMeta.PRIVACYFORMOBILE.pageTitle}
-      description={PageMeta.PRIVACYFORMOBILE.pageDescription}
+      title={t('pages.privacymobile.seo.title')}
+      description={t('pages.privacymobile.seo.description')}
       showNavbar='website'
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/privacymobile' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push Chain | Privacy' />
+        <meta
+          property='og:title'
+          content={t('pages.privacymobile.seo.og-title')}
+        />
         <meta
           property='og:description'
-          content='Our privacy policy page outlines how we protect your data and ensure your confidentiality. Learn about the measures we take to safeguard your information and maintain your trust.'
+          content={t('pages.privacymobile.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -57,10 +57,13 @@ function PrivacyMobile() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push | Privacy' />
+        <meta
+          name='twitter:title'
+          content={t('pages.privacymobile.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Our privacy policy page outlines how we protect your data and ensure your confidentiality. Learn about the measures we take to safeguard your information and maintain your trust.'
+          content={t('pages.privacymobile.seo.twitter-description')}
         />
         <meta
           property='twitter:image'

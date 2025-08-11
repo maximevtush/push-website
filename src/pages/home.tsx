@@ -70,7 +70,7 @@ export default function Home() {
     <Layout
       title={t('pages.home.seo.title')}
       description={t('pages.home.seo.description')}
-      showNavbar='chain'
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}

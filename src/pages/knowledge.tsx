@@ -19,7 +19,7 @@ function PushChainKnowledgeBase() {
     <Layout
       title={t('pages.knowledge.seo.title')}
       description={t('pages.knowledge.seo.description')}
-      showNavbar={'chain'}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}

@@ -6,19 +6,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
 import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
 
 // Internal Configs
 import { tokenomicsContent } from '@site/src/components/Chain/content/tokenomics';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 function Page() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.TOKENOMICS.pageTitle}
-      description={PageMeta.TOKENOMICS.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.tokenomics.seo.title')}
+      description={t('pages.knowledge.tokenomics.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
@@ -29,11 +34,11 @@ function Page() {
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
-          content='Explore Tokenomics | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.tokenomics.seo.og-title')}
         />
         <meta
           name='og:description'
-          content='Learn how Push Chains tokenomics incentivizes all actors and ensures sustainable network that is built to last'
+          content={t('pages.knowledge.tokenomics.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -48,11 +53,11 @@ function Page() {
         <meta name='twitter:site' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Explore Tokenomics | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.tokenomics.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Learn how Push Chains tokenomics incentivizes all actors and ensures sustainable network that is built to last'
+          content={t('pages.knowledge.tokenomics.seo.twitter-description')}
         />
         <meta
           name='twitter:image'

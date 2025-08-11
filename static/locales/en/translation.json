@@ -159,7 +159,7 @@
         "title": "Push Chain — Universal L1 for Apps",
         "description": "Shared-state L1 for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token.",
         "og-title": "Push Chain - Universal L1 for Apps",
-        "og-description": "One deploy for EVM and non-EVM users. Use any wallet and pay with any token—no network switching.",
+        "og-description": "One deploy for EVM and non-EVM users. Use any wallet and pay with any token — no network switching.",
         "twitter-title": "Deploy once. Reach any chain.",
         "twitter-description": "Transact from any chain. Use any wallet. Pay with any token. No network switching."
       },
@@ -355,182 +355,92 @@
     },
     "knowledge": {
       "seo": {
-        "title": "Knowledge Base | Push Chain Documentation Hub",
-        "description": "Comprehensive Push Chain documentation, tutorials, and guides. Learn everything from basics to advanced development on the universal blockchain.",
-        "og-title": "Push Chain Knowledge Base - Complete Developer Documentation",
-        "og-description": "Discover everything from tutorials to code base to what makes Push Chain tick at the knowledge hub.",
-        "twitter-title": "Push Chain Knowledge Base | Developer Resources",
-        "twitter-description": "Complete documentation and tutorials for building universal apps on Push Chain."
+        "title": "Knowledge Base — Guides, FAQs & How-tos",
+        "description": "Start here for concepts, FAQs, how-tos, and ecosystem resources. Clear, non-technical guides to using Push Chain.",
+        "og-title": "Push Chain Knowledge Base - Guides & FAQs",
+        "og-description": "Concepts, step-by-step how-tos, and answers to common questions about Push Chain.",
+        "twitter-title": "Knowledge Base - Guides & FAQs",
+        "twitter-description": "Quick guides, FAQs, and how-tos for Push Chain (no dev jargon)."
+      },
+      "push101": {
+        "seo": {
+          "title": "Push Chain Basics — Introduction",
+          "description": "Beginner-friendly intro to Push Chain and universal apps—what it is, how it works, and how to get started.",
+          "og-title": "Push Chain Basics - Introduction",
+          "og-description": "Learn the basics: what Push Chain is, how it works, and your first steps.",
+          "twitter-title": "Push Chain Basics - Start here",
+          "twitter-description": "Beginner guides to Push Chain and universal apps."
+        }
       },
       "builders": {
         "seo": {
-          "title": "Builders | Push Chain Developer Resources",
-          "description": "Resources and tools for developers building on Push Chain. Find documentation, SDKs, and developer guides.",
-          "og-title": "Push Chain Builders - Developer Resources & Tools",
-          "og-description": "Comprehensive resources for developers building on Push Chain ecosystem.",
-          "twitter-title": "Push Chain Builders | Developer Resources",
-          "twitter-description": "Essential resources and tools for Push Chain developers."
+          "title": "Builders — How-tos & Tutorials",
+          "description": "Step-by-step guides, patterns, and examples to use Push Chain features.",
+          "og-title": "Builders - How-tos & Tutorials",
+          "og-description": "Guided tutorials, best practices, and examples for building with Push Chain.",
+          "twitter-title": "Builders - How-tos & Tutorials",
+          "twitter-description": "Step-by-step guides to ship on Push Chain."
         }
       },
       "deepdives": {
         "seo": {
-          "title": "Deep Dives | Push Chain Technical Analysis",
-          "description": "In-depth technical analysis and deep dives into Push Chain technology, architecture, and ecosystem.",
-          "og-title": "Push Chain Deep Dives - Technical Analysis & Insights",
-          "og-description": "Technical deep dives into Push Chain architecture and ecosystem.",
-          "twitter-title": "Push Chain Deep Dives | Technical Analysis",
-          "twitter-description": "In-depth technical insights into Push Chain technology."
-        }
-      },
-      "faq": {
-        "seo": {
-          "title": "FAQ | Push Chain Frequently Asked Questions",
-          "description": "Find answers to frequently asked questions about Push Chain, its technology, and ecosystem.",
-          "og-title": "Push Chain FAQ - Frequently Asked Questions",
-          "og-description": "Comprehensive FAQ covering Push Chain technology and ecosystem.",
-          "twitter-title": "Push Chain FAQ | Questions & Answers",
-          "twitter-description": "Get answers to common Push Chain questions."
+          "title": "Deep Dives — Concepts & Architecture",
+          "description": "Readable explainers on shared state, fee abstraction, USV/UEA, and the universal execution layer.",
+          "og-title": "Deep Dives - Concepts & Architecture",
+          "og-description": "In-depth articles on Push Chain modules, design decisions, and performance.",
+          "twitter-title": "Deep Dives - Under the hood",
+          "twitter-description": "Explainers on how Push Chain works."
         }
       },
       "partners": {
         "seo": {
-          "title": "Partners | Push Chain Ecosystem Partners",
-          "description": "Discover Push Chain's ecosystem partners and strategic collaborations driving web3 innovation.",
-          "og-title": "Push Chain Partners - Ecosystem Collaborations",
-          "og-description": "Strategic partners and collaborations in the Push Chain ecosystem.",
-          "twitter-title": "Push Chain Partners | Ecosystem",
-          "twitter-description": "Discover Push Chain's strategic ecosystem partners."
-        }
-      },
-      "push101": {
-        "seo": {
-          "title": "Push 101 | Introduction to Push Chain",
-          "description": "Learn the basics of Push Chain - your introduction to the universal blockchain ecosystem.",
-          "og-title": "Push 101 - Introduction to Push Chain Basics",
-          "og-description": "Complete introduction to Push Chain technology and ecosystem.",
-          "twitter-title": "Push 101 | Learn Push Chain Basics",
-          "twitter-description": "Your introduction to Push Chain universal blockchain."
+          "title": "Partners — Push Chain Ecosystem",
+          "description": "Explore integrations and collaborations across DeFi, Social, Gaming, and tooling.",
+          "og-title": "Partners - Ecosystem & Integrations",
+          "og-description": "See projects building with Push Chain and our strategic partners.",
+          "twitter-title": "Ecosystem Partners",
+          "twitter-description": "Discover who’s building with Push Chain."
         }
       },
       "tokenomics": {
         "seo": {
-          "title": "Tokenomics | Push Chain Token Economics",
-          "description": "Understand Push Chain tokenomics, token distribution, utility, and economic model.",
-          "og-title": "Push Chain Tokenomics - Token Economics & Distribution",
-          "og-description": "Complete guide to Push Chain token economics and utility.",
+          "title": "Tokenomics — $PC Value Accrual & Economics",
+          "description": "How $PC captures value: settlement-driven demand, usage-based sinks (burns/locks), staking economics, and the supply schedule.",
+          "og-title": "Tokenomics - $PC Value Accrual & Economics",
+          "og-description": "Settlement in $PC drives demand; usage-based sinks reduce supply. Includes staking economics and emissions.",
           "twitter-title": "Push Chain Tokenomics | Token Economics",
-          "twitter-description": "Learn about Push Chain token economics and distribution."
+          "twitter-description": "Settlement in $PC, usage-driven sinks, staking economics, and emissions—concise investor overview."
+        }
+      },
+      "faq": {
+        "seo": {
+          "title": "FAQ — Push Chain",
+          "description": "Quick answers about wallets, fees, supported chains, and getting started.",
+          "og-title": "Push Chain FAQ - All Questions",
+          "og-description": "Find fast answers with links to guides, testnet, and support.",
+          "twitter-title": "FAQ - Start here",
+          "twitter-description": "Quick answers to Push Chain questions."
         }
       }
     },
-    "chain": {
+    "docs": {
       "seo": {
-        "title": "Push Chain | Universal Blockchain Infrastructure",
-        "description": "Push Chain - The universal blockchain designed for seamless interoperability and scalable web3 applications.",
-        "og-title": "Push Chain - Universal Blockchain Infrastructure",
-        "og-description": "Universal blockchain infrastructure for seamless web3 interoperability.",
-        "twitter-title": "Push Chain | Universal Blockchain",
-        "twitter-description": "The universal blockchain for seamless web3 interoperability."
-      },
-      "knowledge": {
-        "seo": {
-          "title": "Chain Knowledge | Push Chain Technical Documentation",
-          "description": "Technical documentation and knowledge base for Push Chain blockchain technology and development.",
-          "og-title": "Push Chain Knowledge - Technical Documentation",
-          "og-description": "Comprehensive technical documentation for Push Chain development.",
-          "twitter-title": "Push Chain Knowledge | Technical Docs",
-          "twitter-description": "Technical documentation for Push Chain blockchain."
-        }
+        "title": "Documentation — Build Universal Apps",
+        "description": "Everything you need to ship on Push Chain: quickstarts, SDKs, API reference, examples, and node setup.",
+        "og-title": "Push Chain Docs - Quickstarts, SDKs & API",
+        "og-description": "Build and run apps on the universal execution layer with clear guides and examples.",
+        "twitter-title": "Push Chain Docs - Build now",
+        "twitter-description": "Quickstarts, SDKs, API ref, and examples to ship fast."
       }
     },
     "blog": {
       "seo": {
-        "title": "Push Blog | Latest Updates & Developer Stories",
-        "description": "Stay updated with Push Chain latest news, technical deep dives, developer stories, and ecosystem updates from the Push team.",
-        "og-title": "Push Chain Blog - Latest Updates & Technical Insights",
-        "og-description": "Learn about the latest updates and news from Push Chain ecosystem.",
-        "twitter-title": "Push Blog | Push Chain Updates",
-        "twitter-description": "Latest news, updates, and developer stories from Push Chain."
-      }
-    },
-    "privacy": {
-      "seo": {
-        "title": "Privacy Policy | Push Chain",
-        "description": "Push Chain Privacy Policy - Learn how we protect your data and privacy while using Push Chain services and applications.",
-        "og-title": "Push Chain Privacy Policy - Data Protection & Privacy",
-        "og-description": "Privacy Policy of Push Chain - Your data protection and privacy rights.",
-        "twitter-title": "Push Chain Privacy Policy",
-        "twitter-description": "Learn about Push Chain's commitment to protecting your privacy and data."
-      }
-    },
-    "brb": {
-      "seo": {
-        "title": "Billion Reasons to Build (BRB) | Push Chain Hackathon",
-        "description": "Solve hard problems from top global web3 projects and earn prizes and recognition. Join Push Chain's premier developer competition.",
-        "og-title": "BRB - Billion Reasons to Build on Push Chain",
-        "og-description": "Solve a Hard Problem from top global web3 projects and earn prize and recognition.",
-        "twitter-title": "BRB Hackathon | Push Chain",
-        "twitter-description": "Join the premier Push Chain developer competition and win prizes."
-      }
-    },
-    "bootcamp": {
-      "seo": {
-        "title": "BRB Bootcamp Campaign | Push Chain Developer Training",
-        "description": "BRB Bootcamp is the go-to place to learn every aspect of the web3 ecosystem from fundamentals to shipping your first project.",
-        "og-title": "Push Chain BRB Bootcamp - Web3 Developer Training",
-        "og-description": "Learn every aspect of the web3 ecosystem from fundamentals to shipping your first project.",
-        "twitter-title": "BRB Bootcamp | Push Chain Training",
-        "twitter-description": "Master web3 development from basics to advanced with Push Chain Bootcamp."
-      }
-    },
-    "frens": {
-      "seo": {
-        "title": "Frens of Push | Partner Integrations & Ecosystem",
-        "description": "Explore hundreds of applications building with Push worldwide across DeFi, NFTs, Gaming, Dev tools, and more.",
-        "og-title": "Push Chain Frens - Partner Ecosystem & Integrations",
-        "og-description": "Explore integrations done by our frens across the Push Chain ecosystem.",
-        "twitter-title": "Push Frens | Ecosystem Partners",
-        "twitter-description": "Discover amazing projects building with Push Chain technology."
-      }
-    },
-    "cheatsheet": {
-      "seo": {
-        "title": "Push Chain Cheat Sheet | Quick Reference Guide",
-        "description": "Explore Push Cheat Sheet and how to get started with it. Quick reference for developers building on Push Chain.",
-        "og-title": "Push Chain Cheat Sheet - Developer Quick Reference",
-        "og-description": "Quick reference guide for Push Chain development and integration.",
-        "twitter-title": "Push Chain Cheat Sheet | Dev Guide",
-        "twitter-description": "Essential Push Chain development reference for builders."
-      }
-    },
-    "support": {
-      "seo": {
-        "title": "Support | Push Chain Help & Documentation",
-        "description": "Get help with Push Chain development, find documentation, tutorials, and connect with our support community.",
-        "og-title": "Push Chain Support - Help & Documentation Hub",
-        "og-description": "Find help, documentation, and support for Push Chain development.",
-        "twitter-title": "Push Chain Support | Help Center",
-        "twitter-description": "Get support and find resources for Push Chain development."
-      }
-    },
-    "litepaper": {
-      "seo": {
-        "title": "Push Chain Litepaper | Technical Overview & Vision",
-        "description": "Read the Push Chain Litepaper - simplified technical overview and vision for the universal blockchain ecosystem.",
-        "og-title": "Push Chain Litepaper - Technical Vision & Overview",
-        "og-description": "The vision and tech behind Push Chain, simplified for everyone.",
-        "twitter-title": "Push Chain Litepaper | Technical Vision",
-        "twitter-description": "Discover the technical vision behind Push Chain's universal blockchain."
-      }
-    },
-    "privacymobile": {
-      "seo": {
-        "title": "Mobile Apps Privacy Policy | Push Chain",
-        "description": "Mobile Apps Privacy Policy of Push Chain - Learn how we protect your data in our mobile applications.",
-        "og-title": "Push Chain Mobile Privacy Policy - App Data Protection",
-        "og-description": "Privacy policy for Push Chain mobile applications and data protection.",
-        "twitter-title": "Push Mobile Privacy Policy",
-        "twitter-description": "Data protection and privacy for Push Chain mobile apps."
+        "title": "Blog — Updates, Deep Dives & Stories",
+        "description": "News, release notes, technical deep dives, and developer stories from the Push Chain team and ecosystem.",
+        "og-title": "Push Chain Blog - Updates, Deep Dives & Stories",
+        "og-description": "Follow product updates, dev stories, deep dives, and ecosystem news from Push Chain.",
+        "twitter-title": "Push Chain Blog - What's New",
+        "twitter-description": "Releases, deep dives, and builder stories — stay up to date."
       }
     },
     "lfpush": {
@@ -543,14 +453,64 @@
         "twitter-description": "Join the LF Push community initiative for Push Chain."
       }
     },
+    "support": {
+      "seo": {
+        "title": "Support — Help Center",
+        "description": "Get help with Push Chain: guides, troubleshooting, status, and community support.",
+        "og-title": "Push Chain Support - Help Center",
+        "og-description": "Find documentation, tutorials, status updates, and ways to contact support.",
+        "twitter-title": "Support - Help & Docs",
+        "twitter-description": "Guides, tutorials, and community help for Push Chain."
+      }
+    },
+    "litepaper": {
+      "seo": {
+        "title": "Litepaper — Technical Overview",
+        "description": "A concise look at Push Chain’s vision, architecture, and economics for universal apps.",
+        "og-title": "Push Chain Litepaper - Technical Overview",
+        "og-description": "The vision, design, and economic model of the universal execution layer—simplified.",
+        "twitter-title": "Litepaper - Push Chain",
+        "twitter-description": "Vision, architecture, and economics at a glance."
+      }
+    },
     "tos": {
       "seo": {
-        "title": "Terms of Service | Push Chain Legal Terms",
-        "description": "Explore our terms of service to understand the rules and guidelines governing your use of our platform. Learn about your rights, responsibilities, and our commitment to a fair and secure user experience.",
-        "og-title": "Push Chain Terms of Service - Legal Guidelines",
-        "og-description": "Terms of service and legal guidelines for using Push Chain platform.",
-        "twitter-title": "Push Chain Terms of Service",
-        "twitter-description": "Legal terms and guidelines for Push Chain platform usage."
+        "title": "Terms of Service — Push Chain",
+        "description": "Rules for using Push Chain websites, apps, and services, including your rights and responsibilities.",
+        "og-title": "Push Chain Terms of Service - Legal Terms",
+        "og-description": "Legal terms governing use of our websites, apps, and developer tools.",
+        "twitter-title": "Terms of Service - Push Chain",
+        "twitter-description": "Read the legal terms for using Push Chain."
+      }
+    },
+    "privacy": {
+      "seo": {
+        "title": "Privacy Policy — Push Chain",
+        "description": "How we collect, use, and protect your data—plus your rights and choices.",
+        "og-title": "Push Chain Privacy Policy - Data Protection",
+        "og-description": "Learn what data we collect, how we use it, and your privacy rights.",
+        "twitter-title": "Privacy Policy - Push Chain",
+        "twitter-description": "Your data. Your rights. How we protect both."
+      }
+    },
+    "privacymobile": {
+      "seo": {
+        "title": "Mobile Privacy Policy — Push Chain",
+        "description": "How we collect, use, and protect data in Push Chain mobile apps, and your choices.",
+        "og-title": "Push Chain Mobile Privacy Policy - App Data Protection",
+        "og-description": "Data practices and your rights for our mobile applications.",
+        "twitter-title": "Mobile Privacy Policy - Push Chain",
+        "twitter-description": "Your data and choices in Push mobile apps."
+      }
+    },
+    "brb": {
+      "seo": {
+        "title": "BRB — Billion Reasons to Build",
+        "description": "Push Chain’s flagship hackathon: solve real problems, learn from experts, and win prizes.",
+        "og-title": "BRB - Push Chain Hackathon",
+        "og-description": "Tracks, timelines, and prizes for the Billion Reasons to Build competition.",
+        "twitter-title": "BRB Hackathon - Build & Win",
+        "twitter-description": "Join the Push Chain hackathon to ship and win prizes."
       }
     }
   },

@@ -91,6 +91,10 @@ const config = {
             to: 'https://comms.push.org/cheatsheet',
           },
           {
+            from: '/bootcamp',
+            to: 'https://comms.push.org/bootcamp',
+          },
+          {
             from: '/chain',
             to: '/',
           },

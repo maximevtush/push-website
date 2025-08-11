@@ -6,19 +6,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
 import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
 
 // Internal Configs
 import { push101Content } from '@site/src/components/Chain/content/push101';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 function Page() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.PUSH101.pageTitle}
-      description={PageMeta.PUSH101.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.push101.seo.title')}
+      description={t('pages.knowledge.push101.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
@@ -29,11 +34,11 @@ function Page() {
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
-          content='Push 101 | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.push101.seo.og-title')}
         />
         <meta
           name='og:description'
-          content='Learn about basics of Push Chain. The innovations it introduces, what makes it tick and why is it required!'
+          content={t('pages.knowledge.push101.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -48,11 +53,11 @@ function Page() {
         <meta name='twitter:site' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Push 101 | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.push101.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Learn about basics of Push Chain. The innovations it introduces, what makes it tick and why is it required!'
+          content={t('pages.knowledge.push101.seo.twitter-description')}
         />
         <meta
           name='twitter:image'

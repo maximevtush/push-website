@@ -6,32 +6,30 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Components
 import { BRBMainComponent } from '@site/src/components/BRB/BRBMainComponent';
 
-// Import Assets
-
-// Internal Configs
-import { PageMeta } from '@site/src/config/pageMeta';
-
 function BRB() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.BRB.pageTitle}
-      description={PageMeta.BRB.pageDescription}
+      title={t('pages.brb.seo.title')}
+      description={t('pages.brb.seo.description')}
       showNavbar={false}
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://comms.push.org/brb' />
         <meta property='og:type' content='website' />
-        <meta
-          property='og:title'
-          content='Push | BRB (Billions Reasons to Build)'
-        />
+        <meta property='og:title' content={t('pages.brb.seo.og-title')} />
         <meta
           name='og:description'
-          content='Join us in an epic tech showdown across 18 Indian cities, where brilliant minds collaborate to tackle a major challenge. Compete for a chance to claim over $50,000 USD in prizes!'
+          content={t('pages.brb.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -46,11 +44,11 @@ function BRB() {
         <meta name='twitter:site' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Push | BRB (Billions Reasons to Build)'
+          content={t('pages.brb.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Join us in an epic tech showdown across 18 Indian cities, where brilliant minds collaborate to tackle a major challenge. Compete for a chance to claim over $50,000 USD in prizes!'
+          content={t('pages.brb.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
