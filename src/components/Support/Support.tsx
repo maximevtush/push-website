@@ -347,9 +347,11 @@ const inputStyles = `
   background-color: #313338;
   color: #ffffff;
   font-size: 16px;
+  font-family: 'DM Sans', sans-serif;
 
   &::placeholder {
     color: #9ca3af;
+    font-family: 'DM Sans', sans-serif;
   }
 
   &:focus {
@@ -373,6 +375,14 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
   cursor: pointer;
   border-color: ${(props) =>
     props.hasError ? '#ef4444' : 'rgba(255, 255, 255, 0.2)'};
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
   option {
     background-color: #2a2a39;
