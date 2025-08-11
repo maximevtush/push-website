@@ -6,33 +6,27 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
-// External Components
-import { useTranslation } from 'react-i18next';
-
 // Internal Component
-import { Support } from '../components/Support';
+import { Contact } from '../components/Contact';
+
+// Internal Configs
+import { PageMeta } from '@site/src/config/pageMeta';
 
 function PushChainKnowledgeBase() {
-  // Internationalization
-  const { t } = useTranslation();
-
   return (
     <Layout
-      title={t('pages.support.seo.title')}
-      description={t('pages.support.seo.description')}
-      showNavbar={'website'}
+      title={PageMeta.KNOWLEDGE.pageTitle}
+      description={PageMeta.KNOWLEDGE.pageDescription}
+      showNavbar={'chain'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/chain/knowledge' />
         <meta property='og:type' content='website' />
-        <meta
-          property='og:title'
-          content={t('pages.support.seo.og-title')}
-        />
+        <meta property='og:title' content='Knowledge Base | Push Chain' />
         <meta
           name='og:description'
-          content={t('pages.support.seo.og-description')}
+          content='Discover everything for tutorials to code base to what makes Push Chain tick at the knowledge hub.'
         />
         <meta
           property='og:image'
@@ -45,13 +39,10 @@ function PushChainKnowledgeBase() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta
-          name='twitter:title'
-          content={t('pages.support.seo.twitter-title')}
-        />
+        <meta name='twitter:title' content='Knowledge Base | Push Chain' />
         <meta
           name='twitter:description'
-          content={t('pages.support.seo.twitter-description')}
+          content='Discover everything for tutorials to code base to what makes Push Chain tick at the knowledge hub.'
         />
         <meta
           name='twitter:image'
@@ -77,7 +68,7 @@ function PushChainKnowledgeBase() {
         </script>
       </Head>
 
-      <Support />
+      <Contact />
     </Layout>
   );
 }
