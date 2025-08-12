@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
+// Webpack configuration
 module.exports = function () {
   return {
     name: 'custom-docusaurus-plugin',
@@ -18,6 +19,10 @@ module.exports = function () {
             zlib: require.resolve('browserify-zlib'),
             crypto: require.resolve('crypto-browserify'),
             vm: require.resolve('vm-browserify'),
+            File: isServer ? false : require.resolve('form-data'),
+            bufferutil: false, // Fallback for WebSocket
+            'utf-8-validate': false, // Fallback for WebSocket
+            'pino-pretty': false, //
             process: require.resolve('process/browser.js'),
           },
         },
