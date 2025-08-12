@@ -205,6 +205,48 @@ const sidebars = {
       id: 'chain/docs-chain-changelog',
     },
   ],
+  pushNotificationSidebar: [
+    {
+      type: 'doc',
+      id: 'notifications/notifications',
+    },
+  ],
+  pushChatSidebar: [
+    {
+      type: 'doc',
+      id: 'chat/chat',
+    },
+  ],
+  pushVideoSidebar: [
+    {
+      type: 'doc',
+      id: 'video/video',
+    },
+  ],
+  pushDaoSidebar: [
+    {
+      type: 'doc',
+      id: 'dao/dao',
+    },
+  ],
+  pushHackersSidebar: [
+    {
+      type: 'doc',
+      id: 'hackers/hackers',
+    },
+  ],
+  pushTokenomicsSidebar: [
+    {
+      type: 'doc',
+      id: 'tokenomics/tokenomics',
+    },
+  ],
+  pushRoadmapSidebar: [
+    {
+      type: 'doc',
+      id: 'roadmap/roadmap',
+    },
+  ],
   pushRewardsSidebar: [
     {
       type: 'category',
