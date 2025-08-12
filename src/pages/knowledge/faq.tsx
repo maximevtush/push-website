@@ -14,6 +14,7 @@ import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBase
 
 // Internal Configs
 import { faqContent } from '@site/src/components/Chain/content/faq';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 
 function Page() {
   // Internationalization
