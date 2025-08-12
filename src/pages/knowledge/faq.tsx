@@ -66,22 +66,10 @@ function Page() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
+
+      {/* FAQ Schema Markup with default FAQs */}
+      <SchemaMarkup type='FAQPage' />
 
       <ChainKnowledgeBaseArticle item={faqContent} />
     </Layout>

@@ -42,10 +42,7 @@ function BRB() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta
-          name='twitter:title'
-          content={t('pages.brb.seo.twitter-title')}
-        />
+        <meta name='twitter:title' content={t('pages.brb.seo.twitter-title')} />
         <meta
           name='twitter:description'
           content={t('pages.brb.seo.twitter-description')}
@@ -57,21 +54,6 @@ function BRB() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Protocol',
-            description: 'The Communication Protocol of Web3',
-            url: 'https://comms.push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
       <BRBMainComponent />

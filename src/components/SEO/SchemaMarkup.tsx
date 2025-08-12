@@ -147,12 +147,69 @@ export default function SchemaMarkup({
     publisher: { '@id': orgId },
   };
 
+  // Helper function to clean text for schema markup
+  const cleanTextForSchema = (text: string): string => {
+    return text
+      .replace(/<\d+>/g, '') // Remove opening tags like <1>, <2>
+      .replace(/<\/\d+>/g, '') // Remove closing tags like </1>, </2>
+      .replace(/\n/g, ' ') // Replace newlines with spaces
+      .trim();
+  };
+
+  // Default FAQs if none provided
+  const defaultFaqs = [
+    {
+      question: t('components.short-faq-snippet.faqs.faq1.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq1.answer')
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq2.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq2.answer')
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq3.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq3.answer')
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq4.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq4.answer')
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq5.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq5.answer')
+      ),
+    },
+    {
+      question: t('components.short-faq-snippet.faqs.faq6.question'),
+      answer: cleanTextForSchema(
+        t('components.short-faq-snippet.faqs.faq6.answer')
+      ),
+    },
+  ];
+
+  // Use provided FAQs or defaults, and clean any provided FAQs
+  const cleanedFaqs = faqs
+    ? faqs.map(({ question, answer }) => ({
+        question,
+        answer: cleanTextForSchema(answer),
+      }))
+    : defaultFaqs;
+
   const faqPage =
-    faqs && faqs.length
+    cleanedFaqs && cleanedFaqs.length
       ? {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: faqs.map(({ question, answer }) => ({
+          mainEntity: cleanedFaqs.map(({ question, answer }) => ({
             '@type': 'Question',
             name: question,
             acceptedAnswer: { '@type': 'Answer', text: answer },

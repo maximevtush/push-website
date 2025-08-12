@@ -17,6 +17,7 @@ import { BsArrowRight, BsDiscord } from 'react-icons/bs';
 import Accordion from '@site/src/components/Accordion';
 import Glassy from '@site/src/components/Glassy/Glassy';
 import RecentBlogPosts from '@site/src/components/Home/RecentBlogPosts';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import ShortFAQs from '@site/src/components/ShortFAQs/ShortFAQs';
 import { ShortFAQsList } from '@site/src/config/ShortFAQsList';
 import {
@@ -108,6 +109,9 @@ export default function Home() {
           )}
         />
       </Head>
+
+      {/* FAQ Schema Markup with default FAQs */}
+      <SchemaMarkup type='FAQPage' />
 
       <HomeWrapper showAlertBar={isHydrated ? shouldShowAlertBar : false}>
         {/* GLOW CIRCLE */}

@@ -59,6 +59,9 @@ function PushChainKnowledgeBase() {
         />
       </Head>
 
+      {/* FAQ Schema Markup with default FAQs */}
+      <SchemaMarkup type='FAQPage' />
+
       <ChainKnowledgeBase />
     </Layout>
   );

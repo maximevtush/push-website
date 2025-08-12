@@ -26,10 +26,7 @@ function PushChainKnowledgeBase() {
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/chain/knowledge' />
         <meta property='og:type' content='website' />
-        <meta
-          property='og:title'
-          content={t('pages.support.seo.og-title')}
-        />
+        <meta property='og:title' content={t('pages.support.seo.og-title')} />
         <meta
           name='og:description'
           content={t('pages.support.seo.og-description')}
@@ -60,21 +57,6 @@ function PushChainKnowledgeBase() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
       <Support />

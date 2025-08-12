@@ -397,7 +397,7 @@ function Header() {
                       showMobileMenu={showMobileMenu}
                       href='https://portal.push.org/'
                       target='_blank'
-                      title={t('header.app-button.alt-title')}
+                      title={t('header.app-button.title')}
                       background='#D548EC'
                       borderRadius='16px'
                       border='1px solid rgba(255, 255, 255, 0.30)'
@@ -407,7 +407,7 @@ function Header() {
                       lineHeight='1rem'
                       width='100%'
                     >
-                      {t('header.app-button.title')}
+                      {t('header.app-button.text')}
                     </PortalLauncher>
 
                     {/* TODO: Bring Language, maybe remove Portal in Tablet */}
