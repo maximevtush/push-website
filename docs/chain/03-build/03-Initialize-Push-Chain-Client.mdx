@@ -18,7 +18,7 @@ import Details from '@theme/Details';
 import NodeJSVirtualIDE from '@site/src/components/NodeJSVirtualIDE/NodeJSVirtualIDE';
 import PushAPIReference from '@site/src/components/PushAPIReference/PushAPIReference';
 
-<!-- Content Start -->
+{/* Content Start */}
 
 ## Overview
 
@@ -50,9 +50,9 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
 | Arguments                 | Type                             | Default                                          | Description                                                                                                                                                                                          |
 | --------------------- | -------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| _`signer`_   | `UniversalSigner`                | -                                                | Chain-agnostic signer responsible for signing transactions and messages.                                                                                                                         |
-| _`options.network`_     | `PushChain.CONSTANTS.PUSH_NETWORK`                        | - | Push Chain network to conenct to. For example: `PushChain.CONSTANTS.PUSH_NETWORK.TESTNET` <Details summary="PushChain.CONSTANTS.PUSH_NETWORK" className="alert alert--minimal-api-table">`PushChain.CONSTANTS.PUSH_NETWORK.TESTNET` `PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT` `PushChain.CONSTANTS.PUSH_NETWORK.LOCALNET`</Details>                                                                                                                                |
-| `options.rpcUrls`     | `Partial<Record<CHAIN, string>>` | `{}`                                             | Custom RPC URLs mapped by chain IDs. If not provided, the default RPC URLs for the network will be used. Example: `rpcUrls: {[CHAIN.ETHEREUM_SEPOLIA]: 'https://sepolia.infura.io/v3/your-api-key', [CHAIN.SOLANA_DEVNET]: 'https://api.devnet.solana.com'}` |
+| _`signer`_   | `UniversalSigner \| UniversalAccount`                | -                                                | Pass a `UniversalSigner` to enable full write/sign capabilities, or a `UniversalAccount` to initialize the client in read-only mode (no signing or transaction sending). |
+| _`options.network`_     | `PushChain.CONSTANTS.PUSH_NETWORK`                        | - | Push Chain network to connect to. For example: `PushChain.CONSTANTS.PUSH_NETWORK.TESTNET` <Details summary="PushChain.CONSTANTS.PUSH_NETWORK" className="alert alert--minimal-api-table">`PushChain.CONSTANTS.PUSH_NETWORK.TESTNET` `PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT` `PushChain.CONSTANTS.PUSH_NETWORK.LOCALNET`</Details>                                                                                                                                |
+| `options.rpcUrls`     | `Partial<Record<CHAIN, string[]>>` | `{}`                                             | Custom RPC URLs mapped by chain IDs. If not provided, the default RPC URLs for the network will be used. Example: `rpcUrls: {[CHAIN.ETHEREUM_SEPOLIA]: ['https://sepolia.infura.io/v3/your-api-key'], [CHAIN.SOLANA_DEVNET]: ['https://api.devnet.solana.com']}` |
 
 
 </PushAPIReference>
@@ -63,6 +63,7 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 | --------------------- | -------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `options.blockExplorers` | `Partial<Record<CHAIN, string[]>>` | `{[CHAIN.PUSH_TESTNET_DONUT]: ['https://donut.push.network']}` | Custom block explorer URLs mapped by chain IDs. If not provided, the default block explorer URLs for the network will be used. |
 | `options.printTraces` | `boolean`                        | `false`                                          | When true, console logs the internal trace logs for debugging requests to nodes                                                                                                                |
+| `options.progressHook` | `(progress: ProgressEvent) => void` | `undefined`                                      | Optional callback to receive progress events from long-running operations. |
 
 </Details>
 
@@ -272,6 +273,106 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
   </TabItem>
 </Tabs>
+
+## Read-only Mode
+
+You can initialize a read-only `PushChainClient` by passing a `UniversalAccount` (address + chain) instead of a `UniversalSigner`. This is useful when you want to inspect account state, resolve explorer URLs, or read metadata without signing or sending transactions.
+
+<NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/initialize-push-chain-client"}}>
+
+  {`
+  // customPropHighlightRegexStart=PushChain\.initialize
+  // customPropHighlightRegexEnd=}\);
+  import { PushChain } from '@pushchain/core';
+
+  async function main() {
+      console.log('Initializing Read-only Push Chain Client');
+
+      // Create a UniversalAccount (read-only)
+      const readOnlyAccount = {
+          address: '0x1234567890123456789012345678901234567890',
+          chain: PushChain.CONSTANTS.CHAIN.ETHEREUM_SEPOLIA,
+      };
+
+      // Initialize read-only client
+      const readOnlyClient = await PushChain.initialize(readOnlyAccount, {
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+      });
+
+      // Allowed operations (prettified)
+      const origin = readOnlyClient.universal.origin;
+      const account = readOnlyClient.universal.account;
+      const txUrl = readOnlyClient.explorer.getTransactionUrl('0x123');
+      console.log('✅ Initialized (read-only)');
+      console.log('Origin:', 'address=' + origin.address + ', chain=' + origin.chain);
+      console.log('Account:', account);
+      console.log('Tx URL:', txUrl);
+
+      // Restricted operations (will throw/reject)
+      try {
+          const message = new TextEncoder().encode('Hello, Push Chain!');
+          await readOnlyClient.universal.signMessage(message);
+      } catch (e) {
+        const msg = (e && (e as any).message) ? (e as any).message : String(e);
+        console.log('🛡️ Restricted call blocked: ' + msg);
+      }
+
+      try {
+          await readOnlyClient.universal.sendTransaction({
+            to: '0x0000000000000000000000000000000000042101',
+            value: 1n,
+          });
+      } catch (e) {
+        const msg = (e && (e as any).message) ? (e as any).message : String(e);
+        console.log('🛡️ Restricted call blocked: ' + msg);
+      }
+  }
+
+  await main().catch(console.error);
+  `}
+
+</NodeJSVirtualIDE>
+
+## Reinitialize Client
+
+Use `pushChainClient.reinitialize(newSignerOrAccount, options)` to get a fresh `PushChainClient` with a different signer/account and/or updated configuration (RPCs, explorers, traces, progress hook).
+
+```typescript
+import { PushChain } from '@pushchain/core';
+
+// Start with a writable client
+const client1 = await PushChain.initialize(universalSignerEVM, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+});
+
+// 1) Reinitialize with the SAME signer → new instance, same addresses
+const clientSame = await client1.reinitialize(universalSignerEVM, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+});
+
+// 2) Reinitialize with a DIFFERENT signer → new addresses
+const client2 = await client1.reinitialize(universalSignerEVM2, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+});
+
+// 3) Reinitialize with a signer on a DIFFERENT CHAIN
+const clientPush = await client1.reinitialize(universalSignerPush, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+});
+
+// 4) Reinitialize with new OPTIONS
+const clientCustom = await client1.reinitialize(universalSignerEVM, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+  rpcUrls: { [PushChain.CONSTANTS.CHAIN.ETHEREUM_SEPOLIA]: ['https://custom-sepolia.rpc.com'] },
+  blockExplorers: { [PushChain.CONSTANTS.CHAIN.PUSH_TESTNET_DONUT]: ['https://custom-explorer.push.network'] },
+  printTraces: true,
+  progressHook: (progress) => console.log('Progress:', progress),
+});
+```
+
+Notes:
+- Reinitialize always returns a new client instance; swap references accordingly.
+- Changing the signer/account updates `universal.origin` and `universal.account`.
 
 ## Access Account Information
 
