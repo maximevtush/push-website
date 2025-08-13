@@ -374,18 +374,7 @@ Use `pushChainClient.reinitialize(newSignerOrAccount, options)` to get a fresh `
 
 </NodeJSVirtualIDE>
 
-<PushAPIReference>
-
-| Arguments                 | Type                               | Default     | Description |
-| ------------------------- | ---------------------------------- | ----------- | ----------- |
-| _`newSignerOrAccount`_    | `UniversalSigner \| UniversalAccount` | -           | Pass a `UniversalSigner` for full signing/tx capabilities, or a `UniversalAccount` to reinitialize in read-only mode. |
-| _`options.network`_       | `PushChain.CONSTANTS.PUSH_NETWORK` | -           | Push Chain network to connect to (e.g., `PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT`). |
-| `options.rpcUrls`         | `Partial<Record<CHAIN, string[]>>` | `{}`        | Custom RPC URLs mapped by chain IDs. |
-| `options.blockExplorers`  | `Partial<Record<CHAIN, string[]>>` | `{[CHAIN.PUSH_TESTNET_DONUT]: ['https://donut.push.network']}` | Custom explorer URLs mapped by chain IDs. |
-| `options.printTraces`     | `boolean`                          | `false`     | Print internal trace logs for debugging. |
-| `options.progressHook`    | `(progress: ProgressEvent) => void`| `undefined` | Optional callback to receive progress events. |
-
-</PushAPIReference>
+> The input parameters to `reinitialize(...)` are the same as [`initialize(...)`](#initialize-push-chain-client) above: pass a `UniversalSigner` or `UniversalAccount`, along with the same `options` object (e.g., `network`, `rpcUrls`, `blockExplorers`, `printTraces`, `progressHook`).
 
 Notes:
 - Reinitialize always returns a new client instance; swap references accordingly.
