@@ -76,7 +76,7 @@ const FeaturedList = () => {
         {MediaList.map((item) => {
           return (
             <FeaturedCard id={item.srcref} key={item.srcref}>
-              <FeaturedCardTitle>{t(item.translatedtitle)}</FeaturedCardTitle>
+              <FeaturedCardTitle>{t(`pages.home.featured-section.articles.${item.translationKey}.text`)}</FeaturedCardTitle>
               <ArticleSource>
                 <Image
                   width={item.title ? '64px' : 'auto'}
@@ -87,24 +87,27 @@ const FeaturedList = () => {
                     ).default
                   }
                   srcSet={`${require(`@site/static/assets/website/coverage/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/coverage/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item?.alt}`}
+                  alt={`${t('pages.home.featured-section.articles-image-alt')}${item.outlet}`}
                   loading='lazy'
+                  title={`${item.outlet} logo`}
                 />
                 <A
                   href={item.url}
-                  title={t(item.urltranslatedtitle)}
+                  title={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
                   display='flex'
                   alignItems='center'
                   target='_blank'
+                  rel='noopener'
                   background='transparent'
                   hoverBackground='transparent'
                   hover='transparent'
                   filter='none'
                   borderRadius='16px'
                   padding='0'
+                  aria-label={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
                 >
                   <SpanLink className='text-underline'>
-                    {t(item.urltranslatedtitle)}
+                    {t('pages.home.featured-section.articles-text')}
                   </SpanLink>
                   <FiArrowUpRight className='anchorSVG' />
                 </A>

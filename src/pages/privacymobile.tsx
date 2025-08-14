@@ -87,7 +87,7 @@ function PrivacyMobile() {
                 textAlign='center'
                 color='#fff'
               >
-                {t('privacy.hero.update-text')}
+                {t('pages.privacy.hero-section.update-text')}
               </P>
               <H3
                 maxWidth='400px'

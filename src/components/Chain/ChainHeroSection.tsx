@@ -296,7 +296,7 @@ const ChainHeroSection: FC = () => {
           fontSize='18px'
           href={'https://comms.push.org'}
           target='_blank'
-          rel='noopener noreferrer'
+          rel='noopener'
           margin='20px auto 0 auto'
         >
           Explore Communications Protocol

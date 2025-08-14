@@ -40,7 +40,7 @@ const ChainAlertBar = ({
     <HeroButton
       href={url}
       target='_blank'
-      rel='noopener noreferrer'
+      rel='noopener'
       textColor={textColor}
       backgroundColor={backgroundColor}
       borderColor={borderColor}

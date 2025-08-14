@@ -285,7 +285,7 @@ const config = {
       // announcementBar: {
       //   id: 'support_us',
       //   content:
-      //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener noreferrer' href='#'>this survey</a>',
+      //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener' href='#'>this survey</a>',
       //   backgroundColor: '#fff',
       //   textColor: '#e03dc1',
       //   isCloseable: true,

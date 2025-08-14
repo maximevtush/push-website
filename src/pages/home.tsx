@@ -17,6 +17,7 @@ import { BsArrowRight, BsDiscord } from 'react-icons/bs';
 import Accordion from '@site/src/components/Accordion';
 import Glassy from '@site/src/components/Glassy/Glassy';
 import RecentBlogPosts from '@site/src/components/Home/RecentBlogPosts';
+import ShowcasePartners from '@site/src/components/Home/ShowcasePartners';
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import ShortFAQs from '@site/src/components/ShortFAQs/ShortFAQs';
 import { ShortFAQsList } from '@site/src/config/ShortFAQsList';
@@ -30,6 +31,7 @@ import {
   Image,
   ItemH,
   ItemV,
+  MultiContent,
   Section,
   Span,
 } from '@site/src/css/SharedStyling';
@@ -118,7 +120,13 @@ export default function Home() {
         <GlowCircle />
 
         {/* HERO SECTION */}
-        <HeroSection id='hero' width='100%' className='darkBackground'>
+        <HeroSection
+          id='hero'
+          width='100%'
+          className='darkBackground'
+          aria-level='2'
+          aria-label={t('pages.home.hero-section.section-aria-label')}
+        >
           <HeroContent alignSelf='center' overflow='visible'>
             <HeroPrimary flex='initial' justifyContent='flex-start'>
               <HeroItem alignItems='center'>
@@ -150,6 +158,9 @@ export default function Home() {
                     <A
                       href={useBaseUrl('/docs')}
                       title={t('pages.home.hero-section.primary-button-title')}
+                      aria-label={t(
+                        'pages.home.hero-section.primary-button-aria-label'
+                      )}
                       background='#D548EC'
                       borderRadius='16px'
                       border='1px solid rgba(255, 255, 255, 0.30)'
@@ -170,6 +181,9 @@ export default function Home() {
                       title={t(
                         'pages.home.hero-section.secondary-button-title'
                       )}
+                      aria-label={t(
+                        'pages.home.hero-section.secondary-button-aria-label'
+                      )}
                       fontSize='1.125rem'
                       fontWeight='600'
                       letterSpacing='-0.03em'
@@ -186,32 +200,41 @@ export default function Home() {
           </HeroContent>
         </HeroSection>
 
-        {/* HERO IMG SECTION */}
-        <Section id='what-is-push-chain'>
+        {/* WHAT IS SECTION */}
+        <Section
+          id='what-is-push-chain'
+          aria-level='2'
+          aria-label={t('pages.home.whatis-section.section-aria-label')}
+        >
           <Content alignSelf='center'>
             <WhatIsSection />
           </Content>
         </Section>
 
-        {/* GLASSY SECTION */}
-        <Section id='innovations-of-push-chain'>
+        {/* INNOVATION SECTION */}
+        <Section
+          id='innovations-of-push-chain'
+          aria-level='2'
+          aria-label={t('pages.home.chain-features-section.section-aria-label')}
+        >
           <Content>
-            <FeaturesTopSection maxWidth={'840px'} margin='0px auto'>
-              <H2
-                color='#DDD8D8'
-                fontSize={isMobile ? '24px' : '30px'}
-                textAlign={isMobile ? 'left' : 'center'}
-                lineHeight='normal'
-                fontWeight='400'
-                letterSpacing='normal'
-                fontFamily='DM Sans, san-serif'
-              >
-                <B color='#fff'>{t(FeaturesList?.meta.title)}</B>{' '}
-                {t(FeaturesList?.meta.subtitle)}
-              </H2>
-            </FeaturesTopSection>
-
-            <ItemV alignSelf='center' flexWrap='nowrap' gap='24px'>
+            <MultiContent>
+              <FeaturesTopSection maxWidth={'840px'} margin='0px auto'>
+                <H2
+                  color='#DDD8D8'
+                  fontSize={isMobile ? '24px' : '30px'}
+                  textAlign={isMobile ? 'left' : 'center'}
+                  lineHeight='normal'
+                  fontWeight='400'
+                  letterSpacing='normal'
+                  fontFamily='DM Sans, san-serif'
+                >
+                  <B color='#fff'>{t(FeaturesList?.meta.title)}</B>{' '}
+                  {t(FeaturesList?.meta.subtitle)}
+                </H2>
+              </FeaturesTopSection>
+            </MultiContent>
+            <MultiContent>
               <FirstGridFeatures>
                 {FeaturesList?.first?.map((item) => (
                   <GridFeatureItem
@@ -251,7 +274,8 @@ export default function Home() {
                   </GridFeatureItem>
                 ))}
               </ThirdGridFeatures>
-
+            </MultiContent>
+            <MultiContent>
               <FeaturesBottomSection
                 flexDirection={isMobile ? 'column' : 'row'}
                 justifyContent='space-between'
@@ -297,28 +321,36 @@ export default function Home() {
                   <BsArrowRight className='start-svg' />
                 </A>
               </FeaturesBottomSection>
-            </ItemV>
+            </MultiContent>
           </Content>
         </Section>
 
-        {/* SHOWCASE SECTION */}
-        {/* <ShowcaseSection id='ecosystem'>
+        {/* PARTNERS SECTION */}
+        {/* <ShowcaseSection
+          id='ecosystem'
+          aria-label={t('pages.home.partners-section.section-aria-label')}
+        >
           <Content alignSelf='center'>
             <ShowcasePartners />
           </Content>
         </ShowcaseSection> */}
 
         {/* USEFUL STATS SECTION */}
-        <Section id='useful-stats'>
-          <StatsContent>
+        <Section
+          id='useful-stats'
+          aria-level='2'
+          aria-label={t('pages.home.stats-section.section-aria-label')}
+        >
+          <Content>
             <StatsSection />
-          </StatsContent>
+          </Content>
         </Section>
 
         {/* PUSH CHAIN BLOG */}
-        <BlogSection
+        <Section
           id='blog'
           role='region'
+          aria-level='2'
           aria-label={t('pages.home.blog-section.section-aria-label')}
         >
           <Content alignSelf='center'>
@@ -383,22 +415,30 @@ export default function Home() {
 
             <RecentBlogPosts />
           </Content>
-        </BlogSection>
+        </Section>
 
         {/* FAQ SECTION */}
-        <FAQSection id='faq'>
+        <Section
+          id='faq'
+          aria-level='2'
+          aria-label={t('components.short-faq-snippet.section-aria-label')}
+        >
           <Content>
             <ShortFAQs />
           </Content>
-        </FAQSection>
+        </Section>
 
         {/* BACKED BY SECTION */}
-        <BackedBySection id='investors'>
-          <BackedByContent padding='0px 0px' alignSelf='center'>
+        <Section
+          id='backing'
+          aria-level='2'
+          aria-label={t('pages.home.trustedby-section.section-aria-label')}
+        >
+          <Content alignSelf='center' className='fluid'>
             <FeaturedGlowCircle />
 
             <InvestorItem alignItems='stretch'>
-              <InvestorHeader
+              <H2
                 color='#FFFFFF'
                 fontWeight='500'
                 letterSpacing='-0.02em'
@@ -406,8 +446,8 @@ export default function Home() {
                 lineHeight='130%'
                 textAlign='center'
               >
-                {t('pages.home.investors-section.title')}
-              </InvestorHeader>
+                {t('pages.home.trustedby-section.title')}
+              </H2>
             </InvestorItem>
 
             <MarqueeAnimationContainer
@@ -434,7 +474,7 @@ export default function Home() {
                           ).default
                         }
                         srcSet={`${require(`@site/static/assets/website/investors/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/investors/${item.srcref}@3x.webp`).default} 3x`}
-                        alt={`${item?.alt}`}
+                        alt={`${t('pages.home.trustedby-section.trusted-by-alt')}${item?.alt}}`}
                       />
                       {item.title && (
                         <InvestorDetails>
@@ -475,7 +515,7 @@ export default function Home() {
                           ).default
                         }
                         srcSet={`${require(`@site/static/assets/website/investors/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/investors/${item.srcref}@3x.webp`).default} 3x`}
-                        alt={`${item?.alt}`}
+                        alt={`${t('pages.home.trustedby-section.trusted-by-alt')}${item?.alt}}`}
                       />
                       {item.title && (
                         <InvestorDetails>
@@ -491,14 +531,22 @@ export default function Home() {
               </Marquee>
             </MarqueeAnimationContainer>
 
-            <FeaturedSection />
-          </BackedByContent>
-        </BackedBySection>
+            <FeaturedSection
+              aria-level='2'
+              aria-label={t('pages.home.featued-section.aria-label')}
+            />
+          </Content>
+        </Section>
 
-        <BottomSection>
+        {/* ENDING LETS PUSH SECTION */}
+        <Section
+          id='letspush'
+          aria-level='2'
+          aria-label={t('pages.home.ending-section.aria-label')}
+        >
           <Content className='content'>
-            <ItemV>
-              <FinalSection>
+            <MultiContent className='small'>
+              <VideoItemV>
                 <CustomReactPlayer
                   url={
                     require(
@@ -524,24 +572,21 @@ export default function Home() {
                   lineHeight='120%'
                   textAlign='center'
                 >
-                  Build {isMobile && <br />} Universal {isMobile && <br />}{' '}
-                  Apps.
+                  {t('pages.home.ending-section.section-title')}
                 </H2>
-              </FinalSection>
-              <Span
-                fontSize='1.25rem'
-                color='#fff'
-                fontWeight='400'
-                lineHeight='125%'
-                textAlign='center'
-              >
-                Break the silos. Build once, scale on every blockchain.
-              </Span>
-
-              <FaqLink
-                href='/docs'
-                target='_blank'
-                title='Explore Push Chain Docs'
+                <Span
+                  fontSize='1.25rem'
+                  color='#fff'
+                  fontWeight='400'
+                  lineHeight='125%'
+                  textAlign='center'
+                >
+                  {t('pages.home.ending-section.section-subtitle')}
+                </Span>
+              </VideoItemV>
+            </MultiContent>
+            <MultiContent className='small'>
+              <BuildUniversalAppLink
                 background='#D548EC'
                 borderRadius='16px'
                 border='1px solid rgba(255, 255, 255, 0.30)'
@@ -550,15 +595,17 @@ export default function Home() {
                 letterSpacing='-0.03em'
                 lineHeight='1rem'
                 padding='16px 32px'
-                zIndex='2'
-                margin='48px 0 0 0'
+                href='/docs'
+                target='_blank'
+                title={t('pages.home.ending-section.docs-link.title')}
+                aria-label={t('pages.home.ending-section.docs-link.aria-label')}
               >
-                <p>LFG Push Chain</p>
+                <p>{t('pages.home.ending-section.docs-link.text')}</p>
                 <BsArrowRight className='svg' size={23} />
-              </FaqLink>
-            </ItemV>
+              </BuildUniversalAppLink>
+            </MultiContent>
           </Content>
-        </BottomSection>
+        </Section>
       </HomeWrapper>
     </Layout>
   );
@@ -892,36 +939,16 @@ const FAQSection = styled(Section)`
   }
 `;
 
-const StatsContent = styled(Content)``;
-
 const FeaturedInSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const BlogSection = styled(Section)``;
-
-const BackedBySection = styled(Section)`
-  padding: 100px 0;
-
-  @media ${device.mobileL} {
-    padding: 125px 0;
-  }
-`;
-
 const BackedByContent = styled(Content)`
   width: 100%;
   max-width: 100%;
   padding: 0px;
-`;
-
-const InvestorHeader = styled(H2)`
-  width: 720px;
-  margin: 0 auto 0px auto;
-  @media ${device.tablet} {
-    width: auto;
-  }
 `;
 
 const InvestorItem = styled(ItemV)``;
@@ -969,9 +996,7 @@ const InvestorSubtitle = styled(Span)`
   text-transform: uppercase;
 `;
 
-const FeaturesTopSection = styled(ItemV)`
-  margin-bottom: 75px;
-`;
+const FeaturesTopSection = styled(ItemV)``;
 
 const FirstGridFeatures = styled(ItemH)`
   font-family:
@@ -1150,7 +1175,6 @@ const H1Text = styled(H1)`
 `;
 
 const FeaturesBottomSection = styled(ItemH)`
-  margin-top: 75px;
   gap: 24px;
 
   a {
@@ -1220,11 +1244,12 @@ const SlideLink = styled(A)`
   }
 `;
 
-const FaqLink = styled(A)`
+const BuildUniversalAppLink = styled(A)`
   display: flex;
   flex-direction: row;
   align-items: center;
   overflow: inherit;
+  align-self: center;
   gap: 12px;
 
   p {
@@ -1289,14 +1314,14 @@ const AccordionGrid = styled.div`
   }
 `;
 
-const FinalSection = styled.div`
+const VideoItemV = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 800px;
-  height: 600px;
+  max-width: 800px;
+  margin: 0 auto;
   pointer-events: none;
   touch-action: none;
 
@@ -1304,17 +1329,15 @@ const FinalSection = styled.div`
     margin-top: auto;
 
     @media ${device.mobileL} {
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
     }
   }
 
   @media ${device.tablet} {
-    width: 500px;
-    height: 400px;
+    max-width: 500px;
   }
 
   @media ${device.mobileL} {
-    width: 350px;
-    height: 500px;
+    max-width: 350px;
   }
 `;

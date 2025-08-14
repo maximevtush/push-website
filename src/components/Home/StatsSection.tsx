@@ -15,7 +15,14 @@ import instantInteroperability from '@site/static/assets/website/interoperabilit
 
 // Import Assets
 import StatsBg from '../../../static/assets/website/chain/StatsSectionBG.webp';
-import { H2, H3, ItemH, ItemV, Span } from '../../css/SharedStyling';
+import {
+  H2,
+  H3,
+  ItemH,
+  ItemV,
+  MultiContent,
+  Span,
+} from '../../css/SharedStyling';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 // Internal Configs
@@ -27,91 +34,59 @@ export const StatsSection = () => {
 
   const isMobile = useMediaQuery(device.mobileL);
   return (
-    <StatsWrapper>
-      <TextSection>
-        <H2>
-          {t('pages.home.stats-section.title')} {isMobile && <br />}{' '}
-          <ColoredText>
-            {t('pages.home.stats-section.titleGradient')}
-          </ColoredText>{' '}
-          <br /> {t('pages.home.stats-section.titleThird')}
-        </H2>
+    <>
+      <MultiContent className='large'>
+        <TextSection>
+          <H2>
+            {t('pages.home.stats-section.title')} {isMobile && <br />}{' '}
+            <ColoredText>
+              {t('pages.home.stats-section.titleGradient')}
+            </ColoredText>{' '}
+            <br /> {t('pages.home.stats-section.titleThird')}
+          </H2>
 
-        <Span className='regular-text'>
-          {t('pages.home.stats-section.description')}
-        </Span>
-      </TextSection>
-
+          <Span className='regular-text'>
+            {t('pages.home.stats-section.description')}
+          </Span>
+        </TextSection>
+      </MultiContent>
       {/* <LottieContainer>
         <Lottie animationData={instantInteroperability} loop={true} autoplay={true} />
       </LottieContainer> */}
 
-      <StatsGrid>
-        <Lottie
-          animationData={instantInteroperability}
-          loop={true}
-          autoplay={true}
-          style={{
-            position: 'absolute',
-            top: 85,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 0,
-            opacity: 0.3,
-          }}
-        />
-        {StatsList.map((item, index) => (
-          <StatsItem key={index}>
-            <H3>{t(item.title)}</H3>
-            {item.image && (
-              <img
-                src={item.image}
-                srcSet={item.srcSet}
-                alt={t(item.imagealt)}
-                title={t(item.imagetitle)}
-              />
-            )}
-            <Span>{t(item.description)}</Span>
-          </StatsItem>
-        ))}
-      </StatsGrid>
-    </StatsWrapper>
+      <MultiContent className='large'>
+        <LottieContainer>
+          <Lottie
+            animationData={instantInteroperability}
+            loop={true}
+            autoplay={true}
+            title={t('pages.home.stats-section.animation-title')}
+            aria-label={t('pages.home.stats-section.animation-alt')}
+          />
+        </LottieContainer>
+        <StatsGrid>
+          {StatsList.map((item, index) => (
+            <StatsItem key={index}>
+              <H3>{t(item.title)}</H3>
+              {item.image && (
+                <img
+                  src={item.image}
+                  srcSet={item.srcSet}
+                  alt={t(item.imagealt)}
+                  title={t(item.imagetitle)}
+                />
+              )}
+              {item.description && <Span>{t(item.description)}</Span>}
+            </StatsItem>
+          ))}
+        </StatsGrid>
+      </MultiContent>
+    </>
   );
 };
 
-const GlowCircle = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(179, 72, 236, 0.2);
-  filter: blur(125px);
-  pointer-events: none;
-  z-index: 999999;
-
-  width: 529px;
-  height: 529px;
-  left: 346px;
-  top: 159px;
-
-  @media ${device.tablet} {
-    width: 438px;
-    height: 438px;
-    left: 178px;
-    top: 159px;
-  }
-
-  @media ${device.mobileL} {
-    width: 395px;
-    height: 392px;
-    left: 12px;
-    top: 252px;
-  }
-`;
-
 const StatsWrapper = styled.div`
   width: 100%;
-  padding-bottom: 100px;
-  margin-top: 100px;
 
   @media ${device.tablet} {
     background-size: contain;
@@ -135,6 +110,13 @@ const TextSection = styled(ItemH)`
   justify-content: space-between;
   z-index: 99;
 
+  gap: 48px;
+
+  @media ${device.tablet} {
+    width: 100%;
+    gap: 36px;
+  }
+
   h2 {
     color: #fff;
     leading-trim: both;
@@ -156,30 +138,40 @@ const TextSection = styled(ItemH)`
     line-height: 150%;
     letter-spacing: -0.4px;
   }
+`;
 
-  @media ${device.tablet} {
-    width: 100%;
-  }
+const LottieContainer = styled(ItemV)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.3;
+  z-index: 0;
 
   @media ${device.mobileL} {
-    span {
-      margin: 10px 0 0 0;
-    }
+    bottom: auto;
   }
 `;
 
 const StatsGrid = styled.div`
-  margin: 100px 0 0 0;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 64px;
+  flex-wrap: wrap;
+
+  @media ${device.tablet} {
+    gap: 64px;
+  }
 
   @media ${device.mobileL} {
     flex-direction: column;
     align-items: center;
     margin: 0;
+    gap: 96px;
   }
 
   h3 {
@@ -213,9 +205,10 @@ const StatsItem = styled.div`
   align-items: center;
   gap: 24px;
   position: relative;
+  flex-grow: 1;
 
   @media ${device.mobileL} {
-    margin: 100px 0 0 0;
+    gap: 32px;
   }
 `;
 
@@ -228,17 +221,4 @@ const ColoredText = styled.span`
   font-weight: 600;
   line-height: 120%;
   letter-spacing: -0.96px;
-`;
-
-const LottieContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-
-  @media ${device.tablet} {
-    display: none;
-  }
 `;

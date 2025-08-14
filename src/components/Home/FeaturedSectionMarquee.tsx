@@ -2,17 +2,17 @@
 // @ts-nocheck
 /* eslint-disable */
 
-// import { useTranslation } from 'react-i18next';
 import Link from '@docusaurus/Link';
+import { useTranslation } from 'react-i18next';
 
-import styled, { keyframes } from 'styled-components';
+import { device } from '@site/src/config/globals';
 import { MediaList, SecondMediaList } from '@site/src/config/HomeMediaList';
 import { Image } from '@site/src/css/SharedStyling';
-import { device } from '@site/src/config/globals';
+import styled, { keyframes } from 'styled-components';
 
 export const FeaturedSectionMarquee = () => {
   // Internationalization
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const createBlankCard = (key) => (
     <BlankMarqueeCard key={`blank-${key}`}></BlankMarqueeCard>
@@ -22,8 +22,15 @@ export const FeaturedSectionMarquee = () => {
     const result = [];
     MediaList.forEach((item, idx) => {
       result.push(
-        <MarqueeCard key={idx} href={item.url} target='_blank' rel='noreferrer'>
-          <p>{item.text}</p>
+        <MarqueeCard
+          key={idx}
+          href={item.url}
+          target='_blank'
+          rel='noopener'
+          title={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
+          aria-label={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
+        >
+          <p>{t(`${item.translationKey}.text`)}</p>
           <Image
             src={
               require(
@@ -31,8 +38,9 @@ export const FeaturedSectionMarquee = () => {
               ).default
             }
             srcSet={`${require(`@site/static/assets/website/coverage/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/coverage/${item.srcref}@3x.webp`).default} 3x`}
-            alt={`Media coverage from ${item.srcref}`}
+            alt={`${t('pages.home.featured-section.articles-image-alt')}${item.outlet}`}
             loading='lazy'
+            title={`${item.outlet} logo`}
           />
         </MarqueeCard>
       );
@@ -45,8 +53,15 @@ export const FeaturedSectionMarquee = () => {
     const result = [];
     SecondMediaList.forEach((item, idx) => {
       result.push(
-        <MarqueeCard key={idx} href={item.url} target='_blank' rel='noreferrer'>
-          <p>{item.text}</p>
+        <MarqueeCard
+          key={idx}
+          href={item.url}
+          target='_blank'
+          rel='noopener'
+          title={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
+          aria-label={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
+        >
+          <p>{t(`${item.translationKey}.text`)}</p>
           <Image
             src={
               require(
@@ -54,8 +69,9 @@ export const FeaturedSectionMarquee = () => {
               ).default
             }
             srcSet={`${require(`@site/static/assets/website/coverage/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/coverage/${item.srcref}@3x.webp`).default} 3x`}
-            alt={`Media coverage from ${item.srcref}`}
+            alt={`${t('pages.home.featured-section.articles-image-alt')}${item.outlet}`}
             loading='lazy'
+            title={`${item.outlet} logo`}
           />
         </MarqueeCard>
       );

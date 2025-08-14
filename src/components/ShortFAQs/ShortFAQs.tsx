@@ -59,7 +59,7 @@ const ShortFAQs: FC = () => {
           target='_blank'
           title={t('components.short-faq-snippet.discord-link-title')}
           aria-label={t('components.short-faq-snippet.discord-link-aria-label')}
-          rel='noopener noreferrer'
+          rel='noopener'
         >
           <BsDiscord size={28} aria-hidden='true' />
           <p>{t('components.short-faq-snippet.discord-link-text')}</p>

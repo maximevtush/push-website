@@ -715,7 +715,7 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
             rehypePlugins={[rehypeSlug, rehypeRaw]}
             components={{
               a: ({ node, ...props }) => (
-                <a {...props} target='_blank' rel='noopener noreferrer'>
+                <a {...props} target='_blank' rel='noopener'>
                   {props.children}
                 </a>
               ),

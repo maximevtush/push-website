@@ -76,7 +76,7 @@ function Privacy() {
           <Content className='contentBox' flex='1'>
             <ItemV>
               <HeroHeader textAlign='center'>
-                {t('privacy.hero.title')}
+                {t('pages.privacy.hero-section.title')}
               </HeroHeader>
               <P
                 margin='20px 0 0 0'
@@ -84,7 +84,7 @@ function Privacy() {
                 textAlign='center'
                 color='#fff'
               >
-                {t('privacy.hero.description')}
+                {t('pages.privacy.hero-section.description')}
               </P>
               <H3
                 maxWidth='400px'
@@ -96,7 +96,7 @@ function Privacy() {
                 textAlign='center'
                 color='#fff'
               >
-                {t('privacy.hero.update-text')}
+                {t('pages.privacy.hero-section.update-text')}
               </H3>
             </ItemV>
           </Content>

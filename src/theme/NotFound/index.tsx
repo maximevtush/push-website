@@ -31,7 +31,7 @@ export default function Index(): ReactElement {
         showNavbar={
           !pathname.startsWith(baseURL + '/docs') &&
           !pathname.startsWith(baseURL + '/blog')
-            ? 'chain'
+            ? 'website'
             : 'docusaurus'
         }
       >

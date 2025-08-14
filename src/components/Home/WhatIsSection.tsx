@@ -20,13 +20,13 @@ export const WhatIsSection = () => {
   const { t, i18n } = useTranslation();
 
   const UniversalText = () => (
-    <>
+    <div aria-label={t('pages.home.whatis-section.heading-aria-label')}>
       <H2>{t('pages.home.whatis-section.titleFirst')}</H2>
       <H2 className='gradient-bg'>
         {t('pages.home.whatis-section.titleSecondGraditent')}
       </H2>
       <H2>{t('pages.home.whatis-section.titleThird')}</H2>
-    </>
+    </div>
   );
 
   const BottomSection = () => (
@@ -37,6 +37,7 @@ export const WhatIsSection = () => {
       <LearnMoreLink
         href='/docs'
         title={t('pages.home.whatis-section.bottomLinkTitle')}
+        aria-label={t('pages.home.whatis-section.bottom-link-aria-label')}
         target='_self'
         border='none'
         fontSize='1.125rem'
@@ -56,7 +57,13 @@ export const WhatIsSection = () => {
     <HeroWrapper>
       <HeroBG>
         <LottieContainer>
-          <Lottie animationData={heroAnimation} loop={true} autoplay={true} />
+          <Lottie 
+            animationData={heroAnimation} 
+            loop={true} 
+            autoplay={true}
+            title={t('pages.home.whatis-section.animation-title')}
+            aria-label={t('pages.home.whatis-section.animation-alt')}
+          />
         </LottieContainer>
 
         <MobileContent>
@@ -65,7 +72,13 @@ export const WhatIsSection = () => {
           </MobileTopText>
 
           <MobileLottieContainer>
-            <Lottie animationData={heroAnimation} loop={true} autoplay={true} />
+            <Lottie 
+              animationData={heroAnimation} 
+              loop={true} 
+              autoplay={true}
+              title={t('pages.home.whatis-section.animation-title')}
+              aria-label={t('pages.home.whatis-section.animation-alt')}
+            />
           </MobileLottieContainer>
 
           <MobileBottomText>

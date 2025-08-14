@@ -64,7 +64,7 @@ function PartnerChannels() {
         opacity: 1,
         margin: '14px',
         scrollTrigger: {
-          trigger: '#showcase',
+          trigger: '#ecosystem',
           toggleActions: 'play none none reverse',
           start: '25% center', // trigger element, viewport
           end: '75% center',
@@ -75,240 +75,118 @@ function PartnerChannels() {
     });
   }, []);
 
+  const ShowcaseItem = (item: any, idx: number, itemRow: string) => {
+    return (
+      <ShowcaseLogo
+        key={idx}
+        id={`${itemRow}-${item.idx}`}
+        width={item.width}
+        height={item.height}
+        margin={item.margin}
+        opacity={item.opacity}
+        title={`${t('pages.home.partners-section.partner-logo-title-prefix')}${item.logoname}`}
+        src={
+          require(`@site/static/assets/website/showcase/${item.srcref}.webp`)
+            .default
+        }
+        srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
+        alt={`${t('pages.home.partners-section.partner-logo-alt-prefix')}${item.logoname}`}
+        className={item.class}
+      />
+    );
+  };
+
+  const ShowcaseItemResponsive = (item: any, idx: number, itemRow: string) => {
+    return (
+      <ShowcaseLogoResponsive
+        key={idx}
+        id={`${itemRow}-${item.idx}`}
+        width={item.width}
+        height={item.height}
+        title={`${t('pages.home.partners-section.partner-logo-title-prefix')}${item.logoname}`}
+        src={
+          require(`@site/static/assets/website/showcase/${item.srcref}.webp`)
+            .default
+        }
+        srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
+        alt={`${t('pages.home.partners-section.partner-logo-alt-prefix')}${item.logoname}`}
+        className={item.class}
+      />
+    );
+  };
+
   return (
     <div className='ShowcasePartnersSection'>
       <PartnerRowV2 itemPos='top'>
         <ItemV>
           <ItemH>
-            {ShowcaseList.top.left.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.left.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.top.left.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.left.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
         <ItemV>
           <ItemH>
-            {ShowcaseList.top.mid.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.mid.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.top.mid.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.mid.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
         <ItemV>
           <ItemH>
-            {ShowcaseList.top.right.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.right.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.top.right.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.top.right.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
       </PartnerRowV2>
 
       <PartnerResponsiveRow>
-        {ShowcaseResponsiveList.top.map((item, idx) => (
-          <ShowcaseLogoResponsive
-            key={idx}
-            width={item.width}
-            height={item.height}
-            src={
-              require(
-                `@site/static/assets/website/showcase/${item.srcref}.webp`
-              ).default
-            }
-            srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-            alt={`${item.alt}`}
-            className={item.class}
-          />
-        ))}
+        {ShowcaseResponsiveList.top.map((item, idx) =>
+          ShowcaseItemResponsive(item, idx, 'secondItem')
+        )}
       </PartnerResponsiveRow>
 
       <ShowcaseContent>
         <PartnerRowV2 itemPos='left'>
           <ItemV>
             <ItemH>
-              {ShowcaseList.left.left.upper.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.left.left.upper.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
             <ItemH>
-              {ShowcaseList.left.left.lower.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.left.left.lower.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
           </ItemV>
 
           <ItemV>
             <ItemH>
-              {ShowcaseList.left.right.upper.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.left.right.upper.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
             <ItemH>
-              {ShowcaseList.left.right.lower.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.left.right.lower.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
           </ItemV>
         </PartnerRowV2>
@@ -322,7 +200,7 @@ function PartnerChannels() {
             margin='0px 0px'
             lineHeight='135%'
           >
-            <b>{t('pages.home.partners-section.partner-channels-title')}</b>
+            <b>{t('pages.home.partners-section.title')}</b>
           </ResponsiveH2>
 
           <Span
@@ -333,12 +211,12 @@ function PartnerChannels() {
             lineHeight='140%'
             textAlign='center'
           >
-            {t('pages.home.partners-section.partner-channels-description')}
+            {t('pages.home.partners-section.subtitle')}
           </Span>
 
           <A
             href={useBaseUrl('/frens')}
-            title={t('pages.home.partners-section.partner-channels-button-alt')}
+            title={t('pages.home.partners-section.ctatitle')}
             background='#D548EC'
             borderRadius='16px'
             border='1px solid rgba(255, 255, 255, 0.30)'
@@ -357,242 +235,80 @@ function PartnerChannels() {
             margin='25px 0px 0px 0px'
             alignSelf='center'
           >
-            {t('pages.home.partners-section.partner-channels-button')}
+            {t('pages.home.partners-section.ctatext')}
           </A>
         </ShowcaseMainContent>
 
         <PartnerRowV2 itemPos='right'>
           <ItemV>
             <ItemH>
-              {ShowcaseList.right.left.upper.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.right.left.upper.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
             <ItemH>
-              {ShowcaseList.right.left.lower.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.right.left.lower.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
           </ItemV>
 
           <ItemV>
             <ItemH>
-              {ShowcaseList.right.right.upper.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.right.right.upper.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
             <ItemH>
-              {ShowcaseList.right.right.lower.map((item, idx) => (
-                <ShowcaseLogo
-                  key={idx}
-                  width={item.width}
-                  height={item.height}
-                  margin={item.margin}
-                  opacity={item.opacity}
-                  src={
-                    require(
-                      `@site/static/assets/website/showcase/${item.srcref}.webp`
-                    ).default
-                  }
-                  srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item.alt}`}
-                  className={item.class}
-                  id={`secondItem-${idx}`}
-                />
-              ))}
+              {ShowcaseList.right.right.lower.map((item, idx) =>
+                ShowcaseItem(item, idx, 'secondItem')
+              )}
             </ItemH>
           </ItemV>
         </PartnerRowV2>
       </ShowcaseContent>
 
       <PartnerResponsiveRow>
-        {ShowcaseResponsiveList.bottom.map((item, idx) => (
-          <ShowcaseLogoResponsive
-            key={idx}
-            width={item.width}
-            height={item.height}
-            src={
-              require(
-                `@site/static/assets/website/showcase/${item.srcref}.webp`
-              ).default
-            }
-            srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-            alt={`${item.alt}`}
-            className={item.class}
-          />
-        ))}
+        {ShowcaseResponsiveList.bottom.map((item, idx) =>
+          ShowcaseItemResponsive(item, idx, 'secondItem')
+        )}
       </PartnerResponsiveRow>
 
       <PartnerRowV2 itemPos='bottom'>
         <ItemV>
           <ItemH>
-            {ShowcaseList.bottom.left.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.left.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.bottom.left.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.left.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
         <ItemV>
           <ItemH>
-            {ShowcaseList.bottom.mid.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.mid.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.bottom.mid.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.mid.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
         <ItemV>
           <ItemH>
-            {ShowcaseList.bottom.right.upper.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.right.upper.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
           <ItemH>
-            {ShowcaseList.bottom.right.lower.map((item, idx) => (
-              <ShowcaseLogo
-                key={idx}
-                width={item.width}
-                height={item.height}
-                margin={item.margin}
-                opacity={item.opacity}
-                src={
-                  require(
-                    `@site/static/assets/website/showcase/${item.srcref}.webp`
-                  ).default
-                }
-                srcSet={`${require(`@site/static/assets/website/showcase/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/showcase/${item.srcref}@3x.webp`).default} 3x`}
-                alt={`${item.alt}`}
-                className={item.class}
-                id={`secondItem-${idx}`}
-              />
-            ))}
+            {ShowcaseList.bottom.right.lower.map((item, idx) =>
+              ShowcaseItem(item, idx, 'secondItem')
+            )}
           </ItemH>
         </ItemV>
       </PartnerRowV2>

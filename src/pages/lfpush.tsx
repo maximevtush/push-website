@@ -40,7 +40,7 @@ function LFPush() {
         <meta
           property='og:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/lfpushpreview.png').default,
             { absolute: true }
           )}
         />
@@ -59,7 +59,7 @@ function LFPush() {
         <meta
           name='twitter:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/lfpushpreview.png').default,
             { absolute: true }
           )}
         />

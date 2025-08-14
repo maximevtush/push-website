@@ -27,9 +27,9 @@ export const device = {
 export const structure = {
   PADDING: {
     DESKTOP: {
-      TOP: 100,
+      TOP: 125,
       RIGHT: 48,
-      BOTTOM: 100,
+      BOTTOM: 125,
       LEFT: 48,
     },
     TABLET: {
@@ -39,9 +39,9 @@ export const structure = {
       LEFT: 32,
     },
     MOBILE: {
-      TOP: 125,
+      TOP: 100,
       RIGHT: 16,
-      BOTTOM: 125,
+      BOTTOM: 100,
       LEFT: 16,
     },
   },
@@ -64,6 +64,62 @@ export const structure = {
         LEFT: 0,
         BOTTOM: 0,
         RIGHT: 0,
+      },
+    },
+    MULTI_CONTENT_DEFAULT: {
+      DESKTOP: {
+        TOP: 32,
+        BOTTOM: 32,
+      },
+      TABLET: {
+        TOP: 32,
+        BOTTOM: 32,
+      },
+      MOBILE: {
+        TOP: 32,
+        BOTTOM: 32,
+      },
+    },
+    MULTI_CONTENT_XSMALL: {
+      DESKTOP: {
+        TOP: 16,
+        BOTTOM: 16,
+      },
+      TABLET: {
+        TOP: 16,
+        BOTTOM: 16,
+      },
+      MOBILE: {
+        TOP: 16,
+        BOTTOM: 16,
+      },
+    },
+    MULTI_CONTENT_SMALL: {
+      DESKTOP: {
+        TOP: 24,
+        BOTTOM: 24,
+      },
+      TABLET: {
+        TOP: 24,
+        BOTTOM: 24,
+      },
+      MOBILE: {
+        TOP: 24,
+        BOTTOM: 24,
+      },
+    },
+    MULTI_CONTENT_LARGE: {
+      DESKTOP: {
+        TOP: 48,
+        BOTTOM: 48,
+      },
+      TABLET: {
+        TOP: 48,
+        BOTTOM: 48,
+      },
+      MOBILE: {
+        TOP: 48,
+        BOTTOM: 48,
       },
     },
   },
@@ -153,6 +209,26 @@ const GLOBALS = {
         DESKTOP: `${structure.MARGIN.SKELETON_SMALL.DESKTOP.TOP}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.LEFT}px`,
         TABLET: `${structure.MARGIN.SKELETON_SMALL.TABLET.TOP}px ${structure.MARGIN.SKELETON_SMALL.TABLET.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.TABLET.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.TABLET.LEFT}px`,
         MOBILE: `${structure.MARGIN.SKELETON_SMALL.MOBILE.TOP}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.LEFT}px`,
+      },
+      MULTI_CONTENT_DEFAULT: {
+        DESKTOP: `${structure.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP.BOTTOM}px 0px`,
+        TABLET: `${structure.MARGIN.MULTI_CONTENT_DEFAULT.TABLET.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_DEFAULT.TABLET.BOTTOM}px 0px`,
+        MOBILE: `${structure.MARGIN.MULTI_CONTENT_DEFAULT.MOBILE.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_DEFAULT.MOBILE.BOTTOM}px 0px`,
+      },
+      MULTI_CONTENT_XSMALL: {
+        DESKTOP: `${structure.MARGIN.MULTI_CONTENT_XSMALL.DESKTOP.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_XSMALL.DESKTOP.BOTTOM}px 0px`,
+        TABLET: `${structure.MARGIN.MULTI_CONTENT_XSMALL.TABLET.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_XSMALL.TABLET.BOTTOM}px 0px`,
+        MOBILE: `${structure.MARGIN.MULTI_CONTENT_XSMALL.MOBILE.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_XSMALL.MOBILE.BOTTOM}px 0px`,
+      },
+      MULTI_CONTENT_SMALL: {
+        DESKTOP: `${structure.MARGIN.MULTI_CONTENT_SMALL.DESKTOP.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_SMALL.DESKTOP.BOTTOM}px 0px`,
+        TABLET: `${structure.MARGIN.MULTI_CONTENT_SMALL.TABLET.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_SMALL.TABLET.BOTTOM}px 0px`,
+        MOBILE: `${structure.MARGIN.MULTI_CONTENT_SMALL.MOBILE.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_SMALL.MOBILE.BOTTOM}px 0px`,
+      },
+      MULTI_CONTENT_LARGE: {
+        DESKTOP: `${structure.MARGIN.MULTI_CONTENT_LARGE.DESKTOP.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_LARGE.DESKTOP.BOTTOM}px 0px`,
+        TABLET: `${structure.MARGIN.MULTI_CONTENT_LARGE.TABLET.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_LARGE.TABLET.BOTTOM}px 0px`,
+        MOBILE: `${structure.MARGIN.MULTI_CONTENT_LARGE.MOBILE.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_LARGE.MOBILE.BOTTOM}px 0px`,
       },
     },
   },

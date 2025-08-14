@@ -11,6 +11,7 @@ import { BsTwitterX } from 'react-icons/bs';
 import styled from 'styled-components';
 
 // Internal Components
+import { ChainEmailSignup } from '@site/src/components/Chain/ChainEmailSignup';
 import {
   A,
   Content,
@@ -25,13 +26,12 @@ import {
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import DiscordSVG from '@site/static/assets/website/shared/discord.svg';
 import GithubSVG from '@site/static/assets/website/shared/github.svg';
-import { ChainEmailSignup } from '@site/src/components/Chain/ChainEmailSignup';
 
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 import { device } from '@site/src/config/globals';
 import { ChainFooterList } from '../components/Chain/config/ChainFooterList';
+import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 
 const tosPrivacyLinks = [
   { href: '/privacy', text: 'Privacy Policy' },
@@ -176,7 +176,7 @@ function Footer() {
                                   item.target ||
                                   (item.href ? '_blank' : '_self')
                                 }
-                                rel='noopener noreferrer'
+                                rel='noopener'
                                 onClick={(e) => {
                                   if (!item.href && item.id) {
                                     e.preventDefault(); // prevent default <a> behavior

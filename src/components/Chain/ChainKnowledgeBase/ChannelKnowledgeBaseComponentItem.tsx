@@ -44,7 +44,7 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
       justifyContent='space-between'
       bgImage={mode === 'grid' ? item.gridBG : ''}
       href={getHref(item)}
-      rel='noopener noreferrer'
+      rel='noopener'
       target={item?.target ? item?.target : '_self'}
       mode={mode}
       background={mode === 'grid' ? item.gridBG : '#101010'}

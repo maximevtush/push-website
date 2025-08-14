@@ -218,7 +218,7 @@ function Header() {
       <a
         href={item.href.includes('http') ? item.href : `${baseURL}${item.href}`}
         target={item.target}
-        rel='noopener noreferrer'
+        rel='noopener'
         title={item.title ? t(item.title) : t(item.subtext)}
         className='header-item'
         style={{
@@ -268,7 +268,8 @@ function Header() {
 
             <H3
               fontSize='0.875rem'
-              color='#838383'
+              color='#FFF'
+              opacity='0.75'
               lineHeight='130%'
               letterSpacing='normal'
               fontWeight='400'
@@ -288,7 +289,7 @@ function Header() {
       if (id !== activeId) {
         const element = document.getElementById(id);
         if (element) {
-          element.style.color = '#6C6C6C';
+          element.style.opacity = '0.5';
           element.style.transitionDuration = '1s';
         }
       }
@@ -299,7 +300,7 @@ function Header() {
     textIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
-        element.style.color = '#fff';
+        element.style.opacity = '1';
         element.style.transitionDuration = '1s';
       }
     });

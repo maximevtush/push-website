@@ -136,6 +136,70 @@ export const Content = styled.div`
   }
 `;
 
+export const MultiContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: ${(props) => props.position || 'relative'};
+
+  flex: ${(props) => props.flex || '1'};
+  align-self: ${(props) => props.alignSelf || 'stretch'};
+  width: inherit;
+  max-width: inherit;
+
+  justify-content: ${(props) => props.justifyContent || 'center'};
+  box-sizing: border-box;
+
+  margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP};
+
+  &:first-child {
+    margin-top: 0 !important;
+  }
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  &.xsmall {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.DESKTOP};
+  }
+
+  &.small {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.DESKTOP};
+  }
+
+  &.large {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.DESKTOP};
+  }
+
+  @media ${device.tablet} {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.TABLET};
+    &.xsmall {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.TABLET};
+    }
+    &.small {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.TABLET};
+    }
+
+    &.large {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.TABLET};
+    }
+  }
+
+  @media ${device.mobileL} {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.MOBILE};
+    &.xsmall {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.MOBILE};
+    }
+    &.small {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.MOBILE};
+    }
+
+    &.large {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.MOBILE};
+    }
+  }
+`;
+
 export const ItemBreak = styled.div`
   flex-basis: 100%;
 `;
@@ -255,6 +319,7 @@ export const H2 = styled.h2`
 export const H3 = styled.h3`
   color: ${(props) => props.color || GLOBALS.COLORS.FONT_DARK};
   font-weight: ${(props) => props.fontWeight || 700};
+  opacity: ${(props) => props.opacity || 'inherit'};
   text-shadow: none;
   font-size: ${(props) => props.fontSize || GLOBALS.ADJUSTMENTS.FONT.HEADING};
   text-transform: ${(props) => props.textTransform || 'inherit'};

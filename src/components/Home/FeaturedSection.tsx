@@ -4,16 +4,20 @@
 import styled from 'styled-components';
 
 import { Content, H2, ItemV, Span } from '@site/src/css/SharedStyling';
-import StarSolidIcon from '@site/static/assets/website/illustrations/starSolidIcon.svg';
 import FeaturedBg from '@site/static/assets/website/coverage/FeaturedBg.webp';
 import MobileFeaturedBg from '@site/static/assets/website/coverage/FeaturedBgMobile.webp';
+import StarSolidIcon from '@site/static/assets/website/illustrations/starSolidIcon.svg';
 
+import { useTranslation } from 'react-i18next';
 import { FeaturedSectionMarquee } from './FeaturedSectionMarquee';
 
-import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { device } from '@site/src/config/globals';
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
 
 export const FeaturedSection = () => {
+  // Internationalization
+  const { t, i18n } = useTranslation();
+
   const isTablet = useMediaQuery(device.tablet);
   const isLaptop = useMediaQuery(device.laptop);
 
@@ -34,7 +38,7 @@ export const FeaturedSection = () => {
               letterSpacing='0.6px'
               lineHeight='120%'
             >
-              FEATURED ON
+              {t('pages.home.featured-section.tag')}
             </H2>
           </StarWithText>
           <H2
@@ -44,7 +48,7 @@ export const FeaturedSection = () => {
             lineHeight='130%'
             margin='8px 0 0 0'
           >
-            Push Chain in the Spotlight
+            {t('pages.home.featured-section.title')}
           </H2>
 
           <Span
@@ -55,8 +59,7 @@ export const FeaturedSection = () => {
             lineHeight='150%'
             margin={isTablet ? '16px 0 0 0' : '24px 0 0 0'}
           >
-            Don’t just take our word for it. See what the media is saying about
-            the true universal chain.
+            {t('pages.home.featured-section.subtitle')}
           </Span>
         </ItemV>
 

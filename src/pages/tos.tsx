@@ -79,9 +79,9 @@ function TermsOfService() {
         <HeroSection background='#121315' minHeight='70vh'>
           <HeroContent className='contentBox' flex='1' alignSelf='center'>
             <ItemV>
-              <HeroHeader>{t('terms.hero.title')}</HeroHeader>
+              <HeroHeader>{t('pages.tos.hero-section.title')}</HeroHeader>
               <P margin='20px 0 0 0' size='1.5rem' color='#fff'>
-                {t('terms.hero.description')}
+                {t('pages.tos.hero-section.description')}
               </P>
               <H3
                 maxWidth='400px'
@@ -92,7 +92,7 @@ function TermsOfService() {
                 textTransform='uppercase'
                 color='#fff'
               >
-                {t('terms.hero.update-text')}
+                {t('pages.tos.hero-section.update-text')}
               </H3>
               <P testAlign='center' size='1.3rem' color='#fff'>
                 <B color='#fff'>IMPORTANT NOTICE: </B>THIS AGREEMENT IS SUBJECT
