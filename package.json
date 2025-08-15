@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "node scripts/merge-translations.js",
-    "start": "docusaurus start",
-    "prebuild": "node scripts/merge-translations.js",
+    "start": "node hotbuild.mjs",
+    "prebuild": "node hotbuild.merge.translation.mjs",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "build:pr:preview": "node build.mjs preview && NODE_OPTIONS=--max-old-space-size=8192 yarn build",
