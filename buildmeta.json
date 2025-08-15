@@ -151,9 +151,9 @@
         "lastUpdated": "2025-08-15T21:14:04.781Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-15T21:14:08.526Z"
       },
       "04-05-pages-lfpush.json": {
         "translated": false,
