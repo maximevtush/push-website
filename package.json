@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "node hotbuild.mjs",
-    "start:lite": "node hotbuild.mjs lite",
+    "start": "node hotbuild.mjs lite",
+    "start:full": "node hotbuild.mjs",
     "prebuild": "node hotbuild.merge.translation.mjs",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
