@@ -1,0 +1,60 @@
+{
+  "alert": {
+    "know-more": "始めましょう！"
+  },
+  "footer": {
+    "mail-section": {
+      "title": "最新のPushニュースを受け取る",
+      "privacy": "プライバシーポリシー",
+      "tos": "利用規約"
+    },
+    "info-section": {
+      "positions-card": {
+        "text": "私たちと一緒にWeb3コミュニケーションの未来を構築しましょう。",
+        "link-text": "募集中のポジションを見る",
+        "image-title": "参加する",
+        "image-alt": "募集中のポジションを示すアイコン"
+      },
+      "docs-card": {
+        "text": "簡単なガイドに従って、数分で始められます。",
+        "link-text": "ドキュメントを探索",
+        "image-title": "始める",
+        "image-alt": "簡単に始められることを示すアイコン"
+      }
+    },
+    "links-section": {
+      "company-column": {
+        "title": "会社",
+        "push-ecosystem-link": "Pushエコシステム",
+        "media-kit-link": "メディアキット",
+        "terms-link": "利用規約",
+        "privacy-link": "プライバシー"
+      },
+      "governance-column": {
+        "title": "ガバナンス",
+        "push-governance-link": "Pushガバナンス",
+        "guides-link": "ガイド",
+        "forum-link": "フォーラム",
+        "grants-link": "助成金",
+        "snapshot-link": "Snapshot"
+      },
+      "resources-column": {
+        "title": "リソース",
+        "blog-link": "ブログ",
+        "whitepaper-link": "ホワイトペーパー",
+        "github-link": "Github",
+        "discord-link": "Discord",
+        "dev-guides-link": "開発者ガイド"
+      },
+      "subscribe-column": {
+        "title": "サポート",
+        "contact-us-link": "お問い合わせ",
+        "faq-link": "よくある質問"
+      },
+      "support-column": {
+        "title": "購読",
+        "email-placeholder": "メールアドレス"
+      }
+    }
+  }
+}

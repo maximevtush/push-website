@@ -1,0 +1,60 @@
+{
+  "alert": {
+    "know-more": "शुरुआत करें!"
+  },
+  "footer": {
+    "mail-section": {
+      "title": "नवीनतम Push समाचार प्राप्त करें",
+      "privacy": "गोपनीयता नीति",
+      "tos": "नियम और शर्तें"
+    },
+    "info-section": {
+      "positions-card": {
+        "text": "हमारे साथ जुड़ें और Web3 Communication का भविष्य बनाएं।",
+        "link-text": "खुले पद देखें",
+        "image-title": "हमारे साथ जुड़ें",
+        "image-alt": "खुले पदों को दिखाने वाला आइकन"
+      },
+      "docs-card": {
+        "text": "कुछ मिनटों में शुरुआत करने के लिए हमारे सरल गाइड का पालन करें।",
+        "link-text": "डॉक्स देखें",
+        "image-title": "शुरुआत करें",
+        "image-alt": "आसान शुरुआत दिखाने वाला आइकन"
+      }
+    },
+    "links-section": {
+      "company-column": {
+        "title": "कंपनी",
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Media Kit",
+        "terms-link": "नियम",
+        "privacy-link": "गोपनीयता"
+      },
+      "governance-column": {
+        "title": "शासन",
+        "push-governance-link": "Push Governance",
+        "guides-link": "गाइड",
+        "forum-link": "Forum",
+        "grants-link": "Grants",
+        "snapshot-link": "Snapshot"
+      },
+      "resources-column": {
+        "title": "संसाधन",
+        "blog-link": "Blog",
+        "whitepaper-link": "Whitepaper",
+        "github-link": "Github",
+        "discord-link": "Discord",
+        "dev-guides-link": "Dev Guides"
+      },
+      "subscribe-column": {
+        "title": "सहायता",
+        "contact-us-link": "संपर्क करें",
+        "faq-link": "FAQ"
+      },
+      "support-column": {
+        "title": "सब्सक्राइब करें",
+        "email-placeholder": "आपका ईमेल"
+      }
+    }
+  }
+}

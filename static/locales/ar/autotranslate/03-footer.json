@@ -1,0 +1,60 @@
+{
+  "alert": {
+    "know-more": "ابدأ الآن!"
+  },
+  "footer": {
+    "mail-section": {
+      "title": "احصل على آخر أخبار Push",
+      "privacy": "سياسة الخصوصية",
+      "tos": "الشروط والأحكام"
+    },
+    "info-section": {
+      "positions-card": {
+        "text": "انضم إلينا وساعد في بناء مستقبل التواصل في Web3.",
+        "link-text": "اطلع على الوظائف المتاحة",
+        "image-title": "انضم إلينا",
+        "image-alt": "أيقونة تُظهر الوظائف المتاحة"
+      },
+      "docs-card": {
+        "text": "اتبع أدلتنا البسيطة للبدء في دقائق معدودة.",
+        "link-text": "استكشف الوثائق",
+        "image-title": "ابدأ",
+        "image-alt": "أيقونة تُظهر سهولة البدء"
+      }
+    },
+    "links-section": {
+      "company-column": {
+        "title": "الشركة",
+        "push-ecosystem-link": "نظام Push البيئي",
+        "media-kit-link": "الحقيبة الإعلامية",
+        "terms-link": "الشروط",
+        "privacy-link": "الخصوصية"
+      },
+      "governance-column": {
+        "title": "الحوكمة",
+        "push-governance-link": "حوكمة Push",
+        "guides-link": "الأدلة",
+        "forum-link": "المنتدى",
+        "grants-link": "المنح",
+        "snapshot-link": "Snapshot"
+      },
+      "resources-column": {
+        "title": "الموارد",
+        "blog-link": "المدونة",
+        "whitepaper-link": "الورقة البيضاء",
+        "github-link": "Github",
+        "discord-link": "Discord",
+        "dev-guides-link": "أدلة المطورين"
+      },
+      "subscribe-column": {
+        "title": "الدعم",
+        "contact-us-link": "اتصل بنا",
+        "faq-link": "الأسئلة الشائعة"
+      },
+      "support-column": {
+        "title": "اشترك",
+        "email-placeholder": "بريدك الإلكتروني"
+      }
+    }
+  }
+}

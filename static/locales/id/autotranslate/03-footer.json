@@ -1,0 +1,60 @@
+{
+  "alert": {
+    "know-more": "Mulai sekarang!"
+  },
+  "footer": {
+    "mail-section": {
+      "title": "Dapatkan berita Push terbaru",
+      "privacy": "Kebijakan Privasi",
+      "tos": "Syarat dan ketentuan"
+    },
+    "info-section": {
+      "positions-card": {
+        "text": "Bergabunglah dengan kami dan bangun masa depan Komunikasi Web3.",
+        "link-text": "Lihat Posisi Terbuka",
+        "image-title": "Bergabung dengan Kami",
+        "image-alt": "Ikon yang menunjukkan Posisi Terbuka"
+      },
+      "docs-card": {
+        "text": "Ikuti panduan sederhana kami untuk memulai dalam hitungan menit.",
+        "link-text": "Jelajahi Dokumentasi",
+        "image-title": "Mulai",
+        "image-alt": "Ikon yang menunjukkan kemudahan memulai"
+      }
+    },
+    "links-section": {
+      "company-column": {
+        "title": "Perusahaan",
+        "push-ecosystem-link": "Ekosistem Push",
+        "media-kit-link": "Kit Media",
+        "terms-link": "Syarat",
+        "privacy-link": "Privasi"
+      },
+      "governance-column": {
+        "title": "Tata Kelola",
+        "push-governance-link": "Tata Kelola Push",
+        "guides-link": "Panduan",
+        "forum-link": "Forum",
+        "grants-link": "Hibah",
+        "snapshot-link": "Snapshot"
+      },
+      "resources-column": {
+        "title": "Sumber Daya",
+        "blog-link": "Blog",
+        "whitepaper-link": "Whitepaper",
+        "github-link": "Github",
+        "discord-link": "Discord",
+        "dev-guides-link": "Panduan Pengembang"
+      },
+      "subscribe-column": {
+        "title": "Dukungan",
+        "contact-us-link": "Hubungi Kami",
+        "faq-link": "FAQ"
+      },
+      "support-column": {
+        "title": "Berlangganan",
+        "email-placeholder": "Email Anda"
+      }
+    }
+  }
+}

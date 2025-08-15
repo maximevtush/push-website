@@ -1,0 +1,60 @@
+{
+  "alert": {
+    "know-more": "Jetzt loslegen!"
+  },
+  "footer": {
+    "mail-section": {
+      "title": "Erhalten Sie die neuesten Push-Nachrichten",
+      "privacy": "Datenschutzrichtlinie",
+      "tos": "Geschäftsbedingungen"
+    },
+    "info-section": {
+      "positions-card": {
+        "text": "Schließen Sie sich uns an und gestalten Sie die Zukunft der Web3-Kommunikation mit.",
+        "link-text": "Offene Stellen ansehen",
+        "image-title": "Bei uns mitmachen",
+        "image-alt": "Symbol für offene Stellen"
+      },
+      "docs-card": {
+        "text": "Folgen Sie unseren einfachen Anleitungen und starten Sie in wenigen Minuten.",
+        "link-text": "Dokumentation erkunden",
+        "image-title": "Loslegen",
+        "image-alt": "Symbol für einfachen Einstieg"
+      }
+    },
+    "links-section": {
+      "company-column": {
+        "title": "Unternehmen",
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Medienpaket",
+        "terms-link": "Bedingungen",
+        "privacy-link": "Datenschutz"
+      },
+      "governance-column": {
+        "title": "Governance",
+        "push-governance-link": "Push Governance",
+        "guides-link": "Anleitungen",
+        "forum-link": "Forum",
+        "grants-link": "Förderungen",
+        "snapshot-link": "Snapshot"
+      },
+      "resources-column": {
+        "title": "Ressourcen",
+        "blog-link": "Blog",
+        "whitepaper-link": "Whitepaper",
+        "github-link": "Github",
+        "discord-link": "Discord",
+        "dev-guides-link": "Entwickleranleitungen"
+      },
+      "subscribe-column": {
+        "title": "Support",
+        "contact-us-link": "Kontaktieren Sie uns",
+        "faq-link": "FAQ"
+      },
+      "support-column": {
+        "title": "Abonnieren",
+        "email-placeholder": "Ihre E-Mail"
+      }
+    }
+  }
+}
