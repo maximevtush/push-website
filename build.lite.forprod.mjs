@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BLOG_DIR = path.join(__dirname, 'blog');
-const TEMP_MOVE_DIR = path.join(BLOG_DIR, '.tempmove');
+const BLOG_LITE_DIR = path.join(__dirname, 'blog-lite');
 
 // Get all blog directories sorted by date (newest first)
 const getBlogDirectories = async () => {
@@ -31,48 +31,67 @@ const getBlogDirectories = async () => {
   }
 };
 
-// Move all but last N blog posts to temp directory
-export const moveBlogsToTemp = async (keepCount = 10) => {
+// Create blog-lite directory with only recent blog posts
+const createBlogLiteDirectory = async (keepCount = 10) => {
   console.log(
-    chalk.blue(
-      `🗂️  Moving all but last ${keepCount} blog posts to temp directory...`
-    )
+    chalk.blue('🚀 Creating blog-lite directory with recent posts...')
   );
 
   try {
     const blogDirs = await getBlogDirectories();
 
-    if (blogDirs.length <= keepCount) {
-      console.log(
-        chalk.yellow(
-          `📝 Only ${blogDirs.length} blog posts found, keeping all.`
-        )
-      );
+    if (blogDirs.length === 0) {
+      console.log(chalk.yellow('📂 No blog posts found'));
       return;
     }
 
-    // Ensure temp directory exists
-    await fs.mkdir(TEMP_MOVE_DIR, { recursive: true });
+    // Remove existing blog-lite directory
+    try {
+      await fs.rm(BLOG_LITE_DIR, { recursive: true, force: true });
+    } catch (error) {
+      // Directory might not exist, which is fine
+    }
 
-    // Move older blog posts (all except the first keepCount)
-    const blogsToMove = blogDirs.slice(keepCount);
+    // Create fresh blog-lite directory
+    await fs.mkdir(BLOG_LITE_DIR, { recursive: true });
+
+    // Get the most recent blog posts to keep
+    const blogsToKeep = blogDirs.slice(0, keepCount);
+    const actualKeepCount = Math.min(keepCount, blogDirs.length);
 
     console.log(
       chalk.cyan(
-        `📦 Moving ${blogsToMove.length} blog posts to temp directory...`
+        `📦 Copying ${actualKeepCount} most recent blog posts to blog-lite...`
       )
     );
 
-    for (const blogDir of blogsToMove) {
+    for (const blogDir of blogsToKeep) {
       const sourcePath = path.join(BLOG_DIR, blogDir);
-      const destPath = path.join(TEMP_MOVE_DIR, blogDir);
+      const destPath = path.join(BLOG_LITE_DIR, blogDir);
 
       try {
-        await fs.rename(sourcePath, destPath);
-        console.log(chalk.gray(`   Moved: ${blogDir}`));
+        await fs.cp(sourcePath, destPath, { recursive: true });
+        console.log(chalk.gray(`   Copied: ${blogDir}`));
       } catch (error) {
         console.error(
-          chalk.red(`   Failed to move ${blogDir}:`),
+          chalk.red(`   Failed to copy ${blogDir}:`),
+          error.message
+        );
+      }
+    }
+
+    // Copy authors.yml file if it exists
+    const authorsPath = path.join(BLOG_DIR, 'authors.yml');
+    const authorsDestPath = path.join(BLOG_LITE_DIR, 'authors.yml');
+
+    try {
+      await fs.access(authorsPath);
+      await fs.cp(authorsPath, authorsDestPath);
+      console.log(chalk.gray('   Copied: authors.yml'));
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        console.log(
+          chalk.yellow('⚠️  Could not copy authors.yml:'),
           error.message
         );
       }
@@ -80,87 +99,43 @@ export const moveBlogsToTemp = async (keepCount = 10) => {
 
     console.log(
       chalk.green(
-        `✅ Successfully moved ${blogsToMove.length} blog posts to temp directory`
+        `✅ Created blog-lite directory with ${actualKeepCount} recent posts`
       )
     );
     console.log(
       chalk.blue(
-        `📊 Keeping ${keepCount} most recent blog posts for development`
+        `📊 Lite mode will use ${actualKeepCount} posts instead of ${blogDirs.length} total posts`
       )
-    );
-  } catch (error) {
-    console.error(chalk.red('❌ Error moving blogs to temp:'), error.message);
-  }
-};
-
-// Restore all blog posts from temp directory back to blog directory
-export const prepAndMoveBlogsFromTempLocationToActual = async () => {
-  console.log(chalk.blue('🔄 Restoring blog posts from temp directory...'));
-
-  try {
-    // Check if temp directory exists
-    try {
-      await fs.access(TEMP_MOVE_DIR);
-    } catch {
-      console.log(
-        chalk.yellow('📁 No temp directory found, nothing to restore.')
-      );
-      return;
-    }
-
-    const tempItems = await fs.readdir(TEMP_MOVE_DIR, { withFileTypes: true });
-    const tempDirs = tempItems
-      .filter((item) => item.isDirectory())
-      .map((item) => item.name);
-
-    if (tempDirs.length === 0) {
-      console.log(
-        chalk.yellow('📂 Temp directory is empty, nothing to restore.')
-      );
-      return;
-    }
-
-    console.log(
-      chalk.cyan(
-        `📦 Restoring ${tempDirs.length} blog posts from temp directory...`
-      )
-    );
-
-    for (const blogDir of tempDirs) {
-      const sourcePath = path.join(TEMP_MOVE_DIR, blogDir);
-      const destPath = path.join(BLOG_DIR, blogDir);
-
-      try {
-        await fs.rename(sourcePath, destPath);
-        console.log(chalk.gray(`   Restored: ${blogDir}`));
-      } catch (error) {
-        console.error(
-          chalk.red(`   Failed to restore ${blogDir}:`),
-          error.message
-        );
-      }
-    }
-
-    // Clean up empty temp directory
-    try {
-      const remainingItems = await fs.readdir(TEMP_MOVE_DIR);
-      if (remainingItems.length === 0) {
-        await fs.rmdir(TEMP_MOVE_DIR);
-        console.log(chalk.gray('🗑️  Cleaned up empty temp directory'));
-      }
-    } catch (error) {
-      console.log(
-        chalk.yellow('⚠️  Could not clean up temp directory:'),
-        error.message
-      );
-    }
-
-    console.log(
-      chalk.green(`✅ Successfully restored ${tempDirs.length} blog posts`)
     );
   } catch (error) {
     console.error(
-      chalk.red('❌ Error restoring blogs from temp:'),
+      chalk.red('❌ Error creating blog-lite directory:'),
+      error.message
+    );
+  }
+};
+
+// Clean up blog-lite directory
+const cleanupBlogLiteDirectory = async () => {
+  console.log(chalk.blue('🧹 Cleaning up blog-lite directory...'));
+
+  try {
+    // Check if blog-lite directory exists
+    try {
+      await fs.access(BLOG_LITE_DIR);
+    } catch {
+      console.log(
+        chalk.yellow('📁 No blog-lite directory found, nothing to clean up.')
+      );
+      return;
+    }
+
+    // Remove the blog-lite directory
+    await fs.rm(BLOG_LITE_DIR, { recursive: true, force: true });
+    console.log(chalk.green('✅ Successfully cleaned up blog-lite directory'));
+  } catch (error) {
+    console.error(
+      chalk.red('❌ Error cleaning up blog-lite directory:'),
       error.message
     );
   }
@@ -173,14 +148,14 @@ export const prepAndMoveFilesFromTempLocationToActual = async (
   console.log(chalk.blue(`🚀 Preparing files for ${mode} mode...`));
 
   if (mode === 'lite') {
-    // Move all but last 15 blog posts to temp
-    await moveBlogsToTemp(15);
+    // Create blog-lite directory with recent posts
+    await createBlogLiteDirectory(15);
   } else if (mode === 'full') {
-    // Restore all blog posts from temp
-    await prepAndMoveBlogsFromTempLocationToActual();
+    // Clean up blog-lite directory (full mode uses original blog directory)
+    await cleanupBlogLiteDirectory();
   } else {
     console.log(chalk.yellow(`⚠️  Unknown mode: ${mode}, defaulting to full`));
-    await prepAndMoveBlogsFromTempLocationToActual();
+    await cleanupBlogLiteDirectory();
   }
 };
 

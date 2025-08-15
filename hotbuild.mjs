@@ -40,15 +40,15 @@ try {
   console.error(chalk.red('❌ Initial merge failed:'), error.message);
 }
 
-// Start Docusaurus
-console.log(
-  chalk.green(
-    `🌟 Starting Docusaurus development server (${mode.toUpperCase()} mode)...`
-  )
-);
-const docusaurus = spawn('npm', ['run', 'docusaurus', 'start'], {
+// Start Docusaurus with blog mode environment variable
+console.log(chalk.blue(`🚀 Starting Docusaurus in ${mode.toUpperCase()} mode...`));
+const docusaurus = spawn('npx', ['docusaurus', 'start'], {
   stdio: 'inherit',
-  shell: true,
+  cwd: process.cwd(),
+  env: {
+    ...process.env,
+    BLOG_MODE: mode,
+  },
 });
 
 // Watch for translation file changes

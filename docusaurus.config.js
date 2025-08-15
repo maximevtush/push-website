@@ -3,6 +3,22 @@
 
 const lightCodeTheme = require('prism-react-renderer').themes.dracula;
 const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+const fs = require('fs');
+const path = require('path');
+
+// Determine blog directory based on mode
+const getBlogPath = () => {
+  const blogMode = process.env.BLOG_MODE || 'full';
+  const blogLitePath = path.join(__dirname, 'blog-lite');
+
+  if (blogMode === 'lite' && fs.existsSync(blogLitePath)) {
+    console.log('🚀 Using blog-lite directory for faster development');
+    return './blog-lite';
+  }
+
+  console.log('📚 Using full blog directory');
+  return './blog';
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -61,7 +77,7 @@ const config = {
       './plugins/blog-plugin',
       {
         id: 'blog',
-        path: './blog',
+        path: getBlogPath(),
         routeBasePath: 'blog',
         blogSidebarTitle: 'All posts',
         blogSidebarCount: 'ALL',
