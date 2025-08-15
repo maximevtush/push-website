@@ -1052,6 +1052,7 @@ const SecondGridFeatures = styled(ItemH)`
   height: 100%;
   align-items: stretch;
   flex-wrap: nowrap;
+  margin-top: 24px;
 
   & > div:first-child {
     flex: 1;
@@ -1111,6 +1112,7 @@ const ThirdGridFeatures = styled(ItemH)`
   height: 100%;
   align-items: stretch;
   flex-wrap: nowrap;
+  margin-top: 24px;
 
   & > div:first-child {
     flex: 2;
