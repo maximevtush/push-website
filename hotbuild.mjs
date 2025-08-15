@@ -3,6 +3,7 @@ import { execSync, spawn } from 'child_process';
 import { watch } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { prepAndMoveFilesFromTempLocationToActual } from './build.lite.forprod.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,9 +13,23 @@ const TRANSLATIONS_DIR = path.join(
   '/static/locales/en/01-translate'
 );
 
+// Get mode from command line arguments (lite or full)
+const mode = process.argv[2] || 'full';
+const isLiteMode = mode === 'lite';
+
 console.log(
-  chalk.blue('🚀 Starting Docusaurus with translation auto-merge...')
+  chalk.blue(
+    `🚀 Starting Docusaurus in ${mode.toUpperCase()} mode with translation auto-merge...`
+  )
 );
+
+// Prepare files based on mode (lite moves blogs to temp, full restores from temp)
+console.log(chalk.yellow(`🔄 Preparing files for ${mode} mode...`));
+try {
+  await prepAndMoveFilesFromTempLocationToActual(mode);
+} catch (error) {
+  console.error(chalk.red('❌ File preparation failed:'), error.message);
+}
 
 // Initial merge
 console.log(chalk.yellow('🔄 Running initial translation merge...'));
@@ -26,7 +41,11 @@ try {
 }
 
 // Start Docusaurus
-console.log(chalk.green('🌟 Starting Docusaurus development server...'));
+console.log(
+  chalk.green(
+    `🌟 Starting Docusaurus development server (${mode.toUpperCase()} mode)...`
+  )
+);
 const docusaurus = spawn('npm', ['run', 'docusaurus', 'start'], {
   stdio: 'inherit',
   shell: true,
@@ -59,22 +78,60 @@ const watcher = watch(
 );
 
 // Handle process termination
+let isShuttingDown = false;
+let isRestoring = false;
+
+const restoreBlogsIfNeeded = async () => {
+  if (isRestoring || !isLiteMode) return;
+  isRestoring = true;
+
+  console.log(chalk.blue('🔄 Restoring all blog posts...'));
+  try {
+    await prepAndMoveFilesFromTempLocationToActual('full');
+    console.log(chalk.green('✅ Blog posts restored successfully'));
+  } catch (error) {
+    console.error(chalk.red('❌ Failed to restore blog posts:'), error.message);
+  }
+};
+
+const cleanup = async (signal) => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
+  console.log(chalk.yellow(`\n🛑 Shutting down ${mode.toUpperCase()} mode...`));
+
+  // Restore blogs if needed
+  await restoreBlogsIfNeeded();
+
+  watcher.close();
+
+  // Kill docusaurus process
+  if (docusaurus && !docusaurus.killed) {
+    docusaurus.kill(signal || 'SIGTERM');
+
+    // Wait a bit for docusaurus to exit gracefully
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+
+  process.exit(0);
+};
+
 process.on('SIGINT', () => {
-  console.log(chalk.yellow('\n🛑 Shutting down...'));
-  watcher.close();
-  docusaurus.kill('SIGINT');
-  process.exit(0);
+  cleanup('SIGINT').catch(console.error);
 });
-
 process.on('SIGTERM', () => {
-  console.log(chalk.yellow('\n🛑 Shutting down...'));
-  watcher.close();
-  docusaurus.kill('SIGTERM');
-  process.exit(0);
+  cleanup('SIGTERM').catch(console.error);
 });
 
-docusaurus.on('close', (code) => {
+docusaurus.on('close', async (code) => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
   console.log(chalk.yellow(`\n📦 Docusaurus exited with code ${code}`));
+
+  // Restore blogs if needed
+  await restoreBlogsIfNeeded();
+
   watcher.close();
   process.exit(code);
 });
