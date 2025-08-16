@@ -1,10 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // React and other libraries
-import React, { useEffect, useState, FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { toast, Toaster } from 'sonner';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BiX } from 'react-icons/bi';
+import { toast, Toaster } from 'sonner';
+import styled from 'styled-components';
 
 // Internal Components
 import { Button, Image } from '../../src/css/SharedStyling';
@@ -25,18 +26,21 @@ type NotificationProps = {
   position?: 'bottom-right' | 'bottom-left' | 'top-center';
   /* Optional duration of the notification component */
   duration?: number;
+  /* Translation function */
+  t?: (key: string) => string;
 };
 
 // Custom Hook
 export const useChainNotification = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { t } = useTranslation();
 
   const showNotification = () => {
     const toastId = toast.custom(
       () => (
         <NotificationItem
-          // title='Devnet Drop S2 is Live!'
-          description='Get a sneak peek into Testnet, Donut, build universal apps and win prizes!'
+          title={t('notifications.chain-notification.title')}
+          description={t('notifications.chain-notification.description')}
           position='bottom-left'
           onClick={() => {
             localStorage.setItem('testnetNotificationShown', 'true');
@@ -47,6 +51,7 @@ export const useChainNotification = () => {
             localStorage.setItem('testnetNotificationShown', 'true');
             toast.dismiss(toastId);
           }}
+          t={t}
         />
       ),
       {
@@ -83,6 +88,7 @@ const NotificationItem: FC<NotificationProps> = ({
   description,
   onClick,
   onClose,
+  t,
 }) => {
   const handleNotificationClick = () => onClick?.();
   const handleNotificationClose = () => {
@@ -91,16 +97,25 @@ const NotificationItem: FC<NotificationProps> = ({
   };
 
   return (
-    <NotificationContainer onClick={handleNotificationClick}>
+    <NotificationContainer
+      onClick={handleNotificationClick}
+      role='dialog'
+      aria-label={t?.('notifications.chain-notification.container-aria-label')}
+      aria-describedby='chain-notification-content'
+    >
       <CloseButton
         onClick={(e) => {
           e.stopPropagation();
           handleNotificationClose();
         }}
+        title={t?.('notifications.chain-notification.close-button-title')}
+        aria-label={t?.(
+          'notifications.chain-notification.close-button-aria-label'
+        )}
       >
         <BiX size={20} color='#FFF' />
       </CloseButton>
-      <TextContainer>
+      <TextContainer id='chain-notification-content'>
         <PushLogoBlackContainer>
           <Image
             src={
@@ -109,7 +124,7 @@ const NotificationItem: FC<NotificationProps> = ({
               ).default
             }
             srcSet={`${require(`@site/static/assets/website/notifications/testnet-donut@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-donut@3x.webp`).default} 3x`}
-            alt='Push Testnet'
+            alt={t?.('notifications.chain-notification.image-alt')}
             loading='lazy'
           />
         </PushLogoBlackContainer>
@@ -124,8 +139,10 @@ const NotificationItem: FC<NotificationProps> = ({
           hoverBorder='1.5px solid #fff'
           fontFamily='N27'
           width='100%'
+          title={t?.('notifications.chain-notification.button-title')}
+          aria-label={t?.('notifications.chain-notification.button-aria-label')}
         >
-          Claim Closed Beta Pass
+          {t?.('notifications.chain-notification.button-text')}
         </Button>
       </TextContainer>
     </NotificationContainer>

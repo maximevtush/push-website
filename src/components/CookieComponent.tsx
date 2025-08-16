@@ -2,9 +2,7 @@
 // @ts-nocheck
 /* eslint-disable */
 
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useCookies } from 'react-cookie';
+import GLOBALS, { device } from '@site/src/config/globals';
 import {
   A,
   Button,
@@ -15,13 +13,17 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import GLOBALS, { device } from '@site/src/config/globals';
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 const CookieComponent = () => {
   const [cookies, setCookie] = useCookies(['pushCookies']);
   const [showModal, setShowModal] = useState(
     () => cookies.pushCookies === undefined
   );
+  const { t } = useTranslation();
 
   const handleAccept = () => {
     setCookie('pushCookies', true, { path: '/' });
@@ -38,8 +40,13 @@ const CookieComponent = () => {
   return (
     <>
       {showModal && (
-        <CookieContainer>
+        <CookieContainer
+          role='dialog'
+          aria-label={t('components.cookie-banner.banner-aria-label')}
+          aria-describedby='cookie-message'
+        >
           <H2
+            id='cookie-message'
             color='#000'
             fontWeight='400'
             letterSpacing='normal'
@@ -48,20 +55,41 @@ const CookieComponent = () => {
             lineHeight='130%'
             textAlign='left'
           >
-            We use cookies to personalize your experience. Learn more in our{' '}
+            {t('components.cookie-banner.message')}{' '}
             <a
               href='https://push.org/privacy'
               target='_blank'
+              rel='noopener'
               style={{ textDecoration: 'underline' }}
+              title={t('components.cookie-banner.privacy-policy-link-title')}
+              aria-label={t(
+                'components.cookie-banner.privacy-policy-link-aria-label'
+              )}
             >
-              Privacy Policy
+              {t('components.cookie-banner.privacy-policy-link')}
             </a>
             .
           </H2>
 
           <ButtonContainer>
-            <AcceptButton onClick={handleAccept}>Accept</AcceptButton>
-            <RejectButton onClick={handleReject}>Opt-out</RejectButton>
+            <AcceptButton
+              onClick={handleAccept}
+              title={t('components.cookie-banner.accept-button-title')}
+              aria-label={t(
+                'components.cookie-banner.accept-button-aria-label'
+              )}
+            >
+              {t('components.cookie-banner.accept-button')}
+            </AcceptButton>
+            <RejectButton
+              onClick={handleReject}
+              title={t('components.cookie-banner.reject-button-title')}
+              aria-label={t(
+                'components.cookie-banner.reject-button-aria-label'
+              )}
+            >
+              {t('components.cookie-banner.reject-button')}
+            </RejectButton>
           </ButtonContainer>
         </CookieContainer>
       )}

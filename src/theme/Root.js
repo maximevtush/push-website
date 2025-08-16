@@ -54,7 +54,7 @@ export default function Root({ children }) {
   );
   const isHome = (location.pathname === '/' || isPreview) && showAlertBar;
 
-  const excludePaths = ['/BRB', '/DOCS', '/BOOTCAMP', '/CHAIN'];
+  const excludePaths = ['/BRB', '/DOCS'];
   const shouldRenderFooter = excludePaths.every((path) =>
     excludeDefaultConfigAt(path)
   );
@@ -119,9 +119,10 @@ export default function Root({ children }) {
   return (
     <AccountProvider>
       <>
-        {showAlertBar && (
+        {/* Only render InfoBar on client-side after hydration */}
+        {typeof window !== 'undefined' && showAlertBar && (
           <InfoBar
-            text='Launch on Push Testnet Now — Unlock Rewards for Builders and Early Users.'
+            translatedTextKey='notifications.info-bar.title'
             url='https://push.org/blog/donut-testnet-closed-beta-is-now-live/'
           />
         )}
@@ -133,11 +134,14 @@ export default function Root({ children }) {
 
           {/* Main react children */}
           <Content isHome={isHome}>{children}</Content>
-          <Notification />
+
+          {/* Notifications - only render on client-side */}
+          {typeof window !== 'undefined' && <Notification />}
 
           {shouldRenderFooter && (
             <>
               {/* <Footer /> */}
+              {/* CookieComponent has its own hydration handling */}
               <CookieComponent />
             </>
           )}

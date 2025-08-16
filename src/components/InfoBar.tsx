@@ -1,22 +1,26 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import { TbArrowRight } from 'react-icons/tb';
 
-import { Button, H2 } from '@site/src/css/SharedStyling';
-import WhiteStarIcon from '@site/static/assets/website/illustrations/whiteStarIcon.svg';
 import { device } from '@site/src/config/globals';
 import AccountContext from '@site/src/context/accountContext';
+import { Button, H2 } from '@site/src/css/SharedStyling';
+import WhiteStarIcon from '@site/static/assets/website/illustrations/whiteStarIcon.svg';
 
 type InfoBarProps = {
-  text: string;
+  translatedTextKey: string;
   url: string;
 };
 
-const InfoBar = ({ text, url }: InfoBarProps) => {
+const InfoBar = ({ translatedTextKey, url }: InfoBarProps) => {
   const { setShowAlertBar, isHydrated, shouldShowAlertBar } =
     useContext(AccountContext);
+  const { t } = useTranslation();
 
+  // Prevent rendering during SSR and before hydration
+  if (typeof window === 'undefined') return null;
   if (!isHydrated) return null;
   if (!shouldShowAlertBar) return null;
 
@@ -28,22 +32,43 @@ const InfoBar = ({ text, url }: InfoBarProps) => {
   };
 
   return (
-    <BarContainer>
+    <BarContainer
+      role='banner'
+      aria-label={t('notifications.info-bar.container-aria-label')}
+    >
       <HeroButton
         onClick={() => {
-          if (url) window.open(url, '_blank');
+          if (url) window.open(url, '_blank', 'noopener');
           setShowAlertBar(false);
           if (typeof window !== 'undefined') {
             localStorage.setItem('showAlertBar', 'false');
           }
         }}
+        title={t('notifications.info-bar.learn-more-title')}
+        aria-label={t('notifications.info-bar.learn-more-aria-label')}
       >
-        <WhiteStarIcon className='star-icon' />
-        <H2>{text}</H2>
-        <span>Learn More</span>
-        <TbArrowRight size={24} className='arrow-icon' />
+        <WhiteStarIcon
+          className='star-icon'
+          aria-hidden='true'
+          role='img'
+          title={t('notifications.info-bar.star-icon-alt')}
+        />
+        <H2>{t(translatedTextKey)}</H2>
+        <span>{t('notifications.info-bar.learn-more-text')}</span>
+        <TbArrowRight
+          size={24}
+          className='arrow-icon'
+          aria-hidden='true'
+          role='img'
+        />
       </HeroButton>
-      <DismissBtn onClick={handleDismiss}>✕</DismissBtn>
+      <DismissBtn
+        onClick={handleDismiss}
+        title={t('notifications.info-bar.dismiss-button-title')}
+        aria-label={t('notifications.info-bar.dismiss-button-aria-label')}
+      >
+        ✕
+      </DismissBtn>
     </BarContainer>
   );
 };
