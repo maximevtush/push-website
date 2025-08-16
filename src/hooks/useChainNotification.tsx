@@ -10,6 +10,9 @@ import styled from 'styled-components';
 // Internal Components
 import { Button, Image } from '../../src/css/SharedStyling';
 
+// Internal Configs
+import { device } from '@site/src/config/globals';
+
 type NotificationProps = {
   image?: ReactNode;
   /* Title of the notification */
@@ -164,8 +167,8 @@ const NotificationContainer = styled.div`
   font-family: N27;
   overflow: hidden;
 
-  @media (max-width: 425px) {
-    width: -webkit-fill-available;
+  @media ${device.tablet} {
+    display: none;
   }
 
   img {
@@ -178,7 +181,7 @@ const NotificationContainer = styled.div`
 const StyledToaster = styled(Toaster)`
   width: 397px;
 
-  @media (max-width: 425px) {
+  @media ${device.mobileL} {
     width: -webkit-fill-available;
   }
 `;
