@@ -73,25 +73,64 @@ export const ChatComponent = () => {
           }
         >
           {() => {
-            const uiweb = require('@pushprotocol/uiweb');
+            try {
+              // Safer dynamic import with error handling
+              const uiweb = require('@pushprotocol/uiweb');
 
-            const ChatUIProvider = uiweb.ChatUIProvider;
-            const ChatView = uiweb.ChatView;
-            const MODAL_POSITION_TYPE = uiweb.MODAL_POSITION_TYPE;
+              // Check if the required components exist before using them
+              if (
+                !uiweb ||
+                !uiweb.ChatUIProvider ||
+                !uiweb.ChatView ||
+                !uiweb.MODAL_POSITION_TYPE
+              ) {
+                console.warn('Push Protocol UI components not available');
+                return (
+                  <div
+                    style={{
+                      color: '#fff',
+                      textAlign: 'center',
+                      padding: '20px',
+                    }}
+                  >
+                    Chat component is temporarily unavailable
+                  </div>
+                );
+              }
 
-            return (
-              <>
-                <ChatUIProvider theme={PushChatTheme}>
-                  <ChatView
-                    chatId='4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68'
-                    limit={10}
-                    isConnected={true}
-                    onVerificationFail={() => setShowFaucet(true)}
-                    verificationFailModalPosition={MODAL_POSITION_TYPE.RELATIVE}
-                  />
-                </ChatUIProvider>
-              </>
-            );
+              const ChatUIProvider = uiweb.ChatUIProvider;
+              const ChatView = uiweb.ChatView;
+              const MODAL_POSITION_TYPE = uiweb.MODAL_POSITION_TYPE;
+
+              return (
+                <>
+                  <ChatUIProvider theme={PushChatTheme}>
+                    <ChatView
+                      chatId='4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68'
+                      limit={10}
+                      isConnected={true}
+                      onVerificationFail={() => setShowFaucet(true)}
+                      verificationFailModalPosition={
+                        MODAL_POSITION_TYPE.RELATIVE
+                      }
+                    />
+                  </ChatUIProvider>
+                </>
+              );
+            } catch (error) {
+              console.error('Error loading Push Chat component:', error);
+              return (
+                <div
+                  style={{
+                    color: '#fff',
+                    textAlign: 'center',
+                    padding: '20px',
+                  }}
+                >
+                  Chat component failed to load
+                </div>
+              );
+            }
           }}
         </BrowserOnly>
       </PlayGround>
