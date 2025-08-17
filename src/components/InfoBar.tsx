@@ -33,8 +33,9 @@ const InfoBar = ({ translatedTextKey, url }: InfoBarProps) => {
 
   return (
     <BarContainer
-      role='banner'
+      role='alert'
       aria-label={t('notifications.info-bar.container-aria-label')}
+      aria-live='assertive'
     >
       <HeroButton
         onClick={() => {
@@ -45,7 +46,6 @@ const InfoBar = ({ translatedTextKey, url }: InfoBarProps) => {
           }
         }}
         title={t('notifications.info-bar.learn-more-title')}
-        aria-label={t('notifications.info-bar.learn-more-aria-label')}
       >
         <WhiteStarIcon
           className='star-icon'

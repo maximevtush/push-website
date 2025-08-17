@@ -1,25 +1,22 @@
 {
-  "alert": {
-    "know-more": "शुरुआत करें!"
-  },
   "footer": {
     "mail-section": {
       "title": "नवीनतम Push समाचार प्राप्त करें",
       "privacy": "गोपनीयता नीति",
-      "tos": "नियम और शर्तें"
+      "tos": "शर्तें और नियम"
     },
     "info-section": {
       "positions-card": {
-        "text": "हमारे साथ जुड़ें और Web3 Communication का भविष्य बनाएं।",
-        "link-text": "खुले पद देखें",
+        "text": "हमारे साथ जुड़ें और Web3 संचार का भविष्य बनाएं।",
+        "link-text": "खुले पदों को देखें",
         "image-title": "हमारे साथ जुड़ें",
-        "image-alt": "खुले पदों को दिखाने वाला आइकन"
+        "image-alt": "खुले पदों को दर्शाने वाला आइकन"
       },
       "docs-card": {
-        "text": "कुछ मिनटों में शुरुआत करने के लिए हमारे सरल गाइड का पालन करें।",
-        "link-text": "डॉक्स देखें",
-        "image-title": "शुरुआत करें",
-        "image-alt": "आसान शुरुआत दिखाने वाला आइकन"
+        "text": "मिनटों में आरंभ करने के लिए हमारे सरल गाइड का पालन करें।",
+        "link-text": "दस्तावेज़ देखें",
+        "image-title": "शुरू करें",
+        "image-alt": "शुरू करने की आसानी को दर्शाने वाला आइकन"
       }
     },
     "links-section": {
@@ -27,21 +24,21 @@
         "title": "कंपनी",
         "push-ecosystem-link": "Push Ecosystem",
         "media-kit-link": "Media Kit",
-        "terms-link": "नियम",
+        "terms-link": "शर्तें",
         "privacy-link": "गोपनीयता"
       },
       "governance-column": {
         "title": "शासन",
         "push-governance-link": "Push Governance",
-        "guides-link": "गाइड",
-        "forum-link": "Forum",
-        "grants-link": "Grants",
+        "guides-link": "मार्गदर्शिकाएँ",
+        "forum-link": "फ़ोरम",
+        "grants-link": "अनुदान",
         "snapshot-link": "Snapshot"
       },
       "resources-column": {
         "title": "संसाधन",
-        "blog-link": "Blog",
-        "whitepaper-link": "Whitepaper",
+        "blog-link": "ब्लॉग",
+        "whitepaper-link": "श्वेत पत्र",
         "github-link": "Github",
         "discord-link": "Discord",
         "dev-guides-link": "Dev Guides"
@@ -49,10 +46,10 @@
       "subscribe-column": {
         "title": "सहायता",
         "contact-us-link": "संपर्क करें",
-        "faq-link": "FAQ"
+        "faq-link": "अक्सर पूछे जाने वाले प्रश्न"
       },
       "support-column": {
-        "title": "सब्सक्राइब करें",
+        "title": "सदस्यता लें",
         "email-placeholder": "आपका ईमेल"
       }
     }

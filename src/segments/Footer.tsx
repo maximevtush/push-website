@@ -2,9 +2,8 @@
 // @ts-nocheck
 
 // React + Web3 Essentials
-import { useLocation } from '@docusaurus/router';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // External Components
 import { BsTwitterX } from 'react-icons/bs';
@@ -30,23 +29,15 @@ import GithubSVG from '@site/static/assets/website/shared/github.svg';
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { device } from '@site/src/config/globals';
-import { ChainFooterList } from '../components/Chain/config/ChainFooterList';
+import { FooterList, FooterUrls } from '../config/FooterList';
 import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
-
-const tosPrivacyLinks = [
-  { href: '/privacy', text: 'Privacy Policy' },
-  { href: '/tos', text: 'Terms of service' },
-];
 
 function Footer() {
   // Internationalization
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
   const isTablet = useMediaQuery(device.tablet);
   const baseURL = useSiteBaseUrl() || '';
-
-  // for navigation
-  const history = useHistory();
-  const location = useLocation();
 
   const scrollToTop = () => {
     document.documentElement.scrollTo(0, 0);
@@ -55,7 +46,10 @@ function Footer() {
   return (
     <ChainFooterContainer>
       <StyledFooter>
-        <EmailSection id='featured'>
+        <EmailSection
+          id='featured'
+          aria-label={t('footer.email-section.section-aria-label')}
+        >
           <EmailContent>
             <EmailDiv>
               <H2
@@ -64,9 +58,12 @@ function Footer() {
                 letterSpacing='-0.56px'
                 fontSize={isMobile ? '1.rem' : '1.75rem'}
                 lineHeight='140%'
+                aria-label={t('footer.email-section.title-aria-label')}
               >
-                Stay in the loop with Push Chain {!isMobile && <br />} news and
-                updates!
+                {t('footer.email-section.title')}
+                <DesktopSpan>
+                  {t('footer.email-section.title-secondary')}
+                </DesktopSpan>
               </H2>
 
               <ChainEmailSignup
@@ -87,14 +84,18 @@ function Footer() {
           </EmailContent>
         </EmailSection>
 
-        <FooterSection id='footer'>
+        <FooterSection
+          id='footer'
+          aria-label={t('footer.main-section.section-aria-label')}
+        >
           <Content alignSelf='center'>
             <TopLogoSection>
               <FooterLinkItem>
                 <LinkTo
                   className='pushLogo'
                   to={useBaseUrl('/')}
-                  title='Push'
+                  title={t('footer.main-section.logo-link-title')}
+                  aria-label={t('footer.main-section.logo-link-aria-label')}
                   onClick={scrollToTop}
                   justifyContent={isMobile ? 'center' : 'flex-start'}
                   padding='0px 0px'
@@ -106,7 +107,8 @@ function Footer() {
                       ).default
                     }
                     srcSet={`${require(`@site/static/assets/website/footer/PushLogoOnly@2x.png`).default} 2x, ${require(`@site/static/assets/website/footer/PushLogoOnly@3x.png`).default} 3x`}
-                    alt={`Push Chain`}
+                    alt={t('footer.main-section.logo-alt')}
+                    title={t('footer.main-section.logo-link-title')}
                     loading='lazy'
                     width='90px'
                     height='auto'
@@ -145,73 +147,53 @@ function Footer() {
                 </FooterColumn>
 
                 <FooterColumns>
-                  {['resources', 'developers', 'community', 'product'].map(
-                    (key) => (
-                      <FooterColumn key={key}>
-                        <FooterLinks>
-                          <Span
-                            fontWeight='700'
-                            fontSize='1rem'
-                            lineHeight='140%'
-                            letterSpacing='1.8px'
-                            textTransform='uppercase'
-                            margin='0 0 8px 0'
-                          >
-                            {key}
-                          </Span>
-                          {ChainFooterList[key]?.map((item) => {
-                            const fullHref = item.href
-                              ? item.href.includes('http')
-                                ? item.href
-                                : `${baseURL}${item.href}`
-                              : item.id
-                                ? `/#${item.id}`
-                                : '#'; // fallback
+                  {Object.entries(FooterList).map(([columnKey, linkKeys]) => (
+                    <FooterColumn key={columnKey}>
+                      <FooterLinks>
+                        <Span
+                          fontWeight='700'
+                          fontSize='1rem'
+                          lineHeight='140%'
+                          letterSpacing='1.8px'
+                          textTransform='uppercase'
+                          margin='0 0 8px 0'
+                          aria-label={t(
+                            `footer.columns.${columnKey}.title-aria-label`
+                          )}
+                        >
+                          {t(`footer.columns.${columnKey}.title`)}
+                        </Span>
+                        {linkKeys.map((linkKey) => {
+                          const urlConfig = FooterUrls[linkKey];
+                          if (!urlConfig) return null;
 
-                            return (
-                              <FooterAnchorSecondary
-                                key={item.title}
-                                href={fullHref}
-                                target={
-                                  item.target ||
-                                  (item.href ? '_blank' : '_self')
-                                }
-                                rel='noopener'
-                                onClick={(e) => {
-                                  if (!item.href && item.id) {
-                                    e.preventDefault(); // prevent default <a> behavior
-                                    const scrollTarget =
-                                      document.getElementById(item.id);
+                          const fullHref = urlConfig.href.includes('http')
+                            ? urlConfig.href
+                            : `${baseURL}${urlConfig.href}`;
 
-                                    if (location?.pathname !== `${baseURL}/`) {
-                                      history.push(`${baseURL}/`);
-                                      setTimeout(() => {
-                                        scrollTarget?.scrollIntoView({
-                                          behavior: 'smooth',
-                                        });
-                                      }, 300);
-                                    } else {
-                                      scrollTarget?.scrollIntoView({
-                                        behavior: 'smooth',
-                                      });
-                                    }
-                                  }
-                                }}
-                              >
-                                {item.title}
-                              </FooterAnchorSecondary>
-                            );
-                          })}
-                        </FooterLinks>
-                      </FooterColumn>
-                    )
-                  )}
+                          return (
+                            <FooterAnchorSecondary
+                              key={linkKey}
+                              href={fullHref}
+                              target={urlConfig.target}
+                              rel='noopener'
+                              title={t(`footer.links.${linkKey}-title`)}
+                            >
+                              {t(`footer.links.${linkKey}`)}
+                            </FooterAnchorSecondary>
+                          );
+                        })}
+                      </FooterLinks>
+                    </FooterColumn>
+                  ))}
                 </FooterColumns>
               </FooterContainer>
             </ItemH>
 
             {/* Social Icon Links */}
-            <SocialLinks>
+            <SocialLinks
+              aria-label={t('footer.social-section.section-aria-label')}
+            >
               <ItemV
                 flexDirection={isTablet ? 'column' : 'row'}
                 gap={isMobile ? '24px' : '16px'}
@@ -220,7 +202,10 @@ function Footer() {
                 <ItemH flex='0' gap='16px' className='pushLinks'>
                   <FooterAnchorIcon
                     href='https://x.com/PushChain'
-                    title='Push Twitter'
+                    title={t('footer.social-section.twitter-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.twitter-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <BsTwitterX size={30} />
@@ -228,7 +213,10 @@ function Footer() {
 
                   <FooterAnchorIcon
                     href='https://github.com/pushchain/'
-                    title='Push Github'
+                    title={t('footer.social-section.github-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.github-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <GithubSVG width={30} height={30} />
@@ -236,7 +224,10 @@ function Footer() {
 
                   <FooterAnchorIcon
                     href='https://discord.com/invite/pushchain'
-                    title='Push Discord'
+                    title={t('footer.social-section.discord-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.discord-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <DiscordSVG width={30} height={30} />
@@ -245,16 +236,24 @@ function Footer() {
               </ItemV>
 
               <ItemH justifyContent='flex-end' className='pushLinks' gap='32px'>
-                {tosPrivacyLinks.map(({ href, text }) => (
-                  <FooterIconSecondary
-                    as={LinkTo}
-                    key={href}
-                    to={useBaseUrl(href)}
-                    onClick={() => document.documentElement.scrollTo(0, 0)}
-                  >
-                    {text}
-                  </FooterIconSecondary>
-                ))}
+                <FooterIconSecondary
+                  as={LinkTo}
+                  to={useBaseUrl('/privacy')}
+                  title={t('footer.legal.privacy-policy-title')}
+                  aria-label={t('footer.legal.privacy-policy-aria-label')}
+                  onClick={() => document.documentElement.scrollTo(0, 0)}
+                >
+                  {t('footer.legal.privacy-policy')}
+                </FooterIconSecondary>
+                <FooterIconSecondary
+                  as={LinkTo}
+                  to={useBaseUrl('/tos')}
+                  title={t('footer.legal.terms-of-service-title')}
+                  aria-label={t('footer.legal.terms-of-service-aria-label')}
+                  onClick={() => document.documentElement.scrollTo(0, 0)}
+                >
+                  {t('footer.legal.terms-of-service')}
+                </FooterIconSecondary>
               </ItemH>
             </SocialLinks>
           </Content>
@@ -268,7 +267,8 @@ function Footer() {
                   .default
               }
               srcSet={`${require(`@site/static/assets/website/footer/PushFooterImg@2x.webp`).default} 2x, ${require(`@site/static/assets/website/footer/PushFooterImg@3x.webp`).default} 3x`}
-              alt={`Push Chain`}
+              alt={t('footer.footer-image.alt')}
+              title={t('footer.footer-image.title')}
               loading='lazy'
               width='100%'
               height='auto'
@@ -322,12 +322,22 @@ const EmailDiv = styled(ItemH)`
   }
 `;
 
+const DesktopSpan = styled.span`
+  display: block;
+
+  @media ${device.tablet} {
+    display: none;
+  }
+`;
+
 const FooterContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  gap: 48px;
+  flex-grow: 1;
 
   @media ${device.tablet} {
     .logo {
@@ -348,6 +358,7 @@ const FooterColumn = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   color: #ffffff;
+  flex-grow: 1;
 
   flex-direction: column;
 
@@ -369,19 +380,22 @@ const FooterColumns = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 80px;
+  flex-grow: 1;
+  min-width: 200px;
 
   @media ${device.laptop} {
     gap: 40px;
   }
 
   @media ${device.tablet} {
-    gap: 20px;
+    gap: 40px;
     margin: 48px 0 0 0;
   }
 
   @media ${device.mobileL} {
     gap: 20px;
     justify-content: space-between;
+    min-width: auto;
 
     /* Ensure two items per row */
     & > * {

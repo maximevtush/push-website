@@ -5,87 +5,91 @@
   "enChunks": {
     "01-global.json": {
       "checksum": "3d53e5506bca5216eec0fce15911267e",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "02-header.json": {
       "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "03-footer.json": {
-      "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "checksum": "0b481070da2fac3627b7f4db7be1605d",
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-01-pages-home.json": {
       "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-00-pages-knowledge.json": {
       "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-01-pages-knowledge-push101.json": {
       "checksum": "d18158973744eb527c9f8602a8ca90b6",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-02-pages-knowledge-builders.json": {
       "checksum": "f5209ca1746eeb8366f8a31920f110ac",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-03-pages-knowledge-deepdives.json": {
       "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-04-pages-knowledge-partners.json": {
       "checksum": "d7dfd71765569430babe2fd5a63988d7",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-05-pages-knowledge-tokenomics.json": {
       "checksum": "567a4be15457ae5d33948479b885a597",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-02-06-pages-knowledge-faq.json": {
       "checksum": "2a79828625b65631b2f522317d01d656",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-03-pages-docs.json": {
       "checksum": "715da0667a88b0b3699f9f4aae65b849",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-04-pages-blog.json": {
       "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-05-pages-lfpush.json": {
       "checksum": "95c843946f18446293f24784a7ca7be4",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-06-pages-support.json": {
       "checksum": "2e50729c962ee581bee1de97e78793c4",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-07-pages-litepaper.json": {
       "checksum": "148621a63ec39532bf53a877d8f3ea70",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-08-pages-tos.json": {
       "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-09-pages-privacy.json": {
       "checksum": "6968f96ac9a2e31d7d142794270e1505",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-10-pages-privacymobile.json": {
       "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-11-pages-brb.json": {
       "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "05-components.json": {
-      "checksum": "aabc2e2b75d47046cc861f7a8b1f919f",
-      "lastUpdated": "2025-08-15T21:10:13.804Z"
+      "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
+    },
+    "06-notifications.json": {
+      "checksum": "8735f685d5c3db91b86edff29556b4e8",
+      "lastUpdated": "2025-08-17T03:40:52.880Z"
     }
   },
   "languageChunks": {
@@ -102,8 +106,8 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T20:43:50.515Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T11:05:50.809Z"
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -156,44 +160,49 @@
         "lastUpdated": "2025-08-15T21:14:08.526Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T11:06:01.174Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T11:06:12.552Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T11:06:23.875Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T11:06:38.138Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T11:06:52.106Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T11:07:07.867Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T11:07:19.064Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T11:30:00.350Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T11:30:48.879Z"
       }
     },
     "de": {
@@ -209,252 +218,262 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T20:54:39.055Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T11:10:12.819Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T11:14:29.210Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T11:14:42.578Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T11:14:53.942Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T11:15:05.367Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T11:15:16.793Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T11:15:27.134Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T11:15:45.061Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T11:15:55.637Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T11:16:07.504Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T11:16:20.036Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T11:16:29.821Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T11:16:40.126Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T11:16:55.521Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T11:17:09.675Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T11:17:24.517Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T11:17:39.910Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T11:17:50.894Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T11:33:21.769Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T11:34:10.298Z"
       }
     },
     "es": {
       "01-global.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3d53e5506bca5216eec0fce15911267e",
+        "lastUpdated": "2025-08-16T11:20:12.169Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T11:36:04.397Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T11:36:42.823Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T11:39:52.408Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T11:40:05.560Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T11:40:16.901Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T11:40:27.197Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T11:40:38.464Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T11:40:48.753Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T11:41:07.198Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T11:41:17.918Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T11:41:29.462Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T11:41:41.737Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T11:41:51.421Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T11:42:03.135Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T11:42:17.115Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T11:42:32.106Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T11:42:46.660Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T11:43:02.463Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T11:43:13.092Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T11:45:47.229Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T11:46:34.664Z"
       }
     },
     "fr": {
       "01-global.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3d53e5506bca5216eec0fce15911267e",
+        "lastUpdated": "2025-08-16T11:21:59.370Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T11:48:30.588Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T11:49:07.046Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T11:51:39.392Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T11:51:51.877Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-17T03:39:54.097Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-17T03:40:03.777Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-17T03:40:15.019Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-17T03:40:25.894Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
         "translated": false,
@@ -512,6 +531,11 @@
         "lastUpdated": null
       },
       "05-components.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "06-notifications.json": {
         "translated": false,
         "checksum": null,
         "lastUpdated": null
@@ -530,98 +554,103 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T20:46:37.272Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T11:52:40.393Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T11:55:25.296Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T11:55:39.061Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T11:55:50.429Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T11:56:02.109Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T11:56:13.715Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T11:56:24.772Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T11:56:40.413Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T11:56:50.389Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T11:57:01.671Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T11:57:13.221Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T11:57:23.816Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T11:57:36.221Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T11:57:51.159Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T11:58:04.982Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T11:58:20.185Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T11:58:35.001Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T11:58:45.710Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:01:31.814Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:02:15.553Z"
       }
     },
     "id": {
@@ -637,98 +666,103 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T20:55:58.508Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:02:52.217Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:05:34.079Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:05:46.312Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:05:58.572Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:06:08.880Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:06:19.955Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:06:30.278Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:06:48.706Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:06:59.351Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:07:11.170Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T12:07:22.996Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T12:07:33.192Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T12:07:44.559Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T12:07:59.123Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T12:08:12.690Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T12:08:27.109Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T12:08:42.224Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T12:08:53.315Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:11:17.862Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:12:04.087Z"
       }
     },
     "ja": {
@@ -744,98 +778,103 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T21:05:42.253Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:12:38.711Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:15:36.628Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:15:49.783Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:16:01.181Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:16:11.869Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:16:22.640Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:16:32.075Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:16:51.713Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:17:01.962Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:17:13.626Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T12:17:24.574Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T12:17:35.595Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T12:17:47.466Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T12:18:02.540Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T12:18:15.728Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T12:18:29.087Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T12:18:43.967Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T12:18:54.723Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:21:23.913Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:22:10.533Z"
       }
     },
     "ko": {
@@ -851,98 +890,103 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T21:07:49.283Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:22:47.800Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:24:55.224Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:25:07.731Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:25:19.439Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:25:30.413Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:25:41.995Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:25:52.806Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:26:10.169Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:26:20.317Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:26:31.594Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T12:26:43.041Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T12:26:54.169Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T12:27:05.689Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T12:27:22.158Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T12:27:36.456Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T12:27:51.659Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T12:28:07.732Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T12:28:19.024Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:30:45.137Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:31:31.817Z"
       }
     },
     "pt": {
@@ -958,98 +1002,103 @@
       },
       "03-footer.json": {
         "translated": true,
-        "checksum": "3ccb4da464be35cd718840aaa0fd8e4f",
-        "lastUpdated": "2025-08-15T20:57:16.717Z"
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:32:08.565Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:35:03.753Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:35:16.754Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:35:28.460Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:35:39.566Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:35:51.163Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:36:01.413Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:36:19.369Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:36:29.895Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:36:41.206Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T12:36:54.051Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T12:37:04.158Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T12:37:14.682Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T12:37:29.788Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T12:37:44.022Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T12:37:58.058Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T12:38:13.006Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T12:38:24.529Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:41:08.076Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:41:56.382Z"
       }
     },
     "ru": {
@@ -1059,425 +1108,445 @@
         "lastUpdated": "2025-08-15T20:58:12.206Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T12:43:50.184Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:44:26.323Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:46:55.352Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:47:07.529Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:47:18.703Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:47:29.276Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:47:40.662Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:47:51.149Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:48:10.840Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:48:21.049Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:48:33.221Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T12:48:45.015Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T12:48:54.853Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T12:49:06.211Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T12:49:20.878Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T12:49:34.809Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T12:49:50.043Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T12:50:05.963Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T12:50:17.141Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T12:52:45.137Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T12:53:33.361Z"
       }
     },
     "tr": {
       "01-global.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3d53e5506bca5216eec0fce15911267e",
+        "lastUpdated": "2025-08-16T12:53:40.723Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T12:55:36.624Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T12:56:15.063Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T12:58:15.579Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T12:58:29.886Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T12:58:42.265Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T12:58:54.238Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T12:59:07.054Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T12:59:18.031Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T12:59:32.834Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T12:59:44.010Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T12:59:56.971Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T13:00:10.556Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T13:00:21.481Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T13:00:32.457Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T13:00:43.899Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T13:00:59.737Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T13:01:15.524Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T13:01:31.253Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T13:01:43.283Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T13:04:11.594Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T13:05:00.455Z"
       }
     },
     "vi": {
       "01-global.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3d53e5506bca5216eec0fce15911267e",
+        "lastUpdated": "2025-08-16T13:05:07.135Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T13:06:49.001Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T13:07:27.858Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T13:10:03.031Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T13:10:17.509Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T13:10:30.101Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T13:10:41.205Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T13:10:52.579Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T13:11:03.214Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T13:11:18.260Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T13:11:28.929Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T13:11:42.597Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T13:11:55.322Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T13:12:05.605Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T13:12:16.562Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T13:12:29.368Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T13:12:45.138Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T13:13:01.723Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T13:13:19.050Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T13:13:30.593Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T13:15:51.224Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T13:16:39.173Z"
       }
     },
     "zh-CN": {
       "01-global.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3d53e5506bca5216eec0fce15911267e",
+        "lastUpdated": "2025-08-16T13:16:44.657Z"
       },
       "02-header.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "3b16ac4c2f468d31db509f9f86a711c8",
+        "lastUpdated": "2025-08-16T13:18:25.311Z"
       },
       "03-footer.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "0b481070da2fac3627b7f4db7be1605d",
+        "lastUpdated": "2025-08-16T13:18:59.599Z"
       },
       "04-01-pages-home.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
+        "lastUpdated": "2025-08-16T13:21:46.171Z"
       },
       "04-02-00-pages-knowledge.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "76becfd9ee268e85c97e9fbe8891bc52",
+        "lastUpdated": "2025-08-16T13:21:58.900Z"
       },
       "04-02-01-pages-knowledge-push101.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d18158973744eb527c9f8602a8ca90b6",
+        "lastUpdated": "2025-08-16T13:22:09.852Z"
       },
       "04-02-02-pages-knowledge-builders.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f5209ca1746eeb8366f8a31920f110ac",
+        "lastUpdated": "2025-08-16T13:22:19.916Z"
       },
       "04-02-03-pages-knowledge-deepdives.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f2b1dc41b374afed00d5d55f2b04730c",
+        "lastUpdated": "2025-08-16T13:22:30.807Z"
       },
       "04-02-04-pages-knowledge-partners.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "d7dfd71765569430babe2fd5a63988d7",
+        "lastUpdated": "2025-08-16T13:22:40.136Z"
       },
       "04-02-05-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "567a4be15457ae5d33948479b885a597",
+        "lastUpdated": "2025-08-16T13:23:00.262Z"
       },
       "04-02-06-pages-knowledge-faq.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2a79828625b65631b2f522317d01d656",
+        "lastUpdated": "2025-08-16T13:23:10.306Z"
       },
       "04-03-pages-docs.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "715da0667a88b0b3699f9f4aae65b849",
+        "lastUpdated": "2025-08-16T13:23:20.782Z"
       },
       "04-04-pages-blog.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "cf02a9d4b5a7373ae858866e5c71f3be",
+        "lastUpdated": "2025-08-16T13:23:31.919Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "95c843946f18446293f24784a7ca7be4",
+        "lastUpdated": "2025-08-16T13:23:40.952Z"
       },
       "04-06-pages-support.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "2e50729c962ee581bee1de97e78793c4",
+        "lastUpdated": "2025-08-16T13:23:55.726Z"
       },
       "04-07-pages-litepaper.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "148621a63ec39532bf53a877d8f3ea70",
+        "lastUpdated": "2025-08-16T13:24:10.274Z"
       },
       "04-08-pages-tos.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "311d9f3d8e62f1713dd783e9c9aaca16",
+        "lastUpdated": "2025-08-16T13:24:22.835Z"
       },
       "04-09-pages-privacy.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "6968f96ac9a2e31d7d142794270e1505",
+        "lastUpdated": "2025-08-16T13:24:35.833Z"
       },
       "04-10-pages-privacymobile.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "f8698ed91d9fa0bbcc0615f4879ef2c2",
+        "lastUpdated": "2025-08-16T13:24:49.572Z"
       },
       "04-11-pages-brb.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "5d1a28e581dd93e4f8490f5de8b247d3",
+        "lastUpdated": "2025-08-16T13:25:00.225Z"
       },
       "05-components.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "a07f13900d95333f9b8d699aec3c8e89",
+        "lastUpdated": "2025-08-16T13:27:25.078Z"
+      },
+      "06-notifications.json": {
+        "translated": true,
+        "checksum": "8735f685d5c3db91b86edff29556b4e8",
+        "lastUpdated": "2025-08-16T13:28:11.536Z"
       }
     }
   }

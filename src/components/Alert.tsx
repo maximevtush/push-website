@@ -34,15 +34,15 @@ export const Alert = () => {
     <Section>
       {isAlertVisible && (
         <AlertContainer
-          role='banner'
+          role='alert'
           aria-label={t('notifications.alert.container-aria-label')}
+          aria-live='assertive'
         >
           <AlertText
             onClick={() => {
               window.open(alertLink, '_blank', 'noopener');
             }}
             title={t('notifications.alert.know-more-title')}
-            aria-label={t('notifications.alert.know-more-aria-label')}
           >
             {t('notifications.alert.message')}
 

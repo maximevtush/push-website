@@ -7,45 +7,45 @@
     },
     "info-section": {
       "positions-card": {
-        "text": "انضم إلينا وساعد في بناء مستقبل التواصل في Web3.",
-        "link-text": "اطلع على الوظائف المتاحة",
+        "text": "انضم إلينا وابنِ مستقبل تواصل Web3.",
+        "link-text": "شاهد الوظائف المتاحة",
         "image-title": "انضم إلينا",
-        "image-alt": "أيقونة تُظهر الوظائف المتاحة"
+        "image-alt": "أيقونة توضح الوظائف المتاحة"
       },
       "docs-card": {
-        "text": "اتبع أدلتنا البسيطة للبدء في دقائق معدودة.",
+        "text": "اتبع أدلةنا البسيطة للبدء في دقائق.",
         "link-text": "استكشف الوثائق",
-        "image-title": "ابدأ",
-        "image-alt": "أيقونة تُظهر سهولة البدء"
+        "image-title": "ابدأ الآن",
+        "image-alt": "أيقونة توضح سهولة البدء"
       }
     },
     "links-section": {
       "company-column": {
         "title": "الشركة",
-        "push-ecosystem-link": "نظام Push البيئي",
-        "media-kit-link": "الحقيبة الإعلامية",
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Media Kit",
         "terms-link": "الشروط",
         "privacy-link": "الخصوصية"
       },
       "governance-column": {
         "title": "الحوكمة",
-        "push-governance-link": "حوكمة Push",
-        "guides-link": "الأدلة",
+        "push-governance-link": "Push Governance",
+        "guides-link": "الدلائل",
         "forum-link": "المنتدى",
         "grants-link": "المنح",
         "snapshot-link": "Snapshot"
       },
       "resources-column": {
-        "title": "الموارد",
+        "title": "المصادر",
         "blog-link": "المدونة",
         "whitepaper-link": "الورقة البيضاء",
         "github-link": "Github",
         "discord-link": "Discord",
-        "dev-guides-link": "أدلة المطورين"
+        "dev-guides-link": "دليل المطورين"
       },
       "subscribe-column": {
         "title": "الدعم",
-        "contact-us-link": "اتصل بنا",
+        "contact-us-link": "تواصل معنا",
         "faq-link": "الأسئلة الشائعة"
       },
       "support-column": {

@@ -9,8 +9,7 @@
       "image-alt": "Push Chain Testnet Donut - Universal Blockchain",
       "close-button-title": "Close testnet notification",
       "close-button-aria-label": "Dismiss Push Chain testnet notification",
-      "container-aria-label": "Push Chain testnet notification",
-      "container-role": "Push Chain testnet announcement"
+      "container-aria-label": "Push Chain testnet notification"
     },
     "rewards-notification": {
       "title": "Donut Testnet Closed beta is Live!",
@@ -18,29 +17,24 @@
       "image-alt": "Push Chain Testnet Rewards - Build Universal Apps",
       "close-button-title": "Close rewards notification",
       "close-button-aria-label": "Dismiss Push Chain rewards notification",
-      "container-aria-label": "Push Chain rewards notification",
-      "container-role": "Push Chain rewards announcement"
+      "container-aria-label": "Push Chain rewards notification"
     },
     "info-bar": {
       "title": "Launch on Push Testnet Now — Unlock Rewards for Builders and Early Users.",
       "learn-more-text": "Learn More",
       "learn-more-title": "Learn more about this announcement",
-      "learn-more-aria-label": "Open announcement link in new tab",
       "dismiss-button-title": "Dismiss announcement",
       "dismiss-button-aria-label": "Close announcement bar",
       "container-aria-label": "Site announcement",
-      "container-role": "Site announcement banner",
       "star-icon-alt": "Announcement star icon"
     },
     "alert": {
       "message": "Push Metamask Snap is now live,",
       "know-more-text": "Get started!",
       "know-more-title": "Get started with Push Metamask Snap",
-      "know-more-aria-label": "Open Push Metamask Snap in new tab",
       "close-button-title": "Close alert",
       "close-button-aria-label": "Dismiss Push Metamask Snap alert",
-      "container-aria-label": "Push Metamask Snap announcement",
-      "container-role": "Push Metamask Snap alert banner"
+      "container-aria-label": "Push Metamask Snap announcement"
     }
   }
 }

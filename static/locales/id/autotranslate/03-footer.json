@@ -1,19 +1,16 @@
 {
-  "alert": {
-    "know-more": "Mulai sekarang!"
-  },
   "footer": {
     "mail-section": {
       "title": "Dapatkan berita Push terbaru",
       "privacy": "Kebijakan Privasi",
-      "tos": "Syarat dan ketentuan"
+      "tos": "Syarat dan Ketentuan"
     },
     "info-section": {
       "positions-card": {
         "text": "Bergabunglah dengan kami dan bangun masa depan Komunikasi Web3.",
-        "link-text": "Lihat Posisi Terbuka",
-        "image-title": "Bergabung dengan Kami",
-        "image-alt": "Ikon yang menunjukkan Posisi Terbuka"
+        "link-text": "Lihat Lowongan Terbuka",
+        "image-title": "Bergabunglah Dengan Kami",
+        "image-alt": "Ikon yang menunjukkan Lowongan Terbuka"
       },
       "docs-card": {
         "text": "Ikuti panduan sederhana kami untuk memulai dalam hitungan menit.",
@@ -25,14 +22,14 @@
     "links-section": {
       "company-column": {
         "title": "Perusahaan",
-        "push-ecosystem-link": "Ekosistem Push",
-        "media-kit-link": "Kit Media",
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Media Kit",
         "terms-link": "Syarat",
         "privacy-link": "Privasi"
       },
       "governance-column": {
         "title": "Tata Kelola",
-        "push-governance-link": "Tata Kelola Push",
+        "push-governance-link": "Push Governance",
         "guides-link": "Panduan",
         "forum-link": "Forum",
         "grants-link": "Hibah",
@@ -44,7 +41,7 @@
         "whitepaper-link": "Whitepaper",
         "github-link": "Github",
         "discord-link": "Discord",
-        "dev-guides-link": "Panduan Pengembang"
+        "dev-guides-link": "Panduan Pengembangan"
       },
       "subscribe-column": {
         "title": "Dukungan",

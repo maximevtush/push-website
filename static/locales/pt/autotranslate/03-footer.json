@@ -1,41 +1,38 @@
 {
-  "alert": {
-    "know-more": "Comece agora!"
-  },
   "footer": {
     "mail-section": {
       "title": "Receba as últimas notícias do Push",
       "privacy": "Política de Privacidade",
-      "tos": "Termos e condições"
+      "tos": "Termos e Condições"
     },
     "info-section": {
       "positions-card": {
-        "text": "Junte-se a nós e construa o futuro da Comunicação Web3.",
+        "text": "Junte-se a nós e construa o futuro da comunicação Web3.",
         "link-text": "Ver Vagas Abertas",
         "image-title": "Junte-se a Nós",
         "image-alt": "Ícone mostrando Vagas Abertas"
       },
       "docs-card": {
         "text": "Siga nossos guias simples para começar em minutos.",
-        "link-text": "Explorar Documentação",
-        "image-title": "Começar",
-        "image-alt": "Ícone mostrando facilidade para começar"
+        "link-text": "Explore a Documentação",
+        "image-title": "Comece Agora",
+        "image-alt": "Ícone mostrando a facilidade de começar"
       }
     },
     "links-section": {
       "company-column": {
         "title": "Empresa",
-        "push-ecosystem-link": "Ecossistema Push",
-        "media-kit-link": "Kit de Mídia",
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Media Kit",
         "terms-link": "Termos",
         "privacy-link": "Privacidade"
       },
       "governance-column": {
         "title": "Governança",
-        "push-governance-link": "Governança Push",
+        "push-governance-link": "Push Governance",
         "guides-link": "Guias",
         "forum-link": "Fórum",
-        "grants-link": "Subsídios",
+        "grants-link": "Subvenções",
         "snapshot-link": "Snapshot"
       },
       "resources-column": {
@@ -44,7 +41,7 @@
         "whitepaper-link": "Whitepaper",
         "github-link": "Github",
         "discord-link": "Discord",
-        "dev-guides-link": "Guias para Desenvolvedores"
+        "dev-guides-link": "Guias de Desenvolvimento"
       },
       "subscribe-column": {
         "title": "Suporte",
@@ -52,8 +49,8 @@
         "faq-link": "FAQ"
       },
       "support-column": {
-        "title": "Inscrever-se",
-        "email-placeholder": "Seu E-mail"
+        "title": "Assine",
+        "email-placeholder": "Seu Email"
       }
     }
   }

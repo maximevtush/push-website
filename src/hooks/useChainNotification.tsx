@@ -102,9 +102,10 @@ const NotificationItem: FC<NotificationProps> = ({
   return (
     <NotificationContainer
       onClick={handleNotificationClick}
-      role='dialog'
+      role='alert'
       aria-label={t?.('notifications.chain-notification.container-aria-label')}
       aria-describedby='chain-notification-content'
+      aria-live='assertive'
     >
       <CloseButton
         onClick={(e) => {

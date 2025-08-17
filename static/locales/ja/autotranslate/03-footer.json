@@ -1,55 +1,52 @@
 {
-  "alert": {
-    "know-more": "始めましょう！"
-  },
   "footer": {
     "mail-section": {
-      "title": "最新のPushニュースを受け取る",
+      "title": "最新のPushニュースを入手",
       "privacy": "プライバシーポリシー",
       "tos": "利用規約"
     },
     "info-section": {
       "positions-card": {
-        "text": "私たちと一緒にWeb3コミュニケーションの未来を構築しましょう。",
-        "link-text": "募集中のポジションを見る",
+        "text": "Web3コミュニケーションの未来を共に築きましょう。",
+        "link-text": "求人情報を見る",
         "image-title": "参加する",
-        "image-alt": "募集中のポジションを示すアイコン"
+        "image-alt": "求人情報アイコン"
       },
       "docs-card": {
-        "text": "簡単なガイドに従って、数分で始められます。",
+        "text": "シンプルなガイドに従って、数分で簡単に始めましょう。",
         "link-text": "ドキュメントを探索",
         "image-title": "始める",
-        "image-alt": "簡単に始められることを示すアイコン"
+        "image-alt": "簡単に始められるアイコン"
       }
     },
     "links-section": {
       "company-column": {
         "title": "会社",
-        "push-ecosystem-link": "Pushエコシステム",
-        "media-kit-link": "メディアキット",
-        "terms-link": "利用規約",
-        "privacy-link": "プライバシー"
+        "push-ecosystem-link": "Push Ecosystem",
+        "media-kit-link": "Media Kit",
+        "terms-link": "Terms",
+        "privacy-link": "Privacy"
       },
       "governance-column": {
         "title": "ガバナンス",
-        "push-governance-link": "Pushガバナンス",
-        "guides-link": "ガイド",
-        "forum-link": "フォーラム",
-        "grants-link": "助成金",
+        "push-governance-link": "Push Governance",
+        "guides-link": "Guides",
+        "forum-link": "Forum",
+        "grants-link": "Grants",
         "snapshot-link": "Snapshot"
       },
       "resources-column": {
         "title": "リソース",
-        "blog-link": "ブログ",
-        "whitepaper-link": "ホワイトペーパー",
+        "blog-link": "Blog",
+        "whitepaper-link": "Whitepaper",
         "github-link": "Github",
         "discord-link": "Discord",
-        "dev-guides-link": "開発者ガイド"
+        "dev-guides-link": "Dev Guides"
       },
       "subscribe-column": {
         "title": "サポート",
         "contact-us-link": "お問い合わせ",
-        "faq-link": "よくある質問"
+        "faq-link": "FAQ"
       },
       "support-column": {
         "title": "購読",

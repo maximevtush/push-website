@@ -196,11 +196,12 @@ const NotificationItem: FC<NotificationProps> = ({
   return (
     <NotificationContainer
       onClick={handleNotificationClick}
-      role='dialog'
+      role='alert'
       aria-label={t?.(
         'notifications.rewards-notification.container-aria-label'
       )}
       aria-describedby='rewards-notification-content'
+      aria-live='assertive'
     >
       {image && <IconContainer>{image}</IconContainer>}
       <CloseButton
