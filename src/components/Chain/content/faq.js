@@ -324,6 +324,32 @@ export const faqContent = {
         },
         {
           type: 'text',
+          value: `### How is this different from bridges or messaging layers?
+
+          **Short Answer**: Push is where your app runs. Bridges/messaging just move tokens or messages between chains which complicates everything for the user and developers.
+          
+          - **Single home vs many clones**  
+            With bridges/messaging you deploy per chain and sync via messages. On Push you deploy once; everyone hits the same contract and shared state.
+          
+          - **No wrapped assets or mandatory bridging**  
+            Users stay on their home chain and pay with what they already hold; we handle routing and fee conversion under the hood.
+          
+          - **Unified identity & verification**  
+            We accept signatures from any wallet/chain and attribute them to the same user on Push — non-custodial.
+          
+          - **Fewer moving parts**  
+            No cross-chain approval dance, no gas-token hunting, no glue contracts to keep in sync.
+          
+          - **Use bridges when you want, not because you must**  
+            Liquidity can still move via bridges, but interacting with your app doesn't require it.
+          
+          **Result**: simpler apps, one source of truth, and a UX that feels like one chain — even when users aren't.
+
+  ---
+  `,
+        },
+        {
+          type: 'text',
           value: `## Token Related`,
         },
         {
@@ -398,16 +424,6 @@ export const faqContent = {
   
 ---
   `,
-        },
-        {
-          type: 'text',
-          value: `### Where can I find more information and stay updated on Push Chain's progress?
-
-          The best way to stay on top of Push Chain’s progress is through the official Push channels: website, [Twitter/X](https://x.com/PushChain), [Telegram](https://t.me/epnsproject), and [Discord](https://discord.com/invite/pushchain).
-
-          Always remain cautious of phishing links, websites or any scam links asking you for your crypto. All official communications will go out from our official Push handles.
-          
-`,
         },
         {
           type: 'text',
