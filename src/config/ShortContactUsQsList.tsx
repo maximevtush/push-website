@@ -37,6 +37,46 @@ export const getShortContactUsQsList = () => {
                   )}
                 />
               ),
+              4: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.contact-grants-title'
+                  )}
+                />
+              ),
+              5: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.contact-media-title'
+                  )}
+                />
+              ),
+              6: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.contact-validators-title'
+                  )}
+                />
+              ),
+              7: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.contact-legal-title'
+                  )}
+                />
+              ),
+              8: (
+                <Link
+                  href='/support'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.support-title'
+                  )}
+                />
+              ),
             }}
           />
         </Answer>
@@ -73,6 +113,14 @@ export const getShortContactUsQsList = () => {
             components={{
               1: <Span role='text' />,
               2: <strong />,
+              3: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna3.answer.contact-partnerships-title'
+                  )}
+                />
+              ),
             }}
           />
         </Answer>
