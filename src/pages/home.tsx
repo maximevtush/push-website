@@ -55,7 +55,7 @@ import { WhatIsSection } from '../components/Home/WhatIsSection';
 import AccountContext from '../context/accountContext';
 import CustomReactPlayer from '../utils/CustomReactPlayer';
 
-export default function Home() {
+export default function HomePage() {
   // Internationalization
   const { t, i18n } = useTranslation();
   const { isHydrated, shouldShowAlertBar } = useContext(AccountContext);
@@ -81,7 +81,7 @@ export default function Home() {
         <meta property='og:type' content='website' />
         <meta property='og:title' content={t('pages.home.seo.og-title')} />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.home.seo.og-description')}
         />
         <meta
@@ -95,6 +95,7 @@ export default function Home() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.home.seo.twitter-title')}

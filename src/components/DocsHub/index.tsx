@@ -53,9 +53,8 @@ import {
   TechDocItems,
 } from '@site/src/config/DocsHubList';
 import GLOBALS, { device } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
-import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
 function QuickstartList({ title, codeblock, Svg }: IQuickstartItem) {
   return (
@@ -223,6 +222,7 @@ export default function DocsHub(): JSX.Element {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.docs.seo.twitter-title')}

@@ -15,7 +15,7 @@ import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBase
 // Internal Configs
 import { buildersContent } from '@site/src/components/Chain/content/builders';
 
-function Page() {
+function BuildersPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -27,17 +27,14 @@ function Page() {
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta
-          property='og:url'
-          content='https://push.org/chain/knowledge/push101'
-        />
+        <meta property='og:url' content='https://push.org/knowledge/builders' />
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
           content={t('pages.knowledge.builders.seo.og-title')}
         />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.knowledge.builders.seo.og-description')}
         />
         <meta
@@ -51,6 +48,7 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.knowledge.builders.seo.twitter-title')}
@@ -73,4 +71,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default BuildersPage;

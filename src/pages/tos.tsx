@@ -31,7 +31,7 @@ import {
 // Internal Configs
 import { device } from '@site/src/config/globals';
 
-function TermsOfService() {
+function TermsOfServicePage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -61,6 +61,7 @@ function TermsOfService() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta name='twitter:title' content={t('pages.tos.seo.twitter-title')} />
         <meta
           name='twitter:description'
@@ -1604,4 +1605,4 @@ const HeroContent = styled(Content)`
   }
 `;
 
-export default TermsOfService;
+export default TermsOfServicePage;

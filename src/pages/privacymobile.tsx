@@ -24,7 +24,7 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 
-function PrivacyMobile() {
+function PrivacyMobilePage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -57,6 +57,7 @@ function PrivacyMobile() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.privacymobile.seo.twitter-title')}
@@ -946,4 +947,4 @@ const HeroSection = styled(Section)`
   border-radius: 0 0 48px 48px;
 `;
 
-export default PrivacyMobile;
+export default PrivacyMobilePage;

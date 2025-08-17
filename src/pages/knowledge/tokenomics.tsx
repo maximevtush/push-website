@@ -15,7 +15,7 @@ import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBase
 // Internal Configs
 import { tokenomicsContent } from '@site/src/components/Chain/content/tokenomics';
 
-function Page() {
+function TokenomicsPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ function Page() {
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta
           property='og:url'
-          content='https://push.org/chain/knowledge/push-chain-tokenomics'
+          content='https://push.org/knowledge/tokenomics'
         />
         <meta property='og:type' content='website' />
         <meta
@@ -37,7 +37,7 @@ function Page() {
           content={t('pages.knowledge.tokenomics.seo.og-title')}
         />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.knowledge.tokenomics.seo.og-description')}
         />
         <meta
@@ -51,6 +51,7 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.knowledge.tokenomics.seo.twitter-title')}
@@ -73,4 +74,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default TokenomicsPage;

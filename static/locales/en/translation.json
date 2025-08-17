@@ -577,6 +577,24 @@
         "og-description": "Community-driven initiative and shares for Push Chain.",
         "twitter-title": "Let's Push | Community Initiative",
         "twitter-description": "See Push community initiative for Push Chain."
+      },
+      "hero-section": {
+        "title": "Let's Push",
+        "description": "The LF Push builders community—celebrating what you ship and who you help. Share your wins, tag <hashtag>#LFPush</hashtag> or <mention>@PushChain</mention>, and we'll amplify."
+      },
+      "tweets-section": {
+        "actions": {
+          "share-win": "Share Your Win",
+          "join-community": "Join Community",
+          "learn-more": "Learn More"
+        },
+        "meta": {
+          "tweet-alt": "Tweet from Push Chain community member",
+          "loading-alt": "Loading more community tweets"
+        },
+        "tweets-counter": "{{count}} Tweets and counting!",
+        "loading": "Loading more tweets...",
+        "end-message": "You've reached the end! 🎉"
       }
     },
     "support": {
@@ -652,6 +670,26 @@
         "og-description": "Tracks, timelines, and prizes for the Billion Reasons to Build competition.",
         "twitter-title": "BRB Hackathon - Build & Win",
         "twitter-description": "Join the Push Chain hackathon to ship and win prizes."
+      }
+    },
+    "contact": {
+      "seo": {
+        "title": "Contact — Get in Touch",
+        "description": "Reach the Push Chain team for partnerships, integrations, grants, media, support, and security disclosures.",
+        "og-title": "Push Chain Contact - Get in Touch",
+        "og-description": "Contact the Push Chain team about partnerships, integrations, grants, media, support, and security.",
+        "twitter-title": "Contact - Push Chain Team",
+        "twitter-description": "Partnerships, integrations, grants, media, support, and security — get in touch with Push Chain."
+      }
+    },
+    "donutsecret": {
+      "seo": {
+        "title": "Shhh… Donut Testnet — Secret Beta Access",
+        "description": "Invite-only closed beta for builders. Claim your Donut pass to access Push Chain Testnet, ship universal apps, and unlock early rewards.",
+        "og-title": "Donut Testnet — Secret Beta Access",
+        "og-description": "Early access for developers: claim a Closed Beta Pass, try Push Chain (Donut), and earn rewards while building universal apps.",
+        "twitter-title": "Shhh… Donut Testnet — Closed Beta",
+        "twitter-description": "Invite-only access for builders. Claim your pass, try Push Chain (Donut), and earn rewards. 🍩"
       }
     }
   },

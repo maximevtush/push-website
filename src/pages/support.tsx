@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 // Internal Component
 import { Support } from '../components/Support';
 
-function PushChainKnowledgeBase() {
+function SupportPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -24,11 +24,11 @@ function PushChainKnowledgeBase() {
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta property='og:url' content='https://push.org/chain/knowledge' />
+        <meta property='og:url' content='https://push.org/support' />
         <meta property='og:type' content='website' />
         <meta property='og:title' content={t('pages.support.seo.og-title')} />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.support.seo.og-description')}
         />
         <meta
@@ -42,6 +42,7 @@ function PushChainKnowledgeBase() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.support.seo.twitter-title')}
@@ -64,4 +65,4 @@ function PushChainKnowledgeBase() {
   );
 }
 
-export default PushChainKnowledgeBase;
+export default SupportPage;

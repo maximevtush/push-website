@@ -54,6 +54,7 @@ export default function BlogLayout(props) {
             {/* <!-- Twitter Meta Tags --> */}
             <meta name='twitter:card' content='summary_large_image' />
             <meta name='twitter:site' content='@PushChain' />
+            <meta name='twitter:creator' content='@PushChain' />
             <meta
               name='twitter:title'
               content={t('pages.blog.seo.twitter-title')}

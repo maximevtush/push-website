@@ -16,7 +16,7 @@ import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBase
 import { faqContent } from '@site/src/components/Chain/content/faq';
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 
-function Page() {
+function FAQPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -28,17 +28,14 @@ function Page() {
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta
-          property='og:url'
-          content='https://push.org/chain/knowledge/faq-push-chain'
-        />
+        <meta property='og:url' content='https://push.org/knowledge/faq' />
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
           content={t('pages.knowledge.faq.seo.og-title')}
         />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.knowledge.faq.seo.og-description')}
         />
         <meta
@@ -52,6 +49,7 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.knowledge.faq.seo.twitter-title')}
@@ -77,4 +75,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default FAQPage;

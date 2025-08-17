@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 // Internal Components
 import { BRBMainComponent } from '@site/src/components/BRB/BRBMainComponent';
 
-function BRB() {
+function BRBPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -24,11 +24,11 @@ function BRB() {
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
-        <meta property='og:url' content='https://comms.push.org/brb' />
+        <meta property='og:url' content='https://push.org/brb' />
         <meta property='og:type' content='website' />
         <meta property='og:title' content={t('pages.brb.seo.og-title')} />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.brb.seo.og-description')}
         />
         <meta
@@ -42,6 +42,7 @@ function BRB() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta name='twitter:title' content={t('pages.brb.seo.twitter-title')} />
         <meta
           name='twitter:description'
@@ -61,4 +62,4 @@ function BRB() {
   );
 }
 
-export default BRB;
+export default BRBPage;

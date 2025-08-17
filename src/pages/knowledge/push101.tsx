@@ -15,7 +15,7 @@ import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBase
 // Internal Configs
 import { push101Content } from '@site/src/components/Chain/content/push101';
 
-function Page() {
+function PushBasicsPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -27,17 +27,14 @@ function Page() {
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta
-          property='og:url'
-          content='https://push.org/chain/knowledge/push101'
-        />
+        <meta property='og:url' content='https://push.org/knowledge/push101' />
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
           content={t('pages.knowledge.push101.seo.og-title')}
         />
         <meta
-          name='og:description'
+          property='og:description'
           content={t('pages.knowledge.push101.seo.og-description')}
         />
         <meta
@@ -51,6 +48,7 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.knowledge.push101.seo.twitter-title')}
@@ -73,4 +71,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default PushBasicsPage;

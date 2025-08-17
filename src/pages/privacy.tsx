@@ -24,7 +24,7 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 
-function Privacy() {
+function PrivacyPage() {
   // Internationalization
   const { t } = useTranslation();
 
@@ -54,6 +54,7 @@ function Privacy() {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
           content={t('pages.privacy.seo.twitter-title')}
@@ -990,4 +991,4 @@ const HeroSection = styled(Section)`
   border-radius: 0 0 48px 48px;
 `;
 
-export default Privacy;
+export default PrivacyPage;
