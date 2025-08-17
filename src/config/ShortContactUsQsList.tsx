@@ -139,6 +139,14 @@ export const getShortContactUsQsList = () => {
             components={{
               1: <Span role='text' />,
               2: <strong />,
+              3: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna4.answer.contact-grants-title'
+                  )}
+                />
+              ),
             }}
           />
         </Answer>
@@ -159,19 +167,10 @@ export const getShortContactUsQsList = () => {
               2: <strong />,
               3: (
                 <Link
-                  href='#useful-stats'
+                  href='#open-contact-form'
                   title={t(
-                    'components.short-contact-us-snippet.qnas.qna5.answer.supported-urls-title'
+                    'components.short-contact-us-snippet.qnas.qna5.answer.contact-media-title'
                   )}
-                />
-              ),
-              4: (
-                <Link
-                  href='/contact'
-                  title={t(
-                    'components.short-contact-us-snippet.qnas.qna5.answer.contact-url-title'
-                  )}
-                  target='_self'
                 />
               ),
             }}
@@ -194,10 +193,74 @@ export const getShortContactUsQsList = () => {
               2: <strong />,
               3: (
                 <Link
-                  href='https://donut.push.network'
+                  href='mailto:security@push.org'
                   title={t(
-                    'components.short-contact-us-snippet.qnas.qna6.answer.donut-testnet-title'
+                    'components.short-support-snippet.qnas.qna6.answer.security-policy-title'
                   )}
+                  target='_blank'
+                />
+              ),
+            }}
+          />
+        </Answer>
+      ),
+    },
+    {
+      question: t('components.short-contact-us-snippet.qnas.qna7.question'),
+      section: 'General',
+      renderAnswer: () => (
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna7.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-contact-us-snippet.qnas.qna7.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+              3: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna7.answer.contact-validators-title'
+                  )}
+                  target='_self'
+                />
+              ),
+            }}
+          />
+        </Answer>
+      ),
+    },
+    {
+      question: t('components.short-contact-us-snippet.qnas.qna8.question'),
+      section: 'General',
+      renderAnswer: () => (
+        <Answer
+          role='region'
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna8.question')}`}
+        >
+          <Trans
+            i18nKey='components.short-contact-us-snippet.qnas.qna8.answer'
+            components={{
+              1: <Span role='text' />,
+              2: <strong />,
+              3: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna8.answer.contact-careers-title'
+                  )}
+                  target='_self'
+                />
+              ),
+              4: (
+                <Link
+                  href='https://x.com/PushChain'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna8.answer.twitter-title'
+                  )}
+                  target='_blank'
                 />
               ),
             }}

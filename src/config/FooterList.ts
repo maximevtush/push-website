@@ -66,7 +66,7 @@ export const FooterUrls = {
     target: '_blank' as const,
   },
   security: {
-    href: '/support#security',
+    href: '/support#open-support-ticket',
     target: '_self' as const,
   },
   'contact-us': {
@@ -74,8 +74,8 @@ export const FooterUrls = {
     target: '_self' as const,
   },
   careers: {
-    href: 'https://x.com/PushChain',
-    target: '_blank' as const,
+    href: '/contact/#open-contact-form',
+    target: '_self' as const,
   },
 };
 
