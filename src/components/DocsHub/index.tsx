@@ -294,12 +294,12 @@ export default function DocsHub(): JSX.Element {
                 letterSpacing='-0.03em'
                 lineHeight='1rem'
                 padding='16px 32px'
-                href='/docs'
+                href='https://pushchain.github.io/push-chain-website/pr-preview/pr-1067/docs/'
                 target='_blank'
-                title={t('pages.home.ending-section.docs-link.title')}
-                aria-label={t('pages.home.ending-section.docs-link.aria-label')}
+                title={t('pages.docs.explorePrelaunchBuild.title')}
+                aria-label={t('pages.docs.explorePrelaunchBuild.ariaLabel')}
               >
-                <p>Explore pre-launch build</p>
+                <p>{t('pages.docs.explorePrelaunchBuild.text')}</p>
               </ExplorePrelaunchBuildLink>
             </DocsHeader>
           </Content>
