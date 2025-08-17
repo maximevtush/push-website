@@ -12,20 +12,20 @@ import { ItemH, Span } from '@site/src/css/SharedStyling';
 import { device } from '@site/src/config/globals';
 
 // Function to generate FAQ list with translations
-export const getShortFAQsList = () => {
+export const getShortContactUsQsList = () => {
   const { t } = useTranslation();
 
   return [
     {
-      question: t('components.short-faq-snippet.qnas.qna1.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna1.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna1.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna1.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna1.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna1.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -35,15 +35,15 @@ export const getShortFAQsList = () => {
       ),
     },
     {
-      question: t('components.short-faq-snippet.qnas.qna2.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna2.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna2.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna2.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna2.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna2.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -53,15 +53,15 @@ export const getShortFAQsList = () => {
       ),
     },
     {
-      question: t('components.short-faq-snippet.qnas.qna3.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna3.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna3.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna3.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna3.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna3.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -71,15 +71,15 @@ export const getShortFAQsList = () => {
       ),
     },
     {
-      question: t('components.short-faq-snippet.qnas.qna4.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna4.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna4.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna4.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna4.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna4.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -89,15 +89,15 @@ export const getShortFAQsList = () => {
       ),
     },
     {
-      question: t('components.short-faq-snippet.qnas.qna5.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna5.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna5.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna5.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna5.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna5.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -105,7 +105,7 @@ export const getShortFAQsList = () => {
                 <Link
                   href='#useful-stats'
                   title={t(
-                    'components.short-faq-snippet.qnas.qna5.answer.supported-urls-title'
+                    'components.short-contact-us-snippet.qnas.qna5.answer.supported-urls-title'
                   )}
                 />
               ),
@@ -113,7 +113,7 @@ export const getShortFAQsList = () => {
                 <Link
                   href='/contact'
                   title={t(
-                    'components.short-faq-snippet.qnas.qna5.answer.contact-url-title'
+                    'components.short-contact-us-snippet.qnas.qna5.answer.contact-url-title'
                   )}
                   target='_self'
                 />
@@ -124,15 +124,15 @@ export const getShortFAQsList = () => {
       ),
     },
     {
-      question: t('components.short-faq-snippet.qnas.qna6.question'),
+      question: t('components.short-contact-us-snippet.qnas.qna6.question'),
       section: 'General',
       renderAnswer: () => (
         <Answer
           role='region'
-          aria-label={`${t('components.short-faq-snippet.answer-aria-label')}${t('components.short-faq-snippet.qnas.qna6.question')}`}
+          aria-label={`${t('components.short-contact-us-snippet.answer-aria-label')}${t('components.short-contact-us-snippet.qnas.qna6.question')}`}
         >
           <Trans
-            i18nKey='components.short-faq-snippet.qnas.qna6.answer'
+            i18nKey='components.short-contact-us-snippet.qnas.qna6.answer'
             components={{
               1: <Span role='text' />,
               2: <strong />,
@@ -140,7 +140,7 @@ export const getShortFAQsList = () => {
                 <Link
                   href='https://donut.push.network'
                   title={t(
-                    'components.short-faq-snippet.qnas.qna6.answer.donut-testnet-title'
+                    'components.short-contact-us-snippet.qnas.qna6.answer.donut-testnet-title'
                   )}
                 />
               ),

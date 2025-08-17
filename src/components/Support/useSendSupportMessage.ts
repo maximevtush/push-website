@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
 
 interface SupportMessagePayload {
   from: string;
@@ -7,6 +7,9 @@ interface SupportMessagePayload {
   topic: string;
   sub: string;
   msg: string;
+  topictype: string;
+  topiclabel: string;
+  topicdesc: string;
 }
 
 interface MutationOptions {

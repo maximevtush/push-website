@@ -18,13 +18,51 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { device } from '@site/src/config/globals';
 import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
-const ShortFAQs: FC = () => {
+interface QnAProps {
+  titleKey?: string;
+  titleAriaLabelKey?: string;
+  discordLinkTitleKey?: string;
+  discordLinkAriaLabelKey?: string;
+  discordLinkTextKey?: string;
+  accordionAriaLabelKey?: string;
+  exploreMoreTitleKey?: string;
+  exploreMoreAriaLabelKey?: string;
+  exploreMoreTextKey?: string;
+  discordUrl?: string;
+  exploreMoreUrl?: string;
+  faqsList?: Array<{
+    question: string;
+    section: string;
+    renderAnswer: () => JSX.Element;
+  }>;
+  getQnAsFunction?: () => Array<{
+    question: string;
+    section: string;
+    renderAnswer: () => JSX.Element;
+  }>;
+}
+
+const QnA: FC<QnAProps> = ({
+  titleKey = 'components.short-faq-snippet.title',
+  titleAriaLabelKey = 'components.short-faq-snippet.title-aria-label',
+  discordLinkTitleKey = 'components.short-faq-snippet.discord-link-title',
+  discordLinkAriaLabelKey = 'components.short-faq-snippet.discord-link-aria-label',
+  discordLinkTextKey = 'components.short-faq-snippet.discord-link-text',
+  accordionAriaLabelKey = 'components.short-faq-snippet.accordion-aria-label',
+  exploreMoreTitleKey = 'components.short-faq-snippet.explore-more-title',
+  exploreMoreAriaLabelKey = 'components.short-faq-snippet.explore-more-aria-label',
+  exploreMoreTextKey = 'components.short-faq-snippet.explore-more-text',
+  discordUrl = 'https://discord.com/invite/pushchain',
+  exploreMoreUrl = '/knowledge/faq',
+  faqsList,
+  getQnAsFunction = getShortFAQsList,
+}) => {
   // Internationalization
   const { t } = useTranslation();
 
   const isMobile = useMediaQuery(device.mobileL);
   const isLaptop = useMediaQuery(device.laptop);
-  const faqsList = getShortFAQsList();
+  const finalFaqsList = faqsList || getQnAsFunction();
 
   return (
     <ItemH
@@ -49,26 +87,26 @@ const ShortFAQs: FC = () => {
           whiteSpace='break-spaces'
           role='heading'
           aria-level='2'
-          aria-label={t('components.short-faq-snippet.title-aria-label')}
+          aria-label={t(titleAriaLabelKey)}
         >
-          {t('components.short-faq-snippet.title')}
+          {t(titleKey)}
         </H2>
 
-        <FaqLink
-          href='https://discord.com/invite/pushchain'
+        <QnAPrimaryLink
+          href={discordUrl}
           target='_blank'
-          title={t('components.short-faq-snippet.discord-link-title')}
-          aria-label={t('components.short-faq-snippet.discord-link-aria-label')}
+          title={t(discordLinkTitleKey)}
+          aria-label={t(discordLinkAriaLabelKey)}
           rel='noopener'
         >
           <BsDiscord size={28} aria-hidden='true' />
-          <p>{t('components.short-faq-snippet.discord-link-text')}</p>
+          <p>{t(discordLinkTextKey)}</p>
           <BsArrowRight
             size={24}
             className='anchorSvgLink'
             aria-hidden='true'
           />
-        </FaqLink>
+        </QnAPrimaryLink>
       </ItemV>
 
       <ItemV
@@ -77,17 +115,14 @@ const ShortFAQs: FC = () => {
         flex='1'
         margin={isLaptop ? '48px 0 0 0' : '-20px 0 0 0'}
       >
-        <AccordionGrid
-          role='region'
-          aria-label={t('components.short-faq-snippet.accordion-aria-label')}
-        >
-          <Accordion items={faqsList} />
+        <AccordionGrid role='region' aria-label={t(accordionAriaLabelKey)}>
+          <Accordion items={finalFaqsList} />
         </AccordionGrid>
 
-        <SlideLink
-          href={useBaseUrl('/knowledge/faq')}
-          title={t('components.short-faq-snippet.explore-more-title')}
-          aria-label={t('components.short-faq-snippet.explore-more-aria-label')}
+        <QnAMoreInfoLink
+          href={useBaseUrl(exploreMoreUrl)}
+          title={t(exploreMoreTitleKey)}
+          aria-label={t(exploreMoreAriaLabelKey)}
           target='_self'
           className='button'
           margin={isMobile ? '24px auto 0px 0px' : '24px 0px 0px auto'}
@@ -99,18 +134,16 @@ const ShortFAQs: FC = () => {
           borderRadius='0'
           padding='0px 0px'
         >
-          <SpanLink>
-            {t('components.short-faq-snippet.explore-more-text')}
-          </SpanLink>
+          <SpanLink>{t(exploreMoreTextKey)}</SpanLink>
           <BsArrowRight className='anchorSVGlink' aria-hidden='true' />
-        </SlideLink>
+        </QnAMoreInfoLink>
       </ItemV>
     </ItemH>
   );
 };
 
 // Styled Components
-const FaqLink = styled(A)`
+const QnAPrimaryLink = styled(A)`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -169,7 +202,7 @@ const SpanLink = styled(Span)`
   }
 `;
 
-const SlideLink = styled(A)`
+const QnAMoreInfoLink = styled(A)`
   overflow: inherit;
   .anchorSVGlink {
     color: #e163ff;
@@ -184,4 +217,4 @@ const SlideLink = styled(A)`
   }
 `;
 
-export default ShortFAQs;
+export default QnA;

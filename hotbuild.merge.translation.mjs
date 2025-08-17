@@ -78,11 +78,13 @@ function deepMerge(target, source) {
       typeof source[key] === 'object' &&
       !Array.isArray(source[key])
     ) {
+      // Always create/overwrite the target key for objects
       if (!target[key] || typeof target[key] !== 'object') {
         target[key] = {};
       }
       deepMerge(target[key], source[key]);
     } else {
+      // Always overwrite existing keys with new values
       target[key] = source[key];
     }
   }

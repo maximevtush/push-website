@@ -19,8 +19,6 @@ import Glassy from '@site/src/components/Glassy/Glassy';
 import RecentBlogPosts from '@site/src/components/Home/RecentBlogPosts';
 import ShowcasePartners from '@site/src/components/Home/ShowcasePartners';
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
-import ShortFAQs from '@site/src/components/ShortFAQs/ShortFAQs';
-import { ShortFAQsList } from '@site/src/config/ShortFAQsList';
 import {
   A,
   B,
@@ -37,6 +35,9 @@ import {
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import Marquee from 'react-fast-marquee';
+
+import QnA from '@site/src/components/QnA/QnA';
+import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
 // Import Assets
 import StarSolidIcon from '@site/static/assets/website/illustrations/starSolidIcon.svg';
@@ -425,7 +426,20 @@ export default function HomePage() {
           aria-label={t('components.short-faq-snippet.section-aria-label')}
         >
           <Content>
-            <ShortFAQs />
+            <QnA
+              titleKey='components.short-faq-snippet.title'
+              titleAriaLabelKey='components.short-faq-snippet.title-aria-label'
+              discordLinkTitleKey='components.short-faq-snippet.discord-link-title'
+              discordLinkAriaLabelKey='components.short-faq-snippet.discord-link-aria-label'
+              discordLinkTextKey='components.short-faq-snippet.discord-link-text'
+              accordionAriaLabelKey='components.short-faq-snippet.accordion-aria-label'
+              exploreMoreTitleKey='components.short-faq-snippet.explore-more-title'
+              exploreMoreAriaLabelKey='components.short-faq-snippet.explore-more-aria-label'
+              exploreMoreTextKey='components.short-faq-snippet.explore-more-text'
+              discordUrl='https://discord.com/invite/pushchain'
+              exploreMoreUrl='/knowledge/faq'
+              getQnAsFunction={getShortFAQsList}
+            />
           </Content>
         </Section>
 

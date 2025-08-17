@@ -64,7 +64,6 @@
     "dotenv": "^16.4.5",
     "envfile": "^7.1.0",
     "ethers": "^5.6.8",
-    "formik": "^2.4.6",
     "gsap": "3.11.1",
     "hast-util-sanitize": "^5.0.2",
     "https-browserify": "^1.0.0",

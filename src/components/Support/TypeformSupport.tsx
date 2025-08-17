@@ -1,8 +1,13 @@
+// React + Web3 Essentials
 import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
-import { device } from '@site/src/config/globals';
+// Internal Component
+import { ItemV } from '@site/src/css/SharedStyling';
 import { useSendSupportMessage } from './useSendSupportMessage';
+
+// Internal Configs
+import { device } from '@site/src/config/globals';
 
 interface FormData {
   name: string;
@@ -12,12 +17,19 @@ interface FormData {
   message: string;
 }
 
+export interface SupportCategory {
+  id: string;
+  label: string;
+  description: string;
+}
+
 interface TypeformSupportProps {
   collapsedText?: string;
   expandedTitle?: string;
+  supportCategories?: SupportCategory[];
 }
 
-const SUPPORT_CATEGORIES = [
+const DEFAULT_SUPPORT_CATEGORIES: SupportCategory[] = [
   {
     id: 'technical',
     label: '🔧 Technical Support',
@@ -53,13 +65,15 @@ const SUPPORT_CATEGORIES = [
 export const TypeformSupport: React.FC<TypeformSupportProps> = ({
   collapsedText = 'Open a Support Ticket',
   expandedTitle = 'Hi There! 👋',
+  supportCategories = DEFAULT_SUPPORT_CATEGORIES,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  
-  const { mutate: sendSupportMessage, isPending: isSubmitting } = useSendSupportMessage();
+
+  const { mutate: sendSupportMessage, isPending: isSubmitting } =
+    useSendSupportMessage();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -165,7 +179,12 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
 
   const handleSubmit = () => {
     setSubmitError(null);
-    
+
+    // Find the selected category to get its details
+    const selectedCategory = supportCategories.find(
+      (cat) => cat.id === formData.category
+    );
+
     // Map form data to API payload format
     const payload = {
       from: formData.email,
@@ -173,6 +192,9 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
       topic: formData.category,
       sub: formData.subject,
       msg: formData.message,
+      topictype: selectedCategory?.id || formData.category,
+      topiclabel: selectedCategory?.label || formData.category,
+      topicdesc: selectedCategory?.description || formData.category,
     };
 
     sendSupportMessage(payload, {
@@ -262,7 +284,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
 
           {currentStepData.type === 'select' ? (
             <CategoryGrid>
-              {SUPPORT_CATEGORIES.map((category) => (
+              {supportCategories.map((category) => (
                 <CategoryCard
                   key={category.id}
                   selected={formData.category === category.id}
@@ -307,8 +329,6 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
           )}
         </StepContent>
 
-        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
-
         <ButtonGroup>
           {currentStep > 0 && (
             <BackButton onClick={handleBack}>← Back</BackButton>
@@ -328,7 +348,9 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
             )}
           </NextButton>
         </ButtonGroup>
-
+        <ItemV justifyContent='end'>
+          {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
+        </ItemV>
         <KeyboardHint>
           Press <kbd>Enter</kbd> to continue
         </KeyboardHint>
