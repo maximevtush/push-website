@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const LOCALES_DIR = path.join(__dirname, 'static/locales');
 const SOURCE_LANG = 'en';
 const TRANSLATION_FILE = 'translation.json';
-const BUILD_META_FILE = path.join(__dirname, 'buildmeta.json');
+const BUILD_META_FILE = path.join(__dirname, 'translatemeta.json');
 const TEMP_TRANSLATE_DIR = path.join(__dirname, '01-translate');
 
 // Supported languages with their full names
@@ -70,7 +70,7 @@ async function loadBuildMeta() {
     // File doesn't exist or is invalid, return default
     return {
       sourceTranslationMD5: '',
-      translations: {}
+      translations: {},
     };
   }
 }
@@ -81,9 +81,16 @@ async function loadBuildMeta() {
 async function initTempTranslateDir() {
   try {
     await fs.mkdir(TEMP_TRANSLATE_DIR, { recursive: true });
-    console.log(chalk.gray(`📁 Initialized temp translation directory: ${TEMP_TRANSLATE_DIR}`));
+    console.log(
+      chalk.gray(
+        `📁 Initialized temp translation directory: ${TEMP_TRANSLATE_DIR}`
+      )
+    );
   } catch (error) {
-    console.error(chalk.red('❌ Failed to create temp translation directory:'), error.message);
+    console.error(
+      chalk.red('❌ Failed to create temp translation directory:'),
+      error.message
+    );
     throw error;
   }
 }
@@ -93,12 +100,19 @@ async function initTempTranslateDir() {
  */
 async function saveTempTranslation(languageCode, translatedContent) {
   const tempPath = path.join(TEMP_TRANSLATE_DIR, `${languageCode}.json`);
-  
+
   try {
-    await fs.writeFile(tempPath, JSON.stringify(translatedContent, null, 2), 'utf8');
+    await fs.writeFile(
+      tempPath,
+      JSON.stringify(translatedContent, null, 2),
+      'utf8'
+    );
     console.log(chalk.green(`✅ Saved ${languageCode} to temp directory`));
   } catch (error) {
-    console.error(chalk.red(`❌ Failed to save ${languageCode} to temp directory:`), error.message);
+    console.error(
+      chalk.red(`❌ Failed to save ${languageCode} to temp directory:`),
+      error.message
+    );
     throw error;
   }
 }
@@ -108,28 +122,30 @@ async function saveTempTranslation(languageCode, translatedContent) {
  */
 async function combineAndDeployTranslations() {
   console.log(chalk.cyan('🔄 Combining and deploying all translations...'));
-  
+
   const languagesToProcess = Object.keys(SUPPORTED_LANGUAGES);
   const results = { success: [], failed: [] };
-  
+
   for (const languageCode of languagesToProcess) {
     const tempPath = path.join(TEMP_TRANSLATE_DIR, `${languageCode}.json`);
-    
+
     try {
       // Check if temp file exists
       const tempContent = await fs.readFile(tempPath, 'utf8');
       const translatedContent = JSON.parse(tempContent);
-      
+
       // Save to final location
       await saveTranslation(languageCode, translatedContent);
       results.success.push(languageCode);
-      
     } catch (error) {
-      console.error(chalk.red(`❌ Failed to deploy ${languageCode}:`), error.message);
+      console.error(
+        chalk.red(`❌ Failed to deploy ${languageCode}:`),
+        error.message
+      );
       results.failed.push(languageCode);
     }
   }
-  
+
   return results;
 }
 
@@ -141,7 +157,10 @@ async function cleanupTempTranslations() {
     await fs.rm(TEMP_TRANSLATE_DIR, { recursive: true, force: true });
     console.log(chalk.gray('🧹 Cleaned up temp translation directory'));
   } catch (error) {
-    console.warn(chalk.yellow('⚠️  Failed to cleanup temp directory:'), error.message);
+    console.warn(
+      chalk.yellow('⚠️  Failed to cleanup temp directory:'),
+      error.message
+    );
   }
 }
 
@@ -573,7 +592,7 @@ async function main() {
     console.log('  • MD5 checksum tracking to skip unnecessary translations');
     console.log('  • Windsurf API integration for high-quality translations');
     console.log('  • Side-by-side verification of random keys');
-    console.log('  • Automatic buildmeta.json updates\n');
+    console.log('  • Automatic translatemeta.json updates\n');
     console.log('Options:');
     console.log('  -h, --help    Show this help message\n');
     console.log('Environment Variables:');

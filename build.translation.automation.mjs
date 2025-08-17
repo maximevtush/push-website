@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 const LOCALES_DIR = path.join(__dirname, 'static/locales');
 const SOURCE_LANG = 'en';
 const TRANSLATION_FILE = 'translation.json';
-const BUILD_META_FILE = path.join(__dirname, 'buildmeta.json');
+const BUILD_META_FILE = path.join(__dirname, 'translatemeta.json');
 const TEMP_TRANSLATE_DIR = path.join(__dirname, '01-translate');
 const SOURCE_CHUNKS_DIR = path.join(LOCALES_DIR, SOURCE_LANG, '01-translate');
 
@@ -1049,7 +1049,7 @@ async function automateTranslations() {
       }
     }
 
-    // Save buildmeta.json with updated chunk information before AI validation
+    // Save translatemeta.json with updated chunk information before AI validation
     if (changedChunks.length > 0) {
       console.log(chalk.blue('💾 Saving updated chunk information...'));
       await saveBuildMeta(buildMeta);
@@ -1221,7 +1221,7 @@ async function automateTranslations() {
                 lastUpdated: new Date().toISOString(),
               };
 
-              // CRITICAL: Save buildmeta.json immediately after each chunk
+              // CRITICAL: Save translatemeta.json immediately after each chunk
               await saveBuildMeta(buildMeta);
 
               console.log(
@@ -1400,7 +1400,7 @@ async function automateTranslations() {
 
     // Step 11: Update build metadata with individual chunk checksums
     console.log(
-      chalk.blue('📊 Updating buildmeta.json with chunk checksums...')
+      chalk.blue('📊 Updating translatemeta.json with chunk checksums...')
     );
     for (const chunkFile of chunkFiles) {
       buildMeta.enChunks[chunkFile] = {
@@ -1414,12 +1414,12 @@ async function automateTranslations() {
       );
     }
 
-    // Save buildmeta.json with updated checksums
+    // Save translatemeta.json with updated checksums
     await saveBuildMeta(buildMeta);
     console.log(chalk.green('✅ Updated build metadata with chunk checksums'));
 
     // Debug: Show current buildmeta structure
-    console.log(chalk.gray('🔍 buildmeta.json structure:'));
+    console.log(chalk.gray('🔍 translatemeta.json structure:'));
     console.log(
       chalk.gray(`  enChunks: ${Object.keys(buildMeta.enChunks).length} chunks`)
     );
