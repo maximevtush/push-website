@@ -27,6 +27,7 @@ import {
   Content,
   H1,
   H2,
+  H3,
   Image,
   ItemH,
   ItemV,
@@ -54,6 +55,7 @@ import {
 import GLOBALS, { device } from '@site/src/config/globals';
 import { PageMeta } from '@site/src/config/pageMeta';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
 
 function QuickstartList({ title, codeblock, Svg }: IQuickstartItem) {
   return (
@@ -191,6 +193,7 @@ function TechDocItem({
 export default function DocsHub(): JSX.Element {
   // Internationalization
   const { t } = useTranslation();
+  const isMobile = useMediaQuery(device.mobileL);
 
   const { colorMode, setColorMode } = useColorMode();
 
@@ -246,48 +249,59 @@ export default function DocsHub(): JSX.Element {
             left='0'
             right='0'
             height='149px'
-            background={'var(--ifm-docs-hero-bg)'}
+            background={'var(--ifm-color-primary-inverse)'}
           ></ItemV>
           <Content padding='0px'>
-            <HeroHeader>
-              <ItemV zIndex='1'>
-                <H1 color='var(--ifm-color-primary-text)' margin='0 !important'>
-                  Push Chain Documentation Hub
-                </H1>
-                <Span
-                  color='var(--ifm-color-primary-text)'
-                  padding='0 0 64px 0'
-                  textAlign='center'
-                >
-                  Get started with building shared state apps for any chain.
-                </Span>
-                {/* <HeroButton onClick={() => (window.location.href = '#techdocs')}> */}
-                <Span padding='0 10px 0 0' fontSize='1.5rem' fontWeight='600'>
-                  Coming Soon
-                </Span>{' '}
-                {/* ↗ */}
-                {/* </HeroButton> */}
-              </ItemV>
+            <DocsHeader>
+              <Image
+                src={
+                  require(
+                    `@site/static/assets/website/docshub/Testnet-Docs-img.webp`
+                  ).default
+                }
+                srcSet={`${require(`@site/static/assets/website/docshub/Testnet-Docs-img@2x.webp`).default} 2x, ${require(`@site/static/assets/website/docshub/Testnet-Docs-img@3x.webp`).default} 3x`}
+                alt={`${t('pages.home.trustedby-section.trusted-by-alt')}}`}
+              />
 
-              <ItemV
-                position='absolute'
-                bottom='-25%'
-                left='0'
-                right='0'
-                height='50%'
+              <H3
+                fontFamily='DM Sans'
+                fontSize={isMobile ? '2rem' : '3rem'}
+                fontWeight='600'
+                color='#fff'
+                lineHeight='125%'
+                textAlign='center'
               >
-                <PulseStatic />
-                <Pulse>
-                  <Pulsate stagger={0}></Pulsate>
-                  <Pulsate stagger={1}></Pulsate>
-                  <Pulsate stagger={2}></Pulsate>
-                  <Pulsate stagger={3}></Pulsate>
-                  <Pulsate stagger={4}></Pulsate>
-                  <Pulsate stagger={5}></Pulsate>
-                  <Pulsate stagger={6}></Pulsate>
-                </Pulse>
-              </ItemV>
-            </HeroHeader>
+                Push Chain Docs Launching Soon!
+              </H3>
+
+              <Span
+                fontFamily='DM Sans'
+                fontSize='1.25rem'
+                fontWeight='400'
+                color='#fff'
+                lineHeight='140%'
+              >
+                Get a sneak peek into Testnet, Donut, build universal apps and
+                win prizes!
+              </Span>
+
+              <ExplorePrelaunchBuildLink
+                background='#D548EC'
+                borderRadius='16px'
+                border='1px solid rgba(255, 255, 255, 0.30)'
+                fontSize='1.125rem'
+                fontWeight='600'
+                letterSpacing='-0.03em'
+                lineHeight='1rem'
+                padding='16px 32px'
+                href='/docs'
+                target='_blank'
+                title={t('pages.home.ending-section.docs-link.title')}
+                aria-label={t('pages.home.ending-section.docs-link.aria-label')}
+              >
+                <p>Explore pre-launch build</p>
+              </ExplorePrelaunchBuildLink>
+            </DocsHeader>
           </Content>
         </DocsHeroSection>
 
@@ -411,25 +425,53 @@ const ExtraDiv = styled.div`
 
   @media (min-width: 1800px) {
     display: block;
-    height: 6rem; // or adjust to whatever spacing you need
+    height: 60px; // or adjust to whatever spacing you need
   }
 `;
 
 const DocsHeroSection = styled(Section)`
-  background: var(--ifm-docs-hero-bg);
+  background: var(--ifm-color-primary-inverse);
   // background: ${GLOBALS.COLORS.BG_DARK};
 
   padding: ${GLOBALS.STRUCTURE.PADDING.DESKTOP};
+  padding-top: 0px;
   padding-bottom: 0px;
 
   @media ${device.laptop} {
     padding: ${GLOBALS.STRUCTURE.PADDING.TABLET};
+    padding-top: 0px;
     padding-bottom: 0px;
   }
 
   @media ${device.mobileM} {
     padding: ${GLOBALS.STRUCTURE.PADDING.MOBILE};
+    padding-top: 0px;
     padding-bottom: 0px;
+  }
+`;
+
+const DocsHeader = styled(ItemV)`
+  background: #1b43c8;
+  border-radius: 24px;
+  padding: 64px 24px;
+  margin-top: 24px;
+
+  img {
+    width: 700px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  span {
+    text-align: center;
+  }
+`;
+
+const ExplorePrelaunchBuildLink = styled(A)`
+  margin-top: 24px;
+
+  p {
+    margin: 0;
   }
 `;
 
