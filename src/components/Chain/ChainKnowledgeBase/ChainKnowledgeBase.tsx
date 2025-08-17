@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 // Internal Component
 import { Content, Section } from '@site/src/css/SharedStyling';
-import { ItemV } from '../../../css/SharedStyling';
 import ChainBottomComponent from '../ChainBottomComponent';
 import ChainKnowledgeBaseGrid from '../ChainKnowledgeBaseArticle/ChainKnowledgeBaseGrid';
 import ChainKnowledgeBaseComponent from './ChainKnowledgeBaseComponent';
@@ -16,7 +15,7 @@ import { device } from '../../../config/globals';
 
 const ChainKnowledgeBase = () => {
   return (
-    <ChainWrapper>
+    <>
       <Section>
         <Content className='skeletonsmall'>
           <ChainKnowledgeBaseComponent />
@@ -34,15 +33,8 @@ const ChainKnowledgeBase = () => {
           <ChainBottomComponent showFaq={true} />
         </Content>
       </Section>
-    </ChainWrapper>
+    </>
   );
 };
 
 export default ChainKnowledgeBase;
-
-const ChainWrapper = styled(ItemV)`
-  background: #000;
-  font-family:
-    DM Sans,
-    sans-serif;
-`;

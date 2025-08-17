@@ -4,7 +4,7 @@
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // External Components
 import { useTranslation } from 'react-i18next';
@@ -27,10 +27,26 @@ function SupportPage() {
   // Internationalization
   const { t } = useTranslation();
 
+  // Track if user has manually interacted with the page
+  const [userHasInteracted, setUserHasInteracted] = useState(false);
+
   // Handle anchor link to auto-expand support form
   useEffect(() => {
+    // Track user interactions to prevent auto-expand after manual interaction
+    const handleUserInteraction = () => {
+      setUserHasInteracted(true);
+    };
+
+    // Add event listeners for user interactions
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('scroll', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+
     const handleHashChange = () => {
-      if (window.location.hash === '#open-support-ticket') {
+      if (
+        window.location.hash === '#open-support-ticket' &&
+        !userHasInteracted
+      ) {
         // Small delay to ensure DOM is ready
         setTimeout(() => {
           // Scroll to the support form
@@ -38,7 +54,7 @@ function SupportPage() {
           if (supportForm) {
             // Get the element's position and scroll with custom offset
             const elementTop = supportForm.offsetTop;
-            const offsetPosition = elementTop - 100; // 100px more scroll
+            const offsetPosition = elementTop - 150; // 150px more scroll
 
             window.scrollTo({
               top: offsetPosition,
@@ -66,7 +82,7 @@ function SupportPage() {
 
     // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
-    
+
     // Also listen for popstate events (browser navigation)
     window.addEventListener('popstate', handleHashChange);
 
@@ -79,7 +95,7 @@ function SupportPage() {
         setTimeout(handleHashChange, 50);
       }
     };
-    
+
     document.addEventListener('click', handleLinkClick);
 
     // Cleanup
@@ -87,6 +103,9 @@ function SupportPage() {
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handleHashChange);
       document.removeEventListener('click', handleLinkClick);
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('scroll', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
     };
   }, []);
 
@@ -108,7 +127,7 @@ function SupportPage() {
         <meta
           property='og:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/supportpreview.png').default,
             { absolute: true }
           )}
         />
@@ -128,7 +147,7 @@ function SupportPage() {
         <meta
           name='twitter:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/supportpreview.png').default,
             { absolute: true }
           )}
         />
@@ -140,53 +159,25 @@ function SupportPage() {
         <Section>
           <Content className='skeletonsmall'>
             <MultiContent>
-              <H1>Support</H1>
-              <Span>
-                Push Chain Help Center: troubleshooting, guides, Donut testnet,
-                explorer & faucet, status updates, and security. Ask on Discord
-                or open a support ticket.
-              </Span>
+              <H1>{t('pages.support.hero-section.title')}</H1>
+              <Span>{t('pages.support.hero-section.description')}</Span>
             </MultiContent>
 
             <MultiContent id='open-support-ticket'>
               <TypeformSupport
-                collapsedText='Open a Support Ticket'
-                expandedTitle='Hi There! 👋'
-                supportCategories={[
-                  {
-                    id: 'technical',
-                    label: '🔧 Technical Support',
-                    description:
-                      'Bug reports, SDK/API, smart contracts, integration help',
-                  },
-                  {
-                    id: 'network',
-                    label: '🌐 Network & Testnet',
-                    description:
-                      'Explorer/Push Scan, RPC, Faucet, Donut testnet issues',
-                  },
-                  {
-                    id: 'wallet',
-                    label: '👛 Wallet & Snap',
-                    description:
-                      'Push Wallet, universal chain connection or other wallet issues',
-                  },
-                  {
-                    id: 'identity',
-                    label: '🪪 Accounts & Identity',
-                    description: 'UEA/UOA, signatures, attribution questions',
-                  },
-                  {
-                    id: 'security',
-                    label: '🛡️ Security',
-                    description:
-                      'Vulnerability reports, responsible disclosure (security@push.org)',
-                  },
-                  {
-                    id: 'general',
-                    label: '💬 General Inquiry',
-                    description: 'Questions, feedback, other topics',
-                  },
+                collapsedText={t(
+                  'components.typeform-support.collapsed-text-for-support'
+                )}
+                expandedTitle={t(
+                  'components.typeform-support.expanded-title-for-support'
+                )}
+                supportCategoryKeys={[
+                  'technical',
+                  'network',
+                  'wallet',
+                  'identity',
+                  'security',
+                  'general',
                 ]}
               />
             </MultiContent>

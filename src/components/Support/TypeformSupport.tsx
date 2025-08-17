@@ -1,9 +1,10 @@
 // React + Web3 Essentials
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled, { css, keyframes } from 'styled-components';
 
 // Internal Component
-import { ItemV } from '@site/src/css/SharedStyling';
+import { H2, ItemV } from '@site/src/css/SharedStyling';
 import { useSendSupportMessage } from './useSendSupportMessage';
 
 // Internal Configs
@@ -26,47 +27,75 @@ export interface SupportCategory {
 interface TypeformSupportProps {
   collapsedText?: string;
   expandedTitle?: string;
-  supportCategories?: SupportCategory[];
+  supportCategoryKeys?: string[];
 }
 
-const DEFAULT_SUPPORT_CATEGORIES: SupportCategory[] = [
-  {
-    id: 'technical',
-    label: '🔧 Technical Support',
-    description: 'Bug reports, integration help',
-  },
-  {
-    id: 'partnership',
-    label: '🤝 Partnership',
-    description: 'Business partnerships, collaborations',
-  },
-  {
-    id: 'grants',
-    label: '💰 Grants & Funding',
-    description: 'Grant applications, funding inquiries',
-  },
-  {
-    id: 'media',
-    label: '📰 Media & Press',
-    description: 'Press inquiries, media requests',
-  },
-  {
-    id: 'security',
-    label: '🛡️ Security',
-    description: 'Security disclosures, vulnerabilities',
-  },
-  {
-    id: 'general',
-    label: '💬 General Inquiry',
-    description: 'Questions, feedback, other topics',
-  },
-];
-
 export const TypeformSupport: React.FC<TypeformSupportProps> = ({
-  collapsedText = 'Open a Support Ticket',
-  expandedTitle = 'Hi There! 👋',
-  supportCategories = DEFAULT_SUPPORT_CATEGORIES,
+  collapsedText,
+  expandedTitle,
+  supportCategoryKeys,
 }) => {
+  const { t } = useTranslation();
+
+  // Use translations with fallbacks
+  const finalCollapsedText =
+    collapsedText ||
+    t('components.typeform-support.collapsed-text-for-support');
+  const finalExpandedTitle =
+    expandedTitle ||
+    t('components.typeform-support.expanded-title-for-support');
+
+  const supportCategories = supportCategoryKeys?.map((key) => ({
+    id: key,
+    label: t(`components.typeform-support.categories.${key}.label`),
+    description: t(`components.typeform-support.categories.${key}.description`),
+  }));
+
+  // Build support categories from translations
+  const finalSupportCategories = supportCategories || [
+    {
+      id: 'technical',
+      label: t('components.typeform-support.categories.technical.label'),
+      description: t(
+        'components.typeform-support.categories.technical.description'
+      ),
+    },
+    {
+      id: 'network',
+      label: t('components.typeform-support.categories.network.label'),
+      description: t(
+        'components.typeform-support.categories.network.description'
+      ),
+    },
+    {
+      id: 'wallet',
+      label: t('components.typeform-support.categories.wallet.label'),
+      description: t(
+        'components.typeform-support.categories.wallet.description'
+      ),
+    },
+    {
+      id: 'identity',
+      label: t('components.typeform-support.categories.identity.label'),
+      description: t(
+        'components.typeform-support.categories.identity.description'
+      ),
+    },
+    {
+      id: 'security',
+      label: t('components.typeform-support.categories.security.label'),
+      description: t(
+        'components.typeform-support.categories.security.description'
+      ),
+    },
+    {
+      id: 'general',
+      label: t('components.typeform-support.categories.general.label'),
+      description: t(
+        'components.typeform-support.categories.general.description'
+      ),
+    },
+  ];
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -86,60 +115,87 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
   const steps = [
     {
       id: 'welcome',
-      title: "We're here to help",
-      subtitle: "What's your name?",
+      title: t('components.typeform-support.form.steps.contact.title'),
+      subtitle: t('components.typeform-support.form.steps.contact.subtitle'),
       field: 'name',
       type: 'text',
-      placeholder: 'Enter your full name',
+      placeholder: t(
+        'components.typeform-support.form.steps.contact.name-placeholder'
+      ),
       required: true,
     },
     {
       id: 'email',
-      title: `Nice to meet you, ${formData.name}! 📧`,
-      subtitle: "What's your email address?",
+      title: `${t('components.typeform-support.form.steps.contact.name-aftergreet')}${formData.name}! 📧`,
+      subtitle: t('components.typeform-support.form.steps.contact.subtitle'),
       field: 'email',
       type: 'email',
-      placeholder: 'your.email@example.com',
+      placeholder: t(
+        'components.typeform-support.form.steps.contact.email-placeholder'
+      ),
       required: true,
     },
     {
       id: 'category',
-      title: 'What can we help you with? 🎯',
-      subtitle: 'Choose the category that best fits your inquiry',
+      title: t('components.typeform-support.form.steps.category.title'),
+      subtitle: t('components.typeform-support.form.steps.category.subtitle'),
       field: 'category',
       type: 'select',
       required: true,
     },
     {
       id: 'subject',
-      title: 'Tell us more 💭',
-      subtitle: "What's the subject of your inquiry?",
+      title: t('components.typeform-support.form.steps.details.title'),
+      subtitle: t('components.typeform-support.form.steps.details.subtitle'),
       field: 'subject',
       type: 'text',
-      placeholder: 'Brief description of your inquiry',
+      placeholder: t(
+        'components.typeform-support.form.steps.details.subject-placeholder'
+      ),
       required: true,
     },
     {
       id: 'message',
-      title: 'Share the details ✍️',
-      subtitle: 'Please provide more information about your inquiry',
+      title: t('components.typeform-support.form.steps.details.title'),
+      subtitle: t('components.typeform-support.form.steps.details.subtitle'),
       field: 'message',
       type: 'textarea',
-      placeholder: 'Tell us more about what you need help with...',
+      placeholder: t(
+        'components.typeform-support.form.steps.details.message-placeholder'
+      ),
       required: true,
     },
   ];
 
   const validateField = (field: string, value: string): string | null => {
-    if (!value.trim()) return 'This field is required';
+    if (!value.trim()) {
+      if (field === 'name')
+        return t('components.typeform-support.form.validation.name-required');
+      if (field === 'email')
+        return t('components.typeform-support.form.validation.email-required');
+      if (field === 'subject')
+        return t(
+          'components.typeform-support.form.validation.subject-required'
+        );
+      if (field === 'message')
+        return t(
+          'components.typeform-support.form.validation.message-required'
+        );
+      if (field === 'category')
+        return t(
+          'components.typeform-support.form.validation.category-required'
+        );
+      return 'components.typeform-support.form.validation.default';
+    }
 
     if (field === 'email') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) return 'Please enter a valid email address';
+      if (!emailRegex.test(value))
+        return t('components.typeform-support.form.validation.email-invalid');
     }
 
     if (field === 'name' && value.length < 2) {
-      return 'Name must be at least 2 characters';
+      return t('components.typeform-support.form.validation.name-min-length');
     }
 
     return null;
@@ -181,7 +237,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
     setSubmitError(null);
 
     // Find the selected category to get its details
-    const selectedCategory = supportCategories.find(
+    const selectedCategory = finalSupportCategories.find(
       (cat) => cat.id === formData.category
     );
 
@@ -203,7 +259,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
       },
       onError: (error) => {
         console.error('Error submitting form:', error);
-        setSubmitError('Failed to send message. Please try again.');
+        setSubmitError(t('components.typeform-support.form.error.message'));
       },
     });
   };
@@ -236,7 +292,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
       <CollapsedWrapper>
         <ExpandButton onClick={() => setIsExpanded(true)}>
           <PlusIcon isExpanded={false}>+</PlusIcon>
-          <ButtonText>{collapsedText}</ButtonText>
+          <ButtonText>{finalCollapsedText}</ButtonText>
         </ExpandButton>
       </CollapsedWrapper>
     );
@@ -247,12 +303,15 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
       <Container>
         <SuccessWrapper>
           <SuccessIcon>🎉</SuccessIcon>
-          <SuccessTitle>Thank you for reaching out!</SuccessTitle>
+          <SuccessTitle>
+            {t('components.typeform-support.form.success.title')}
+          </SuccessTitle>
           <SuccessMessage>
-            We've received your message and will get back to you within 24
-            hours.
+            {t('components.typeform-support.form.success.message')}
           </SuccessMessage>
-          <ResetButton onClick={resetForm}>Send Another Message</ResetButton>
+          <ResetButton onClick={resetForm}>
+            {t('components.typeform-support.form.success.button')}
+          </ResetButton>
         </SuccessWrapper>
       </Container>
     );
@@ -264,7 +323,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
   return (
     <Container>
       <ExpandedHeader>
-        <ExpandedTitle>{expandedTitle}</ExpandedTitle>
+        <ExpandedTitle>{finalExpandedTitle}</ExpandedTitle>
         <CollapseButton onClick={() => setIsExpanded(false)}>
           <PlusIcon isExpanded={true}>+</PlusIcon>
         </CollapseButton>
@@ -284,7 +343,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
 
           {currentStepData.type === 'select' ? (
             <CategoryGrid>
-              {supportCategories.map((category) => (
+              {finalSupportCategories.map((category) => (
                 <CategoryCard
                   key={category.id}
                   selected={formData.category === category.id}
@@ -318,6 +377,13 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
               placeholder={currentStepData.placeholder}
               onKeyPress={handleKeyPress}
               hasError={!!errors[currentStepData.field as keyof FormData]}
+              autoComplete={
+                currentStepData.field === 'name'
+                  ? 'name'
+                  : currentStepData.field === 'email'
+                    ? 'email'
+                    : 'off'
+              }
               autoFocus
             />
           )}
@@ -418,8 +484,13 @@ const ExpandButton = styled.button`
   }
 
   @media ${device.tablet} {
-    font-size: 28px;
+    font-size: 20px;
     padding: 24px 32px;
+  }
+
+  @media ${device.mobileL} {
+    font-size: 20px;
+    padding: 20px 16px;
   }
 `;
 
@@ -513,6 +584,10 @@ const FormWrapper = styled.div`
   @media ${device.tablet} {
     padding: 60px 40px;
   }
+
+  @media ${device.mobileL} {
+    padding: 60px 20px;
+  }
 `;
 
 const ProgressBar = styled.div`
@@ -553,9 +628,7 @@ const StepContent = styled.div`
   `}
 `;
 
-const StepTitle = styled.h1`
-  font-size: 32px;
-  font-weight: 700;
+const StepTitle = styled(H2)`
   margin-bottom: 16px;
   line-height: 1.2;
 

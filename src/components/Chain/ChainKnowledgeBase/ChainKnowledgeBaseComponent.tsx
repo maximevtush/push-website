@@ -8,7 +8,7 @@ import useMediaQuery from '../../../hooks/useMediaQuery';
 import useModal from '../hooks/useModal';
 
 import ImageHolder from '../../../../src/components/ImageHolder';
-import { H2, H3, ItemH, ItemV } from '../../../css/SharedStyling';
+import { H1, H2, H3, ItemH, ItemV } from '../../../css/SharedStyling';
 import ChainElevateModal from '../ChainElevateModal';
 import { ChainKnowledgeBaseHeader } from '../config/ChainKnowledgeBaseHeader';
 
@@ -23,16 +23,14 @@ const ChainKnowledgeBaseComponent = () => {
           alignItems={isMobile ? 'center' : 'flex-start'}
           justifyContent='flex-start'
         >
-          <H2
+          <H1
             fontSize={isMobile ? '2.5rem' : '3rem'}
             fontWeight='600'
-            lineHeight='157%'
             letterSpacing='-1.098px'
             textAlign={isMobile ? 'center' : 'left'}
-            color='#FFF'
           >
             {ChainKnowledgeBaseHeader?.title}
-          </H2>
+          </H1>
 
           <H3
             fontSize={isMobile ? '1rem' : '1.125rem'}

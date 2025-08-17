@@ -3,8 +3,8 @@
 // @ts-nocheck
 // External Components
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import styled from 'styled-components';
 
 // Internal Components
 import { H2, H3 } from '@site/src/css/SharedStyling';
@@ -51,7 +51,7 @@ const Accordion: React.FC<AccordionProps> = ({
       {items.map((item, index) => (
         <AccordionSection key={index}>
           <AccordionParent onClick={() => toggleAccordion(index)}>
-            <H2
+            <H3
               color={'#FFF'}
               fontSize={fontSize ? fontSize : isMobile ? '20px' : '1.5rem'}
               fontFamily={'DM Sans, sans-serif'}
@@ -59,7 +59,7 @@ const Accordion: React.FC<AccordionProps> = ({
               lineHeight='140%'
             >
               {item.title || item.question}
-            </H2>
+            </H3>
             <div>
               {activeIndex === index ? (
                 <AiOutlineMinus color={'#FFF'} size={22} />
@@ -75,7 +75,6 @@ const Accordion: React.FC<AccordionProps> = ({
                 fontSize={isMobile ? '16px' : '19px'}
                 fontFamily={'DM Sans, sans-serif'}
                 fontWeight='400'
-                lineHeight='150%'
                 padding='0 0 24px 0'
               >
                 {item.content}
@@ -86,7 +85,6 @@ const Accordion: React.FC<AccordionProps> = ({
                     fontFamily={'DM Sans, sans-serif'}
                     fontSize='16px'
                     fontWeight='300'
-                    lineHeight='140%'
                     letterSpacing='normal'
                     target='_blank'
                     href={item.link}

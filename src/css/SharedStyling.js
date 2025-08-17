@@ -42,6 +42,47 @@ export const DefaultDarkTheme = styled.div`
   font-family:
     DM Sans,
     sans-serif;
+
+  H1 {
+    margin-bottom: 20px;
+    font-size: 3.5rem;
+    font-weight: 600;
+    text-align: left;
+    color: inherit;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 2.5rem;
+      text-align: center;
+    }
+  }
+
+  H2 {
+    color: inherit;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 1.8rem;
+    }
+  }
+
+  H3 {
+    color: inherit;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 1.5rem;
+    }
+  }
 `;
 
 // Section covers the entire width and height

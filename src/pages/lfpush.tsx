@@ -15,6 +15,7 @@ import { Tweet } from 'react-tweet';
 import { FloatingEmoji } from '@site/src/components/FloatingEmoji';
 import {
   Content,
+  DefaultDarkTheme,
   H1,
   H2,
   ItemV,
@@ -250,7 +251,7 @@ function LFPushPage() {
         enabled={true}
       />
 
-      <SkeletonWrapper>
+      <DefaultDarkTheme>
         {/* Heading + Tweets Section */}
         <Section>
           {/* Heading Content */}
@@ -313,7 +314,7 @@ function LFPushPage() {
             </MultiContent>
           </Content>
         </Section>
-      </SkeletonWrapper>
+      </DefaultDarkTheme>
     </Layout>
   );
 }
@@ -366,13 +367,6 @@ const TweetCard: React.FC<{ tweetUrl: string }> = ({ tweetUrl }) => {
 };
 
 // Styled Components
-const SkeletonWrapper = styled(ItemV)`
-  background: #000;
-  font-family:
-    DM Sans,
-    sans-serif;
-`;
-
 const TweetsGrid = styled.div`
   /* Container for JS masonry layout */
   position: relative;

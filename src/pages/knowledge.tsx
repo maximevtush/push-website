@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 // Internal Component
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 import ChainKnowledgeBase from '../components/Chain/ChainKnowledgeBase/ChainKnowledgeBase';
 
 function KnowledgeBasePage() {
@@ -63,7 +64,9 @@ function KnowledgeBasePage() {
       {/* FAQ Schema Markup with default FAQs */}
       <SchemaMarkup type='FAQPage' />
 
-      <ChainKnowledgeBase />
+      <DefaultDarkTheme>
+        <ChainKnowledgeBase />
+      </DefaultDarkTheme>
     </Layout>
   );
 }
