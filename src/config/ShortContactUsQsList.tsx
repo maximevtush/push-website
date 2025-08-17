@@ -29,6 +29,14 @@ export const getShortContactUsQsList = () => {
             components={{
               1: <Span role='text' />,
               2: <strong />,
+              3: (
+                <Link
+                  href='#open-contact-form'
+                  title={t(
+                    'components.short-contact-us-snippet.qnas.qna1.answer.contact-partnerships-title'
+                  )}
+                />
+              ),
             }}
           />
         </Answer>

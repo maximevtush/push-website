@@ -290,7 +290,10 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
   if (!isExpanded) {
     return (
       <CollapsedWrapper>
-        <ExpandButton onClick={() => setIsExpanded(true)}>
+        <ExpandButton
+          id='typeform-expand-button'
+          onClick={() => setIsExpanded(true)}
+        >
           <PlusIcon isExpanded={false}>+</PlusIcon>
           <ButtonText>{finalCollapsedText}</ButtonText>
         </ExpandButton>

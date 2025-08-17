@@ -4,7 +4,7 @@
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // External Components
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,84 @@ function ContactPage() {
   // Internationalization
   const { t } = useTranslation();
 
+  // Track if user has manually interacted with the page
+  const [userHasInteracted, setUserHasInteracted] = useState(false);
+
+  // Handle anchor link to auto-expand support form
+  useEffect(() => {
+    // Track user interactions to prevent auto-expand after manual interaction
+    const handleUserInteraction = () => {
+      setUserHasInteracted(true);
+    };
+
+    // Add event listeners for user interactions
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('scroll', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+
+    const handleHashChange = () => {
+      if (window.location.hash === '#open-contact-form' && !userHasInteracted) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          // Scroll to the support form
+          const supportForm = document.getElementById('open-contact-form');
+          if (supportForm) {
+            // Get the element's position and scroll with custom offset
+            const elementTop = supportForm.offsetTop;
+            const offsetPosition = elementTop - 150; // 150px more scroll
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            });
+
+            // Auto-expand the support form by clicking the button
+            setTimeout(() => {
+              // Look for the expand button by ID
+              const expandButton = document.getElementById(
+                'typeform-expand-button'
+              );
+              if (expandButton) {
+                expandButton.click();
+              }
+            }, 800); // Longer delay to ensure scroll completes
+          }
+        }, 100); // Small delay for DOM readiness
+      }
+    };
+
+    // Check hash on initial load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Also listen for popstate events (browser navigation)
+    window.addEventListener('popstate', handleHashChange);
+
+    // Listen for click events on support ticket links
+    const handleLinkClick = (event: Event) => {
+      const target = event.target as HTMLElement;
+      const link = target.closest('a');
+      if (link && link.href.includes('#open-contact-form')) {
+        // Small delay to let navigation happen first
+        setTimeout(handleHashChange, 50);
+      }
+    };
+
+    document.addEventListener('click', handleLinkClick);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+      document.removeEventListener('click', handleLinkClick);
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('scroll', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
+
   return (
     <Layout
       title={t('pages.contact.seo.title')}
@@ -45,7 +123,7 @@ function ContactPage() {
         <meta
           property='og:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/contactpreview.png').default,
             { absolute: true }
           )}
         />
@@ -65,7 +143,7 @@ function ContactPage() {
         <meta
           name='twitter:image'
           content={useBaseUrl(
-            require('/static/assets/previews/knowledgebasepreview.png').default,
+            require('/static/assets/previews/contactpreview.png').default,
             { absolute: true }
           )}
         />
@@ -77,58 +155,27 @@ function ContactPage() {
         <Section>
           <Content className='skeletonsmall'>
             <MultiContent>
-              <H1>Support</H1>
-              <Span>Page to solve your support queries</Span>
+              <H1>{t('pages.contact.hero-section.title')}</H1>
+              <Span>{t('pages.contact.hero-section.description')}</Span>
             </MultiContent>
 
-            <MultiContent>
+            <MultiContent id='open-contact-form'>
               <TypeformSupport
-                collapsedText='Open a Support Ticket'
-                expandedTitle='Hi There! 👋'
-                supportCategories={[
-                  {
-                    id: 'partnerships',
-                    label: '🤝 Partnerships & Integrations',
-                    description:
-                      'BD, ecosystem integrations (wallets, infra, exchanges, protocols)',
-                  },
-                  {
-                    id: 'grants',
-                    label: '💰 Grants & Ecosystem Programs',
-                    description: 'BRB, Bootcamp, grants, funding inquiries',
-                  },
-                  {
-                    id: 'media',
-                    label: '📰 Media & Press',
-                    description: 'Interviews, statements, assets, fact-checks',
-                  },
-                  {
-                    id: 'events',
-                    label: '🎤 Speaking & Events',
-                    description: 'Talks, workshops, hackathons, sponsorships',
-                  },
-                  {
-                    id: 'careers',
-                    label: '👩‍💻 Careers',
-                    description:
-                      'Open roles, internships, contractor opportunities',
-                  },
-                  {
-                    id: 'validators',
-                    label: '🧡 Validator / Node Operators',
-                    description:
-                      'Operator interest, RPC providers, infra partners',
-                  },
-                  {
-                    id: 'legal',
-                    label: '⚖️ Legal & Compliance',
-                    description: 'Trademarks, data requests, agreements',
-                  },
-                  {
-                    id: 'general',
-                    label: '💬 General Inquiry',
-                    description: 'Anything else',
-                  },
+                collapsedText={t(
+                  'components.typeform-support.collapsed-text-for-contact'
+                )}
+                expandedTitle={t(
+                  'components.typeform-support.expanded-title-for-contact'
+                )}
+                supportCategoryKeys={[
+                  'partnerships',
+                  'grants',
+                  'media',
+                  'events',
+                  'careers',
+                  'validators',
+                  'legal',
+                  'general',
                 ]}
               />
             </MultiContent>

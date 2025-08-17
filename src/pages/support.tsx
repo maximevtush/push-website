@@ -63,12 +63,11 @@ function SupportPage() {
 
             // Auto-expand the support form by clicking the button
             setTimeout(() => {
-              // Look for the expand button (when form is collapsed)
-              const expandButton = supportForm.querySelector('button');
-              if (
-                expandButton &&
-                expandButton.textContent?.includes('Open a Support Ticket')
-              ) {
+              // Look for the expand button by ID
+              const expandButton = document.getElementById(
+                'typeform-expand-button'
+              );
+              if (expandButton) {
                 expandButton.click();
               }
             }, 800); // Longer delay to ensure scroll completes

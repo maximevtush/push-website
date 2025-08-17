@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import QnA from '@site/src/components/QnA/QnA';
-import { getShortFAQsList } from '@site/src/config/ShortSupportQsList';
+import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
 type ChainBottomComponentProps = {
   showFaq?: boolean;
