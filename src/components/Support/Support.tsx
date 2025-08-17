@@ -1,12 +1,28 @@
 import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
-import styled from 'styled-components';
-import { AiOutlineClose } from 'react-icons/ai';
+import styled, { keyframes } from 'styled-components';
 
 import { device } from '@site/src/config/globals';
 import { contactFormTopics } from './Support.constants';
 import { useSendSupportMessage } from './useSendSupportMessage';
 import { supportValidationSchema } from './Support.utils';
+
+interface FormData {
+  name: string;
+  email: string;
+  topic: string;
+  subject: string;
+  message: string;
+}
+
+const SUPPORT_CATEGORIES = [
+  { id: 'technical', label: '🔧 Technical Support', description: 'Bug reports, integration help' },
+  { id: 'partnership', label: '🤝 Partnership', description: 'Business partnerships, collaborations' },
+  { id: 'grants', label: '💰 Grants & Funding', description: 'Grant applications, funding inquiries' },
+  { id: 'media', label: '📰 Media & Press', description: 'Press inquiries, media requests' },
+  { id: 'security', label: '🛡️ Security', description: 'Security disclosures, vulnerabilities' },
+  { id: 'general', label: '💬 General Inquiry', description: 'Questions, feedback, other topics' },
+];
 
 const Support: FC = () => {
   const [status, setStatus] = useState(0);
@@ -62,138 +78,82 @@ const Support: FC = () => {
   return (
     <Container>
       <FormWrapper>
-        {status > 0 && (
-          <AlertContainer variant={status === 1 ? 'success' : 'error'}>
-            <AlertContent>
-              <AlertHeader>{status === 1 ? 'Success' : 'Error'}</AlertHeader>
-              <AlertDescription>{contactFormAlertMsg}</AlertDescription>
-            </AlertContent>
-            <CloseButton
-              onClick={() => {
-                setStatus(0);
-                setContactFormAlertMsg('');
-              }}
-            >
-              <AiOutlineClose />
-            </CloseButton>
-          </AlertContainer>
-        )}
+        <ProgressBar>
+          <ProgressFill progress={progress} />
+        </ProgressBar>
+        
+        <StepCounter>
+          {currentStep + 1} of {steps.length}
+        </StepCounter>
 
-        <StyledForm onSubmit={supportFormik.handleSubmit}>
-          <FormCard>
-            <FormHeader>
-              <Title>Support</Title>
-              <Subtitle>Let's get in touch!</Subtitle>
-            </FormHeader>
+        <StepContent>
+          <StepTitle>{currentStepData.title}</StepTitle>
+          <StepSubtitle>{currentStepData.subtitle}</StepSubtitle>
 
-            <InputRow>
-              <InputWrapper width='219px'>
-                <Label>Name</Label>
-                <StyledInput
-                  required
-                  type='text'
-                  placeholder='Your name'
-                  value={supportFormik.values.name}
-                  onChange={supportFormik.handleChange('name')}
-                  hasError={
-                    supportFormik.touched.name &&
-                    Boolean(supportFormik.errors.name)
-                  }
-                  disabled={isSendingMessage}
-                />
-                {supportFormik.touched.name && supportFormik.errors.name && (
-                  <ErrorMessage>{supportFormik.errors.name}</ErrorMessage>
-                )}
-              </InputWrapper>
+          {currentStepData.type === 'select' ? (
+            <CategoryGrid>
+              {SUPPORT_CATEGORIES.map((category) => (
+                <CategoryCard
+                  key={category.id}
+                  selected={formData.category === category.id}
+                  onClick={() => handleInputChange('category', category.id)}
+                >
+                  <CategoryLabel>{category.label}</CategoryLabel>
+                  <CategoryDescription>{category.description}</CategoryDescription>
+                </CategoryCard>
+              ))}
+            </CategoryGrid>
+          ) : currentStepData.type === 'textarea' ? (
+            <StyledTextArea
+              value={formData[currentStepData.field as keyof FormData]}
+              onChange={(e) => handleInputChange(currentStepData.field, e.target.value)}
+              placeholder={currentStepData.placeholder}
+              onKeyPress={handleKeyPress}
+              hasError={!!errors[currentStepData.field as keyof FormData]}
+              autoFocus
+            />
+          ) : (
+            <StyledInput
+              type={currentStepData.type}
+              value={formData[currentStepData.field as keyof FormData]}
+              onChange={(e) => handleInputChange(currentStepData.field, e.target.value)}
+              placeholder={currentStepData.placeholder}
+              onKeyPress={handleKeyPress}
+              hasError={!!errors[currentStepData.field as keyof FormData]}
+              autoFocus
+            />
+          )}
 
-              <InputWrapper>
-                <Label>E-mail</Label>
-                <StyledInput
-                  required
-                  type='email'
-                  placeholder='your.email@example.com'
-                  value={supportFormik.values.email}
-                  onChange={supportFormik.handleChange('email')}
-                  hasError={
-                    supportFormik.touched.email &&
-                    Boolean(supportFormik.errors.email)
-                  }
-                  disabled={isSendingMessage}
-                />
-                {supportFormik.touched.email && supportFormik.errors.email && (
-                  <ErrorMessage>{supportFormik.errors.email}</ErrorMessage>
-                )}
-              </InputWrapper>
-            </InputRow>
+          {errors[currentStepData.field as keyof FormData] && (
+            <ErrorMessage>{errors[currentStepData.field as keyof FormData]}</ErrorMessage>
+          )}
+        </StepContent>
 
-            <InputWrapper>
-              <Label>Topic</Label>
-              <StyledSelect
-                required
-                value={supportFormik.values.topic}
-                onChange={supportFormik.handleChange('topic')}
-                hasError={
-                  supportFormik.touched.topic &&
-                  Boolean(supportFormik.errors.topic)
-                }
-                disabled={isSendingMessage}
-              >
-                {contactFormTopics.map((topic) => (
-                  <option key={topic.value} value={topic.value}>
-                    {topic.label}
-                  </option>
-                ))}
-              </StyledSelect>
-              {supportFormik.touched.topic && supportFormik.errors.topic && (
-                <ErrorMessage>{supportFormik.errors.topic}</ErrorMessage>
-              )}
-            </InputWrapper>
-
-            <InputWrapper>
-              <Label>Subject</Label>
-              <StyledInput
-                required
-                type='text'
-                placeholder='I want to tell you guys a secret!'
-                value={supportFormik.values.subject}
-                onChange={supportFormik.handleChange('subject')}
-                hasError={
-                  supportFormik.touched.subject &&
-                  Boolean(supportFormik.errors.subject)
-                }
-                disabled={isSendingMessage}
-              />
-              {supportFormik.touched.subject &&
-                supportFormik.errors.subject && (
-                  <ErrorMessage>{supportFormik.errors.subject}</ErrorMessage>
-                )}
-            </InputWrapper>
-
-            <InputWrapper>
-              <Label>Message</Label>
-              <StyledTextArea
-                required
-                placeholder='This is where you will tell us that secret, or a bug or whatever is on your mind.'
-                rows={12}
-                value={supportFormik.values.message}
-                onChange={supportFormik.handleChange('message')}
-                hasError={
-                  supportFormik.touched.message &&
-                  Boolean(supportFormik.errors.message)
-                }
-                disabled={isSendingMessage}
-              />
-              {supportFormik.touched.message &&
-                supportFormik.errors.message && (
-                  <ErrorMessage>{supportFormik.errors.message}</ErrorMessage>
-                )}
-            </InputWrapper>
-
-            <SubmitButton type='submit' disabled={isSendingMessage}>
-              {isSendingMessage ? 'Submitting...' : 'Submit'}
-            </SubmitButton>
-          </FormCard>
-        </StyledForm>
+        <ButtonGroup>
+          {currentStep > 0 && (
+            <BackButton onClick={handleBack}>
+              ← Back
+            </BackButton>
+          )}
+          
+          <NextButton 
+            onClick={handleNext}
+            disabled={isSubmitting}
+            isPrimary={currentStep === steps.length - 1}
+          >
+            {isSubmitting ? (
+              <>⏳ Submitting...</>
+            ) : currentStep === steps.length - 1 ? (
+              'Submit →'
+            ) : (
+              'Continue →'
+            )}
+          </NextButton>
+        </ButtonGroup>
+        
+        <KeyboardHint>
+          Press <kbd>Enter</kbd> to continue
+        </KeyboardHint>
       </FormWrapper>
     </Container>
   );

@@ -12,8 +12,8 @@
       "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "03-footer.json": {
-      "checksum": "0b481070da2fac3627b7f4db7be1605d",
-      "lastUpdated": "2025-08-17T03:40:52.880Z"
+      "checksum": "3e3859702fa4fbf31de4e7246488c353",
+      "lastUpdated": "2025-08-17T15:54:40.151Z"
     },
     "04-01-pages-home.json": {
       "checksum": "c7422dc2289ffffc46308ed4b2d3873f",
@@ -56,8 +56,8 @@
       "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "04-05-pages-lfpush.json": {
-      "checksum": "95c843946f18446293f24784a7ca7be4",
-      "lastUpdated": "2025-08-17T03:40:52.880Z"
+      "checksum": "af4d7f84b0f23159f2a7667ad8b003eb",
+      "lastUpdated": "2025-08-17T15:54:40.153Z"
     },
     "04-06-pages-support.json": {
       "checksum": "2e50729c962ee581bee1de97e78793c4",
@@ -88,8 +88,16 @@
       "lastUpdated": "2025-08-17T03:40:52.880Z"
     },
     "06-notifications.json": {
-      "checksum": "8735f685d5c3db91b86edff29556b4e8",
-      "lastUpdated": "2025-08-17T03:40:52.880Z"
+      "checksum": "2717109f1e2f207a433cbfdf15b177ec",
+      "lastUpdated": "2025-08-17T15:54:40.153Z"
+    },
+    "04-12-pages-contact.json": {
+      "checksum": "df1359cb3e68164e914688c8c7072082",
+      "lastUpdated": "2025-08-17T15:54:40.153Z"
+    },
+    "04-13-donut-testnet-secret.json": {
+      "checksum": "85a18ce7a9a4d6bd18c6f70553111760",
+      "lastUpdated": "2025-08-17T15:54:40.153Z"
     }
   },
   "languageChunks": {
@@ -105,9 +113,9 @@
         "lastUpdated": "2025-08-15T20:43:35.001Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T11:05:50.809Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -160,9 +168,9 @@
         "lastUpdated": "2025-08-15T21:14:08.526Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T11:06:01.174Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -200,9 +208,19 @@
         "lastUpdated": "2025-08-16T11:30:00.350Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T11:30:48.879Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "de": {
@@ -217,9 +235,9 @@
         "lastUpdated": "2025-08-15T20:45:19.374Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T11:10:12.819Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -272,9 +290,9 @@
         "lastUpdated": "2025-08-16T11:16:20.036Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T11:16:29.821Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -312,9 +330,19 @@
         "lastUpdated": "2025-08-16T11:33:21.769Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T11:34:10.298Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "es": {
@@ -329,9 +357,9 @@
         "lastUpdated": "2025-08-16T11:36:04.397Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T11:36:42.823Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -384,9 +412,9 @@
         "lastUpdated": "2025-08-16T11:41:41.737Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T11:41:51.421Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -424,9 +452,19 @@
         "lastUpdated": "2025-08-16T11:45:47.229Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T11:46:34.664Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "fr": {
@@ -441,9 +479,9 @@
         "lastUpdated": "2025-08-16T11:48:30.588Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T11:49:07.046Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -539,6 +577,16 @@
         "translated": false,
         "checksum": null,
         "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "hi": {
@@ -553,9 +601,9 @@
         "lastUpdated": "2025-08-15T20:46:28.935Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T11:52:40.393Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -608,9 +656,9 @@
         "lastUpdated": "2025-08-16T11:57:13.221Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T11:57:23.816Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -648,9 +696,19 @@
         "lastUpdated": "2025-08-16T12:01:31.814Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:02:15.553Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "id": {
@@ -665,9 +723,9 @@
         "lastUpdated": "2025-08-15T20:55:52.212Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:02:52.217Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -720,9 +778,9 @@
         "lastUpdated": "2025-08-16T12:07:22.996Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T12:07:33.192Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -760,9 +818,19 @@
         "lastUpdated": "2025-08-16T12:11:17.862Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:12:04.087Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "ja": {
@@ -777,9 +845,9 @@
         "lastUpdated": "2025-08-15T21:05:34.520Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:12:38.711Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -832,9 +900,9 @@
         "lastUpdated": "2025-08-16T12:17:24.574Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T12:17:35.595Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -872,9 +940,19 @@
         "lastUpdated": "2025-08-16T12:21:23.913Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:22:10.533Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "ko": {
@@ -889,9 +967,9 @@
         "lastUpdated": "2025-08-15T21:07:39.590Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:22:47.800Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -944,9 +1022,9 @@
         "lastUpdated": "2025-08-16T12:26:43.041Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T12:26:54.169Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -984,9 +1062,19 @@
         "lastUpdated": "2025-08-16T12:30:45.137Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:31:31.817Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "pt": {
@@ -1001,9 +1089,9 @@
         "lastUpdated": "2025-08-15T20:57:09.761Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:32:08.565Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -1056,9 +1144,9 @@
         "lastUpdated": "2025-08-16T12:36:54.051Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T12:37:04.158Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -1096,9 +1184,19 @@
         "lastUpdated": "2025-08-16T12:41:08.076Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:41:56.382Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "ru": {
@@ -1113,9 +1211,9 @@
         "lastUpdated": "2025-08-16T12:43:50.184Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:44:26.323Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -1168,9 +1266,9 @@
         "lastUpdated": "2025-08-16T12:48:45.015Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T12:48:54.853Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -1208,9 +1306,19 @@
         "lastUpdated": "2025-08-16T12:52:45.137Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T12:53:33.361Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "tr": {
@@ -1225,9 +1333,9 @@
         "lastUpdated": "2025-08-16T12:55:36.624Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T12:56:15.063Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -1280,9 +1388,9 @@
         "lastUpdated": "2025-08-16T13:00:10.556Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T13:00:21.481Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -1320,9 +1428,19 @@
         "lastUpdated": "2025-08-16T13:04:11.594Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T13:05:00.455Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "vi": {
@@ -1337,9 +1455,9 @@
         "lastUpdated": "2025-08-16T13:06:49.001Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T13:07:27.858Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -1392,9 +1510,9 @@
         "lastUpdated": "2025-08-16T13:11:55.322Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T13:12:05.605Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -1432,9 +1550,19 @@
         "lastUpdated": "2025-08-16T13:15:51.224Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T13:16:39.173Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     },
     "zh-CN": {
@@ -1449,9 +1577,9 @@
         "lastUpdated": "2025-08-16T13:18:25.311Z"
       },
       "03-footer.json": {
-        "translated": true,
-        "checksum": "0b481070da2fac3627b7f4db7be1605d",
-        "lastUpdated": "2025-08-16T13:18:59.599Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-01-pages-home.json": {
         "translated": true,
@@ -1504,9 +1632,9 @@
         "lastUpdated": "2025-08-16T13:23:31.919Z"
       },
       "04-05-pages-lfpush.json": {
-        "translated": true,
-        "checksum": "95c843946f18446293f24784a7ca7be4",
-        "lastUpdated": "2025-08-16T13:23:40.952Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       },
       "04-06-pages-support.json": {
         "translated": true,
@@ -1544,9 +1672,19 @@
         "lastUpdated": "2025-08-16T13:27:25.078Z"
       },
       "06-notifications.json": {
-        "translated": true,
-        "checksum": "8735f685d5c3db91b86edff29556b4e8",
-        "lastUpdated": "2025-08-16T13:28:11.536Z"
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-12-pages-contact.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
+      },
+      "04-13-donut-testnet-secret.json": {
+        "translated": false,
+        "checksum": null,
+        "lastUpdated": null
       }
     }
   }

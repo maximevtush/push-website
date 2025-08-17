@@ -35,6 +35,15 @@ export const HeroHeader = styled.h1`
   }
 `;
 
+// Theme Wrapper
+export const DefaultDarkTheme = styled.div`
+  background: #000;
+  color: #fff;
+  font-family:
+    DM Sans,
+    sans-serif;
+`;
+
 // Section covers the entire width and height
 export const Section = styled.section`
   align-items: ${(props) => props.alignItems || 'center'};

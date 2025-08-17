@@ -10,7 +10,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
+import {
+  Content,
+  DefaultDarkTheme,
+  H1,
+  H2,
+  ItemV,
+  MultiContent,
+  Section,
+  Span,
+} from '@site/src/css/SharedStyling';
 import { Support } from '../components/Support';
+import { TypeformSupport } from '../components/Support/TypeformSupport';
 
 function SupportPage() {
   // Internationalization
@@ -60,7 +71,22 @@ function SupportPage() {
         />
       </Head>
 
-      <Support />
+      {/* Theme to Apply */}
+      <DefaultDarkTheme>
+        {/* Heading Section */}
+        <Section>
+          <Content className='skeletonsmall'>
+            <MultiContent>
+              <H1>Support</H1>
+              <Span>Page to solve your support queries</Span>
+            </MultiContent>
+
+            <MultiContent>
+              <TypeformSupport />
+            </MultiContent>
+          </Content>
+        </Section>
+      </DefaultDarkTheme>
     </Layout>
   );
 }
