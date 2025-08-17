@@ -617,15 +617,23 @@ async function translateContent(sourceContent, targetLanguage, languageName) {
 
   try {
     const config = getAIConfig();
-    const prompt = `You are a professional translator. Translate the following JSON object from English to ${languageName} (${targetLanguage}).
+    const prompt = `You are a professional website/localization translator. Translate the following JSON object into ${languageName} (${targetLanguage}).
 
-IMPORTANT RULES:
-1. Maintain the exact same JSON structure and keys
-2. Only translate the VALUES, never the keys
-3. Preserve all formatting, HTML tags, and special characters
-4. Keep technical terms and brand names unchanged
-5. Ensure cultural appropriateness for ${languageName} speakers
-6. Return ONLY the translated JSON object, no additional text
+RULES — read carefully
+1) Keep the exact same JSON structure and keys. Do not add, remove, or reorder keys.
+2) Translate only human-readable VALUES.
+   - Do NOT translate: URLs, emails, handles/hashtags (@PushChain, #LFPush), token symbols ($PC), brand/product names (Push Chain, Donut Testnet, MetaMask Snap), code, or IDs.
+   - Do NOT translate spec/constant values if present: alert, region, polite, assertive, summary_large_image, website, WebSite.
+3) Preserve placeholders, markup, and variables exactly (copy them verbatim).
+   - Wrapper tags: <1>…</1>, <2>…</2> (translate inner text only; keep tags unchanged)
+   - HTML tags: <strong>, <em>, <br>, etc.
+   - Variables/placeholders: {name}, {{count}}, %s, $1, :id, \n
+   - Do not change punctuation or spacing around placeholders.
+4) Keep cultural tone appropriate for ${languageName}. Use natural UI copy; prefer concise, action-oriented text.
+5) SEO fields: keep titles punchy (~55–60 chars) and descriptions clear (~120–160 chars) when possible.
+6) Do not change capitalization of brand/technical terms.
+7) If a value is empty (""), leave it empty.
+8) Return ONLY the translated JSON object (valid JSON, UTF-8). No commentary.
 
 Source JSON to translate:
 ${JSON.stringify(sourceContent, null, 2)}`;
