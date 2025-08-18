@@ -66,7 +66,7 @@ function getAIConfig() {
       provider: 'windsurf',
       apiKey: process.env.REACT_APP_WINDSURF_API_KEY,
       baseUrl: 'https://api.anthropic.com',
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-sonnet-4-20250514',
       timeout,
     };
   } else if (provider === 'local') {
