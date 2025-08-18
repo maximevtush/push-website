@@ -22,8 +22,15 @@ export const knowledgeBaseArticleContent = [
       .default,
     image3x: require(`@site/static/assets/website/docshub/WhitePushLogo@3x.png`)
       .default,
-    gridBG: require(`@site/static/assets/website/docshub/BG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BG.png`).default,
     bgColor: '#dd6fff',
+    bgStylizing: {
+      type: 'sparkle',
+      density: 40,
+      size: 10,
+      minOpacity: 0.25,
+      maxOpacity: 0.55,
+    },
     customWidth: '70px',
   },
   {
@@ -43,8 +50,13 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/BuildOnPushIcon@3x.png`
     ).default,
-    gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
+    bgStylizing: {
+      type: 'sparkle',
+      density: 40,
+      size: 10,
+    },
     customWidth: '113px',
   },
   {
@@ -65,8 +77,13 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/TechnicalDeepDivesIcon@3x.png`
     ).default,
-    gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
+    bgStylizing: {
+      type: 'sparkle',
+      density: 40,
+      size: 10,
+    },
     customWidth: '103px',
   },
   {
@@ -85,9 +102,15 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/DeveloperDocsIcon@3x.png`
     ).default,
-    gridBG: require(`@site/static/assets/website/docshub/BlueBG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BlueBG.png`).default,
     bgColor: '#4277F7',
-    customWidth: '100px',
+    bgStylizing: {
+      type: 'lines',
+      gridSize: 30,
+      color: 'white',
+      opacity: 0.2,
+    },
+    customWidth: '90px',
   },
   {
     id: 'tokenomics',
@@ -105,8 +128,13 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/TokenomicsIcon@3x.png`
     ).default,
-    gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
+    bgStylizing: {
+      type: 'sparkle',
+      density: 40,
+      size: 10,
+    },
   },
   {
     id: 'faq',
@@ -122,8 +150,13 @@ export const knowledgeBaseArticleContent = [
       .default,
     image3x: require(`@site/static/assets/website/docshub/FAQIcons@3x.png`)
       .default,
-    gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
+    bgStylizing: {
+      type: 'sparkle',
+      density: 40,
+      size: 10,
+    },
     customWidth: '70px',
   },
 ];

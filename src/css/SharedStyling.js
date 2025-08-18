@@ -61,8 +61,6 @@ export const DefaultDarkTheme = styled.div`
   }
 
   H2 {
-    color: inherit;
-
     &:last-child {
       margin-bottom: 0 !important;
     }
@@ -73,8 +71,6 @@ export const DefaultDarkTheme = styled.div`
   }
 
   H3 {
-    color: inherit;
-
     &:last-child {
       margin-bottom: 0 !important;
     }

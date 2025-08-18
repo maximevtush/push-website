@@ -11,6 +11,7 @@ import useMediaQuery from '../../../hooks/useMediaQuery';
 import { useSiteBaseUrl } from '../../../hooks/useSiteBaseUrl';
 
 import { H3, Image, ItemH, P, Span } from '../../../css/SharedStyling';
+import ItemStylizing from './ItemStylizing/ItemStylizing';
 
 const ChannelKnowledgeBaseComponentItem: FC = ({
   item,
@@ -43,12 +44,16 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
       borderRadius='32px'
       justifyContent='space-between'
       bgImage={mode === 'grid' ? item.gridBG : ''}
+      bgColor={mode === 'grid' ? item.bgColor : '#101010'}
       href={getHref(item)}
       rel='noopener'
       target={item?.target ? item?.target : '_self'}
       mode={mode}
-      background={mode === 'grid' ? item.gridBG : '#101010'}
     >
+      {mode === 'grid' && item.bgStylizing && (
+        <ItemStylizing {...item.bgStylizing} />
+      )}
+
       {mode === 'grid' && (
         <GridImage customWidth={item.customWidth}>
           <Image
@@ -168,7 +173,7 @@ const Card = styled.a`
   cursor: pointer;
   padding: ${(props) => (props.mode === 'playlist' ? '16px' : '24px')};
   border-radius: ${(props) => (props.mode === 'playlist' ? '24px' : '32px')};
-  background: ${(props) => props.background};
+  background: ${(props) => props.bgColor || props.background};
   display: flex;
   flex-direction: ${(props) => (props.mode === 'playlist' ? 'row' : 'column')};
   gap: ${(props) => (props.mode === 'playlist' ? '24px' : '0px')};
@@ -181,6 +186,8 @@ const Card = styled.a`
   background-size: cover;
   background-position: center;
   justify-content: ${(props) => (props.mode === 'grid' ? 'space-between' : '')};
+  overflow: hidden;
+  position: relative;
 
   @media ${device.mobileL} {
     flex-direction: ${(props) =>
@@ -194,13 +201,24 @@ const Card = styled.a`
   &:active {
     outline: none;
     background: ${(props) =>
-      props.mode === 'playlist' ? '#101010' : props.bgColor};
+      props.mode === 'playlist'
+        ? '#101010'
+        : props.bgColor || props.background};
     background-image: ${({ bgImage }) =>
       bgImage ? `url(${bgImage})` : 'none'};
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     color: inherit;
+  }
+
+  &:hover {
+    H3 {
+      color: ${(props) =>
+        props.mode === 'playlist'
+          ? 'var(--ifm-link-color)'
+          : 'var(--ifm-color-primary-unified-text)'};
+    }
   }
 
   user-select: none;
