@@ -17,7 +17,7 @@ const travelHorizontalLR = keyframes`
     left: 100%;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     left: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
@@ -39,7 +39,7 @@ const travelHorizontalRL = keyframes`
     left: 0%;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     left: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
@@ -61,7 +61,7 @@ const travelVerticalTB = keyframes`
     top: 100%;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     top: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
@@ -83,7 +83,7 @@ const travelVerticalBT = keyframes`
     top: 0%;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     top: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
@@ -106,10 +106,11 @@ const GridLine = styled.div<{
   direction: 'horizontal' | 'vertical';
   position: number;
   gridSize: number;
-  color: 'white' | 'black';
+  color: 'white' | 'black' | string;
   opacity: number;
   isAnimated: boolean;
   animationDirection: boolean;
+  animationDuration?: number;
   delay: number;
 }>`
   position: absolute;
@@ -204,7 +205,7 @@ const GridLine = styled.div<{
             : props.animationDirection
               ? travelVerticalTB
               : travelVerticalBT}
-          2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          ${props.animationDuration || 2}s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         animation-delay: ${props.delay}s;
       }
     `}
@@ -262,10 +263,10 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
 
   const allLines = generateAllGridLines();
 
-  // State to manage which lines are animated with their directions
-  const [animatedLines, setAnimatedLines] = useState<Map<string, boolean>>(
-    new Map()
-  );
+  // State to manage which lines are animated with their directions and durations
+  const [animatedLines, setAnimatedLines] = useState<
+    Map<string, { direction: boolean; duration: number }>
+  >(new Map());
 
   // Generate lightning animation on random lines
   useEffect(() => {
@@ -273,24 +274,47 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
 
     const interval = setInterval(() => {
       const numToAnimate = lightningCount || Math.floor(Math.random() * 8) + 4; // 4-12 lines for testing
-      const selectedLines = new Map<string, boolean>();
+      const selectedLines = new Map<
+        string,
+        { direction: boolean; duration: number }
+      >();
 
-      // Randomly select lines to animate with random directions
+      // Randomly select lines to animate with random directions and durations
       while (
         selectedLines.size < numToAnimate &&
         selectedLines.size < allLines.length
       ) {
         const randomIndex = Math.floor(Math.random() * allLines.length);
         const randomDirection = Math.random() > 0.5; // true = forward, false = reverse
-        selectedLines.set(allLines[randomIndex].id, randomDirection);
+        const randomDuration = Math.random() * 2 + 1; // 1-3 seconds
+        selectedLines.set(allLines[randomIndex].id, {
+          direction: randomDirection,
+          duration: randomDuration,
+        });
       }
 
-      setAnimatedLines(selectedLines);
+      // Add animations with random start delays to create staggered effect
+      selectedLines.forEach((animationData, lineId) => {
+        const randomStartDelay = Math.random() * 1500; // 0-1.5 seconds delay
 
-      // Clear animation after 2 seconds (animation duration)
-      setTimeout(() => {
-        setAnimatedLines(new Map());
-      }, 2000);
+        // Start the animation after the random delay
+        setTimeout(() => {
+          setAnimatedLines((prev) => {
+            const newMap = new Map(prev);
+            newMap.set(lineId, animationData);
+            return newMap;
+          });
+
+          // Clear this specific animation after its duration
+          setTimeout(() => {
+            setAnimatedLines((prev) => {
+              const newMap = new Map(prev);
+              newMap.delete(lineId);
+              return newMap;
+            });
+          }, animationData.duration * 1000); // Convert seconds to milliseconds
+        }, randomStartDelay);
+      });
     }, 2000); // New lightning every 2 seconds for testing
 
     return () => clearInterval(interval);
@@ -300,7 +324,9 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
     <PatternContainer>
       {allLines.map((line, index) => {
         const isAnimated = animatedLines.has(line.id);
-        const animationDirection = animatedLines.get(line.id) || true; // true = forward, false = reverse
+        const animationData = animatedLines.get(line.id);
+        const animationDirection = animationData?.direction || true; // true = forward, false = reverse
+        const animationDuration = animationData?.duration || 2; // default 2 seconds
 
         return (
           <GridLine
@@ -312,6 +338,7 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
             opacity={opacity}
             isAnimated={isAnimated}
             animationDirection={animationDirection}
+            animationDuration={animationDuration}
             delay={index * 0.1} // Slight stagger for animated lines
           />
         );
