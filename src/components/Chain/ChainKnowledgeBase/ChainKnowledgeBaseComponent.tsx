@@ -40,7 +40,7 @@ const ChainKnowledgeBaseComponent = () => {
   return (
     <>
       <MainContentItemH>
-        <ItemV justifyContent='flex-start'>
+        <ItemV justifyContent='flex-start' alignItems='flex-start'>
           <H1>{config.title}</H1>
 
           <Span>{config?.description()}</Span>

@@ -5,7 +5,7 @@ import styled, { css, keyframes } from 'styled-components';
 const travelHorizontalLR = keyframes`
   0% {
     opacity: 0;
-    left: -10px;
+    left: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
   10% {
@@ -18,7 +18,7 @@ const travelHorizontalLR = keyframes`
   }
   100% {
     opacity: 0;
-    left: calc(100% + 10px);
+    left: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
 `;
@@ -27,7 +27,7 @@ const travelHorizontalLR = keyframes`
 const travelHorizontalRL = keyframes`
   0% {
     opacity: 0;
-    left: calc(100% + 10px);
+    left: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
   10% {
@@ -40,7 +40,7 @@ const travelHorizontalRL = keyframes`
   }
   100% {
     opacity: 0;
-    left: -10px;
+    left: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
 `;
@@ -49,7 +49,7 @@ const travelHorizontalRL = keyframes`
 const travelVerticalTB = keyframes`
   0% {
     opacity: 0;
-    top: -10px;
+    top: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
   10% {
@@ -62,7 +62,7 @@ const travelVerticalTB = keyframes`
   }
   100% {
     opacity: 0;
-    top: calc(100% + 10px);
+    top: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
 `;
@@ -71,7 +71,7 @@ const travelVerticalTB = keyframes`
 const travelVerticalBT = keyframes`
   0% {
     opacity: 0;
-    top: calc(100% + 10px);
+    top: calc(100% + 20px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
   10% {
@@ -84,7 +84,7 @@ const travelVerticalBT = keyframes`
   }
   100% {
     opacity: 0;
-    top: -10px;
+    top: -20px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.6);
   }
 `;
@@ -197,15 +197,14 @@ const GridLine = styled.div<{
     props.isAnimated &&
     css`
       &::after {
-        animation: ${
-          props.direction === 'horizontal'
+        animation: ${props.direction === 'horizontal'
             ? props.animationDirection
               ? travelHorizontalLR
               : travelHorizontalRL
             : props.animationDirection
-            ? travelVerticalTB
-            : travelVerticalBT
-        } 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+              ? travelVerticalTB
+              : travelVerticalBT}
+          2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         animation-delay: ${props.delay}s;
       }
     `}
@@ -264,7 +263,9 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
   const allLines = generateAllGridLines();
 
   // State to manage which lines are animated with their directions
-  const [animatedLines, setAnimatedLines] = useState<Map<string, boolean>>(new Map());
+  const [animatedLines, setAnimatedLines] = useState<Map<string, boolean>>(
+    new Map()
+  );
 
   // Generate lightning animation on random lines
   useEffect(() => {
@@ -300,7 +301,7 @@ const ItemStylizingLines: React.FC<ItemStylizingLinesProps> = ({
       {allLines.map((line, index) => {
         const isAnimated = animatedLines.has(line.id);
         const animationDirection = animatedLines.get(line.id) || true; // true = forward, false = reverse
-        
+
         return (
           <GridLine
             key={line.id}
