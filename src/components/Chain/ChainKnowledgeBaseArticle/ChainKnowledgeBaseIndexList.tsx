@@ -117,7 +117,6 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
   const handleTOCItemClick = (e) => {
     e.preventDefault(); // Prevent default anchor behavior temporarily
 
-    console.log('TOC item clicked, setting manual navigation to true');
     // Temporarily disable auto-scroll during manual navigation
     isManualNavigationRef.current = true;
     isUserScrollingRef.current = false; // Disable user scrolling detection
@@ -136,7 +135,6 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
 
     // Re-enable auto-scroll after navigation is complete
     setTimeout(() => {
-      console.log('Re-enabling auto-scroll after manual navigation');
       isManualNavigationRef.current = false;
       isUserScrollingRef.current = true; // Re-enable user scrolling detection
     }, 2000); // Wait 2 seconds for smooth scroll to complete
@@ -192,11 +190,6 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
               lastActiveId = heading.id;
               // Only set end state if this is actually the last heading
               setIsAtEnd(index === headingsWithIds.length - 1);
-            } else if (isManualNavigationRef.current) {
-              console.log(
-                'Skipping heading change due to manual navigation for heading:',
-                heading.id
-              );
             }
           },
           onEnterBack: () => {
@@ -205,11 +198,6 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
               lastActiveId = heading.id;
               // Only set end state if this is actually the last heading
               setIsAtEnd(index === headingsWithIds.length - 1);
-            } else if (isManualNavigationRef.current) {
-              console.log(
-                'Skipping heading change due to manual navigation for heading:',
-                heading.id
-              );
             }
           },
           onLeave: () => {

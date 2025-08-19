@@ -8,65 +8,69 @@ import useMediaQuery from '../../../hooks/useMediaQuery';
 import useModal from '../hooks/useModal';
 
 import ImageHolder from '../../../../src/components/ImageHolder';
-import { H1, H2, H3, ItemH, ItemV } from '../../../css/SharedStyling';
+import { H1, H3, ItemH, ItemV, Span } from '../../../css/SharedStyling';
 import ChainElevateModal from '../ChainElevateModal';
-import { ChainKnowledgeBaseHeader } from '../config/ChainKnowledgeBaseHeader';
 
 const ChainKnowledgeBaseComponent = () => {
   const isMobile = useMediaQuery(device.mobileL);
   const { isOpen, open, close } = useModal();
 
-  return (
-    <ChainKnowledgeBaseComponentWrapper>
-      <MainContentWrapper>
-        <ItemV
-          alignItems={isMobile ? 'center' : 'flex-start'}
-          justifyContent='flex-start'
-        >
-          <H1
-            fontSize={isMobile ? '2.5rem' : '3rem'}
-            fontWeight='600'
-            letterSpacing='-1.098px'
-            textAlign={isMobile ? 'center' : 'left'}
-          >
-            {ChainKnowledgeBaseHeader?.title}
-          </H1>
+  const config = {
+    title: 'Knowledge Base',
+    description: () => (
+      <>
+        <SpanHighlighted>
+          Push Chain is a true universal blockchain designed to eliminate
+          fragmentation across all chains.
+        </SpanHighlighted>
+        <p />
+        <b>Developers</b> deploy once and instantly become compatible with all
+        supported EVM and non-EVM chains.
+        <p />
+        <b>Users</b> use the same app no matter the chain they come from.
+      </>
+    ),
+    // video: {
+    //   src: 'https://www.youtube.com/embed/0J2QdDbelmY',
+    //   title: 'title',
+    // },
+    image: `knowledge-frame`,
+  };
 
-          <H3
-            fontSize={isMobile ? '1rem' : '1.125rem'}
-            fontWeight='400'
-            lineHeight='155%'
-            textAlign={isMobile ? 'center' : 'left'}
-          >
-            {ChainKnowledgeBaseHeader?.description()}
-          </H3>
+  return (
+    <>
+      <MainContentItemH>
+        <ItemV justifyContent='flex-start'>
+          <H1>{config.title}</H1>
+
+          <Span>{config?.description()}</Span>
         </ItemV>
 
         <IFrameItem>
           <IFrameImage
-            background={ChainKnowledgeBaseHeader?.image && '#F2C2FE'}
+            background={config?.image && '#F2C2FE'}
             borderRadius='32px'
           >
-            {ChainKnowledgeBaseHeader?.video && (
+            {config?.video && (
               <iframe
                 width={isMobile ? '100%' : '560px'}
                 height={isMobile ? '100%' : '325px'}
-                src={ChainKnowledgeBaseHeader.video.src}
-                title={ChainKnowledgeBaseHeader.video.title}
+                src={config.video.src}
+                title={config.video.title}
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                 referrerPolicy='strict-origin-when-cross-origin'
                 allowFullScreen
               ></iframe>
             )}
 
-            {ChainKnowledgeBaseHeader?.image && (
+            {config?.image && (
               <ImageHolder
                 src={
                   require(
-                    `@site/static/assets/website/chain/${ChainKnowledgeBaseHeader?.image}.webp`
+                    `@site/static/assets/website/chain/${config?.image}.webp`
                   ).default
                 }
-                srcSet={`${require(`@site/static/assets/website/chain/${ChainKnowledgeBaseHeader?.image}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/chain/${ChainKnowledgeBaseHeader?.image}@3x.webp`).default} 3x`}
+                srcSet={`${require(`@site/static/assets/website/chain/${config?.image}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/chain/${config?.image}@3x.webp`).default} 3x`}
                 alt={'alt'}
                 title={'title'}
               />
@@ -74,7 +78,7 @@ const ChainKnowledgeBaseComponent = () => {
           </IFrameImage>
 
           <IframeContent>
-            <H3
+            <Span
               fontSize={isMobile ? '0.875rem' : '0.938rem'}
               fontWeight='400'
               lineHeight={isMobile ? '100%' : '132%'}
@@ -84,29 +88,23 @@ const ChainKnowledgeBaseComponent = () => {
             >
               Craft seamless, user-friendly experiences for you app on any
               blockchain with Push Chain.
-            </H3>
+            </Span>
             <ButtonLink to='' onClick={open}>
               Get Notified about Testnet
             </ButtonLink>
           </IframeContent>
         </IFrameItem>
-      </MainContentWrapper>
+      </MainContentItemH>
 
       {/* modal */}
       <ChainElevateModal isOpen={isOpen} onClose={close} />
-    </ChainKnowledgeBaseComponentWrapper>
+    </>
   );
 };
 
 export default ChainKnowledgeBaseComponent;
 
-const ChainKnowledgeBaseComponentWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  width: inherit;
-`;
-
-const MainContentWrapper = styled.div`
+const MainContentItemH = styled(ItemH)`
   display: flex;
   align-items: center;
   gap: 128px;
@@ -137,17 +135,29 @@ const IFrameImage = styled(ItemH)`
 `;
 
 const IFrameItem = styled.div`
-  padding: 16px 0px 16px 16px;
+  padding: 16px 0px 0px 0px;
   background: #101010;
   display: flex;
   border-radius: 40px;
   flex-direction: column;
-  max-width: 592px;
   justify-content: flex-start;
   align-self: flex-start;
+  min-width: 350px;
+  flex: 1;
 
   iframe {
     border-radius: 24px;
+  }
+
+  @media ${device.tablet} {
+    min-width: 300px;
+    flex-grow: 1;
+    align-self: center;
+    padding: 0;
+  }
+
+  @media ${device.mobileL} {
+    min-width: 100%;
   }
 `;
 
@@ -158,7 +168,7 @@ const IframeContent = styled.div`
   align-items: center;
   gap: 16px;
 
-  @media ${device.mobileL} {
+  @media ${device.laptopM} {
     display: flex;
     flex-direction: column;
 
@@ -169,9 +179,7 @@ const IframeContent = styled.div`
 `;
 
 const ButtonLink = styled.a`
-  font-family:
-    DM Sans,
-    sans-serif;
+  text-align: center;
   font-size: 1rem;
   color: #fff;
   font-weight: 600;
@@ -182,9 +190,26 @@ const ButtonLink = styled.a`
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: #d548ec;
   line-height: 180.513%;
+  width: 100%;
 
   &:hover {
     color: #fff;
     cursor: pointer;
+  }
+`;
+
+const SpanHighlighted = styled.span`
+  color: color-mix(
+    in srgb,
+    var(--ifm-color-primary-unified) 25%,
+    var(--ifm-color-primary-unified-inverse) 75%
+  );
+
+  b {
+    color: color-mix(
+      in srgb,
+      var(--ifm-color-primary-unified) 25%,
+      var(--ifm-color-primary-unified-inverse) 75%
+    );
   }
 `;

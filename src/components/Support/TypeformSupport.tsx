@@ -271,6 +271,16 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
     }
   };
 
+  const handleTextareaKeyPress = (e: React.KeyboardEvent) => {
+    // Allow Enter to create new lines in textarea
+    // Only prevent form submission on Ctrl+Enter or Cmd+Enter
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      handleNext();
+    }
+    // Regular Enter key creates new lines - no preventDefault needed
+  };
+
   const resetForm = () => {
     setCurrentStep(0);
     setIsComplete(false);
@@ -366,7 +376,7 @@ export const TypeformSupport: React.FC<TypeformSupportProps> = ({
                 handleInputChange(currentStepData.field, e.target.value)
               }
               placeholder={currentStepData.placeholder}
-              onKeyPress={handleKeyPress}
+              onKeyPress={handleTextareaKeyPress}
               hasError={!!errors[currentStepData.field as keyof FormData]}
               autoFocus
             />
@@ -494,6 +504,7 @@ const ExpandButton = styled.button`
   @media ${device.mobileL} {
     font-size: 20px;
     padding: 20px 16px;
+    gap: 8px;
   }
 `;
 
@@ -589,7 +600,7 @@ const FormWrapper = styled.div`
   }
 
   @media ${device.mobileL} {
-    padding: 60px 20px;
+    padding: 60px 10px;
   }
 `;
 
@@ -714,6 +725,10 @@ const CategoryGrid = styled.div`
 
   @media ${device.tablet} {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media ${device.mobileL} {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 

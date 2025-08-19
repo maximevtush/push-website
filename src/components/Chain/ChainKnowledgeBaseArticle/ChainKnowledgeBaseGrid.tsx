@@ -112,8 +112,13 @@ const ChainKnowledgeGrid = styled.div`
   width: 100%;
   justify-content: center;
 
-  @media ${device.tablet} {
+  @media ${device.laptop} {
     grid-template-columns: repeat(2, 1fr); /* Two items per row for tablets */
+
+    /* Make the third item span full width on tablet */
+    & > *:nth-child(3) {
+      grid-column: 1 / -1;
+    }
   }
 
   @media ${device.mobileL} {
