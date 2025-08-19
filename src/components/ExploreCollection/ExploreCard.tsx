@@ -1,23 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
+// React + Web3 Essentials
 import { FC } from 'react';
 import styled from 'styled-components';
 
+// External Components
 import { TbArrowUpRight } from 'react-icons/tb';
 
-import { device } from '../../../config/globals';
-import useMediaQuery from '../../../hooks/useMediaQuery';
-import { useSiteBaseUrl } from '../../../hooks/useSiteBaseUrl';
+// Internal Component
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
-import { H3, Image, ItemH, P, Span } from '../../../css/SharedStyling';
+import { H3, Image, ItemH, P, Span } from '@site/src/css/SharedStyling';
+
 import ItemStylizing from './ItemStylizing/ItemStylizing';
 
-const ChannelKnowledgeBaseComponentItem: FC = ({
-  item,
-  index,
-  mode = 'grid',
-}) => {
+// Internal Configs
+import { device } from '@site/src/config/globals';
+
+// Interfaces and Props
+
+// Helper Functions
+
+// Helper Component
+
+// Main Component
+const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
   // for navigation
   const isMobile = useMediaQuery(device.mobileL);
   const baseURL = useSiteBaseUrl() || '';
@@ -43,19 +52,19 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
       alignItems='flex-start'
       borderRadius='32px'
       justifyContent='space-between'
-      bgImage={mode === 'grid' ? item.gridBG : ''}
-      bgColor={mode === 'grid' ? item.bgColor : '#101010'}
+      bgImage={variant === 'tile' ? item.bgImage : ''}
+      bgColor={variant === 'tile' ? item.bgColor : '#101010'}
       href={getHref(item)}
       rel='noopener'
       target={item?.target ? item?.target : '_self'}
-      mode={mode}
+      variant={variant}
     >
-      {mode === 'grid' && item.bgStylizing && (
+      {variant === 'tile' && item.bgStylizing && (
         <ItemStylizing {...item.bgStylizing} />
       )}
 
-      {mode === 'grid' && (
-        <GridImage customWidth={item.customWidth}>
+      {variant === 'tile' && (
+        <TileImage customWidth={item.customWidth}>
           <Image
             src={item.image}
             srcSet={`${item.image2x} 2x, ${item.image3x} 3x`}
@@ -63,10 +72,10 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
             loading='lazy'
             className='pulse-logo'
           />
-        </GridImage>
+        </TileImage>
       )}
 
-      {item?.image && mode === 'playlist' && (
+      {item?.image && variant === 'row' && (
         <KnowledgeImage
           src={
             require(
@@ -75,20 +84,20 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
           }
           alt={item?.title}
           title={item?.title}
-          mode={mode}
+          variant={variant}
         />
       )}
 
-      {item?.imageDirectory && mode === 'playlist' && (
+      {item?.imageDirectory && variant === 'row' && (
         <KnowledgeImage
           src={item.imageDirectory}
           alt={item?.title}
           title={item?.title}
-          mode={mode}
+          variant={variant}
         />
       )}
 
-      {!item?.image && !item?.imageDirectory && mode === 'grid' && (
+      {!item?.image && !item?.imageDirectory && variant === 'tile' && (
         <div
           style={{
             height: 'auto',
@@ -101,13 +110,13 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
       )}
 
       <ItemH
-        flex={mode === 'playlist' ? '1' : '0'}
+        flex={variant === 'row' ? '1' : '0'}
         justifyContent='flex-start'
         alignItems='center'
-        margin={mode === 'grid' ? 'auto 0 0 0' : '0'}
+        margin={variant === 'tile' ? 'auto 0 0 0' : '0'}
       >
         <TitleH3
-          mode={mode}
+          variant={variant}
           fontSize='1.8rem'
           fontWeight='500'
           lineHeight={isMobile ? '100%' : '150%'}
@@ -118,25 +127,25 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
         </TitleH3>
       </ItemH>
 
-      {mode === 'playlist' && (
-        <PlaylistLinkArrow flex='0' alignItems='center' justifyContent='center'>
+      {variant === 'row' && (
+        <RowLinkArrow flex='0' alignItems='center' justifyContent='center'>
           <TbArrowUpRight color='#D548EC' size={24} />
-        </PlaylistLinkArrow>
+        </RowLinkArrow>
       )}
 
-      {mode === 'grid' && (
+      {variant === 'tile' && (
         <>
           <ItemH
             alignItems='flex-start'
             alignSelf='flex-start'
-            flex={mode === 'playlist' ? '1' : '0'}
+            flex={variant === 'row' ? '1' : '0'}
           >
             <P
               fontSize='1.125rem'
               fontWeight='400'
               lineHeight='133%'
               letterSpacing='-0.64px'
-              color={mode === 'grid' ? '#FFF' : '#757D8D'}
+              color={variant === 'tile' ? '#FFF' : '#757D8D'}
               fontFamily='DM Sans'
               margin='0'
             >
@@ -171,39 +180,38 @@ const ChannelKnowledgeBaseComponentItem: FC = ({
 
 const Card = styled.a`
   cursor: pointer;
-  padding: ${(props) => (props.mode === 'playlist' ? '16px' : '24px')};
-  border-radius: ${(props) => (props.mode === 'playlist' ? '24px' : '32px')};
+  padding: ${(props) => (props.variant === 'row' ? '16px' : '24px')};
+  border-radius: ${(props) => (props.variant === 'row' ? '24px' : '32px')};
   background: ${(props) => props.bgColor || props.background};
   display: flex;
-  flex-direction: ${(props) => (props.mode === 'playlist' ? 'row' : 'column')};
-  gap: ${(props) => (props.mode === 'playlist' ? '24px' : '0px')};
+  flex-direction: ${(props) => (props.variant === 'row' ? 'row' : 'column')};
+  gap: ${(props) => (props.variant === 'row' ? '24px' : '0px')};
   align-items: ${(props) =>
-    props.mode === 'playlist' ? 'center' : 'flex-start'};
+    props.variant === 'row' ? 'center' : 'flex-start'};
 
-  min-height: ${(props) => (props.mode === 'playlist' ? 'auto' : '420px')};
+  min-height: ${(props) => (props.variant === 'row' ? 'auto' : '420px')};
   background-image: ${({ bgImage }) => (bgImage ? `url(${bgImage})` : 'none')};
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  justify-content: ${(props) => (props.mode === 'grid' ? 'space-between' : '')};
+  justify-content: ${(props) =>
+    props.variant === 'tile' ? 'space-between' : ''};
   overflow: hidden;
   position: relative;
 
   @media ${device.mobileL} {
     flex-direction: ${(props) =>
-      props.mode === 'playlist' ? 'column' : 'column'};
-    gap: ${(props) => (props.mode === 'playlist' ? '16px' : '0px')};
+      props.variant === 'row' ? 'column' : 'column'};
+    gap: ${(props) => (props.variant === 'row' ? '16px' : '0px')};
     align-items: ${(props) =>
-      props.mode === 'playlist' ? 'flex-start' : 'flex-start'};
+      props.variant === 'row' ? 'flex-start' : 'flex-start'};
   }
 
   &:focus,
   &:active {
     outline: none;
     background: ${(props) =>
-      props.mode === 'playlist'
-        ? '#101010'
-        : props.bgColor || props.background};
+      props.variant === 'row' ? '#101010' : props.bgColor || props.background};
     background-image: ${({ bgImage }) =>
       bgImage ? `url(${bgImage})` : 'none'};
     background-repeat: no-repeat;
@@ -215,7 +223,7 @@ const Card = styled.a`
   &:hover {
     H3 {
       color: ${(props) =>
-        props.mode === 'playlist'
+        props.variant === 'row'
           ? 'var(--ifm-link-color)'
           : 'var(--ifm-color-primary-unified-text)'};
     }
@@ -227,7 +235,7 @@ const Card = styled.a`
   }
 `;
 
-const GridImage = styled.div`
+const TileImage = styled.div`
   padding: 16px;
   border-radius: var(--radius-lg, 32px);
   border: 1px solid rgb(255, 255, 255, 0.25);
@@ -251,27 +259,27 @@ const GridImage = styled.div`
 `;
 
 const KnowledgeImage = styled(Image)`
-  width: ${(props) => (props.mode === 'playlist' ? 'auto' : '100%')};
-  min-height: ${(props) => (props.mode === 'playlist' ? '78px' : 'auto')};
-  max-height: ${(props) => (props.mode === 'playlist' ? '78px' : '100%')};
+  width: ${(props) => (props.variant === 'row' ? 'auto' : '100%')};
+  min-height: ${(props) => (props.variant === 'row' ? '78px' : 'auto')};
+  max-height: ${(props) => (props.variant === 'row' ? '78px' : '100%')};
   aspect-ratio: 16/9;
-  border-radius: ${(props) => (props.mode === 'playlist' ? '12px' : '24px')};
+  border-radius: ${(props) => (props.variant === 'row' ? '12px' : '24px')};
 
   @media ${device.mobileL} {
-    width: ${(props) => (props.mode === 'playlist' ? '100%' : '100%')};
-    max-height: ${(props) => (props.mode === 'playlist' ? 'none' : '100%')};
+    width: ${(props) => (props.variant === 'row' ? '100%' : '100%')};
+    max-height: ${(props) => (props.variant === 'row' ? 'none' : '100%')};
   }
 `;
 
 const TitleH3 = styled(H3)`
-  color: ${(props) => (props.mode === 'playlist' ? '#FFF' : '#FFF')};
+  color: ${(props) => (props.variant === 'row' ? '#FFF' : '#FFF')};
 
   @media ${device.tablet} {
     font-size: 1.5rem;
   }
 `;
 
-const PlaylistLinkArrow = styled(ItemH)`
+const RowLinkArrow = styled(ItemH)`
   @media ${device.mobileL} {
     display: none;
   }
@@ -293,4 +301,4 @@ const LinkContainer = styled(ItemH)`
   }
 `;
 
-export default ChannelKnowledgeBaseComponentItem;
+export default ExploreCard;

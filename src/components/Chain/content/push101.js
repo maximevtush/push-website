@@ -52,7 +52,7 @@ export const push101Content = {
     {
       type: 'list',
       title: 'Learn why Push Chain is the future of web3',
-      mode: 'playlist',
+      variant: 'row',
       topGap: true,
       bottomGap: true,
       items: [

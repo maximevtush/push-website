@@ -5,8 +5,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ItemV } from '../../../css/SharedStyling';
+import ExploreCollection from '../../ExploreCollection/ExploreCollection';
 import ChainBottomComponent from '../ChainBottomComponent';
-import ChainKnowledgeBaseGrid from '../ChainKnowledgeBaseArticle/ChainKnowledgeBaseGrid';
 
 import { device } from '../../../config/globals';
 import ChainEcosystemContent from './ChainEcosystemContent';
@@ -16,7 +16,7 @@ const ChainEcosystem = () => {
     <ChainWrapper>
       <ChainInnerWrapper>
         <ChainEcosystemContent />
-        <ChainKnowledgeBaseGrid />
+        <ExploreCollection variant='tile' items={ChainEcosystemContent} />
         <ChainBottomComponent />
       </ChainInnerWrapper>
     </ChainWrapper>

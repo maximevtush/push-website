@@ -27,7 +27,7 @@ export const deepDivesContent = {
       type: 'list',
       topGap: true,
       bottomGap: true,
-      mode: 'playlist',
+      variant: 'row',
       items: [
         {
           slug: 'interop-spectrum',

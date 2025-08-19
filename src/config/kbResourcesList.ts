@@ -6,7 +6,7 @@
 //   - `title` & `content`: Each object has a title & content, which is in the /content folder. Add the title in the object in this directory and  // Use HTML or Markdown to create the article (similar to the blog section).
 //   - `url`: For external links, provide the full URL instead of using `content`.
 
-export const knowledgeBaseArticleContent = [
+export const kbResourcesList = [
   {
     id: 'push101',
     url: 'push101',
@@ -22,7 +22,7 @@ export const knowledgeBaseArticleContent = [
       .default,
     image3x: require(`@site/static/assets/website/docshub/WhitePushLogo@3x.png`)
       .default,
-    // gridBG: require(`@site/static/assets/website/docshub/BG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BG.png`).default,
     bgColor: '#dd6fff',
     bgStylizing: {
       type: 'sparkle',
@@ -50,7 +50,7 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/BuildOnPushIcon@3x.png`
     ).default,
-    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
     bgStylizing: {
       type: 'sparkle',
@@ -77,7 +77,7 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/TechnicalDeepDivesIcon@3x.png`
     ).default,
-    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
     bgStylizing: {
       type: 'sparkle',
@@ -102,7 +102,7 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/DeveloperDocsIcon@3x.png`
     ).default,
-    // gridBG: require(`@site/static/assets/website/docshub/BlueBG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BlueBG.png`).default,
     bgColor: '#4277F7',
     bgStylizing: {
       type: 'lines',
@@ -128,7 +128,7 @@ export const knowledgeBaseArticleContent = [
     image3x: require(
       `@site/static/assets/website/docshub/TokenomicsIcon@3x.png`
     ).default,
-    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
     bgStylizing: {
       type: 'sparkle',
@@ -150,7 +150,7 @@ export const knowledgeBaseArticleContent = [
       .default,
     image3x: require(`@site/static/assets/website/docshub/FAQIcons@3x.png`)
       .default,
-    // gridBG: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
+    // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
     bgColor: '#101010',
     bgStylizing: {
       type: 'sparkle',

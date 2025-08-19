@@ -27,7 +27,7 @@ export const buildersContent = {
       title: "Let's Build Universal Apps 💪",
       topGap: true,
       bottomGap: true,
-      mode: 'playlist',
+      variant: 'row',
       items: [
         {
           slug: 'apps-only-possible-with-shared-state-v1',
@@ -58,7 +58,7 @@ export const buildersContent = {
       title: 'Developer Resources',
       topGap: true,
       bottomGap: true,
-      mode: 'playlist',
+      variant: 'row',
       items: [
         {
           slug: 'developer-docs',

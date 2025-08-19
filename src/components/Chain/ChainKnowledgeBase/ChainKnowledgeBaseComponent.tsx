@@ -3,12 +3,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { device } from '../../../config/globals';
-import useMediaQuery from '../../../hooks/useMediaQuery';
+import { device } from '@site/src/config/globals';
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import useModal from '../hooks/useModal';
 
-import ImageHolder from '../../../../src/components/ImageHolder';
-import { H1, H3, ItemH, ItemV, Span } from '../../../css/SharedStyling';
+import ImageHolder from '@site/src/components/ImageHolder';
+import { H1, H3, ItemH, ItemV, Span } from '@site/src/css/SharedStyling';
 import ChainElevateModal from '../ChainElevateModal';
 
 const ChainKnowledgeBaseComponent = () => {

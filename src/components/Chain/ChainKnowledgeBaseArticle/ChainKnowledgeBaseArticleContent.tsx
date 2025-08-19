@@ -8,7 +8,7 @@ import { device } from '../../../config/globals';
 import { H1, ItemV, LI, UL } from '../../../css/SharedStyling';
 import useMediaQuery from '../../../hooks/useMediaQuery';
 
-import ChainKnowledgeBaseGrid from './ChainKnowledgeBaseGrid';
+import ExploreCollection from '../../ExploreCollection/ExploreCollection';
 import ChainKnowledgeBaseIndexList from './ChainKnowledgeBaseIndexList';
 
 const ChainKnowledgeBaseArticleContent = ({ item }) => {
@@ -67,10 +67,10 @@ const ChainKnowledgeBaseArticleContent = ({ item }) => {
               topGap={block?.topGap}
               bottomGap={block?.bottomGap}
             >
-              <ChainKnowledgeBaseGrid
+              <ExploreCollection
                 items={block?.items}
                 title={block?.title}
-                mode={block?.mode}
+                variant={block?.variant}
               />
             </ChainKnowledgeBaseArticleContentWrapper>
           );
