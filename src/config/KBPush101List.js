@@ -1,4 +1,4 @@
-export const push101Content = {
+export const KBPush101List = {
   title: 'Push Chain Basics',
   content: [
     {

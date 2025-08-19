@@ -10,11 +10,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import TokenomicsComp from '@site/src/pages-composition/tokenomicsComp';
 
 // Internal Configs
-import { tokenomicsContent } from '@site/src/components/Chain/content/tokenomics';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
+// Main
 function TokenomicsPage() {
   // Internationalization
   const { t } = useTranslation();
@@ -69,7 +70,9 @@ function TokenomicsPage() {
         />
       </Head>
 
-      <ChainKnowledgeBaseArticle item={tokenomicsContent} />
+      <DefaultDarkTheme>
+        <TokenomicsComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

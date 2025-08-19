@@ -1,25 +1,41 @@
 /* eslint-disable @docusaurus/no-html-links, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+// React + Web3 Essentials
 import Link from '@docusaurus/Link';
+import React from 'react';
+import styled from 'styled-components';
+
+// External Components
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React from 'react';
+
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeSlug from 'rehype-slug';
-
 import remarkGfm from 'remark-gfm';
-import styled from 'styled-components';
 
-import { device } from '../../../config/globals';
-import { H1, ItemH, ItemV, LI, Span, UL } from '../../../css/SharedStyling';
-import useMediaQuery from '../../../hooks/useMediaQuery';
-import { extractTOC } from '../utils/ExtractTableOfContent';
+// Internal Component
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
+import { H1, ItemH, ItemV, LI, Span, UL } from '@site/src/css/SharedStyling';
+
+import { extractTOC } from './ExtractTableOfContent';
+
+// Import Assets
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
-import { useSiteBaseUrl } from '../../../hooks/useSiteBaseUrl';
 
+// Internal Configs
+import { device } from '@site/src/config/globals';
+
+// Interfaces and Props
+
+// Helper Functions
+
+// Helper Component
+
+// Main
 const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
   const [showFullMobileTOC, setShowFullMobileTOC] = React.useState(false);
   const [activeHeadingId, setActiveHeadingId] = React.useState('');

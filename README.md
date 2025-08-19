@@ -1,103 +1,420 @@
-# Overview
+# Push Chain Website 🔗
 
-This repo houses Push protocol's website, documentation and blogs. More info below on how to run the website or submit PRs for new documentation, blog or website pages.
+> The official website for Push Chain - the first shared-state blockchain enabling universal apps and seamless cross-chain interactions.
 
-## Index
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fpush.org)](https://push.org)
+[![Built with Docusaurus](https://img.shields.io/badge/Built%20with-Docusaurus-blue)](https://docusaurus.io/)
+[![React](https://img.shields.io/badge/React-18+-blue)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue)](https://www.typescriptlang.org/)
 
-- [Installation](#installation)
-- [Local Development](#local-development)
-- [Serve Build](#serve-build)
-- [Build](#build)
-- [Deployment](#deployment)
-- [Submit Documentation](#how-to-submit-new-documentation)
-- [Submit Blog](#how-to-submit-new-blog)
-- [Submit Website Page](#how-to-submit-new-webpage)
-- [Credits](#credits)
-- [Useful References](#useful-references)
+## 🌟 Overview
+
+This repository contains the complete source code for the Push Chain website, including:
+
+- **Marketing Website**: Landing pages, features, and ecosystem information
+- **Knowledge Base**: Technical documentation, tutorials, and guides
+- **Developer Resources**: API docs, SDKs, and integration guides
+- **Blog System**: Latest news, updates, and technical articles
+- **Multilingual Support**: 13+ languages with full localization
+- **Interactive Components**: Live demos, code playgrounds, and examples
+
+## 📋 Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [🛠️ Development](#️-development)
+- [🏗️ Architecture](#️-architecture)
+- [🌐 Internationalization](#-internationalization)
+- [📝 Content Management](#-content-management)
+- [🎨 Styling & Theming](#-styling--theming)
+- [🚀 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📚 Resources](#-resources)
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+ 
+- **Yarn** package manager
+- **Git** for version control
 
 ### Installation
 
-```
-$ yarn install
-```
+```bash
+# Clone the repository
+git clone https://github.com/push-protocol/push-website.git
+cd push-website
 
-### Local Development
-
-```
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Serve Build
-
-```
-$ npm run build && npm run serve
+# Install dependencies
+yarn install
 ```
 
-### Build
+### Development Commands
 
-```
-$ yarn build
-```
+```bash
+# Start development server (full site)
+yarn start
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+# Start development server (lite mode - faster, fewer blog posts)
+yarn start:lite
 
-### Deployment
+# Build for production
+yarn build
 
-Using SSH:
+# Serve production build locally
+yarn serve
 
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
+# Deploy to production
+yarn deploy
 ```
 
-### How to submit new documentation
+## 🛠️ Development
 
-- All assets (Images, etc) should be put under `/static/assets/docs/{relativeproduct}/{relativefolder}/{relativearticle}`
+### Development Server
 
-  for example: if you are creating **tutorial** for **creating channel** under **notifications**, then images for them should be under `/static/assets/docs/notifications/tutorials/create-channel`
+The development server supports hot reloading and provides real-time feedback:
 
-  Feel free to create a folder for a relative document incase needed.
+```bash
+yarn start
+```
 
-- We follow numbering format and specific format for folder structure, article structure and positioning, do make sure that you are aware of those, refer existing articles for more understanding.
+- Opens browser at `http://localhost:3000`
+- Auto-reloads on file changes
+- Supports live editing of React components
+- Real-time translation updates
 
-- You don't have to put a preview image for any documentation as any `.mdx` file under the `/docs` will automatically generate a preview image.
+### Lite Development Mode
 
-- Avoid adding custom components unless really required.
+For faster development with large blog collections:
 
-- Use `live playground` to ensure builders can play with the code.
+```bash
+yarn start:lite
+```
 
-- Use modern standards for images (aivf, webp) wherever possible.
+- Temporarily moves all but the 10 most recent blog posts
+- Significantly faster startup time
+- Automatically restores all blogs when switching back to `yarn start`
+- Perfect for development work not involving blog content
 
-- Ensure consistency is maintained with other articles that are written.
+### Build Process
 
-- Ensure you know how front matter of Docusaurus works. Recommended to [read about front matter](https://docusaurus.io/docs/markdown-features#front-matter) from Docusaurus for best practices.
+```bash
+# Production build
+yarn build
 
-- Once you are done with the article, raise a PR and a team member will review -> merge -> deploy the website with your newly added docs.
+# Analyze bundle size
+yarn build --analyze
 
-### How to submit new blog
+# Build with specific locale
+yarn build --locale en
+```
 
-- All blogs go in `/blog` section. Each blog is a seperate folder that follows the naming convention of `yyyy-mm-dd-blog-short-title-in-kebab-case`
+## 🏗️ Architecture
 
-- Cover images and any other images goes inside this folder.
+### Tech Stack
 
-- All images need to follow modern standards (webp or aivf).
+- **Framework**: [Docusaurus 3](https://docusaurus.io/) - Modern static site generator
+- **Frontend**: React 18+ with TypeScript
+- **Styling**: Styled Components + CSS Modules
+- **Internationalization**: react-i18next with 13+ languages
+- **Content**: MDX for documentation, Markdown for blogs
+- **Animations**: GSAP for smooth interactions
+- **Build**: Webpack with optimizations
 
-- Create an `index.md` inside this folder struture and write you blog here.
+### Project Structure
 
-- Ensure you are aware of all the meta tags that you have to provide. Make sure you are aware of [all standards mentioned here](https://docusaurus.io/docs/blog#adding-posts 'Docusaurus standards for writing blog') and include them in the blog.
+```
+push-website/
+├── src/
+│   ├── components/          # Reusable React components
+│   │   ├── Chain/          # Push Chain specific components
+│   │   ├── ExploreCollection/ # Knowledge base grid components
+│   │   └── SEO/            # SEO and meta components
+│   ├── pages/              # Static pages
+│   ├── pages-composition/  # Page composition components
+│   ├── hooks/              # Custom React hooks
+│   ├── css/                # Global styles and themes
+│   └── config/             # Configuration files
+├── static/
+│   ├── assets/             # Images, icons, media
+│   └── locales/            # Translation files
+├── docs/                   # Documentation content
+├── blog/                   # Blog posts
+└── content/                # Knowledge base articles
+```
 
-- All authors should be included in `/blog/authors.yml` and author images should be placed in `/assets/blog/authors/`.
+### Key Components
 
-- Once you are done with the article, raise a PR and a team member will review -> merge -> deploy the website with your newly added blogs.
+- **ExploreCollection**: Flexible grid system for displaying content cards
+- **ExplainerIndexList**: Table of contents and content navigation
+- **ChainKnowledgeBase**: Knowledge base components with search and filtering
+- **SEO Components**: Automatic meta tag generation and schema markup
+- **Notification System**: Toast notifications with localization
 
-### How to submit new webpage
+## 🌐 Internationalization
+
+### Supported Languages
+
+The website supports 13+ languages with full localization:
+
+- English (en) - Default
+- Chinese (zh)
+- Spanish (es)
+- Hindi (hi)
+- Korean (ko)
+- Japanese (ja)
+- Portuguese (pt)
+- Russian (ru)
+- Turkish (tr)
+- French (fr)
+- Indonesian (id)
+- Vietnamese (vi)
+- German (de)
+- Arabic (ar)
+
+### Translation Management
+
+```bash
+# Extract translatable strings
+yarn write-translations
+
+# Update specific language
+yarn write-translations --locale zh
+
+# Build specific language
+yarn build --locale en
+```
+
+### Translation Files Structure
+
+```
+static/locales/{locale}/
+├── translation.json        # Main translations
+└── 01-translate/
+    ├── 01-homepage.json    # Homepage content
+    ├── 05-components.json  # Component strings
+    └── 06-notifications.json # Notification messages
+```
+
+### Adding New Translations
+
+1. Add translation keys to appropriate JSON files
+2. Use `useTranslation` hook in components:
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+const MyComponent = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <h1>{t('components.my-component.title')}</h1>
+  );
+};
+```
+
+## 📝 Content Management
+
+### Documentation
+
+**Location**: `/docs/`
+
+- Use `.mdx` files for rich interactive content
+- Follow numbered folder structure for organization
+- Include frontmatter for metadata:
+
+```yaml
+---
+title: "Your Doc Title"
+description: "Brief description"
+image: "/path/to/preview-image.png"
+---
+```
+
+**Asset Organization**:
+```
+static/assets/docs/{product}/{category}/{article}/
+```
+
+### Blog Posts
+
+**Location**: `/blog/`
+
+- Folder naming: `yyyy-mm-dd-title-in-kebab-case/`
+- Include `index.md` with frontmatter
+- Add authors to `/blog/authors.yml`
+- Use modern image formats (WebP, AVIF)
+
+### Knowledge Base
+
+**Location**: `/content/`
+
+- Structured content for the knowledge base
+- Supports hidden sections and dynamic TOC
+- Markdown with custom components support
+
+## 🎨 Styling & Theming
+
+### Design System
+
+- **Colors**: Push Chain brand palette with dark theme
+- **Typography**: DM Sans and Glancyr fonts
+- **Spacing**: 8px grid system
+- **Breakpoints**: Mobile-first responsive design
+
+### Styled Components
+
+```tsx
+import styled from 'styled-components';
+import { device } from '@site/src/config/globals';
+
+const StyledComponent = styled.div`
+  padding: 24px;
+  background: #101010;
+  
+  @media ${device.mobileL} {
+    padding: 16px;
+  }
+`;
+```
+
+### CSS Variables
+
+```css
+:root {
+  --ifm-color-primary: #e64de9;
+  --ifm-color-primary-dark: #d548ec;
+  --ifm-background-color: #000;
+}
+```
+
+## 🚀 Deployment
+
+### Automated Deployment
+
+The website is automatically deployed on:
+
+- **Production**: Push to `main` branch
+- **Staging**: Push to `develop` branch
+- **Preview**: Pull request previews
+
+### Manual Deployment
+
+```bash
+# Deploy to production
+yarn deploy
+
+# Deploy with SSH
+USE_SSH=true yarn deploy
+
+# Deploy specific locale
+yarn deploy --locale en
+```
+
+### Environment Variables
+
+```bash
+# .env.local
+GIT_USER=your-github-username
+USE_SSH=true
+DEPLOYMENT_BRANCH=gh-pages
+```
+
+## 🤝 Contributing
+
+### Development Workflow
+
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** changes: `git commit -m 'Add amazing feature'`
+4. **Push** to branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
+
+### Code Standards
+
+- **TypeScript**: Strict mode enabled
+- **ESLint**: Enforced code quality
+- **Prettier**: Consistent formatting
+- **Conventional Commits**: Semantic commit messages
+
+### Testing
+
+```bash
+# Run linting
+yarn lint
+
+# Fix linting issues
+yarn lint:fix
+
+# Type checking
+yarn type-check
+
+# Build test
+yarn build
+```
+
+### Contribution Guidelines
+
+#### Documentation
+- Place assets in `/static/assets/docs/{product}/{category}/{article}/`
+- Follow existing numbering and folder structure
+- Use modern image formats (WebP, AVIF)
+- Include live code examples where applicable
+- Maintain consistency with existing documentation
+
+#### Blog Posts
+- Follow naming convention: `yyyy-mm-dd-title-in-kebab-case/`
+- Include proper frontmatter and meta tags
+- Add author information to `/blog/authors.yml`
+- Optimize images for web
+
+#### Website Features
+- Follow component-based architecture
+- Implement responsive design
+- Add proper TypeScript types
+- Include accessibility features
+- Test across different browsers and devices
+
+## 📚 Resources
+
+### Documentation
+
+- [Docusaurus Documentation](https://docusaurus.io/docs)
+- [React Documentation](https://reactjs.org/docs)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+- [Styled Components](https://styled-components.com/docs)
+
+### Push Chain Resources
+
+- [Push Chain Docs](https://push.org/docs)
+- [Developer Portal](https://push.org/docs/developers)
+- [API Reference](https://push.org/docs/api)
+- [Community Discord](https://discord.gg/pushchain)
+
+### Design Resources
+
+- [Push Chain Brand Guidelines](https://push.org/brand)
+- [Figma Design System](https://figma.com/pushchain)
+- [Icon Library](https://push.org/icons)
+
+---
+
+## 🆘 Support
+
+Need help? Here's how to get support:
+
+- **Documentation Issues**: Open an issue with the `documentation` label
+- **Bug Reports**: Use the bug report template
+- **Feature Requests**: Use the feature request template
+- **General Questions**: Join our [Discord community](https://discord.gg/pushchain)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**Built with ❤️ by the Push Chain team**
 
 - All webpage go in `/src/pages` section.
 

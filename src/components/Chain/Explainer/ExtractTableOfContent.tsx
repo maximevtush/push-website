@@ -3,6 +3,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 /* eslint-disable no-useless-escape */
+
+// React + Web3 Essentials
+
+// External Components
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
@@ -10,6 +14,17 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
+// Internal Component
+
+// Internal Configs
+
+// Interfaces and Props
+
+// Helper Functions
+
+// Helper Component
+
+// Main
 const generateIdFromText = (text) => {
   return text
     .toLowerCase()

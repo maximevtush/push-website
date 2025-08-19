@@ -30,6 +30,7 @@ import {
   ItemH,
   ItemV,
   MultiContent,
+  PrimaryA,
   Section,
   Span,
 } from '@site/src/css/SharedStyling';
@@ -157,25 +158,17 @@ export default function HomePage() {
                   </Span>
 
                   <HeroCTA gap='18px' flex='0'>
-                    <A
+                    <PrimaryA
                       href={useBaseUrl('/docs')}
                       title={t('pages.home.hero-section.primary-button-title')}
                       aria-label={t(
                         'pages.home.hero-section.primary-button-aria-label'
                       )}
-                      background='#D548EC'
-                      borderRadius='16px'
-                      border='1px solid rgba(255, 255, 255, 0.30)'
-                      fontSize='1.125rem'
-                      fontWeight='600'
-                      letterSpacing='-0.03em'
-                      lineHeight='1rem'
-                      padding='16px 32px'
                       zIndex='2'
                     >
                       {t('pages.home.hero-section.primary-button')}
                       <BsArrowRight className='start-svg' />
-                    </A>
+                    </PrimaryA>
 
                     <PortalA
                       href='/knowledge'

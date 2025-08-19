@@ -1,4 +1,4 @@
-export const tokenomicsContent = {
+export const KBTokenomicsList = {
   title: 'Explore Tokenomics',
   content: [
     {
@@ -6,9 +6,7 @@ export const tokenomicsContent = {
       value: [
         {
           type: 'text',
-          value: `
-
-    ## Overview
+          value: `## Overview
 
     In late 2024, the Push community voted to approve the launch of Push Chain, a shared state layer 1 blockchain designed to enable the development of universal applications and eliminate fragmentation across web3.
 
@@ -21,13 +19,22 @@ export const tokenomicsContent = {
     Do not believe anyone offering early access to the Push Chain token. All communications regarding Push Chain will be announced simultaneously from official Push channels — [Twitter / X](https://x.com/PushChain 'X handle of Push Chain'), [Discord](https://discord.com/invite/pushchain 'Discord of Push Chain'), [Telegram](https://t.me/epnsproject 'Telegram of Push Chain'), [Website](https://push.org 'Push Website').
     :::
 
-    ## What is the Vision of Push Chain?
+    <br />
+`,
+        },
+        {
+          type: 'text',
+          value: `## What is the Vision of Push Chain?
 
     All blockchains have proven particularly useful for specific apps and use cases. Bitcoin enabled smart money. Ethereum enabled innovations for DeFi. Solana enabled fast apps and meme culture. Several L2s and new L1s are targeting other areas of concern.
 
     However, a blockchain that is purpose-built to enable chain abstraction and seamless interoperability in the space is still required. This chain would enable transactions from any chain (ETH, SOL, EVM or non-EVM) to power apps that can be used by **any user —** no matter their chain or wallet. This is the chain of **Universal Apps**. This is Push Chain!
 
-    ### Built on innovation to eliminate blockchain isolation!
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Built on innovation to eliminate blockchain isolation!
 
     Push Chain is revolutionary for both users and developers as it creates an environment for any developer to deploy their universal app in hours via a single universal smart contract deployment.
 
@@ -43,7 +50,11 @@ export const tokenomicsContent = {
 
     All of this enables a **Universal Execution Layer** to allow users of any chain to access and interact with the same app.
 
-    ### Where does Push Chain fit in?
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Where does Push Chain fit in?
 
     Push chain fits **every project…** **on every chain!**
 
@@ -51,7 +62,11 @@ export const tokenomicsContent = {
     - **It allows users** the freedom to interact with the wallet of their choice or have a seamless signless experience via Push Universal Wallet with social login.<br />
     - **It allows shared app experiences** where users of all chains can come together and engage with universal DeFi, unified gaming, universal NFT, universal Governance, etc.<br />
 
-    ### What can be built on Push Chain?
+    `,
+        },
+        {
+          type: 'text',
+          value: `### What can be built on Push Chain?
 
     Push Chain brings seamless interoperability and unifies all L1s, L2s, & L3s and therefore is poised to become the playground of innovation and interop. You can build existing web3 use cases such as:
 
@@ -65,13 +80,21 @@ export const tokenomicsContent = {
 
     ![Universal app use cases of Push Chain](/assets/website/chain/knowledge/tokenomics/appusecases.webp)
 
-    <hr />
+    <br />
 
-    ## Push Chain Tokenomics 👋
+    `,
+        },
+        {
+          type: 'text',
+          value: `## Push Chain Tokenomics 👋
 
     ![Push Chain Tokenomics](/assets/website/chain/knowledge/tokenomics/vestingpc.webp)
 
-    ### Token Utility and Functionality
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Token Utility and Functionality
 
     Push Chain token is designed with multiple utilities that support the network's operation and growth.
 
@@ -94,7 +117,11 @@ export const tokenomicsContent = {
 
     Push Chain adopts a dynamic supply model, which is used among popular chains (like Ethereum and Solana). Post mainnet, new tokens for the chain would be mined solely for node rewards, relayer rewards, and other participants that are required for ensuring chain security, functionality, and decentralization needs.
 
-    ### Burn and Deflationary Mechanism
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Burn and Deflationary Mechanism
 
     Push Chain has a couple of burn mechanisms owing to it being a Universal Blockchain.
 
@@ -106,7 +133,11 @@ export const tokenomicsContent = {
 
     This ensures a deflationary blockchain design that burns tokens as the network and the transactions that happen on it grow. This design enables the creation of an incentivized, sustainable long-term future for Push Chain and all its participants.
 
-    ### Migration Details
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Migration Details
 
     Push Chain is the result of years of learning from building the leading notification and communication protocol of web3, which was one of the first consumer apps for crypto.
 
@@ -133,11 +164,20 @@ export const tokenomicsContent = {
     </details>
     <p />
 
-    ### Airdrop Details
+    `,
+        },
+        {
+          type: 'text',
+          value: `### Airdrop Details
 
     Additionally, the tokenomics proposal allocates 10% of the total Push Chain token supply for airdrops to past and present Push Protocol application users (notifications, messaging, chat). Along with new users, creators, developers, and ecosystem partners of Push Chain.
 
-    ## Token Distribution Details
+    <br />
+    `,
+        },
+        {
+          type: 'text',
+          value: `## Token Distribution Details
 
     The total supply of Push Chain tokens is proposed at **10 billion**, distributed as follows:
 
@@ -151,7 +191,12 @@ export const tokenomicsContent = {
     4. Investors have 24-month linear vesting.
     5. Community and Ecosystem Reserves has a 13.5% unlock at TGE, followed by 36-month vesting.
 
-    ## Get Involved
+    <br />
+    `,
+        },
+        {
+          type: 'text',
+          value: `## Get Involved
 
     - **🧙 Developers**
     Explore our SDK & Docs at [Documentation Hub](/docs/)

@@ -1,4 +1,4 @@
-export const deepDivesContent = {
+export const KBDeepDivesList = {
   title: 'Deep Dives',
   content: [
     {

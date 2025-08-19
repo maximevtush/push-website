@@ -10,11 +10,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import Push101Comp from '@site/src/pages-composition/push101Comp';
 
 // Internal Configs
-import { push101Content } from '@site/src/components/Chain/content/push101';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
+// Main
 function PushBasicsPage() {
   // Internationalization
   const { t } = useTranslation();
@@ -66,7 +67,9 @@ function PushBasicsPage() {
         />
       </Head>
 
-      <ChainKnowledgeBaseArticle item={push101Content} />
+      <DefaultDarkTheme>
+        <Push101Comp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

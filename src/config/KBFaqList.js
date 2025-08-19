@@ -1,4 +1,4 @@
-export const faqContent = {
+export const KBFaqList = {
   title: 'Frequently Asked Questions',
   content: [
     {

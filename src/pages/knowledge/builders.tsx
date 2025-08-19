@@ -10,11 +10,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import BuildersComp from '@site/src/pages-composition/buildersComp';
 
 // Internal Configs
-import { buildersContent } from '@site/src/components/Chain/content/builders';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
+// Main
 function BuildersPage() {
   // Internationalization
   const { t } = useTranslation();
@@ -66,7 +67,9 @@ function BuildersPage() {
         />
       </Head>
 
-      <ChainKnowledgeBaseArticle item={buildersContent} />
+      <DefaultDarkTheme>
+        <BuildersComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

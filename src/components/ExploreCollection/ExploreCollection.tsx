@@ -83,7 +83,7 @@ const createGridRows = (items) => {
 
 // Helper Component
 
-// Main Component
+// Main
 const ExploreCollection: React.FC<ExploreCollectionProps> = ({
   items,
   title,

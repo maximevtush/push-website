@@ -12,8 +12,10 @@ import { useTranslation } from 'react-i18next';
 // Internal Component
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
-import KnowledgeComposition from '@site/src/pages-composition/knowledgeComposition';
 
+import KnowledgeComp from '@site/src/pages-composition/knowledgeComp';
+
+// Main
 function KnowledgeBasePage() {
   const { t } = useTranslation();
 
@@ -65,7 +67,7 @@ function KnowledgeBasePage() {
       <SchemaMarkup type='FAQPage' />
 
       <DefaultDarkTheme>
-        <KnowledgeComposition />
+        <KnowledgeComp />
       </DefaultDarkTheme>
     </Layout>
   );

@@ -10,12 +10,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import FAQComp from '@site/src/pages-composition/faqComp';
 
 // Internal Configs
-import { faqContent } from '@site/src/components/Chain/content/faq';
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
+// Main
 function FAQPage() {
   // Internationalization
   const { t } = useTranslation();
@@ -69,8 +70,9 @@ function FAQPage() {
 
       {/* FAQ Schema Markup with default FAQs */}
       <SchemaMarkup type='FAQPage' />
-
-      <ChainKnowledgeBaseArticle item={faqContent} />
+      <DefaultDarkTheme>
+        <FAQComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

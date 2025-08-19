@@ -56,7 +56,6 @@ export const DefaultDarkTheme = styled.div`
 
     @media ${device.tablet} {
       font-size: 2.5rem;
-      text-align: center;
     }
   }
 
@@ -599,6 +598,17 @@ export const A = styled.a`
     position: relative;
     top: 5px;
   }
+`;
+
+export const PrimaryA = styled(A)`
+  background: var(--ifm-link-color);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1rem;
+  padding: 16px 32px;
 `;
 
 export const P = styled.p`

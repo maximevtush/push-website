@@ -25,7 +25,7 @@ import { device } from '@site/src/config/globals';
 
 // Helper Component
 
-// Main Component
+// Main
 const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
   // for navigation
   const isMobile = useMediaQuery(device.mobileL);

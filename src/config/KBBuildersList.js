@@ -1,4 +1,4 @@
-export const buildersContent = {
+export const KBBuildersList = {
   title: 'Build on Push Chain',
   content: [
     {

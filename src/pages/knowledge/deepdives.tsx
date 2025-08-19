@@ -10,11 +10,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import DeepDivesComp from '@site/src/pages-composition/deepdivesComp';
 
 // Internal Configs
-import { deepDivesContent } from '@site/src/components/Chain/content/deepdives';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
+// Main
 function DeepDivesPage() {
   // Internationalization
   const { t } = useTranslation();
@@ -69,7 +70,9 @@ function DeepDivesPage() {
         />
       </Head>
 
-      <ChainKnowledgeBaseArticle item={deepDivesContent} />
+      <DefaultDarkTheme>
+        <DeepDivesComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

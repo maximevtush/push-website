@@ -6,7 +6,7 @@
 //   - `title` & `content`: Each object has a title & content, which is in the /content folder. Add the title in the object in this directory and  // Use HTML or Markdown to create the article (similar to the blog section).
 //   - `url`: For external links, provide the full URL instead of using `content`.
 
-export const kbResourcesList = [
+export const KBResourcesList = [
   {
     id: 'push101',
     url: 'push101',

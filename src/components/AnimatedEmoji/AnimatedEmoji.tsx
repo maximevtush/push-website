@@ -180,8 +180,8 @@ const thumbsUp = keyframes`
 
 // Base emoji container
 const EmojiContainer = styled.div<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
   background: ${colors.base};
   display: inline-block;
   border-radius: 50%;
@@ -250,7 +250,8 @@ const HahaEyes = styled(EmojiElement)`
   top: 35px;
   transform: rotate(20deg);
   background: transparent;
-  box-shadow: -25px 5px 0 0 ${colors.black},
+  box-shadow:
+    -25px 5px 0 0 ${colors.black},
     25px -5px 0 0 ${colors.black};
 
   &:after {
@@ -261,7 +262,8 @@ const HahaEyes = styled(EmojiElement)`
     border-radius: 2px;
     transform: rotate(-40deg);
     background: transparent;
-    box-shadow: -25px -5px 0 0 ${colors.black},
+    box-shadow:
+      -25px -5px 0 0 ${colors.black},
       25px 5px 0 0 ${colors.black};
   }
 `;
@@ -303,8 +305,11 @@ const YayEyebrows = styled(EmojiElement)`
   width: 6px;
   border-radius: 50%;
   background: transparent;
-  box-shadow: -6px 0 0 0 ${colors.black}, -36px 0 0 0px ${colors.black},
-    6px 0 0 0 ${colors.black}, 36px 0 0 0px ${colors.black};
+  box-shadow:
+    -6px 0 0 0 ${colors.black},
+    -36px 0 0 0px ${colors.black},
+    6px 0 0 0 ${colors.black},
+    36px 0 0 0px ${colors.black};
 
   &:before,
   &:after {
@@ -355,7 +360,9 @@ const YayMouth = styled(EmojiElement)`
     border-radius: 50%;
     bottom: 5px;
     left: calc(50% - 3px);
-    box-shadow: -25px 0 0 0 ${colors.black}, 25px 0 0 0 ${colors.black},
+    box-shadow:
+      -25px 0 0 0 ${colors.black},
+      25px 0 0 0 ${colors.black},
       -35px -2px 30px 10px ${colors.angry},
       35px -2px 30px 10px ${colors.angry};
   }
@@ -376,8 +383,11 @@ const WowEyebrows = styled(EmojiElement)`
   width: 6px;
   border-radius: 50%;
   background: transparent;
-  box-shadow: -18px 0 0 0 ${colors.black}, -33px 0 0 0 ${colors.black},
-    18px 0 0 0 ${colors.black}, 33px 0 0 0 ${colors.black};
+  box-shadow:
+    -18px 0 0 0 ${colors.black},
+    -33px 0 0 0 ${colors.black},
+    18px 0 0 0 ${colors.black},
+    33px 0 0 0 ${colors.black};
   animation: ${wowBrow} 3s linear infinite;
 
   &:before,
@@ -410,7 +420,9 @@ const WowEyes = styled(EmojiElement)`
   top: 35px;
   border-radius: 50%;
   background: transparent;
-  box-shadow: 25px 0 0 0 ${colors.black}, -25px 0 0 0 ${colors.black};
+  box-shadow:
+    25px 0 0 0 ${colors.black},
+    -25px 0 0 0 ${colors.black};
 `;
 
 const WowMouth = styled(EmojiElement)`
@@ -423,7 +435,7 @@ const WowMouth = styled(EmojiElement)`
   animation: ${wowMouth} 3s linear infinite;
 `;
 
-// Main component
+// Main
 interface AnimatedEmojiProps {
   type: EmojiType;
   size?: number;
@@ -435,14 +447,12 @@ const AnimatedEmoji: React.FC<AnimatedEmojiProps> = ({
   type,
   size = 120,
   className,
-  flip = false
+  flip = false,
 }) => {
   const renderEmoji = () => {
     switch (type) {
       case 'confetti':
-        return (
-          <ConfettiEmoji size={size} className={className} flip={flip} />
-        );
+        return <ConfettiEmoji size={size} className={className} flip={flip} />;
 
       case 'love':
         return (
