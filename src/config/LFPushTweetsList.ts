@@ -3,6 +3,12 @@
 
 // List of tweet URLs to fetch
 export const LFPushTweetsList: string[] = [
+  // Till 21 Aug, 2025
+  'https://x.com/CNairobian1_/status/1958088292517154941',
+  'https://x.com/V_Agarwal_666/status/1958074865434653109',
+  'https://x.com/routescan_io/status/1957481010603479264',
+  'https://x.com/SevenDyor/status/1957092353426309473',
+  'https://x.com/2FishCrypToo/status/1957170350460170523',
   // Till 17th Aug, 2025
   'https://x.com/0Kynzar/status/1956624778686525883',
   'https://x.com/grokassist/status/1956254221260484734',

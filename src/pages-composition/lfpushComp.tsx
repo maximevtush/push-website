@@ -31,7 +31,6 @@ export default function LFPushComp() {
 
   // Pagination state
   const [displayedTweets, setDisplayedTweets] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observerRef = useRef<HTMLDivElement>(null);
@@ -110,7 +109,9 @@ export default function LFPushComp() {
     if (isLoading || !hasMore) return;
 
     setIsLoading(true);
-    const startIndex = currentPage * TWEETS_PER_PAGE;
+
+    // Use displayedTweets.length to calculate the correct start index
+    const startIndex = displayedTweets.length;
     const endIndex = startIndex + TWEETS_PER_PAGE;
     const newTweets = LFPushTweetsList.slice(startIndex, endIndex);
 
@@ -118,10 +119,9 @@ export default function LFPushComp() {
       setHasMore(false);
     } else {
       setDisplayedTweets((prev) => [...prev, ...newTweets]);
-      setCurrentPage((prev) => prev + 1);
     }
     setIsLoading(false);
-  }, [currentPage, isLoading, hasMore]);
+  }, [displayedTweets.length, isLoading, hasMore]);
 
   // Initial load
   useEffect(() => {
