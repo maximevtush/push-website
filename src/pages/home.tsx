@@ -767,6 +767,9 @@ const HeroPrimary = styled.div`
   width: 1440px;
   height: 850px;
   z-index: 99;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 
   @media ${device.laptopL} {
     width: 100%;
