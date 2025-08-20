@@ -115,8 +115,10 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
       {variant === 'tile' && (
         <TileImage customWidth={item.customWidth}>
           <Image
-            src={item.image}
-            srcSet={`${item.image2x} 2x, ${item.image3x} 3x`}
+            src={require(`@site/${item?.image?.substring(1)}.webp`).default}
+            {...(item?.imageSrcSet && {
+              srcSet: `${require(`@site/${item?.image?.substring(1)}@2x.webp`).default} 2x, ${require(`@site/${item?.image?.substring(1)}@3x.webp`).default} 3x`,
+            })}
             alt={getImageAltText(resolvedTitle)}
             title={resolvedTitle}
             loading='lazy'
@@ -127,36 +129,14 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
 
       {item?.image && variant === 'row' && (
         <KnowledgeImage
-          src={
-            require(
-              `@site/static/assets/website/chain/knowledge/${item?.image}.webp`
-            ).default
-          }
+          src={require(`@site/${item?.image?.substring(1)}.webp`).default}
+          {...(item?.imageSrcSet && {
+            srcSet: `${require(`@site/${item?.image?.substring(1)}@2x.webp`).default} 2x, ${require(`@site/${item?.image?.substring(1)}@3x.webp`).default} 3x`,
+          })}
           alt={getImageAltText(resolvedTitle)}
           title={resolvedTitle}
           variant={variant}
         />
-      )}
-
-      {item?.imageDirectory && variant === 'row' && (
-        <KnowledgeImage
-          src={item.imageDirectory}
-          alt={getImageAltText(resolvedTitle)}
-          title={resolvedTitle}
-          variant={variant}
-        />
-      )}
-
-      {!item?.image && !item?.imageDirectory && variant === 'tile' && (
-        <div
-          style={{
-            height: 'auto',
-            width: '100%',
-            backgroundColor: '#D9D9D9',
-            borderRadius: '24px',
-            aspectRatio: '16/9',
-          }}
-        ></div>
       )}
 
       <ItemH

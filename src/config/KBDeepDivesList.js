@@ -28,14 +28,17 @@ export const KBDeepDivesList = {
       items: [
         {
           slug: 'interop-spectrum',
-          image: 'interop-spectrum',
+          image: '/static/assets/website/chain/knowledge/interop-spectrum',
+          imageSrcSet: false,
           title: 'Interop as a Spectrum',
           url: '/blog/interop-spectrum',
           target: '_blank',
         },
         {
           slug: 'understand-proof-of-stake-part-1',
-          image: 'understand-proof-of-stake',
+          image:
+            '/static/assets/website/chain/knowledge/understand-proof-of-stake',
+          imageSrcSet: false,
           title: 'Understanding Proof of Stake (POS) - Part 1',
           url: '/blog/understand-proof-of-stake',
           target: '_blank',

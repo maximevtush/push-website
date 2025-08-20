@@ -783,6 +783,11 @@ const ButtonGroup = styled.div`
   gap: 16px;
   justify-content: space-between;
   align-items: center;
+
+  /* When NextButton is the only child, align it to the end */
+  & > button:only-child {
+    margin-left: auto;
+  }
 `;
 
 const BackButton = styled.button`

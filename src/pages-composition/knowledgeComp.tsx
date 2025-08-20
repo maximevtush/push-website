@@ -2,7 +2,10 @@
 // @ts-nocheck
 
 // React + Web3 Essentials
+import Head from '@docusaurus/Head';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // External Components
 import styled from 'styled-components';
@@ -27,8 +30,8 @@ import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import QnA from '@site/src/components/QnA/QnA';
 import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
-import ExploreCollection from '@site/src/components/ExploreCollection/ExploreCollection';
-import { KBResourcesList } from '@site/src/config/KBResourcesList';
+import ContentBlocks from '@site/src/components/ContentBlocks/ContentBlocks';
+import { KBRootResourcesList } from '@site/src/config/KBRootResourcesList';
 
 // Interfaces and Props
 
@@ -38,22 +41,23 @@ import { KBResourcesList } from '@site/src/config/KBResourcesList';
 
 // Main
 const KnowledgeComp = () => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
   const [showEmailSignup, setShowEmailSignup] = useState(false);
 
   const heroConfig = {
-    title: 'Knowledge Base',
+    title: t('pages.knowledge.hero-section.title'),
     description: () => (
       <>
         <SpanHighlighted>
-          Push Chain is a true universal blockchain designed to eliminate
-          fragmentation across all chains.
+          {t('pages.knowledge.hero-section.description.highlighted')}
         </SpanHighlighted>
         <p />
-        <b>Developers</b> deploy once and instantly become compatible with all
-        supported EVM and non-EVM chains.
+        <b>{t('pages.knowledge.hero-section.description.developers')}</b>{' '}
+        {t('pages.knowledge.hero-section.description.developers-text')}
         <p />
-        <b>Users</b> use the same app no matter the chain they come from.
+        <b>{t('pages.knowledge.hero-section.description.users')}</b>{' '}
+        {t('pages.knowledge.hero-section.description.users-text')}
       </>
     ),
     // video: {
@@ -62,10 +66,9 @@ const KnowledgeComp = () => {
     // },
     image: `knowledge-frame`,
     footer: {
-      description:
-        'Craft seamless, user-friendly experiences for you app on any blockchain with Push Chain.',
+      description: t('pages.knowledge.hero-section.footer.description'),
       cta: {
-        text: 'Get Notified',
+        text: t('pages.knowledge.hero-section.footer.cta.text'),
         action: 'showEmailSignup',
       },
     },
@@ -100,13 +103,20 @@ const KnowledgeComp = () => {
                   <EmailSignupContent>
                     <EmailSignupTitle>
                       <Span className='long'>
-                        Get Notified about Push Chain Testnet
+                        {t(
+                          'pages.knowledge.hero-section.email-signup.title.long'
+                        )}
                       </Span>
-                      <Span className='short'>Push Chain Testnet</Span>
+                      <Span className='short'>
+                        {t(
+                          'pages.knowledge.hero-section.email-signup.title.short'
+                        )}
+                      </Span>
                     </EmailSignupTitle>
                     <EmailSignupDescription>
-                      Be the first to know when Push Chain testnet goes live.
-                      Join our mailing list for exclusive updates.
+                      {t(
+                        'pages.knowledge.hero-section.email-signup.description'
+                      )}
                     </EmailSignupDescription>
                     <ItemV flex='0'>
                       <MailingSignup
@@ -186,11 +196,7 @@ const KnowledgeComp = () => {
       {/* Create Resources Section */}
       <Section id='resources'>
         <Content>
-          <ExploreCollection
-            title='Resources'
-            items={KBResourcesList}
-            variant='tile'
-          />
+          <ContentBlocks item={KBRootResourcesList} />
         </Content>
       </Section>
 
