@@ -6,51 +6,18 @@ export const KBTokenomicsList = {
       value: [
         {
           type: 'text',
-          value: `## Overview
-
-    In late 2024, the Push community voted to approve the launch of Push Chain, a shared state layer 1 blockchain designed to enable the development of universal applications and eliminate fragmentation across web3.
-
-    Push Chain is a purpose-built layer that connects L1s, L2s, and L3s with near-instant finality and true scalability, which solves the fundamental issue with web3 applications: fragmentation. With the successful voting of the governance proposal, the Push Chain mission is now on its way toward building **any chain, any user, and any app.**
-
-    :::warning ⚠️ Token not live yet
-    The Push Chain token is not live, nor is any presale live. The Push Chain token is not yet named.<p />
-
-
-    Do not believe anyone offering early access to the Push Chain token. All communications regarding Push Chain will be announced simultaneously from official Push channels — [Twitter / X](https://x.com/PushChain 'X handle of Push Chain'), [Discord](https://discord.com/invite/pushchain 'Discord of Push Chain'), [Telegram](https://t.me/epnsproject 'Telegram of Push Chain'), [Website](https://push.org 'Push Website').
-    :::
-
-    <br />
-`,
+          valueKey:
+            'pages.knowledge.tokenomics.explainer-section.blocks.sections.tokenomics-overview.items.overview',
         },
         {
           type: 'text',
-          value: `## What is the Vision of Push Chain?
-
-    All blockchains have proven particularly useful for specific apps and use cases. Bitcoin enabled smart money. Ethereum enabled innovations for DeFi. Solana enabled fast apps and meme culture. Several L2s and new L1s are targeting other areas of concern.
-
-    However, a blockchain that is purpose-built to enable chain abstraction and seamless interoperability in the space is still required. This chain would enable transactions from any chain (ETH, SOL, EVM or non-EVM) to power apps that can be used by **any user —** no matter their chain or wallet. This is the chain of **Universal Apps**. This is Push Chain!
-
-    `,
+          valueKey:
+            'pages.knowledge.tokenomics.explainer-section.blocks.sections.tokenomics-overview.items.vision',
         },
         {
           type: 'text',
-          value: `### Built on innovation to eliminate blockchain isolation!
-
-    Push Chain is revolutionary for both users and developers as it creates an environment for any developer to deploy their universal app in hours via a single universal smart contract deployment.
-
-    It also enables users to transact from the comfort, convenience, and choice of their ecosystem, no matter where the app resides.
-
-    Under the hood, this is achieved by:
-
-    - Ability to do **transactions from any chain**
-    - **Universal Fee & Wallet Abstraction** to enable users to use any chain, any wallet and pay in any token
-    - **Universal Smart Contract** to enable devs to deploy instant interop apps in minutes
-    - **Shared State** to read data from other blockchain
-    - **Programmable Solver** to write data to any other chain
-
-    All of this enables a **Universal Execution Layer** to allow users of any chain to access and interact with the same app.
-
-    `,
+          valueKey:
+            'pages.knowledge.tokenomics.explainer-section.blocks.sections.tokenomics-overview.items.innovation',
         },
         {
           type: 'text',

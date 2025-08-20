@@ -327,7 +327,7 @@ Our Devnet demonstrated how we’ll scale using dynamic sharding and parallel ex
 
 On testnet, we focused on full stack interop with the chain running on [CometBFT](https://github.com/cometbft/cometbft), a battle-tested, Byzantine-fault-tolerant engine. The network achieved sub-second finality and has the ability to handle up to [20k transactions per minute](https://github.com/push-protocol/push-chain/blob/main/docs/testnet-performance.md).
 
-That proof of concept is just the beginning. As we roll out further scaling optimizations in later phases, we’re confident Push Chain can meet the demands of universal applications—securely and without centralization.
+This proof of concept is just the beginning. As we roll out further scaling optimizations in later phases, we’re confident Push Chain can meet the demands of universal applications—securely and without centralization.
 
 ---
 

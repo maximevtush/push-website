@@ -8,6 +8,7 @@ import styled from 'styled-components';
 // External Components
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslation } from 'react-i18next';
 
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -37,6 +38,8 @@ import { device } from '@site/src/config/globals';
 
 // Main
 const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
+  // Internationalization
+  const { t } = useTranslation();
   const [showFullMobileTOC, setShowFullMobileTOC] = React.useState(false);
   const [activeHeadingId, setActiveHeadingId] = React.useState('');
   const [isAtEnd, setIsAtEnd] = React.useState(false);
@@ -579,8 +582,25 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
       .replace(/-+$/, '');
   }
 
+  // Process block values and resolve translation keys
+  const processedBlockValue = React.useMemo(() => {
+    if (!block?.value) return [];
+
+    return block.value.map((item) => {
+      if (item.type === 'text' && item.valueKey) {
+        // Resolve translation key to get the actual content
+        const translatedValue = t(item.valueKey, '');
+        return {
+          ...item,
+          value: translatedValue || item.value || '', // Fallback to original value if translation not found
+        };
+      }
+      return item;
+    });
+  }, [block?.value, t]);
+
   const texts =
-    block?.value?.filter((v) => v.type === 'text' && !v.hidden) || [];
+    processedBlockValue.filter((v) => v.type === 'text' && !v.hidden) || [];
   const rawMarkdown = texts?.map((t) => t.value).join('\n\n');
 
   // Memoize the processed markdown to prevent unnecessary re-processing
@@ -589,14 +609,14 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
   }, [rawMarkdown]);
 
   const toc = React.useMemo(
-    () => extractTOC(block?.value || []),
-    [block?.value]
+    () => extractTOC(processedBlockValue || []),
+    [processedBlockValue]
   );
 
   // Create hidden section placeholders
   const hiddenSections = React.useMemo(() => {
     const sections = [];
-    block?.value?.forEach((v) => {
+    processedBlockValue?.forEach((v) => {
       if (v.type === 'text' && v.hidden) {
         // Extract heading from hidden content (h2 and h3 only)
         const h2Match = v.value.match(/^##\s+(.+)$/m);
@@ -622,7 +642,7 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
       }
     });
     return sections;
-  }, [block?.value]);
+  }, [processedBlockValue]);
 
   return (
     <ItemH
@@ -652,12 +672,12 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
                 (item, index) => {
                   const highestLevel = Math.min(...toc.map((t) => t.level));
                   return (
-                    <LI>
+                    <LI key={index}>
                       <ListItem
-                        key={index}
                         href={`#${item.id}`}
                         level={item.level}
                         highestLevel={highestLevel}
+                        title={`${t('components.explainer.prepend', '')}${item.text}${t('components.explainer.append', '')}`}
                       >
                         {item.text}
                       </ListItem>
@@ -701,6 +721,7 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
                       highestLevel={highestLevel}
                       isActive={isActive}
                       onClick={handleTOCItemClick}
+                      title={`${t('components.explainer.prepend', 'Navigate to ')}${item.text}${t('components.explainer.append', ' section')}`}
                     >
                       {item.text}
                     </ListItem>

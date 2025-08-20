@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 // Internal Component
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import { useTranslation } from 'react-i18next';
+
 import ExploreCard from './ExploreCard';
 
 import { H3, ItemV } from '@site/src/css/SharedStyling';
@@ -89,6 +91,9 @@ const ExploreCollection: React.FC<ExploreCollectionProps> = ({
   title,
   variant = 'tile',
 }) => {
+  // Internationalization
+  const { t } = useTranslation();
+
   const isMobile = useMediaQuery(device.mobileL);
   const gridRows = createGridRows(items);
 
@@ -105,7 +110,7 @@ const ExploreCollection: React.FC<ExploreCollectionProps> = ({
             alignSelf={variant === 'row' ? 'flex-start' : 'center'}
             color='#FFF'
           >
-            {title}
+            {t(title)}
           </H3>
         </TitleItemV>
       )}

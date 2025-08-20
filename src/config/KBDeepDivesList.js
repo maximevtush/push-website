@@ -8,11 +8,8 @@ export const KBDeepDivesList = {
       value: [
         {
           type: 'text',
-          value: `## Architecture Deep Dives
-          
-          Learn about the intricacies of Push Chain's architecture and how it works - One module at a time.
-          
-          `,
+          valueKey:
+            'pages.knowledge.deepdives.explainer-section.blocks.sections.architecture-deep-dives.items.overview',
         },
         {
           type: 'text',

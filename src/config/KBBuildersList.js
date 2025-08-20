@@ -8,11 +8,8 @@ export const KBBuildersList = {
       value: [
         {
           type: 'text',
-          value: `## Builders
-          
-          Ready to build on Push Chain? Here are some resources to get you inspired and started.
-          
-          `,
+          valueKey:
+            'pages.knowledge.builders.explainer-section.blocks.sections.builders-intro.items.overview',
         },
         {
           type: 'text',

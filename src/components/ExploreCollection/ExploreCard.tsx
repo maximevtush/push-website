@@ -6,6 +6,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 // External Components
+import { useTranslation } from 'react-i18next';
 import { TbArrowUpRight } from 'react-icons/tb';
 
 // Internal Component
@@ -27,6 +28,8 @@ import { device } from '@site/src/config/globals';
 
 // Main
 const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
+  // Internationalization
+  const { t } = useTranslation();
   // for navigation
   const isMobile = useMediaQuery(device.mobileL);
   const baseURL = useSiteBaseUrl() || '';
@@ -45,6 +48,50 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
     }
   };
 
+  // Resolve translated content from valueKey
+  const getTranslatedContent = (valueKey: string, fallback: string = '') => {
+    if (valueKey) {
+      const translated = t(valueKey, '');
+      return translated || fallback;
+    }
+    return fallback;
+  };
+
+  // Get title and subtitle with translation support
+  const resolvedTitle = item.valueKey
+    ? getTranslatedContent(item.valueKey + '.title', item.title || '')
+    : item.title || '';
+
+  const resolvedSubtitle = item.valueKey
+    ? getTranslatedContent(item.valueKey + '.subtitle', item.subtitle || '')
+    : item.subtitle || '';
+
+  // Generate accessible alt text for images
+  const getImageAltText = (title: string) => {
+    const prepend = t(
+      'components.explore-collection.explore-card.image-prepend',
+      ''
+    );
+    const append = t(
+      'components.explore-collection.explore-card.image-append',
+      ''
+    );
+    return `${prepend}${title}${append}`;
+  };
+
+  // Generate accessible link text
+  const getLinkText = (title: string) => {
+    const prepend = t(
+      'components.explore-collection.explore-card.link-prepend',
+      ''
+    );
+    const append = t(
+      'components.explore-collection.explore-card.link-append',
+      ''
+    );
+    return `${prepend}${title}${append}`;
+  };
+
   return (
     <Card
       key={index}
@@ -58,6 +105,8 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
       rel='noopener'
       target={item?.target ? item?.target : '_self'}
       variant={variant}
+      title={getLinkText(resolvedTitle)}
+      aria-label={getLinkText(resolvedTitle)}
     >
       {variant === 'tile' && item.bgStylizing && (
         <ItemStylizing {...item.bgStylizing} />
@@ -68,7 +117,8 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
           <Image
             src={item.image}
             srcSet={`${item.image2x} 2x, ${item.image3x} 3x`}
-            alt={`Image for ${item.title}`}
+            alt={getImageAltText(resolvedTitle)}
+            title={resolvedTitle}
             loading='lazy'
             className='pulse-logo'
           />
@@ -82,8 +132,8 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               `@site/static/assets/website/chain/knowledge/${item?.image}.webp`
             ).default
           }
-          alt={item?.title}
-          title={item?.title}
+          alt={getImageAltText(resolvedTitle)}
+          title={resolvedTitle}
           variant={variant}
         />
       )}
@@ -91,8 +141,8 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
       {item?.imageDirectory && variant === 'row' && (
         <KnowledgeImage
           src={item.imageDirectory}
-          alt={item?.title}
-          title={item?.title}
+          alt={getImageAltText(resolvedTitle)}
+          title={resolvedTitle}
           variant={variant}
         />
       )}
@@ -123,7 +173,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
           letterSpacing='-0.64px'
           flex='1'
         >
-          {item?.title}
+          {resolvedTitle}
         </TitleH3>
       </ItemH>
 
@@ -149,7 +199,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               fontFamily='DM Sans'
               margin='0'
             >
-              {item?.subtitle}
+              {resolvedSubtitle}
             </P>
           </ItemH>
 
@@ -168,7 +218,9 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               letterSpacing='-0.64px'
               color='#fff'
             >
-              {item?.ctatitle ? item?.ctatitle : 'Read More'}
+              {item?.ctatitle
+                ? item?.ctatitle
+                : t('components.explore-collection.explore-card.cta-title', '')}
             </Span>
             <TbArrowUpRight color='#fff' size={24} />
           </LinkContainer>
