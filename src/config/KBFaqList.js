@@ -1,5 +1,5 @@
 export const KBFaqList = {
-  title: 'Frequently Asked Questions',
+  title: 'pages.knowledge.faq.explainer-section.blocks.title',
   content: [
     {
       type: 'indexlist',

@@ -1,5 +1,5 @@
 export const KBDeepDivesList = {
-  title: 'Deep Dives',
+  title: 'pages.knowledge.deepdives.explainer-section.blocks.title',
   content: [
     {
       type: 'indexlist',

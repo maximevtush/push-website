@@ -1,5 +1,5 @@
 export const KBPush101List = {
-  title: 'Push Chain Basics',
+  title: 'pages.knowledge.push101.explainer-section.blocks.title',
   content: [
     {
       topGap: false,

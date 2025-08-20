@@ -3,6 +3,7 @@
 // React + Web3 Essentials
 import Link from '@docusaurus/Link';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 // External Components
 import styled from 'styled-components';
@@ -43,6 +44,7 @@ interface ContentBlocksProps {
 
 // Main
 const ContentBlocks = ({ item, breadcrumbs }: ContentBlocksProps) => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
   const isTablet = useMediaQuery(device.tablet);
 
@@ -68,7 +70,7 @@ const ContentBlocks = ({ item, breadcrumbs }: ContentBlocksProps) => {
           letterSpacing='-1.1px'
           color='#fff'
         >
-          {item?.title}
+          {t(item?.title)}
         </H1>
       </ItemV>
 

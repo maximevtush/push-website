@@ -1,5 +1,5 @@
 export const KBBuildersList = {
-  title: 'Build on Push Chain',
+  title: 'pages.knowledge.builders.explainer-section.blocks.title',
   content: [
     {
       type: 'indexlist',

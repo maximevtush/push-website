@@ -1,5 +1,5 @@
 export const KBTokenomicsList = {
-  title: 'Explore Tokenomics',
+  title: 'pages.knowledge.tokenomics.explainer-section.blocks.title',
   content: [
     {
       type: 'indexlist',
