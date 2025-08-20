@@ -81,7 +81,7 @@ export const BRBMainComponent = () => {
   };
 
   return (
-    <BrbWrapper background='#000'>
+    <BrbWrapper background='var(--ifm-color-black)'>
       {/* header style */}
       <StyledHeader
         showMobileMenu={showMobileMenu}
@@ -115,13 +115,13 @@ export const BRBMainComponent = () => {
                   {isMobileMenuOpen ? (
                     <AiOutlineClose
                       size={28}
-                      color='#fff'
+                      color='var(--ifm-color-white)'
                       onClick={toggleMobileMenu}
                     />
                   ) : (
                     <GiHamburgerMenu
                       size={28}
-                      color='#fff'
+                      color='var(--ifm-color-white)'
                       onClick={toggleMobileMenu}
                     />
                   )}
@@ -252,7 +252,7 @@ export const BRBMainComponent = () => {
           </ButtonItem>
           <ButtonBar
             borderRadius='24px'
-            background='#000'
+            background='var(--ifm-color-black)'
             border='1px solid #E64DE9'
             fontSize='18px'
             padding='16px 32px'
@@ -308,11 +308,11 @@ export const BRBMainComponent = () => {
             <ItemH gap='28px'>
               <ItemV
                 minWidth='280px'
-                background='#000'
+                background='var(--ifm-color-black)'
                 padding='20px 48px'
                 gap='14px'
                 borderRadius='48px'
-                background='#2a2a39'
+                background='var(--ifm-color-gray-200)'
               >
                 <SpanContent
                   fontSize='112px'
@@ -379,7 +379,7 @@ export const BRBMainComponent = () => {
       </Section>
 
       <BottomGrad>
-        <Span fontSize='18px' fontWeight='400' color='#FFF'>
+        <Span fontSize='18px' fontWeight='400' color='var(--ifm-color-white)'>
           © {year || ''} Push. All rights reserved.
         </Span>
       </BottomGrad>
@@ -442,7 +442,7 @@ const BrbWrapper = styled(ItemV)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: var(--ifm-color-black);
   font-family: Glancyr, sans-serif;
 
   & .pushMissingSvg {
@@ -467,7 +467,7 @@ const NavList = styled.div`
   align-items: center;
 
   border-radius: 55px;
-  border: 1px solid #2a2a39;
+  border: 1px solid var(--ifm-color-gray-200);
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(12px);
   padding: 0px 23px;
@@ -495,8 +495,8 @@ const StyledHeader = styled.header`
   right: 0;
   height: 78px;
 
-  /* color: #ffffff;
-  background: #121315; */
+  /* color: var(--ifm-color-white);
+  background: var(--ifm-color-neutral-1000); */
   opacity: 1;
   z-index: 99999 !important;
 
@@ -511,14 +511,14 @@ const StyledHeader = styled.header`
 
   &.light {
     & span {
-      color: #121315;
+      color: var(--ifm-color-neutral-1000);
     }
 
     & svg.chevronIcon {
-      fill: #121315;
+      fill: var(--ifm-color-neutral-1000);
 
       & path {
-        stroke: #121315;
+        stroke: var(--ifm-color-neutral-1000);
       }
     }
   }
@@ -553,7 +553,7 @@ const StyledHeader = styled.header`
 `;
 
 const NavText = styled.div`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: Glancyr, sans-serif;
   text-align: center;
   font-size: 20px;
@@ -618,7 +618,7 @@ const PushLogoBlackContainer = styled(ItemV)`
   flex-direction: row;
   align-items: center;
   height: 100%;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-size: 24.207px;
   font-style: normal;
   font-weight: 400;
@@ -742,7 +742,7 @@ const NavigationMenuHeader = styled.div`
   }
 
   & span {
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 
   @media ${device.laptop} {
@@ -793,7 +793,7 @@ const FooterBar = styled.div`
   gap: 14px;
 
   border-radius: 48px;
-  background: #2a2a39;
+  background: var(--ifm-color-gray-200);
   flex: 1;
 
   @media ${device.laptop} {

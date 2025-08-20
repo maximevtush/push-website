@@ -133,7 +133,7 @@ const BreadcrumbList = styled(UL)`
   padding: 0;
   margin: 0;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 
 const CustomLi = styled(LI)`
@@ -153,7 +153,7 @@ const BreadcrumbLink = styled(Link)`
     DM Sans,
     sans-serif;
   line-height: 140%;
-  color: #fff;
+  color: var(--ifm-color-white);
   transition: color 0.2s ease;
 
   @media ${device.tablet} {
@@ -178,7 +178,7 @@ const BreadcrumbCurrent = styled.span`
     DM Sans,
     sans-serif;
   line-height: 140%;
-  color: #fff;
+  color: var(--ifm-color-white);
 
   @media ${device.tablet} {
     font-size: 1em;

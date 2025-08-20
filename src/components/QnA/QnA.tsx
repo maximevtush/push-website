@@ -79,7 +79,7 @@ const QnA: FC<QnAProps> = ({
         gap='24px'
       >
         <H2
-          color='#FFF'
+          color='var(--ifm-color-white)'
           fontSize={isMobile ? '2.5rem' : '3rem'}
           fontFamily='DM Sans, sans-serif'
           fontWeight='600'
@@ -130,7 +130,7 @@ const QnA: FC<QnAProps> = ({
           hover='transparent'
           background='transparent'
           filter='none'
-          color='#E163FF'
+          color='var(--ifm-color-pink-400)'
           borderRadius='0'
           padding='0px 0px'
         >
@@ -152,7 +152,7 @@ const QnAPrimaryLink = styled(A)`
   transition: all 0.2s ease;
   font-size: 16px;
   background: #5865f2;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
@@ -192,7 +192,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #e163ff;
+    background-color: var(--ifm-color-pink-400);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }
@@ -205,14 +205,14 @@ const SpanLink = styled(Span)`
 const QnAMoreInfoLink = styled(A)`
   overflow: inherit;
   .anchorSVGlink {
-    color: #e163ff;
+    color: var(--ifm-color-pink-400);
     top: 3px;
     margin-left: 8px;
   }
 
   &:hover {
     .anchorSVGlink {
-      color: #e163ff;
+      color: var(--ifm-color-pink-400);
     }
   }
 `;

@@ -167,7 +167,7 @@ const KnowledgeComp = () => {
                   fontWeight='400'
                   lineHeight={isMobile ? '100%' : '132%'}
                   letterSpacing='-0.64px'
-                  color='#BBBCD0'
+                  color='var(--ifm-color-neutral-300)'
                   flex='1'
                 >
                   {heroConfig.footer.description}
@@ -265,7 +265,7 @@ const MediaDisplay = styled(ItemH)`
 // Hero Media Card - Card container for media and footer
 const HeroMediaCard = styled.div`
   padding: 16px;
-  background: #101010;
+  background: var(--ifm-color-neutral-1100);
   display: flex;
   border-radius: 40px;
   flex-direction: column;
@@ -374,7 +374,7 @@ const EmailSignupContent = styled.div`
 const EmailSignupTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: 0;
   line-height: 1.2;
 
@@ -414,7 +414,7 @@ const EmailSignupDescription = styled.p`
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #a3a7ac;
+  color: var(--ifm-color-neutral-400);
   margin: 0;
   line-height: 1.5;
   max-width: 400px;

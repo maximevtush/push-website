@@ -291,7 +291,7 @@ const Glassy = ({ item }) => {
                 >
                   <H2
                     fontSize={isTablet ? '9px' : '11px'}
-                    color='#D98AEC'
+                    color='var(--ifm-color-pink-200)'
                     fontWeight='bold'
                     fontFamily='DM Sans'
                   >
@@ -651,7 +651,7 @@ const Glassy = ({ item }) => {
         <AfterItem alignment={alignment}>
           <H2
             fontSize='12px'
-            color='#FFF'
+            color='var(--ifm-color-white)'
             fontFamily='DM Sans, san-serif'
             lineHeight='130%'
           >
@@ -817,7 +817,7 @@ const TagItems = styled(ItemV)`
 
 const H2Text = styled(H2)`
   font-size: 2rem;
-  color: #fff;
+  color: var(--ifm-color-white);
   line-height: 120%;
   white-space: pre;
   font-weight: 500;
@@ -978,7 +978,7 @@ const BodyTextItem = styled(ItemV)`
   }
 
   .text-title {
-    color: #FFF;
+    color: var(--ifm-color-white);
     font-size: 2rem;
     font-style: normal;
     font-weight: 500;
@@ -1089,7 +1089,7 @@ const AfterItem = styled.div`
 `;
 
 const TagText = styled.div`
-  color: #cca4f0;
+  color: var(--ifm-color-pink-100);
   font-family: 'DM Sans';
   font-size: 0.75rem;
   font-style: normal;
@@ -1119,13 +1119,13 @@ const SlideLink = styled.a`
   padding: 0px;
 
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 3px;
   }
 
   span {
     background: transparent;
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 
   &:hover {
@@ -1134,12 +1134,12 @@ const SlideLink = styled.a`
     background: none;
 
     .anchorSVGlink {
-      color: #e163ff;
+      color: var(--ifm-color-pink-400);
     }
 
     span {
       background: transparent;
-      color: #e163ff;
+      color: var(--ifm-color-pink-400);
     }
   }
 `;
@@ -1160,7 +1160,7 @@ const SpanLink = styled(Span)`
   //   height: 2px;
   //   bottom: 0;
   //   left: 0;
-  //   background-color: #fff;
+  //   background-color: var(--ifm-color-white);
   //   transform-origin: bottom right;
   //   transition: transform 0.25s ease-out;
   // }

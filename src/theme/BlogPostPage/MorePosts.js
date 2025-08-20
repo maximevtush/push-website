@@ -77,7 +77,11 @@ const MorePosts = ({ allPosts, post }) => {
             window.open(`https://x.com/PushChain`, '_blank');
           }}
         >
-          <BsTwitter size={23} color='#fff' style={{ marginRight: '10px' }} />
+          <BsTwitter
+            size={23}
+            color='var(--ifm-color-white)'
+            style={{ marginRight: '10px' }}
+          />
           Follow
         </MoreButton>
         {/* </Anchor> */}

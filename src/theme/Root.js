@@ -162,6 +162,6 @@ const Content = styled.div`
   flex: 1;
   ${({ isHome }) =>
     isHome &&
-    `background: linear-gradient(90deg, #3524ed 0%, #d548ec 50%, #3524ed 100%);
+    `background: linear-gradient(90deg, #3524ed 0%,var(--ifm-color-custom-pink) 50%, #3524ed 100%);
     `}
 `;

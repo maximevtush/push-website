@@ -53,7 +53,7 @@ function Footer() {
           <EmailContent>
             <EmailDiv>
               <H2
-                color='#FFF'
+                color='var(--ifm-color-white)'
                 fontWeight='400'
                 letterSpacing='-0.56px'
                 fontSize={isMobile ? '1.rem' : '1.75rem'}
@@ -295,7 +295,7 @@ const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
   position: relative;
-  background: #000;
+  background: var(--ifm-color-black);
   width: 100%;
   margin: -4px auto;
 `;
@@ -358,7 +358,7 @@ const FooterColumn = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   flex-grow: 1;
 
   flex-direction: column;
@@ -481,7 +481,7 @@ const FooterAnchorSecondary = styled(A)`
   border-radius: 0;
 
   &:hover {
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
     background: transparent !important;
   }
 
@@ -492,7 +492,7 @@ const FooterAnchorSecondary = styled(A)`
 
 const FooterIconSecondary = styled(A)`
   padding: 0px;
-  color: #fff !important;
+  color: var(--ifm-color-white) !important;
   font-family:
     DM Sans,
     sans-serif;
@@ -506,7 +506,7 @@ const FooterIconSecondary = styled(A)`
   border-radius: 0;
 
   &:hover {
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
     background: transparent !important;
   }
 

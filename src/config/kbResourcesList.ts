@@ -51,7 +51,7 @@ export const KBResourcesList = [
       `@site/static/assets/website/docshub/BuildOnPushIcon@3x.png`
     ).default,
     // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-    bgColor: '#101010',
+    bgColor: 'var(--ifm-color-neutral-1100)',
     bgStylizing: {
       type: 'sparkle',
       density: 40,
@@ -78,7 +78,7 @@ export const KBResourcesList = [
       `@site/static/assets/website/docshub/TechnicalDeepDivesIcon@3x.png`
     ).default,
     // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-    bgColor: '#101010',
+    bgColor: 'var(--ifm-color-neutral-1100)',
     bgStylizing: {
       type: 'sparkle',
       density: 40,
@@ -129,7 +129,7 @@ export const KBResourcesList = [
       `@site/static/assets/website/docshub/TokenomicsIcon@3x.png`
     ).default,
     // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-    bgColor: '#101010',
+    bgColor: 'var(--ifm-color-neutral-1100)',
     bgStylizing: {
       type: 'sparkle',
       density: 40,
@@ -151,7 +151,7 @@ export const KBResourcesList = [
     image3x: require(`@site/static/assets/website/docshub/FAQIcons@3x.png`)
       .default,
     // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-    bgColor: '#101010',
+    bgColor: 'var(--ifm-color-neutral-1100)',
     bgStylizing: {
       type: 'sparkle',
       density: 40,

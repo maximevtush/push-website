@@ -38,7 +38,7 @@ const BRBOnline = ({ sectionRef }) => {
         <Span
           fontSize={isMobile ? '18px' : '23px'}
           fontWeight='200'
-          color='#fff'
+          color='var(--ifm-color-white)'
           margin='0px 0px 40px'
         >
           Join Virtually, Build and Win $50k+
@@ -95,7 +95,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px;
 
   @media ${device.mobileL} {

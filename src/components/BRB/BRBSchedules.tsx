@@ -107,7 +107,7 @@ const Schedules = ({
                       className={schedule.hasEnded ? 'disabled' : ''}
                       background={
                         schedule.hasEnded
-                          ? '#2A2A39'
+                          ? 'var(--ifm-color-gray-200)'
                           : schedule?.backgroundColor
                       }
                       title={`${schedule?.title}`}
@@ -160,14 +160,22 @@ const Schedules = ({
                       <ScheduleData>
                         <PlaceContainer>
                           <PlaceName
-                            color={schedule.hasEnded ? '#FFF' : '#b0ffc3'}
+                            color={
+                              schedule.hasEnded
+                                ? 'var(--ifm-color-white)'
+                                : '#b0ffc3'
+                            }
                           >
                             {schedule?.place}
                           </PlaceName>
                           {!schedule.hasEnded && <Arrow />}
                         </PlaceContainer>
                         <DateContainer
-                          color={schedule.hasEnded ? '#494968' : '#fff'}
+                          color={
+                            schedule.hasEnded
+                              ? '#494968'
+                              : 'var(--ifm-color-white)'
+                          }
                           onClick={() => checkDateStatus(schedule?.date)}
                         >
                           {schedule?.date}
@@ -187,7 +195,7 @@ const Schedules = ({
         <div style={{ position: 'relative' }}>
           <ActionContainer className='splide__arrows'>
             <SplideArrow
-              background={index > 0 ? '#E64DE9' : '#2A2A39'}
+              background={index > 0 ? '#E64DE9' : 'var(--ifm-color-gray-200)'}
               onClick={() =>
                 index !== 0 ? setIndex((prev) => prev - 1) : null
               }
@@ -196,9 +204,11 @@ const Schedules = ({
             >
               <Left />
             </SplideArrow>
-            {/* <Button background={direction === 'right' ? '#E64DE9' : '#2A2A39'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
+            {/* <Button background={direction === 'right' ? '#E64DE9' : 'var(--ifm-color-gray-200)'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
             <SplideArrow
-              background={!isLastSchedule ? '#E64DE9' : '#2A2A39'}
+              background={
+                !isLastSchedule ? '#E64DE9' : 'var(--ifm-color-gray-200)'
+              }
               onClick={() =>
                 !isLastSchedule ? setIndex((prev) => prev + 1) : null
               }
@@ -268,7 +278,7 @@ const SplideContainer = styled.div`
 const Header = styled.span`
   font-size: 46px;
   font-weight: 400;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px 0px 37px;
   @media (max-width: 480px) {
     margin: 0px 0px 27px;
@@ -357,7 +367,7 @@ const PlaceName = styled(Span)`
 
 const DateContainer = styled(Span)`
   height: 32px;
-  // color: #fff;
+  // color: var(--ifm-color-white);
   color: ${(props) => props.color};
   font-size: 20px;
   font-weight: 400;

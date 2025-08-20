@@ -267,7 +267,7 @@ export default function DocsHub(): JSX.Element {
                 fontFamily='DM Sans'
                 fontSize={isMobile ? '2rem' : '3rem'}
                 fontWeight='600'
-                color='#fff'
+                color='var(--ifm-color-white)'
                 lineHeight='125%'
                 textAlign='center'
               >
@@ -278,7 +278,7 @@ export default function DocsHub(): JSX.Element {
                 fontFamily='DM Sans'
                 fontSize='1.25rem'
                 fontWeight='400'
-                color='#fff'
+                color='var(--ifm-color-white)'
                 lineHeight='140%'
               >
                 Get a sneak peek into Testnet, Donut, build universal apps and
@@ -286,7 +286,7 @@ export default function DocsHub(): JSX.Element {
               </Span>
 
               <ExplorePrelaunchBuildLink
-                background='#D548EC'
+                background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid rgba(255, 255, 255, 0.30)'
                 fontSize='1.125rem'
@@ -490,9 +490,9 @@ const HeroHeader = styled(ItemV)`
 const HeroButton = styled(Button)`
   cursor: ${(props) => (props.disabled ? 'not-allowed !important' : 'pointer')};
   align-items: center;
-  background-color: #d548ec;
+  background-color: var(--ifm-color-custom-pink);
   border-radius: 16px;
-  color: #fff;
+  color: var(--ifm-color-white);
   display: flex;
   flex-direction: row;
   font-size: 16px;
@@ -504,7 +504,7 @@ const HeroButton = styled(Button)`
 
   &:hover {
     transform: scale(1.05);
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 `;
 
@@ -518,7 +518,7 @@ const pulseStaticAnim = keyframes`
 const PulseStatic = styled.div`
   width: 40px;
   height: 40px;
-  background: #000;
+  background: var(--ifm-color-black);
   border-radius: 50%;
   position: absolute;
   animation: ${pulseStaticAnim} 5s ease-out forwards;
@@ -617,12 +617,12 @@ const PopularQuickiesCard = styled(ItemV)`
   }
 
   *::-webkit-scrollbar-thumb {
-    background: #cb3faa;
+    background: var(--ifm-color-pink-300);
     border-radius: 6px;
   }
 
   *::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--ifm-color-neutral-100);
   }
 
   *::-webkit-scrollbar-button {
@@ -631,7 +631,7 @@ const PopularQuickiesCard = styled(ItemV)`
 
   /* Firefox */
   * {
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 
@@ -794,12 +794,12 @@ const TechDocCodeBlock = styled(CodeBlock)`
   }
 
   *::-webkit-scrollbar-thumb {
-    background: #cb3faa;
+    background: var(--ifm-color-pink-300);
     border-radius: 6px;
   }
 
   *::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--ifm-color-neutral-100);
   }
 
   *::-webkit-scrollbar-button {
@@ -808,7 +808,7 @@ const TechDocCodeBlock = styled(CodeBlock)`
 
   /* Firefox */
   * {
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 `;

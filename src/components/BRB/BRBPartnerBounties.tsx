@@ -159,7 +159,7 @@ const WinnerItem = styled.div`
   gap: 10px;
   align-items: center;
   justify-content: flex-start;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 const BountyPrice = styled.div`
   margin-left: auto;
@@ -199,7 +199,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px;
 `;
 
@@ -257,7 +257,7 @@ const ViewBountyText = styled(Span)`
   font-style: normal;
   font-weight: 400;
   line-height: 12px;
-  color: #fff;
+  color: var(--ifm-color-white);
 
   @media ${device.mobileS} {
     flex: 1;
@@ -285,7 +285,7 @@ const ArrowSmall = styled(Arrow)`
 const BountyDescription = styled(Span)`
   font-weight: 400;
   font-size: 18px;
-  color: #fff;
+  color: var(--ifm-color-white);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -312,7 +312,7 @@ const BountyDescription = styled(Span)`
 `;
 
 const PriceSpan = styled(Span)`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-weight: 400;
 `;
 

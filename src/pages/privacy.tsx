@@ -73,7 +73,10 @@ function PrivacyPage() {
       </Head>
 
       <Section flexDirection='column' background='white !important'>
-        <HeroSection background='#121315' minHeight='70vh'>
+        <HeroSection
+          background='var(--ifm-color-neutral-1000)'
+          minHeight='70vh'
+        >
           <Content className='contentBox' flex='1'>
             <ItemV>
               <HeroHeader textAlign='center'>
@@ -83,7 +86,7 @@ function PrivacyPage() {
                 margin='20px 0 0 0'
                 size='1.5rem'
                 textAlign='center'
-                color='#fff'
+                color='var(--ifm-color-white)'
               >
                 {t('pages.privacy.hero-section.description')}
               </P>
@@ -95,7 +98,7 @@ function PrivacyPage() {
                 textTransform='uppercase'
                 lineHeight='1.5em'
                 textAlign='center'
-                color='#fff'
+                color='var(--ifm-color-white)'
               >
                 {t('pages.privacy.hero-section.update-text')}
               </H3>
@@ -119,7 +122,7 @@ function PrivacyPage() {
                 <P
                   fontWeight='400'
                   letterSpacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -142,7 +145,7 @@ function PrivacyPage() {
                     href='https://push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -155,7 +158,7 @@ function PrivacyPage() {
                     href='https://app.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -168,7 +171,7 @@ function PrivacyPage() {
                     href='https://staging.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -201,7 +204,7 @@ function PrivacyPage() {
                     href={useBaseUrl('./tos')}
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -238,7 +241,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -324,7 +327,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -525,7 +528,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -570,7 +573,7 @@ function PrivacyPage() {
                   <A
                     href='mailto://support@push.org'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -590,7 +593,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -659,7 +662,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -695,7 +698,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -713,7 +716,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -729,7 +732,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -760,7 +763,7 @@ function PrivacyPage() {
                   <A
                     href='mailto://support@push.org'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -790,7 +793,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -803,7 +806,7 @@ function PrivacyPage() {
                   <A
                     href='mailto://support@push.org'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -818,7 +821,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -835,7 +838,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -858,7 +861,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -933,7 +936,7 @@ function PrivacyPage() {
                   <A
                     href='mailto://support@push.org'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -948,7 +951,7 @@ function PrivacyPage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >

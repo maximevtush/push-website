@@ -76,7 +76,10 @@ function PrivacyMobilePage() {
       </Head>
 
       <Section flexDirection='column' background='white !important'>
-        <HeroSection background='#121315' minHeight='70vh'>
+        <HeroSection
+          background='var(--ifm-color-neutral-1000)'
+          minHeight='70vh'
+        >
           <Content className='contentBox' flex='1'>
             <ItemV>
               <HeroHeader textAlign='center'>
@@ -86,7 +89,7 @@ function PrivacyMobilePage() {
                 margin='20px 0 0 0'
                 size='1.5rem'
                 textAlign='center'
-                color='#fff'
+                color='var(--ifm-color-white)'
               >
                 {t('pages.privacy.hero-section.update-text')}
               </P>
@@ -97,7 +100,7 @@ function PrivacyMobilePage() {
                 letterSpacing='0.1em'
                 textTransform='uppercase'
                 textAlign='center'
-                color='#fff'
+                color='var(--ifm-color-white)'
               >
                 LAST UPDATED: 24TH SEPTEMBER 2022
               </H3>
@@ -121,7 +124,7 @@ function PrivacyMobilePage() {
                 <P
                   fontWeight='400'
                   letterSpacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -144,7 +147,7 @@ function PrivacyMobilePage() {
                     href='https://push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -157,7 +160,7 @@ function PrivacyMobilePage() {
                     href='https://app.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -170,7 +173,7 @@ function PrivacyMobilePage() {
                     href='https://staging.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -203,7 +206,7 @@ function PrivacyMobilePage() {
                     href={useBaseUrl('./tos')}
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -262,7 +265,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -286,7 +289,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -348,7 +351,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -471,7 +474,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -524,7 +527,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -607,7 +610,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -647,7 +650,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -682,7 +685,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -715,7 +718,7 @@ function PrivacyMobilePage() {
                     <A
                       href='mailto://support@epns.io'
                       display=' inline'
-                      color='#e1087f'
+                      color='var(--ifm-color-pink-500)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
@@ -746,7 +749,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -760,7 +763,7 @@ function PrivacyMobilePage() {
                   <A
                     href='mailto://support@epns.io'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -774,7 +777,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -791,7 +794,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -814,7 +817,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -890,7 +893,7 @@ function PrivacyMobilePage() {
                   <A
                     href='mailto://support@epns.io'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -904,7 +907,7 @@ function PrivacyMobilePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#000'
+                  color='var(--ifm-color-black)'
                   textTransform='uppercase'
                   size='1.2em'
                 >

@@ -30,9 +30,9 @@ export const FeaturedSection = () => {
           alignItems='flex-start'
         >
           <StarWithText>
-            <StarSolidIcon color='#D98AEC' />
+            <StarSolidIcon color='var(--ifm-color-pink-200)' />
             <H2
-              color='#D98AEC'
+              color='var(--ifm-color-pink-200)'
               fontSize={'0.875rem'}
               fontWeight='500'
               letterSpacing='0.6px'
@@ -42,7 +42,7 @@ export const FeaturedSection = () => {
             </H2>
           </StarWithText>
           <H2
-            color='#000'
+            color='var(--ifm-color-black)'
             fontSize={'3rem'}
             fontWeight='600'
             lineHeight='130%'

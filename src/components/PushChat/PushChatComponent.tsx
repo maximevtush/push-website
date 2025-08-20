@@ -88,7 +88,7 @@ export const ChatComponent = () => {
                 return (
                   <div
                     style={{
-                      color: '#fff',
+                      color: 'var(--ifm-color-white)',
                       textAlign: 'center',
                       padding: '20px',
                     }}
@@ -122,7 +122,7 @@ export const ChatComponent = () => {
               return (
                 <div
                   style={{
-                    color: '#fff',
+                    color: 'var(--ifm-color-white)',
                     textAlign: 'center',
                     padding: '20px',
                   }}
@@ -137,7 +137,7 @@ export const ChatComponent = () => {
 
       <BottomBar>
         <TokenGated />
-        <Span fontSize='16px' color='#fff' fontWeight='400'>
+        <Span fontSize='16px' color='var(--ifm-color-white)' fontWeight='400'>
           This is a token gated group. You can join but will need{' '}
           <span style={{ color: '#E64DE9', fontWeight: '400' }}>1 $PUSH</span>{' '}
           in your wallet to be able to send messages.
@@ -176,7 +176,7 @@ const BottomBar = styled(ItemH)`
   max-height: 33px;
   background: transparent;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
   z-index: 0 !important;
   margin-top: 20px;
 
@@ -224,7 +224,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: Glancyr, sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px 0px 60px;
   position: relative;
   @media (max-width: 768px) {

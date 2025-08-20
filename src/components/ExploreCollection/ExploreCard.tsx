@@ -31,6 +31,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
   const isMobile = useMediaQuery(device.mobileL);
   const baseURL = useSiteBaseUrl() || '';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getHref = (item: any) => {
     if (!item?.url && !item?.slug) return '#';
 

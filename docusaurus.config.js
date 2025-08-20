@@ -302,7 +302,7 @@ const config = {
       //   id: 'support_us',
       //   content:
       //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener' href='#'>this survey</a>',
-      //   backgroundColor: '#fff',
+      //   backgroundColor: 'var(--ifm-color-white)',
       //   textColor: '#e03dc1',
       //   isCloseable: true,
       // },

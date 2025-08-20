@@ -66,7 +66,7 @@ const ContentBlocks = ({ item, breadcrumbs }: ContentBlocksProps) => {
           fontWeight='600'
           lineHeight='135%'
           letterSpacing='-1.1px'
-          color='#fff'
+          color='var(--ifm-color-white)'
         >
           {item?.title}
         </H1>

@@ -76,7 +76,11 @@ const FeaturedList = () => {
         {MediaList.map((item) => {
           return (
             <FeaturedCard id={item.srcref} key={item.srcref}>
-              <FeaturedCardTitle>{t(`pages.home.featured-section.articles.${item.translationKey}.text`)}</FeaturedCardTitle>
+              <FeaturedCardTitle>
+                {t(
+                  `pages.home.featured-section.articles.${item.translationKey}.text`
+                )}
+              </FeaturedCardTitle>
               <ArticleSource>
                 <Image
                   width={item.title ? '64px' : 'auto'}
@@ -134,7 +138,7 @@ const FeaturedCard = styled(ItemV)`
   flex-direction: column;
   justify-content: space-between;
   border-radius: 32px;
-  border: 2px solid #fff;
+  border: 2px solid var(--ifm-color-white);
   margin: 0 12px;
   overflow: hidden !important;
 
@@ -143,7 +147,7 @@ const FeaturedCard = styled(ItemV)`
   }
   &:hover {
     // background: linear-gradient(251.72deg, rgb(221, 68, 185) 14.29%, rgb(139, 111, 217) 86.35%);
-    background: #d548ec;
+    background: var(--ifm-color-custom-pink);
 
     .text-underline {
       text-decoration: text-underline;
@@ -221,7 +225,7 @@ const SpanLink = styled(Span)`
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: N27;
   line-height: 142%;
 
@@ -233,7 +237,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: var(--ifm-color-white);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

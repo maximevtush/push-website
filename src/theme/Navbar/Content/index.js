@@ -197,7 +197,7 @@ export default function NavbarContent() {
       if (id !== activeId) {
         const element = document.getElementById(id);
         if (element) {
-          element.style.color = '#6C6C6C';
+          element.style.color = 'var(--ifm-color-neutral-700)';
           element.style.transitionDuration = '1s';
         }
       }
@@ -208,7 +208,7 @@ export default function NavbarContent() {
     textIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
-        element.style.color = '#fff';
+        element.style.color = 'var(--ifm-color-white)';
         element.style.transitionDuration = '1s';
       }
     });
@@ -302,17 +302,17 @@ const NavigationMenuItem = styled.div`
     font-size: 16px;
     line-height: 150%;
     letter-spacing: normal;
-    // color: #6c6c6c;
+    // color: var(--ifm-color-neutral-700);
   }
 
   &:hover {
     & span {
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .menuContent {
@@ -432,7 +432,7 @@ const HeaderItem = styled.div`
     border-radius: 16px;
 
     h2 {
-      color: #d98aec;
+      color: var(--ifm-color-pink-200);
     }
     & ${Image} {
       filter: brightness(0) saturate(100%) invert(83%) sepia(53%)

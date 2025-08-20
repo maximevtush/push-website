@@ -47,7 +47,7 @@ const CookieComponent = () => {
         >
           <H2
             id='cookie-message'
-            color='#000'
+            color='var(--ifm-color-black)'
             fontWeight='400'
             letterSpacing='normal'
             fontSize={'14px'}
@@ -141,7 +141,7 @@ const ButtonContainer = styled.div`
 `;
 
 const AcceptButton = styled(Button)`
-  color: #ffffff;
+  color: var(--ifm-color-white);
   border: none;
   height: 48px;
   width: 104px;
@@ -149,14 +149,14 @@ const AcceptButton = styled(Button)`
   border-radius: 4px;
   cursor: pointer;
   border-radius: 8px;
-  background: #d548ec;
+  background: var(--ifm-color-custom-pink);
   font-size: 14px;
   font-weight: 500;
 `;
 
 const RejectButton = styled(Button)`
   background-color: transparent;
-  color: #000;
+  color: var(--ifm-color-black);
   border: none;
   height: 48px;
   width: 104px;

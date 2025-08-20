@@ -247,7 +247,7 @@ const ParallelFlexTitle = styled(Span)`
   font-size: 60px;
   text-align: center;
   font-weight: 400;
-  color: #fff;
+  color: var(--ifm-color-white);
   line-height: inherit;
 
   @media ${device.tablet} {
@@ -257,7 +257,7 @@ const ParallelFlexTitle = styled(Span)`
 
 const ParallelFlexBody = styled(Span)`
   font-size: 18px;
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   letter-spacing: 0.03em;
   line-height: inherit;

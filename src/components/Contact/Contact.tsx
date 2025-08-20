@@ -234,7 +234,7 @@ const Container = styled.div`
   padding: 16px 0;
 
   padding-top: 148px;
-  background: #000;
+  background: var(--ifm-color-black);
 `;
 
 const FormWrapper = styled.div`
@@ -275,7 +275,7 @@ const AlertHeader = styled.h4`
   margin: 0 0 4px 0;
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--ifm-color-white);
 `;
 
 const AlertDescription = styled.p`
@@ -294,7 +294,7 @@ const CloseButton = styled.button`
   margin-left: 12px;
 
   &:hover {
-    color: #ffffff;
+    color: var(--ifm-color-white);
   }
 `;
 
@@ -308,7 +308,7 @@ const FormCard = styled.div`
   gap: 24px;
   padding: 32px 48px;
   border-radius: 12px;
-  background-color: #202124;
+  background-color: var(--ifm-color-gray-700);
 
   @media ${device.tablet} {
     padding: 24px;
@@ -323,7 +323,7 @@ const FormHeader = styled.div`
 const Title = styled.h2`
   font-size: 32px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: 0 0 8px 0;
 
   @media ${device.tablet} {
@@ -361,7 +361,7 @@ const InputWrapper = styled.div<{ width?: string }>`
 const Label = styled.label`
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin-bottom: 8px;
 `;
 
@@ -370,7 +370,7 @@ const inputStyles = `
   border-radius: 8px;
   border: none;
   background-color: #313338;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   font-size: 16px;
   font-family: 'DM Sans', sans-serif;
 
@@ -410,8 +410,8 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
   -moz-appearance: none;
 
   option {
-    background-color: #2a2a39;
-    color: #ffffff;
+    background-color: var(--ifm-color-gray-200);
+    color: var(--ifm-color-white);
   }
 `;
 
@@ -435,7 +435,7 @@ const SubmitButton = styled.button`
   border-radius: 8px;
   border: none;
   background: #484d58;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;

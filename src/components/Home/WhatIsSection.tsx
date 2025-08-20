@@ -45,7 +45,7 @@ export const WhatIsSection = () => {
         letterSpacing='-0.03em'
         lineHeight='140%'
         width='100%'
-        color='#E163FF'
+        color='var(--ifm-color-pink-400)'
       >
         {t('pages.home.whatis-section.bottomLinkText')}
         <TbArrowRight className='start-svg' />
@@ -57,9 +57,9 @@ export const WhatIsSection = () => {
     <HeroWrapper>
       <HeroBG>
         <LottieContainer>
-          <Lottie 
-            animationData={heroAnimation} 
-            loop={true} 
+          <Lottie
+            animationData={heroAnimation}
+            loop={true}
             autoplay={true}
             title={t('pages.home.whatis-section.animation-title')}
             aria-label={t('pages.home.whatis-section.animation-alt')}
@@ -72,9 +72,9 @@ export const WhatIsSection = () => {
           </MobileTopText>
 
           <MobileLottieContainer>
-            <Lottie 
-              animationData={heroAnimation} 
-              loop={true} 
+            <Lottie
+              animationData={heroAnimation}
+              loop={true}
               autoplay={true}
               title={t('pages.home.whatis-section.animation-title')}
               aria-label={t('pages.home.whatis-section.animation-alt')}
@@ -142,7 +142,7 @@ const TopLeftText = styled.div`
   left: 0rem;
 
   h2 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -154,7 +154,7 @@ const TopLeftText = styled.div`
   }
 
   .gradient-bg {
-    color: #d548ec;
+    color: var(--ifm-color-custom-pink);
   }
 
   @media ${device.tablet} {
@@ -174,7 +174,7 @@ const BottomRightText = styled.div`
   }
 
   span {
-    color: #ffff;
+    color: var(--ifm-color-white);
     font-family: DM Sans;
     font-size: 1.25rem;
     font-style: normal;
@@ -206,7 +206,7 @@ const MobileTopText = styled.div`
   align-items: flex-start;
 
   h2 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -218,7 +218,7 @@ const MobileTopText = styled.div`
   }
 
   .gradient-bg {
-    color: #d548ec;
+    color: var(--ifm-color-custom-pink);
   }
 `;
 
@@ -229,7 +229,7 @@ const MobileBottomText = styled.div`
   align-self: flex-end;
 
   span {
-    color: #ffff;
+    color: var(--ifm-color-white);
     font-family: DM Sans;
     font-size: 1rem;
     font-style: normal;
@@ -265,7 +265,7 @@ const LearnMoreLink = styled(A)`
   }
 
   .start-svg {
-    color: #e163ff;
+    color: var(--ifm-color-pink-400);
     margin: 0;
   }
 

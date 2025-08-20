@@ -99,7 +99,7 @@ const PartnerItem = styled.div`
 const Header = styled(Span)`
   font-size: 46px;
   font-weight: 400;
-  color: #fff;
+  color: var(--ifm-color-white);
   display: flex;
   margin: 0px 0px 36px;
   @media (max-width: 480px) {

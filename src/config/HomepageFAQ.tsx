@@ -128,10 +128,7 @@ export const General = [
         <Span>
           Push recently launched a wallet-to-wallet communication product called
           Push Chat which is in alpha stage. Reach out to us on{' '}
-          <AMod
-            href='https://discord.com/invite/pushchain'
-            target={'_blank'}
-          >
+          <AMod href='https://discord.com/invite/pushchain' target={'_blank'}>
             Discord
           </AMod>{' '}
           to get exclusive Push Chat access.
@@ -557,9 +554,7 @@ export const IntegratingPush = [
       <Answer>
         <Span>
           You can just drop your queries on the{' '}
-          <AMod href='https://discord.com/invite/pushchain'>
-            Push Discord
-          </AMod>{' '}
+          <AMod href='https://discord.com/invite/pushchain'>Push Discord</AMod>{' '}
           and the community managers will be able to assist you.
         </Span>
       </Answer>
@@ -576,10 +571,7 @@ export const Governance = [
       <Answer>
         <Span>
           Reach out to the Push team on{' '}
-          <AMod
-            href='https://discord.com/invite/pushchain'
-            target={'_blank'}
-          >
+          <AMod href='https://discord.com/invite/pushchain' target={'_blank'}>
             Discord
           </AMod>{' '}
           or schedule a pitch in the office hours or directly dropping a
@@ -599,10 +591,7 @@ export const Governance = [
       <Answer>
         <Span>
           The{' '}
-          <AMod
-            href='https://discord.com/invite/pushchain'
-            target={'_blank'}
-          >
+          <AMod href='https://discord.com/invite/pushchain' target={'_blank'}>
             Push Discord
           </AMod>{' '}
           is really active when it comes to Push DAO related conversations, try
@@ -618,9 +607,7 @@ export const Governance = [
       <Answer>
         <Span>
           Office Hours are hosted on the{' '}
-          <AMod href='https://discord.com/invite/pushchain'>
-            Push Discord
-          </AMod>{' '}
+          <AMod href='https://discord.com/invite/pushchain'>Push Discord</AMod>{' '}
           for DAO related meetings, try joining the discord for more
           information.
         </Span>
@@ -693,7 +680,7 @@ const Answer = styled(ItemH)`
   padding: 0 0 24px 0;
 
   & ${Span} {
-    color: #bbbcd0;
+    color: var(--ifm-color-neutral-300);
     font-size: 1.25rem;
     font-family:
       DM Sans,
@@ -729,7 +716,7 @@ const AMod = styled(A)`
 `;
 
 const LIFaq = styled(LI)`
-  color: #bbbcd0;
+  color: var(--ifm-color-neutral-300);
   font-size: 19px;
   font-family:
     DM Sans,

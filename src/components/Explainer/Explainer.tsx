@@ -680,7 +680,7 @@ const ChainKnowledgeBaseIndexList = ({ block, blockIndex }) => {
         {!isTablet && toc.length > 0 && (
           <DesktopTOC
             ref={tocRef}
-            background='#101010'
+            background='var(--ifm-color-neutral-1100)'
             padding='32px'
             borderRadius='32px'
             alignItems='flex-start'
@@ -792,7 +792,7 @@ export default ChainKnowledgeBaseIndexList;
 
 const TextItem = styled.div`
   width: inherit;
-  color: #fff;
+  color: var(--ifm-color-white);
   &:not(:first-of-type) {
     margin: 12px 0 0 auto;
   }
@@ -802,7 +802,7 @@ const TextItem = styled.div`
   }
 
   h1 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -815,7 +815,7 @@ const TextItem = styled.div`
   }
 
   h2 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -828,7 +828,7 @@ const TextItem = styled.div`
   }
 
   h3 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -841,7 +841,7 @@ const TextItem = styled.div`
   }
 
   h4 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -854,7 +854,7 @@ const TextItem = styled.div`
   }
 
   h5 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-family:
       DM Sans,
       sans-serif;
@@ -877,10 +877,10 @@ const TextItem = styled.div`
   }
 
   blockquote {
-    border: 2px solid #fff;
-    border-left: 6px solid #d548ec;
+    border: 2px solid var(--ifm-color-white);
+    border-left: 6px solid var(--ifm-color-custom-pink);
     background-color: #ffffff55;
-    color: #000;
+    color: var(--ifm-color-black);
     border-radius: 12px;
     padding: 15px;
     box-sizing: border-box;
@@ -924,13 +924,13 @@ const TextItem = styled.div`
   .admonition-info {
     border-left-color: #a2c9ff;
     background: #002d6d;
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 
   .admonition-warning {
     background-color: #fff3e0;
     border-left-color: #ff9800;
-    color: #000;
+    color: var(--ifm-color-black);
   }
 
   .admonition-caution {
@@ -1009,7 +1009,7 @@ const MobileTOCWrapper = styled.div`
   margin-top: 16px;
   padding: 20px;
   border-radius: 24px;
-  background: #101010;
+  background: var(--ifm-color-neutral-1100);
   width: 100%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   ul {

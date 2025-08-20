@@ -17,23 +17,23 @@ export const getDisplacementMap = ({
         .mix { mix-blend-mode: screen; }
     </style>
     <defs>
-        <linearGradient 
-          id="Y" 
-          x1="0" 
-          x2="0" 
-          y1="${Math.ceil((radius / height) * 15)}%" 
+        <linearGradient
+          id="Y"
+          x1="0"
+          x2="0"
+          y1="${Math.ceil((radius / height) * 15)}%"
           y2="${Math.floor(100 - (radius / height) * 15)}%">
             <stop offset="0%" stop-color="#0F0" />
-            <stop offset="100%" stop-color="#000" />
+            <stop offset="100%" stop-color="var(--ifm-color-black)" />
         </linearGradient>
-        <linearGradient 
-          id="X" 
-          x1="${Math.ceil((radius / width) * 15)}%" 
+        <linearGradient
+          id="X"
+          x1="${Math.ceil((radius / width) * 15)}%"
           x2="${Math.floor(100 - (radius / width) * 15)}%"
-          y1="0" 
+          y1="0"
           y2="0">
             <stop offset="0%" stop-color="#F00" />
-            <stop offset="100%" stop-color="#000" />
+            <stop offset="100%" stop-color="var(--ifm-color-black)" />
         </linearGradient>
     </defs>
 

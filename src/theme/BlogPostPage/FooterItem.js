@@ -85,7 +85,7 @@ const FooterItem = () => {
                 )
               }
             >
-              <BsTwitter size={32} color='#fff' />
+              <BsTwitter size={32} color='var(--ifm-color-white)' />
             </ModalFigure>
 
             <ModalFigure
@@ -96,7 +96,7 @@ const FooterItem = () => {
                 )
               }
             >
-              <FaLinkedinIn size={32} color='#fff' />
+              <FaLinkedinIn size={32} color='var(--ifm-color-white)' />
             </ModalFigure>
 
             <ModalFigure
@@ -107,7 +107,7 @@ const FooterItem = () => {
                 )
               }
             >
-              <FaFacebookF size={32} color='#fff' />
+              <FaFacebookF size={32} color='var(--ifm-color-white)' />
             </ModalFigure>
           </ModalIcons>
 
@@ -167,7 +167,11 @@ const FooterItem = () => {
           self={isMobile ? 'stretch' : 'self'}
           onClick={openModal}
         >
-          <BiShareAlt size={23} color='#fff' style={{ marginRight: '10px' }} />
+          <BiShareAlt
+            size={23}
+            color='var(--ifm-color-white)'
+            style={{ marginRight: '10px' }}
+          />
           Share
         </ShareButton>
         {/* </Anchor> */}
@@ -416,7 +420,7 @@ const ModalLink = styled.div`
 `;
 
 const ModalCopy = styled.div`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-size: 14px;
   font-family: Inter, sans-serif;
   font-weight: 500;

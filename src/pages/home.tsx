@@ -141,13 +141,13 @@ export default function HomePage() {
                     fontWeight='600'
                     lineHeight='126%'
                     letterSpacing='normal'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                   >
                     {t('pages.home.hero-section.title')}
                   </H1>
 
                   <Span
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     zIndex='2'
                     fontSize={isMobile ? '1.125rem' : '1.25rem'}
                     fontWeight='400'
@@ -224,7 +224,9 @@ export default function HomePage() {
                   letterSpacing='normal'
                   fontFamily='DM Sans, san-serif'
                 >
-                  <B color='#fff'>{t(FeaturesList?.meta.title)}</B>{' '}
+                  <B color='var(--ifm-color-white)'>
+                    {t(FeaturesList?.meta.title)}
+                  </B>{' '}
                   {t(FeaturesList?.meta.subtitle)}
                 </H2>
               </FeaturesTopSection>
@@ -284,7 +286,7 @@ export default function HomePage() {
                 >
                   <H1Text>10x</H1Text>
                   <Span
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     fontSize={isMobile ? '1.5rem' : '2rem'}
                     fontWeight='500'
                     lineHeight='140%'
@@ -302,7 +304,7 @@ export default function HomePage() {
                 <A
                   href={useBaseUrl('/docs')}
                   title={t(FeaturesList.meta.footer.ctaTitle)}
-                  background='#D548EC'
+                  background='var(--ifm-color-custom-pink)'
                   borderRadius='16px'
                   border='1px solid rgba(255, 255, 255, 0.30)'
                   fontSize='1.125rem'
@@ -351,9 +353,12 @@ export default function HomePage() {
           <Content alignSelf='center'>
             <ItemH>
               <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
-                <StarSolidIcon color='#D98AEC' aria-hidden='true' />
+                <StarSolidIcon
+                  color='var(--ifm-color-pink-200)'
+                  aria-hidden='true'
+                />
                 <H2
-                  color='#CCA4F0'
+                  color='var(--ifm-color-pink-100)'
                   fontSize={'0.75rem'}
                   fontWeight='500'
                   letterSpacing='0.6px'
@@ -377,7 +382,7 @@ export default function HomePage() {
                     hover='transparent'
                     background='transparent'
                     filter='none'
-                    color='#E163FF'
+                    color='var(--ifm-color-pink-400)'
                     borderRadius='0'
                     padding='0px 0px'
                     target='_blank'
@@ -396,7 +401,7 @@ export default function HomePage() {
 
             <H2
               fontSize='3rem'
-              color='#fff'
+              color='var(--ifm-color-white)'
               margin='8px 0 0 0'
               fontWeight='500'
               lineHeight='120%'
@@ -447,7 +452,7 @@ export default function HomePage() {
 
             <InvestorItem alignItems='stretch'>
               <H2
-                color='#FFFFFF'
+                color='var(--ifm-color-white)'
                 fontWeight='500'
                 letterSpacing='-0.02em'
                 fontSize={isMobile ? '24px' : '2rem'}
@@ -575,7 +580,7 @@ export default function HomePage() {
                 />
                 <H2
                   fontSize={isMobile ? '2.5rem' : '4rem'}
-                  color='#fff'
+                  color='var(--ifm-color-white)'
                   fontWeight='600'
                   lineHeight='120%'
                   textAlign='center'
@@ -584,7 +589,7 @@ export default function HomePage() {
                 </H2>
                 <Span
                   fontSize='1.25rem'
-                  color='#fff'
+                  color='var(--ifm-color-white)'
                   fontWeight='400'
                   lineHeight='125%'
                   textAlign='center'
@@ -595,7 +600,7 @@ export default function HomePage() {
             </MultiContent>
             <MultiContent className='small'>
               <BuildUniversalAppLink
-                background='#D548EC'
+                background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid rgba(255, 255, 255, 0.30)'
                 fontSize='1.125rem'
@@ -688,7 +693,7 @@ const FeaturedGlowCircle = styled.div`
 `;
 
 const HomeWrapper = styled(ItemV)`
-  background: #000;
+  background: var(--ifm-color-black);
   margin: 0;
   padding: 0;
   overflow-x: hidden !important;
@@ -846,7 +851,7 @@ const HeroCTA = styled(ItemH)`
   padding-top: 48px;
 
   .start-svg {
-    color: #fff;
+    color: var(--ifm-color-white);
     margin: 0px 0 0 8px;
   }
 
@@ -995,7 +1000,7 @@ const InvestorTitle = styled(Span)`
   font-weight: 500;
   font-size: 22px;
   line-height: 142%;
-  color: #09090b;
+  color: var(--ifm-color-neutral-1200);
 `;
 
 const InvestorSubtitle = styled(Span)`
@@ -1003,7 +1008,7 @@ const InvestorSubtitle = styled(Span)`
   font-size: 9px;
   line-height: 160%;
   letter-spacing: 0.11em;
-  color: #303c5e;
+  color: var(--ifm-color-neutral-900);
   text-transform: uppercase;
 `;
 
@@ -1232,10 +1237,10 @@ const GridFeatureItem = styled.div`
 const TagItem = styled.b`
   width: fit-content;
   border-radius: 12px;
-  border: 1px solid #d98aec;
+  border: 1px solid var(--ifm-color-pink-200);
   background: transparent;
   padding: 2px 5px;
-  color: #d98aec;
+  color: var(--ifm-color-pink-200);
   font-size: 9px;
   font-style: normal;
   font-weight: bolder;
@@ -1245,14 +1250,14 @@ const TagItem = styled.b`
 const SlideLink = styled(A)`
   overflow: inherit;
   .anchorSVGlink {
-    color: #e163ff;
+    color: var(--ifm-color-pink-400);
     top: 3px;
     margin-left: 8px;
   }
 
   &:hover {
     .anchorSVGlink {
-      color: #e163ff;
+      color: var(--ifm-color-pink-400);
     }
   }
 `;
@@ -1270,7 +1275,7 @@ const BuildUniversalAppLink = styled(A)`
   }
 
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 0px;
   }
 
@@ -1281,7 +1286,7 @@ const BuildUniversalAppLink = styled(A)`
   &:hover {
     text-decoration: none !important;
     .anchorSVGlink {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
   }
 `;
@@ -1302,7 +1307,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #e163ff;
+    background-color: var(--ifm-color-pink-400);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

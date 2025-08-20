@@ -66,7 +66,7 @@ export default function WebsiteMeta() {
       />
       <meta
         name='theme-color'
-        content='#FFFFFF'
+        content='var(--ifm-color-white)'
         media='(prefers-color-scheme: light)'
       />
       <meta name='msapplication-TileColor' content='#AA39BC' />

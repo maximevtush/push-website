@@ -193,7 +193,7 @@ function PartnerChannels() {
 
         <ShowcaseMainContent display='flex' flexDirection='column'>
           <ResponsiveH2
-            color='#fff'
+            color='var(--ifm-color-white)'
             fontSize='36px'
             fontWeight='500'
             letterSpacing='normal'
@@ -204,7 +204,7 @@ function PartnerChannels() {
           </ResponsiveH2>
 
           <Span
-            color='#fff'
+            color='var(--ifm-color-white)'
             fontSize='18px'
             fontWeight='400'
             letterSpacing='normal'
@@ -217,7 +217,7 @@ function PartnerChannels() {
           <A
             href={useBaseUrl('/frens')}
             title={t('pages.home.partners-section.ctatitle')}
-            background='#D548EC'
+            background='var(--ifm-color-custom-pink)'
             borderRadius='16px'
             border='1px solid rgba(255, 255, 255, 0.30)'
             fontSize='1.125rem'

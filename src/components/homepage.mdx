@@ -216,7 +216,7 @@ export default function Home() {
                 letterSpacing='normal'
                 fontFamily='DM Sans, san-serif'
               >
-                <B color='#fff'>
+                <B color='var(--ifm-color-white)'>
                   {t('pages.home.notification-section.header.main-text')}
                 </B>{' '}
                 {t('pages.home.notification-section.header.other-text')}
@@ -288,7 +288,7 @@ export default function Home() {
                 fontWeight='500'
                 fontFamily='DM Sans, san-serif'
               >
-                <B color='#fff'>{t('pages.home.chat-section.header.main-text')} </B>
+                <B color='var(--ifm-color-white)'>{t('pages.home.chat-section.header.main-text')} </B>
                 {t('pages.home.chat-section.header.other-text')}
                 <TagItem>COMING SOON</TagItem>
               </H2>
@@ -363,7 +363,7 @@ export default function Home() {
                 <ItemV alignItems='flex-start' justifyContent={'flex-start'}>
                   <H2
                     textAlign='left'
-                    color='#D98AEC'
+                    color='var(--ifm-color-pink-200)'
                     textTransform='uppercase'
                     fontSize='14px'
                     fontWeight='700'
@@ -375,7 +375,7 @@ export default function Home() {
                   </H2>
 
                   <H2
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     fontSize={isMobile ? '28px' : '30px'}
                     fontWeight='500'
                     margin='8px 0 0 0'
@@ -437,7 +437,7 @@ export default function Home() {
               <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
                 <StarSolidIcon />
                 <H2
-                  color='#D98AEC'
+                  color='var(--ifm-color-pink-200)'
                   fontSize={'21px'}
                   fontWeight='500'
                   letterSpacing='0.84px'
@@ -457,7 +457,7 @@ export default function Home() {
                     hover='transparent'
                     background='transparent'
                     filter='none'
-                    color='#fff'
+                    color='var(--ifm-color-white)'
                     borderRadius='0'
                     padding='0px 0px'
                     fontFamily='DM Sans, san-serif'
@@ -471,7 +471,7 @@ export default function Home() {
 
             <H2
               fontSize={isMobile ? '24px' : '30px'}
-              color='#fff'
+              color='var(--ifm-color-white)'
               margin='8px 0 0 0'
               fontWeight='500'
               fontFamily='DM Sans, san-serif'
@@ -499,7 +499,7 @@ export default function Home() {
           <Content alignSelf='center'>
             <InvestorItem alignItems='stretch'>
               <InvestorHeader
-                color='#FFFFFF'
+                color='var(--ifm-color-white)'
                 fontWeight='700'
                 letterSpacing='-0.02em'
                 lineHeight='120%'
@@ -605,7 +605,7 @@ export default function Home() {
           <Content className='fluid'>
             <ItemH justifyContent='center'>
               <H2
-                color='#FFFFFF'
+                color='var(--ifm-color-white)'
                 fontWeight='500'
                 letterSpacing='normal'
                 fontSize={isMobile ? '24px' : '36px'}
@@ -630,7 +630,7 @@ export default function Home() {
             >
               <ItemV alignItems='flex-start' justifyContent='flex-start'>
                 <H2
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   fontSize={isMobile ? '32px' : '36px'}
                   fontFamily='DM Sans, san-serif'
                   textAlign={isMobile && 'center'}
@@ -661,7 +661,7 @@ export default function Home() {
                   <Accordion
                     items={General}
                     fontFamily='DM Sans, san-serif'
-                    textColor='#BBBCD0 !important'
+                    textColor='var(--ifm-color-neutral-300) !important'
                   />
                 </AccordionGrid>
 
@@ -702,7 +702,7 @@ export default function Home() {
                 zIndex='888'
               >
                 <H2
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   fontSize={isMobile ? '20px' : '32px'}
                   fontFamily='DM Sans, san-serif'
                   fontWeight='500'
@@ -942,7 +942,7 @@ const TokenItem = styled.div`
   padding: 24px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: 'DM Sans, san-serif';
   font-size: 19px;
   font-weight: 400;
@@ -1009,7 +1009,7 @@ const InvestorTitle = styled(Span)`
   font-weight: 500;
   font-size: 22px;
   line-height: 142%;
-  color: #09090b;
+  color: var(--ifm-color-neutral-1200);
 `;
 
 const InvestorSubtitle = styled(Span)`
@@ -1017,7 +1017,7 @@ const InvestorSubtitle = styled(Span)`
   font-size: 9px;
   line-height: 160%;
   letter-spacing: 0.11em;
-  color: #303c5e;
+  color: var(--ifm-color-neutral-900);
   text-transform: uppercase;
 `;
 
@@ -1106,10 +1106,10 @@ const OtherFeatureItem = styled(NotificationFeatureItem)``;
 const TagItem = styled.b`
   width: fit-content;
   border-radius: 12px;
-  border: 1px solid #d98aec;
+  border: 1px solid var(--ifm-color-pink-200);
   background: transparent;
   padding: 2px 5px;
-  color: #d98aec;
+  color: var(--ifm-color-pink-200);
   font-size: 9px;
   font-style: normal;
   font-weight: bolder;
@@ -1142,7 +1142,7 @@ const GridItem = styled(ItemH)`
   &:hover {
     cursor: pointer;
     h2 {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
   }
 
@@ -1155,13 +1155,13 @@ const GridItem = styled(ItemH)`
 const SlideLink = styled(A)`
   overflow: inherit;
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 3px;
   }
 
   &:hover {
     .anchorSVGlink {
-      color: #d98aec;
+      color: var(--ifm-color-pink-200);
     }
   }
 `;
@@ -1176,14 +1176,14 @@ const FaqLink = styled(A)`
     margin: 0px !important;
   }
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 0px;
   }
 
   &:hover {
     text-decoration: none !important;
     .anchorSVGlink {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
   }
 `;
@@ -1204,7 +1204,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: var(--ifm-color-white);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

@@ -62,7 +62,7 @@ const ChainFeaturesSection: FC<ChainFeaturesSectionProps> = () => {
             </Header>
             <Link href='https://push.org/litepaper.pdf' target='_blank'>
               <Button
-                background='#D548EC'
+                background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 fontFamily='N27'
                 fontSize='18px'
@@ -205,7 +205,9 @@ const ChainFeaturesSection: FC<ChainFeaturesSectionProps> = () => {
                       />
                     </div>
 
-                    <FeatureTextSubHeading style={{ color: '#000' }}>
+                    <FeatureTextSubHeading
+                      style={{ color: 'var(--ifm-color-black)' }}
+                    >
                       Any Chain <span className='breakpoint'>Transactions</span>
                     </FeatureTextSubHeading>
                   </AnyChainContainer>
@@ -384,7 +386,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: N27;
   font-size: 48px;
   font-style: normal;
@@ -418,7 +420,7 @@ const FeatureSubContainer = styled.div`
 `;
 
 const FeatureTextHeading = styled.h2`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: N27;
   font-size: 52px;
   font-style: normal;
@@ -444,7 +446,7 @@ const FeatureTextHeading = styled.h2`
 `;
 
 const FeatureTextSubHeading = styled.span`
-  color: #000;
+  color: var(--ifm-color-black);
   font-family: N27;
   font-size: 36px;
   font-style: normal;
@@ -479,7 +481,7 @@ const FinalityContainer = styled.div`
   gap: 10px;
   flex-shrink: 0;
   border-radius: 48px;
-  border: 2px solid #fff;
+  border: 2px solid var(--ifm-color-white);
   position: relative;
 
   @media (max-width: 1248px) {
@@ -636,7 +638,7 @@ const AnyChainContainer = styled.div`
   gap: 10px;
   flex-shrink: 0;
   border-radius: 48px;
-  background: #ffff;
+  background: var(--ifm-color-white);
 
   .video {
     height: 140px !important;
@@ -720,7 +722,7 @@ const KnowledgeBaseContainer = styled(Link)`
   flex-shrink: 0;
   border-radius: 48px;
   background: #e492ff;
-  color: #fff;
+  color: var(--ifm-color-white);
 
   img {
     display: block;
@@ -744,7 +746,7 @@ const KnowledgeBaseContainer = styled(Link)`
   }
 
   span {
-    color: #000;
+    color: var(--ifm-color-black);
     font-family: N27;
     font-size: 24px;
     font-style: normal;
@@ -759,14 +761,14 @@ const KnowledgeBaseContainer = styled(Link)`
 
   &:hover {
     cursor: pointer;
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
 
     span {
-      color: #fff !important;
+      color: var(--ifm-color-white) !important;
     }
 
     h2 {
-      color: #fff !important;
+      color: var(--ifm-color-white) !important;
     }
   }
 
@@ -846,7 +848,7 @@ const HeaderTwoContainer = styled.div`
 `;
 
 const HeaderTwo = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: N27;
   font-size: 48px;
@@ -857,7 +859,7 @@ const HeaderTwo = styled.span`
 `;
 
 const HeaderTwoSubheader = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: N27;
   font-size: 24px;
