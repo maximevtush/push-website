@@ -31,7 +31,7 @@ const ChainWrapper = styled(ItemV)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #e8eff8;
+  background: var(--ifm-color-neutral-200);
   font-family: N27, sans-serif;
 `;
 

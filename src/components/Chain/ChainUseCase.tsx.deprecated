@@ -70,7 +70,7 @@ const StyledH3 = styled(H3)`
 
 const GridText = styled.div`
   width: 480px;
-  color: #000;
+  color: var(--ifm-color-black);
   font-family: N27;
   font-size: 24px;
   font-style: normal;

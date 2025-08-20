@@ -108,7 +108,7 @@ const ExploreCollection: React.FC<ExploreCollectionProps> = ({
             letterSpacing='-0.8px'
             textAlign={variant === 'row' ? 'left' : 'center'}
             alignSelf={variant === 'row' ? 'flex-start' : 'center'}
-            color='#FFF'
+            color='var(--ifm-color-white)'
           >
             {t(title)}
           </H3>

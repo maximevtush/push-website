@@ -53,7 +53,7 @@ function Footer() {
           <EmailContent>
             <EmailDiv>
               <H2
-                color='#FFF'
+                color='var(--ifm-color-white)'
                 fontWeight='400'
                 letterSpacing='-0.56px'
                 fontSize={isMobile ? '1.rem' : '1.75rem'}
@@ -71,12 +71,12 @@ function Footer() {
                 showButton={true}
                 background={'rgba(0, 0, 0, 0.10)'}
                 borderColor={'rgba(112, 90, 208, 0.40)'}
-                textColor={'#fff'}
+                textColor={'var(--ifm-color-white)'}
                 placeholderColor={'#494E54'}
                 buttonBg={'#D548EC'}
                 buttonBorder={'1px solid rgba(30, 23, 23, 0.3)'}
-                arrowColor={'#fff'}
-                loaderColor={'#fff'}
+                arrowColor={'var(--ifm-color-white)'}
+                loaderColor={'var(--ifm-color-white)'}
                 blendMode='lighten'
                 boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
                 backdrop='blur(10px)'
@@ -295,7 +295,7 @@ const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
   position: relative;
-  background: #000;
+  background: var(--ifm-color-black);
   width: 100%;
   margin: -4px auto;
 `;
@@ -358,7 +358,7 @@ const FooterColumn = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   flex-grow: 1;
 
   flex-direction: column;
@@ -481,7 +481,7 @@ const FooterAnchorSecondary = styled(A)`
   border-radius: 0;
 
   &:hover {
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
     background: transparent !important;
   }
 
@@ -492,7 +492,7 @@ const FooterAnchorSecondary = styled(A)`
 
 const FooterIconSecondary = styled(A)`
   padding: 0px;
-  color: #fff !important;
+  color: var(--ifm-color-white) !important;
   font-family:
     DM Sans,
     sans-serif;
@@ -506,7 +506,7 @@ const FooterIconSecondary = styled(A)`
   border-radius: 0;
 
   &:hover {
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
     background: transparent !important;
   }
 

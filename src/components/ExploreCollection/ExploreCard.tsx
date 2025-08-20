@@ -34,6 +34,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
   const isMobile = useMediaQuery(device.mobileL);
   const baseURL = useSiteBaseUrl() || '';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getHref = (item: any) => {
     if (!item?.url && !item?.slug) return '#';
 
@@ -175,7 +176,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               fontWeight='400'
               lineHeight='133%'
               letterSpacing='-0.64px'
-              color={variant === 'tile' ? '#FFF' : '#757D8D'}
+              color={variant === 'tile' ? 'var(--ifm-color-white)' : '#757D8D'}
               fontFamily='DM Sans'
               margin='0'
             >
@@ -196,13 +197,13 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               fontWeight='500'
               lineHeight={isMobile ? '100%' : '140%'}
               letterSpacing='-0.64px'
-              color='#fff'
+              color='var(--ifm-color-white)'
             >
               {item?.ctatitle
                 ? item?.ctatitle
                 : t('components.explore-collection.explore-card.cta-title', '')}
             </Span>
-            <TbArrowUpRight color='#fff' size={24} />
+            <TbArrowUpRight color='var(--ifm-color-white)' size={24} />
           </LinkContainer>
         </>
       )}
@@ -304,7 +305,10 @@ const KnowledgeImage = styled(Image)`
 `;
 
 const TitleH3 = styled(H3)`
-  color: ${(props) => (props.variant === 'row' ? '#FFF' : '#FFF')};
+  color: ${(props) =>
+    props.variant === 'row'
+      ? 'var(--ifm-color-white)'
+      : 'var(--ifm-color-white)'};
 
   @media ${device.tablet} {
     font-size: 1.5rem;

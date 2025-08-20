@@ -27,26 +27,26 @@ const HybridSection = (props: HybridSectionProps) => {
 
 const StyledSection = styled(Content)`
   &[data-bkg='dark'] {
-    background: #121315;
+    background: var(--ifm-color-neutral-1000);
 
     &:after {
-      background: #121315;
+      background: var(--ifm-color-neutral-1000);
     }
 
     &:before {
-      background: #121315;
+      background: var(--ifm-color-neutral-1000);
     }
   }
 
   &[data-bkg='light'] {
-    background: #ffffff;
+    background: var(--ifm-color-white);
 
     &:after {
-      background: #ffffff;
+      background: var(--ifm-color-white);
     }
 
     &:before {
-      background: #ffffff;
+      background: var(--ifm-color-white);
     }
   }
 
@@ -65,7 +65,8 @@ const StyledSection = styled(Content)`
           right: 0;
           height: 60px;
           width: 100%;
-          background: ${(props) => props.background || '#121315'};
+          background: ${(props) =>
+            props.background || 'var(--ifm-color-neutral-1000)'};
           border-bottom-left-radius: 48px;
           border-bottom-right-radius: 48px;
         }
@@ -83,7 +84,8 @@ const StyledSection = styled(Content)`
           right: 0;
           height: 60px;
           width: 100%;
-          background: ${(props) => props.background || '#121315'};
+          background: ${(props) =>
+            props.background || 'var(--ifm-color-neutral-1000)'};
           border-top-left-radius: 48px;
           border-top-right-radius: 48px;
         }
@@ -97,7 +99,8 @@ const StyledSection = styled(Content)`
           right: 0;
           height: 60px;
           width: 100%;
-          background: ${(props) => props.background || '#121315'};
+          background: ${(props) =>
+            props.background || 'var(--ifm-color-neutral-1000)'};
           border-bottom-left-radius: 48px;
           border-bottom-right-radius: 48px;
         }

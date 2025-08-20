@@ -18,7 +18,6 @@ import {
   DefaultDarkTheme,
   H1,
   H2,
-  ItemV,
   MultiContent,
   Section,
   Span,
@@ -395,7 +394,7 @@ const TweetsGrid = styled.div`
 `;
 
 const TweetWrapper = styled.div`
-  background: #1a1a1a;
+  background: var(--ifm-color-gray-900);
   border: 1px solid #425364;
   color: var(--ifm-color-primary-unified-text);
   border-radius: 12px;
@@ -492,7 +491,7 @@ const TweetWrapper = styled.div`
 // Skeleton Loading Components
 const SkeletonContent = styled.div`
   padding: 16px;
-  background: #1a1a1a;
+  background: var(--ifm-color-gray-900);
 `;
 
 const SkeletonHeader = styled.div`
@@ -517,7 +516,7 @@ const SkeletonName = styled.div`
   display: flex;
   align-items: center;
   font-weight: 600;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-size: 15px;
 `;
 
@@ -614,7 +613,7 @@ const LoadingSpinner = styled.div`
 `;
 
 const LoadingText = styled.div`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-size: 16px;
   font-weight: 500;
 `;

@@ -104,7 +104,7 @@ const ChainHeroSection: FC = () => {
       </HeroSubText>
       <HeroButtons>
         <Button
-          background='#D548EC'
+          background='var(--ifm-color-custom-pink)'
           fontFamily='N27'
           fontWeight='500'
           fontSize='18px'
@@ -113,11 +113,11 @@ const ChainHeroSection: FC = () => {
           Get Notified about Testnet
         </Button>
         <Button
-          background='#FFF'
+          background='var(--ifm-color-white)'
           fontFamily='N27'
           fontWeight='500'
           fontSize='18px'
-          color='#000'
+          color='var(--ifm-color-black)'
           onClick={() => scrollTo('technology')}
         >
           Explore Push Chain
@@ -213,7 +213,7 @@ const ChainHeroSection: FC = () => {
               fontSize={isMobile ? '16px' : '20px'}
               background='transparent'
               padding='0'
-              color='#D548EC'
+              color='var(--ifm-color-custom-pink)'
               fontFamily='N27'
               hoverBackground='transparent'
             >
@@ -227,7 +227,7 @@ const ChainHeroSection: FC = () => {
               fontSize={isMobile ? '16px' : '20px'}
               background='transparent'
               padding='0'
-              color='#D548EC'
+              color='var(--ifm-color-custom-pink)'
               fontFamily='N27'
               hoverBackground='transparent'
             >
@@ -290,7 +290,7 @@ const ChainHeroSection: FC = () => {
 
       <ItemV width='100%'>
         <A
-          background='#D548EC'
+          background='var(--ifm-color-custom-pink)'
           fontFamily='N27'
           fontWeight='500'
           fontSize='18px'
@@ -321,7 +321,7 @@ const HeroText = styled.div`
   font-size: 72px;
   font-weight: 500;
   line-height: 140%;
-  color: #000;
+  color: var(--ifm-color-black);
   letter-spacing: -1.44px;
   margin-top: 20px;
 
@@ -345,7 +345,7 @@ const TypewriterWrapper = styled.span`
 
 const HeroSubText = styled.div`
   text-align: center;
-  color: #000;
+  color: var(--ifm-color-black);
   text-align: center;
   font-family: N27;
   font-size: 24px;
@@ -389,7 +389,7 @@ const HeroButtons = styled.div`
 `;
 
 const SectionText = styled.div`
-  color: #000;
+  color: var(--ifm-color-black);
   font-family: N27;
   font-size: 48px;
   font-style: normal;
@@ -443,7 +443,7 @@ const GridDiv = styled(ItemV)`
 
 const GridText = styled.div`
   width: 500px;
-  color: #000;
+  color: var(--ifm-color-black);
   font-family: N27;
   font-size: 24px;
   font-style: normal;
@@ -482,14 +482,14 @@ const TextLink = styled(A)`
     margin: 0px !important;
   }
   .anchorSVGlink {
-    color: #d548ec;
+    color: var(--ifm-color-custom-pink);
     top: 0px;
   }
 
   &:hover {
     text-decoration: none !important;
     .anchorSVGlink {
-      color: #d548ec;
+      color: var(--ifm-color-custom-pink);
     }
   }
 `;

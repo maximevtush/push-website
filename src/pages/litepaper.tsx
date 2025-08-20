@@ -39,7 +39,7 @@ const PushLogoBlackContainer = styled(ItemV)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 
 const Message = styled.p`

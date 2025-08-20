@@ -17,7 +17,7 @@ const colors = {
   base: '#ffda6a',
   like: '#548dff',
   love: '#f55064',
-  white: '#ffffff',
+  white: 'var(--ifm-color-white)',
   black: '#000000',
   text: '#8a8a8a',
   angry: '#d5234c',
@@ -111,15 +111,6 @@ const yayAnimation = keyframes`
   }
 `;
 
-const yayReverse = keyframes`
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-`;
-
 const wowFace = keyframes`
   15%, 25% {
     transform: rotate(20deg) translateX(-25px);
@@ -154,27 +145,6 @@ const wowMouth = keyframes`
   }
   75%, 100% {
     height: 50px;
-  }
-`;
-
-const handsUp = keyframes`
-  25% {
-    transform: rotate(15deg);
-  }
-  50% {
-    transform: rotate(-15deg) translateY(-10px);
-  }
-  75%, 100% {
-    transform: rotate(0deg);
-  }
-`;
-
-const thumbsUp = keyframes`
-  25% {
-    transform: rotate(20deg);
-  }
-  50%, 100% {
-    transform: rotate(5deg);
   }
 `;
 

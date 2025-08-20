@@ -86,7 +86,12 @@ const BarContainer = styled.div`
   height: 58px;
   cursor: pointer;
 
-  background: linear-gradient(90deg, #3524ed 0%, #d548ec 50%, #3524ed 100%);
+  background: linear-gradient(
+    90deg,
+    #3524ed 0%,
+    var(--ifm-color-custom-pink) 50%,
+    #3524ed 100%
+  );
   /* backdrop-filter: blur(calc(var(--blur-md, 24px) / 2)); */
 
   @media ${device.tablet} {
@@ -141,7 +146,7 @@ const HeroButton = styled(Button)`
   }
 
   span {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 142%;
@@ -167,7 +172,7 @@ const HeroButton = styled(Button)`
   }
 
   h2 {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 142%;
@@ -194,7 +199,7 @@ const DismissBtn = styled.button`
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-size: 18px;
   cursor: pointer;
   padding: 0;

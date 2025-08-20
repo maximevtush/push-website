@@ -29,10 +29,10 @@ type AlertBarProps = {
 const ChainAlertBar = ({
   text,
   url,
-  textColor = '#000', // Default text color
-  backgroundColor = '#fff', // Default background color
+  textColor = 'var(--ifm-color-black)', // Default text color
+  backgroundColor = 'var(--ifm-color-white)', // Default background color
   borderColor = '#f19aff', // Default border color
-  iconColor = '#D548EC', // Default icon color
+  iconColor = 'var(--ifm-color-custom-pink)', // Default icon color
   showStarIcon = true, // Default: show the star icon
   center = false, // Default: no centering
 }: AlertBarProps) => {

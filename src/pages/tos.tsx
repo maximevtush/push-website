@@ -77,11 +77,18 @@ function TermsOfServicePage() {
       </Head>
 
       <Section flexDirection='column' background='white !important'>
-        <HeroSection background='#121315' minHeight='70vh'>
+        <HeroSection
+          background='var(--ifm-color-neutral-1000)'
+          minHeight='70vh'
+        >
           <HeroContent className='contentBox' flex='1' alignSelf='center'>
             <ItemV>
               <HeroHeader>{t('pages.tos.hero-section.title')}</HeroHeader>
-              <P margin='20px 0 0 0' size='1.5rem' color='#fff'>
+              <P
+                margin='20px 0 0 0'
+                size='1.5rem'
+                color='var(--ifm-color-white)'
+              >
                 {t('pages.tos.hero-section.description')}
               </P>
               <H3
@@ -91,15 +98,20 @@ function TermsOfServicePage() {
                 margin='0px 0px 80px 0px'
                 letterSpacing='0.1em'
                 textTransform='uppercase'
-                color='#fff'
+                color='var(--ifm-color-white)'
               >
                 {t('pages.tos.hero-section.update-text')}
               </H3>
-              <P testAlign='center' size='1.3rem' color='#fff'>
-                <B color='#fff'>IMPORTANT NOTICE: </B>THIS AGREEMENT IS SUBJECT
-                TO BINDING ARBITRATION AND A WAIVER OF CLASS ACTION RIGHTS AS
-                DETAILED IN <B color='#fff'>SCHEDULE B</B>. PLEASE READ THE
-                AGREEMENT CAREFULLY.
+              <P
+                testAlign='center'
+                size='1.3rem'
+                color='var(--ifm-color-white)'
+              >
+                <B color='var(--ifm-color-white)'>IMPORTANT NOTICE: </B>THIS
+                AGREEMENT IS SUBJECT TO BINDING ARBITRATION AND A WAIVER OF
+                CLASS ACTION RIGHTS AS DETAILED IN{' '}
+                <B color='var(--ifm-color-white)'>SCHEDULE B</B>. PLEASE READ
+                THE AGREEMENT CAREFULLY.
               </P>
             </ItemV>
           </HeroContent>
@@ -146,7 +158,7 @@ function TermsOfServicePage() {
                     href='https://app.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -159,7 +171,7 @@ function TermsOfServicePage() {
                     href='https://staging.push.org'
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -202,7 +214,7 @@ function TermsOfServicePage() {
                     href={useBaseUrl('./privacy')}
                     target='_blank'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -245,13 +257,13 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
                   2. MODIFICATIONS TO TERMS OF SERVICE / USE
                 </P>
-                <P margin='-10px 0px 20px 0px' color='#FFF'>
+                <P margin='-10px 0px 20px 0px' color='var(--ifm-color-white)'>
                   Push reserves the right, at its sole discretion, to modify or
                   replace these Terms at any time, including the Schedules
                   hereto. The most current version of these Terms will be posted
@@ -266,13 +278,13 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     textTransform='uppercase'
                     size='1.2em'
                   >
                     3. REPRESENTATIONS
                   </P>
-                  <P margin='0' color='#FFF'>
+                  <P margin='0' color='var(--ifm-color-white)'>
                     You hereby represent and warrant that:
                   </P>
                 </TermsHeaderGroup>
@@ -354,7 +366,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -382,7 +394,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     textTransform='uppercase'
                     size='1.2em'
                   >
@@ -480,7 +492,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -492,7 +504,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='0px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -511,7 +523,7 @@ function TermsOfServicePage() {
                       href='https://github.com/ethereum/EIPs/issues/20'
                       tarrget='_blank'
                       display=' inline'
-                      color='#e1087f'
+                      color='var(--ifm-color-pink-500)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
@@ -526,7 +538,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -546,7 +558,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -636,7 +648,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -662,7 +674,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -686,7 +698,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -714,7 +726,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -778,7 +790,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -828,7 +840,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -860,7 +872,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -872,7 +884,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='0px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -896,7 +908,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -968,7 +980,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 20px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -1008,7 +1020,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1035,7 +1047,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1079,7 +1091,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1140,7 +1152,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1157,7 +1169,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1186,7 +1198,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1251,7 +1263,7 @@ function TermsOfServicePage() {
                   <A
                     href='mailto://support@epns.io'
                     display=' inline'
-                    color='#e1087f'
+                    color='var(--ifm-color-pink-500)'
                     background='transparent'
                     padding='0px'
                     letterSpacing='inherit'
@@ -1274,8 +1286,8 @@ function TermsOfServicePage() {
                   className='scheduleHeader'
                 >
                   <Span
-                    background='#000'
-                    color='#fff'
+                    background='var(--ifm-color-black)'
+                    color='var(--ifm-color-white)'
                     fontWeight='600'
                     padding='0px 8px'
                   >
@@ -1283,7 +1295,7 @@ function TermsOfServicePage() {
                   </Span>
                   <Span
                     fontWeight='600'
-                    color='#fff'
+                    color='var(--ifm-color-white)'
                     background='#e20880'
                     padding='0px 8px'
                   >
@@ -1301,7 +1313,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -1313,7 +1325,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='0px 0px 20px 0px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -1343,7 +1355,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 0px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -1366,7 +1378,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 0px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -1385,7 +1397,7 @@ function TermsOfServicePage() {
                   <P
                     weight='400'
                     spacing='0.2em'
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     margin='20px 0px 20px 0px'
                     textTransform='uppercase'
                     size='1.1em'
@@ -1411,8 +1423,8 @@ function TermsOfServicePage() {
                   className='scheduleHeader'
                 >
                   <Span
-                    background='#000'
-                    color='#fff'
+                    background='var(--ifm-color-black)'
+                    color='var(--ifm-color-white)'
                     fontWeight='600'
                     padding='0px 8px'
                   >
@@ -1420,7 +1432,7 @@ function TermsOfServicePage() {
                   </Span>
                   <Span
                     fontWeight='600'
-                    color='#fff'
+                    color='var(--ifm-color-white)'
                     background='#e20880'
                     padding='0px 8px'
                   >
@@ -1438,7 +1450,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   textTransform='uppercase'
                   size='1.2em'
                 >
@@ -1446,7 +1458,7 @@ function TermsOfServicePage() {
                 </P>
 
                 <P
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='-10px 0px 20px 0px'
                   textTransform='uppercase'
                 >
@@ -1461,7 +1473,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='0px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1479,7 +1491,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='20px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'
@@ -1540,7 +1552,7 @@ function TermsOfServicePage() {
                 <P
                   weight='400'
                   spacing='0.2em'
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   margin='0px 0px 20px 0px'
                   textTransform='uppercase'
                   size='1.1em'

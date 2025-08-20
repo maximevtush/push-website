@@ -37,8 +37,8 @@ export const HeroHeader = styled.h1`
 
 // Theme Wrapper
 export const DefaultDarkTheme = styled.div`
-  background: #000;
-  color: #fff;
+  background: var(--ifm-color-black);
+  color: var(--ifm-color-white);
   font-family:
     DM Sans,
     sans-serif;
@@ -440,7 +440,7 @@ export const Button = styled.button`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'};
+  color: ${(props) => props.color || 'var(--ifm-color-white)'};
   background: ${(props) => props.background || GLOBALS.COLORS.BG_DARK};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '14px 32px'};
@@ -481,7 +481,7 @@ export const Button = styled.button`
   }
 
   &:after {
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     bottom: 0;
     content: '';
     left: 0;
@@ -525,7 +525,7 @@ export const A = styled.a`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 500};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'} !important;
+  color: ${(props) => props.color || 'var(--ifm-color-white)'} !important;
   background: ${(props) => props.background || GLOBALS.COLORS.BG_DARK};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '14px 32px'};
@@ -564,7 +564,7 @@ export const A = styled.a`
   }
 
   &:after {
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     bottom: 0;
     content: '';
     left: 0;
@@ -614,7 +614,7 @@ export const PrimaryA = styled(A)`
 export const P = styled.p`
   flex: ${(props) => props.flex || 'initial'};
   align-self: ${(props) => props.alignSelf || 'auto'};
-  color: ${(props) => props.color || '#000'};
+  color: ${(props) => props.color || 'var(--ifm-color-black)'};
   background: ${(props) => props.background || 'transparent'};
   font-weight: ${(props) => props.fontWeight || 300};
   font-size: ${(props) => props.fontSize || 'inherit'};
@@ -637,7 +637,7 @@ export const LinkTo = styled(Link)`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'};
+  color: ${(props) => props.color || 'var(--ifm-color-white)'};
   background: ${(props) => props.background || 'transparent'};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '10px 15px'};
@@ -668,7 +668,7 @@ export const LinkTo = styled(Link)`
         ? props.hoverColor
         : props.color
           ? props.color
-          : '#fff') || '#fff'};
+          : 'var(--ifm-color-white)') || 'var(--ifm-color-white)'};
   }
 
   &:before {
@@ -691,7 +691,7 @@ export const LinkTo = styled(Link)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     opacity: 0;
     z-index: -1;
   }
@@ -715,7 +715,7 @@ export const LinkTo = styled(Link)`
 `;
 
 export const B = styled.span`
-  color: ${(props) => props.color || '#000'};
+  color: ${(props) => props.color || 'var(--ifm-color-black)'};
   font-weight: ${(props) => props.fontWeight || 'bold'};
 `;
 
@@ -730,7 +730,7 @@ export const LI = styled.li`
 // Docusaurus Specific
 // Focus Anchor
 export const AImp = styled.a`
-  color: #fff;
+  color: var(--ifm-color-white);
   background: #dd44b9;
   font-size: 15px;
   padding: 6px 12px 6px 8px;
@@ -746,7 +746,7 @@ export const AImp = styled.a`
   }
 
   &:hover {
-    color: #000;
+    color: var(--ifm-color-black);
   }
 `;
 

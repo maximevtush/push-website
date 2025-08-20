@@ -27,7 +27,7 @@ const BootcampCurriculum = () => {
     return (
       <ItemV gap='24px' justifyContent='flex-start'>
         <H3
-          color='#FFF'
+          color='var(--ifm-color-white)'
           fontSize='20px'
           fontFamily='Glancyr, sans-serif'
           margin='0 auto 0 0'
@@ -79,7 +79,7 @@ const BootcampCurriculum = () => {
         <CurriculumSection key={index}>
           <CurriculumParent onClick={() => toggleAccordion(index)}>
             <H2
-              color='#FFF'
+              color='var(--ifm-color-white)'
               fontSize='24px'
               fontFamily='Glancyr, sans-serif'
               fontWeight='400'
@@ -89,9 +89,9 @@ const BootcampCurriculum = () => {
             </H2>
             <div>
               {activeIndex === index ? (
-                <BsChevronDown color='#FFF' size={22} />
+                <BsChevronDown color='var(--ifm-color-white)' size={22} />
               ) : (
-                <BsChevronUp color='#FFF' size={22} />
+                <BsChevronUp color='var(--ifm-color-white)' size={22} />
               )}
             </div>
           </CurriculumParent>
@@ -115,7 +115,7 @@ const BootcampCurriculum = () => {
 
 const CurriculumSection = styled.div`
   &:not(:last-child) {
-    border-bottom: 1px solid #2a2a39;
+    border-bottom: 1px solid var(--ifm-color-gray-200);
   }
 `;
 
@@ -131,7 +131,7 @@ const CurriculumParent = styled.div`
 
 const CurriculumCard = styled.div`
   margin: 64px 0 0 0;
-  border: 1px solid #2a2a39;
+  border: 1px solid var(--ifm-color-gray-200);
   padding: 0px 32px;
   border-radius: 24px;
 `;

@@ -90,7 +90,7 @@ const RecentBlogPosts = () => {
                 alignItems='flex-start'
                 alignSelf='flex-start'
                 flex='0'
-                color='#fff'
+                color='var(--ifm-color-white)'
                 justifyContent='space-between'
                 className='date'
                 role='group'
@@ -111,7 +111,7 @@ const RecentBlogPosts = () => {
 
               <H2
                 textAlign='left'
-                color='#fff'
+                color='var(--ifm-color-white)'
                 lineHeight='135%'
                 letterSpacing='normal'
                 role='heading'
@@ -182,7 +182,7 @@ const BodyItem = styled.div`
   box-sizing: border-box;
 
   .date {
-    color: #bbbcd0;
+    color: var(--ifm-color-neutral-300);
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;
@@ -213,7 +213,7 @@ const BodyItem = styled.div`
 `;
 
 const TextSpan = styled(Span)`
-  color: #bbbcd0;
+  color: var(--ifm-color-neutral-300);
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
@@ -232,7 +232,7 @@ const LoadingMessage = styled.div`
   align-items: center;
   justify-content: center;
   padding: 48px 24px;
-  color: #bbbcd0;
+  color: var(--ifm-color-neutral-300);
   font-size: 1.125rem;
   font-weight: 400;
   text-align: center;
@@ -244,7 +244,7 @@ const ErrorMessage = styled.div`
   align-items: center;
   justify-content: center;
   padding: 48px 24px;
-  color: #bbbcd0;
+  color: var(--ifm-color-neutral-300);
   font-size: 1.125rem;
   font-weight: 400;
   text-align: center;

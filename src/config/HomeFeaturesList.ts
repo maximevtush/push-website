@@ -340,8 +340,8 @@ export const FeaturesList = {
             {
               title: 'pages.home.chain-features-section.box7.tags.title1',
               background: 'transparent',
-              color: '#CCA4F0',
-              border: '1px solid #CCA4F0',
+              color: 'var(--ifm-color-pink-100)',
+              border: '1px solid var(--ifm-color-pink-100)',
               fontSize: '9px',
             },
           ],
@@ -404,8 +404,8 @@ export const FeaturesList = {
             {
               title: 'pages.home.chain-features-section.box8.tags.title1',
               background: 'transparent',
-              color: '#CCA4F0',
-              border: '1px solid #CCA4F0',
+              color: 'var(--ifm-color-pink-100)',
+              border: '1px solid var(--ifm-color-pink-100)',
               fontSize: '9px',
             },
           ],

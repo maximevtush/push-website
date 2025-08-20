@@ -34,7 +34,7 @@ This repository contains the complete source code for the Push Chain website, in
 
 ### Prerequisites
 
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **Yarn** package manager
 - **Git** for version control
 
@@ -206,7 +206,7 @@ import { useTranslation } from 'react-i18next';
 
 const MyComponent = () => {
   const { t } = useTranslation();
-  
+
   return (
     <h1>{t('components.my-component.title')}</h1>
   );
@@ -271,7 +271,7 @@ import { device } from '@site/src/config/globals';
 const StyledComponent = styled.div`
   padding: 24px;
   background: #101010;
-  
+
   @media ${device.mobileL} {
     padding: 16px;
   }

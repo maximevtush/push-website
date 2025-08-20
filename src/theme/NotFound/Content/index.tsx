@@ -105,7 +105,7 @@ export default function NotFoundContent({ className }: Props): ReactElement {
           </Section>
 
           {isDocsOrBlogsPage && (
-            <ItemH background='#e8eff8'>
+            <ItemH background='var(--ifm-color-neutral-200)'>
               <Footer showPattern={false} />
             </ItemH>
           )}
@@ -123,7 +123,7 @@ const PageContainer = styled.div<{ isDocsPage?: boolean }>`
   ${({ isDocsOrBlogsPage }) =>
     isDocsOrBlogsPage
       ? 'color: var(--ifm-color-primary-text) !important'
-      : 'color: #ffffff !important'};
+      : 'color: var(--ifm-color-white) !important'};
 `;
 
 const Container = styled.div`
@@ -140,7 +140,7 @@ const PushLogoBlackContainer = styled(ItemV)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 
 const Message = styled.p`

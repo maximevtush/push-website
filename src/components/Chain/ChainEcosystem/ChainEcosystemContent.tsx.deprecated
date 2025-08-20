@@ -29,7 +29,7 @@ const ChainEcosystemContent = () => {
           fontFamily='N27'
           lineHeight='140%'
           letterSpacing='-1.04px'
-          color='#000'
+          color='var(--ifm-color-black)'
         >
           A thriving ecosystem of consumer apps
         </H3>
@@ -40,7 +40,7 @@ const ChainEcosystemContent = () => {
           fontFamily='N27'
           lineHeight='140%'
           letterSpacing='-0.48px'
-          color='#D548EC'
+          color='var(--ifm-color-custom-pink)'
           alignSelf='flex-end'
         >
           Powered by Push Chain
@@ -57,9 +57,9 @@ const ChainEcosystemContent = () => {
         <ItemH>
           <Button
             background='transparent'
-            border='1.5px solid #000'
-            hoverBorder='1.5px solid #000'
-            color='#000'
+            border='1.5px solid var(--ifm-color-black)'
+            hoverBorder='1.5px solid var(--ifm-color-black)'
+            color='var(--ifm-color-black)'
             margin='0 auto'
             fontWeight='500'
             fontSize='16px'

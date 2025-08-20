@@ -69,7 +69,7 @@ const ChainRoadmapSection: FC = () => {
               <Span
                 fontSize={isMobile ? '20px' : '20px'}
                 fontWeight='400'
-                color='#FFF'
+                color='var(--ifm-color-white)'
                 fontFamily='N27'
                 lineHeight='140%'
               >
@@ -87,7 +87,7 @@ const ChainRoadmapSection: FC = () => {
             fontFamily='N27'
             padding='8px'
             textTransform='uppercase'
-            color='#FFF'
+            color='var(--ifm-color-white)'
           >
             In Progress
           </Span>
@@ -97,7 +97,7 @@ const ChainRoadmapSection: FC = () => {
               <Span
                 fontSize={isMobile ? '20px' : '20px'}
                 fontWeight='400'
-                color='#FFF'
+                color='var(--ifm-color-white)'
                 fontFamily='N27'
                 lineHeight='140%'
               >
@@ -142,7 +142,7 @@ const CompleteSection = styled.div`
 `;
 
 const InProgressSection = styled.div`
-  background: #000;
+  background: var(--ifm-color-black);
   padding: 16px;
   border-radius: 24px;
   flex: 1;
@@ -194,7 +194,7 @@ const ChainRoadmapWrapperSection = styled.div`
 // `;
 
 const CompleteTag = styled.div`
-  background: #000;
+  background: var(--ifm-color-black);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -217,7 +217,7 @@ const CompleteTag = styled.div`
 
 // const InProgressSection = styled.div`
 //   width: 100%;
-//   background: #000;
+//   background: var(--ifm-color-black);
 //   padding: 16px;
 //   border-radius: 24px;
 //   flex: 1;
@@ -233,7 +233,7 @@ const InProgressTag = styled.div`
   padding: 20px;
   margin: 8px 0 0 0;
   border-radius: 16px;
-  border: 1px solid #fff;
+  border: 1px solid var(--ifm-color-white);
 
   div {
     width: 16px;

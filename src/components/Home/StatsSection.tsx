@@ -118,7 +118,7 @@ const TextSection = styled(ItemH)`
   }
 
   h2 {
-    color: #fff;
+    color: var(--ifm-color-white);
     leading-trim: both;
     text-edge: cap;
     font-size: 3rem;
@@ -130,7 +130,7 @@ const TextSection = styled(ItemH)`
   .regular-text {
     max-width: 400px;
 
-    color: #fff;
+    color: var(--ifm-color-white);
     leading-trim: both;
     text-edge: cap;
     font-size: 1.25rem;
@@ -175,7 +175,7 @@ const StatsGrid = styled.div`
   }
 
   h3 {
-    color: #FFF;
+    color: var(--ifm-color-white);
     text-align: center;
     text-edge: cap;
     font-size: 1rem;
@@ -187,7 +187,7 @@ const StatsGrid = styled.div`
   }
 
   span {
-    color: #FFF;
+    color: var(--ifm-color-white);
     text-align: center;
     leading-trim: both;
     text-edge: cap;
@@ -213,7 +213,7 @@ const StatsItem = styled.div`
 `;
 
 const ColoredText = styled.span`
-  color: #d548ec;
+  color: var(--ifm-color-custom-pink);
   leading-trim: both;
   text-edge: cap;
   font-size: 3rem

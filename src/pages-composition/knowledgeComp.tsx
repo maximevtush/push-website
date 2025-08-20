@@ -123,12 +123,12 @@ const KnowledgeComp = () => {
                         showButton={true}
                         background={'rgba(0, 0, 0, 0.10)'}
                         borderColor={'rgba(112, 90, 208, 0.40)'}
-                        textColor={'#fff'}
+                        textColor={'var(--ifm-color-white)'}
                         placeholderColor={'#494E54'}
                         buttonBg={'#D548EC'}
                         buttonBorder={'1px solid rgba(41, 33, 33, 0.3)'}
-                        arrowColor={'#fff'}
-                        loaderColor={'#fff'}
+                        arrowColor={'var(--ifm-color-white)'}
+                        loaderColor={'var(--ifm-color-white)'}
                         blendMode='lighten'
                         boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
                         backdrop='blur(10px)'
@@ -177,7 +177,7 @@ const KnowledgeComp = () => {
                   fontWeight='400'
                   lineHeight={isMobile ? '100%' : '132%'}
                   letterSpacing='-0.64px'
-                  color='#BBBCD0'
+                  color='var(--ifm-color-neutral-300)'
                   flex='1'
                 >
                   {heroConfig.footer.description}
@@ -271,7 +271,7 @@ const MediaDisplay = styled(ItemH)`
 // Hero Media Card - Card container for media and footer
 const HeroMediaCard = styled.div`
   padding: 16px;
-  background: #101010;
+  background: var(--ifm-color-neutral-1100);
   display: flex;
   border-radius: 40px;
   flex-direction: column;
@@ -380,7 +380,7 @@ const EmailSignupContent = styled.div`
 const EmailSignupTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: 0;
   line-height: 1.2;
 
@@ -420,7 +420,7 @@ const EmailSignupDescription = styled.p`
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #a3a7ac;
+  color: var(--ifm-color-neutral-400);
   margin: 0;
   line-height: 1.5;
   max-width: 400px;

@@ -20,7 +20,7 @@ const ChainEcosystemAppItem: FC = ({ item, index }) => {
   return (
     <Card
       key={index}
-      background='#FFF'
+      background='var(--ifm-color-white)'
       padding='24px'
       alignItems='flex-start'
       borderRadius='32px'
@@ -71,7 +71,9 @@ const ChainEcosystemAppItem: FC = ({ item, index }) => {
       </ItemH>
 
       <ItemH margin='71px 0 0 0' gap='8px' justifyContent='flex-start'>
-        {item?.tags.map((item) => <TagItem tag={item}>{item}</TagItem>)}
+        {item?.tags.map((item) => (
+          <TagItem tag={item}>{item}</TagItem>
+        ))}
       </ItemH>
     </Card>
   );
@@ -81,7 +83,7 @@ const TagItem = styled.div<{ tag: string }>`
   border-radius: 16px;
   background: ${({ tag }) =>
     tag.toLowerCase() === 'productivity'
-      ? '#000'
+      ? 'var(--ifm-color-black)'
       : tag.toLowerCase() === 'gaming'
         ? '#FC564A'
         : tag.toLowerCase() === 'social'
@@ -95,7 +97,7 @@ const TagItem = styled.div<{ tag: string }>`
   align-items: center;
   gap: 10px;
 
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: N27;
   font-size: 20px;
   font-weight: 500;
@@ -106,16 +108,16 @@ const Card = styled(ItemV)`
   cursor: pointer;
 
   .arrow-item {
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 
   &:hover {
     ${H3} {
-      color: #d548ec;
+      color: var(--ifm-color-custom-pink);
     }
 
     .arrow-item {
-      color: #d548ec;
+      color: var(--ifm-color-custom-pink);
     }
   }
 `;

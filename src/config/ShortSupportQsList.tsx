@@ -254,7 +254,7 @@ const Answer = styled(ItemH)`
   padding: 0 0 24px 0;
 
   & ${Span} {
-    color: #bbbcd0;
+    color: var(--ifm-color-neutral-300);
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
@@ -279,7 +279,7 @@ const Answer = styled(ItemH)`
   }
 
   & b {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-weight: 600;
   }
 `;

@@ -117,7 +117,7 @@ const NotificationItem: FC<NotificationProps> = ({
           'notifications.chain-notification.close-button-aria-label'
         )}
       >
-        <BiX size={20} color='#FFF' />
+        <BiX size={20} color='var(--ifm-color-white)' />
       </CloseButton>
       <TextContainer id='chain-notification-content'>
         <PushLogoBlackContainer>
@@ -139,8 +139,8 @@ const NotificationItem: FC<NotificationProps> = ({
         <Button
           background='transparent'
           margin='0 auto'
-          border='1.5px solid #fff'
-          hoverBorder='1.5px solid #fff'
+          border='1.5px solid var(--ifm-color-white)'
+          hoverBorder='1.5px solid var(--ifm-color-white)'
           fontFamily='N27'
           width='100%'
           title={t?.('notifications.chain-notification.button-title')}
@@ -156,7 +156,7 @@ const NotificationItem: FC<NotificationProps> = ({
 // Notification Container
 const NotificationContainer = styled.div`
   position: relative;
-  background-color: #1b43c8;
+  background-color: var(--ifm-color-blue);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -199,7 +199,7 @@ const TextContainer = styled.div`
 `;
 
 const NotificationTitle = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: N27;
   font-size: 36px;
@@ -211,7 +211,7 @@ const NotificationTitle = styled.span`
 `;
 
 const NotificationDescription = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: N27;
   font-size: 16px;
@@ -225,7 +225,7 @@ const NotificationDescription = styled.span`
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #fff;
+  color: var(--ifm-color-white);
   padding: 0px;
   position: absolute;
   right: 8px;

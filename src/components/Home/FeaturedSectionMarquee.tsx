@@ -162,8 +162,8 @@ const MarqueeCard = styled(Link)`
   align-items: flex-start;
 
   border-radius: 32px;
-  border: 1.5px solid #d548ec;
-  background: #fff;
+  border: 1.5px solid var(--ifm-color-custom-pink);
+  background: var(--ifm-color-white);
   gap: 24px;
 
   @media ${device.mobileL} {
@@ -210,7 +210,7 @@ const BlankMarqueeCard = styled.div`
   }
 
   div {
-    color: #fff;
+    color: var(--ifm-color-white);
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;

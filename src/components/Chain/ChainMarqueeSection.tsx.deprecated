@@ -90,7 +90,7 @@ const MarqueeItem = styled.div`
   }
 
   h2 {
-    color: #000;
+    color: var(--ifm-color-black);
     font-family: N27;
     font-size: 42px;
     font-style: normal;

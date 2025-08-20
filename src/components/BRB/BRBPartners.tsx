@@ -96,7 +96,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px 0px 60px;
   @media (max-width: 768px) {
     margin: 0px 0px 49px;

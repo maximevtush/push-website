@@ -82,7 +82,7 @@ const AlertText = styled.div`
   font-size: 18px;
   line-height: 142%;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: auto auto;
   cursor: pointer;
   @media ${device.tablet} {
@@ -115,7 +115,7 @@ const KnowMoreLink = styled.span`
   background: none;
   font-size: 1.125rem;
   padding-left: 0.3rem;
-  color: #fff;
+  color: var(--ifm-color-white);
   text-decoration: none;
   cursor: pointer;
   font-weight: 700;

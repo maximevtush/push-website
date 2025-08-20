@@ -252,7 +252,7 @@ function Header() {
           >
             <H2
               fontSize='1rem'
-              color='#FFF'
+              color='var(--ifm-color-white)'
               lineHeight='130%'
               letterSpacing='normal'
               fontWeight='600'
@@ -268,7 +268,7 @@ function Header() {
 
             <H3
               fontSize='0.875rem'
-              color='#FFF'
+              color='var(--ifm-color-white)'
               opacity='0.75'
               lineHeight='130%'
               letterSpacing='normal'
@@ -399,7 +399,7 @@ function Header() {
                       href='https://portal.push.org/'
                       target='_blank'
                       title={t('header.app-button.title')}
-                      background='#D548EC'
+                      background='var(--ifm-color-custom-pink)'
                       borderRadius='16px'
                       border='1px solid rgba(255, 255, 255, 0.30)'
                       fontSize='1.125rem'
@@ -484,8 +484,8 @@ function Header() {
                                   href='#'
                                   title={t(item.ctatitle)}
                                   background='transparent'
-                                  hoverbackground='#fff'
-                                  color='#fff'
+                                  hoverbackground='var(--ifm-color-white)'
+                                  color='var(--ifm-color-white)'
                                   padding='8px 14px'
                                   display='flex'
                                   borderRadius='0'
@@ -819,8 +819,8 @@ function Header() {
                               href='#'
                               title={t(item.ctatitle)}
                               background='transparent'
-                              hoverbackground='#fff'
-                              color='#fff'
+                              hoverbackground='var(--ifm-color-white)'
+                              color='var(--ifm-color-white)'
                               padding='8px 14px'
                               display='flex'
                               borderRadius='0'
@@ -1035,14 +1035,14 @@ const StyledHeader = styled.header`
 
   &.light {
     & span {
-      color: #121315;
+      color: var(--ifm-color-neutral-1000);
     }
 
     & svg.chevronIcon {
-      fill: #121315;
+      fill: var(--ifm-color-neutral-1000);
 
       & path {
-        stroke: #121315;
+        stroke: var(--ifm-color-neutral-1000);
       }
     }
   }
@@ -1071,7 +1071,7 @@ const StyledHeader = styled.header`
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #cb3faa;
+      background: var(--ifm-color-pink-300);
       border-radius: 6px;
     }
 
@@ -1084,7 +1084,7 @@ const StyledHeader = styled.header`
     }
 
     /* Firefox */
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 `;
@@ -1187,21 +1187,21 @@ const NavigationMenuItem = styled.li`
     font-size: 16px;
     line-height: 150%;
     letter-spacing: normal;
-    color: #6c6c6c;
+    color: var(--ifm-color-neutral-700);
   }
 
   // & .chevronIcon {
-  //   color: #6C6C6C;
+  //   color: var(--ifm-color-neutral-700);
   // }
 
   &:hover {
     & span {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .menuContent {
@@ -1243,7 +1243,7 @@ const LanguageMenuItem = styled.li`
   // }
 
   & .chevronIcon {
-    color: #6c6c6c;
+    color: var(--ifm-color-neutral-700);
   }
 
   // & .menuContent {
@@ -1258,7 +1258,7 @@ const LanguageMenuItem = styled.li`
 
     & .chevronIcon {
       transform: rotate(180deg);
-      color: #fff;
+      color: var(--ifm-color-white);
     }
 
     & .menuContent {
@@ -1535,7 +1535,7 @@ const LanguageMenuContentInner = styled.div`
 
 const LanguageButton = styled(Button)`
   border: 1px solid transparent;
-  color: #fff;
+  color: var(--ifm-color-white);
 
   &:not(:first-of-type) {
     margin-top: 8px;
@@ -1574,7 +1574,7 @@ const HeaderItem = styled.div`
     background: rgba(0, 0, 0, 1);
 
     h2 {
-      color: #d548ec;
+      color: var(--ifm-color-custom-pink);
     }
     & ${Image} {
       filter: brightness(0) saturate(100%) invert(83%) sepia(53%)
@@ -1660,10 +1660,10 @@ const PortalLauncher = styled(A)`
 const TagItem = styled.b`
   width: fit-content;
   border-radius: 12px;
-  border: 1px solid #d98aec;
+  border: 1px solid var(--ifm-color-pink-200);
   background: transparent;
   padding: 2px 5px;
-  color: #d98aec;
+  color: var(--ifm-color-pink-200);
   // text-align: center;
   font-size: 9px;
   font-style: normal;

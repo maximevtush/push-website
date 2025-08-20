@@ -7,7 +7,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import styled from 'styled-components';
 
 // Internal Components
-import { H2, H3 } from '@site/src/css/SharedStyling';
+import { H3 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '../../hooks/useSiteBaseUrl';
 
@@ -52,7 +52,7 @@ const Accordion: React.FC<AccordionProps> = ({
         <AccordionSection key={index}>
           <AccordionParent onClick={() => toggleAccordion(index)}>
             <H3
-              color={'#FFF'}
+              color={'var(--ifm-color-white)'}
               fontSize={fontSize ? fontSize : isMobile ? '20px' : '1.5rem'}
               fontFamily={'DM Sans, sans-serif'}
               fontWeight={fontWeight || '600'}
@@ -62,16 +62,16 @@ const Accordion: React.FC<AccordionProps> = ({
             </H3>
             <div>
               {activeIndex === index ? (
-                <AiOutlineMinus color={'#FFF'} size={22} />
+                <AiOutlineMinus color={'var(--ifm-color-white)'} size={22} />
               ) : (
-                <AiOutlinePlus color={'#FFF'} size={22} />
+                <AiOutlinePlus color={'var(--ifm-color-white)'} size={22} />
               )}
             </div>
           </AccordionParent>
           {activeIndex === index && item.content !== undefined && (
             <>
               <H3
-                color={'#FFF'}
+                color={'var(--ifm-color-white)'}
                 fontSize={isMobile ? '16px' : '19px'}
                 fontFamily={'DM Sans, sans-serif'}
                 fontWeight='400'
@@ -81,7 +81,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
                 {item.link && (
                   <a
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     fontFamily={'DM Sans, sans-serif'}
                     fontSize='16px'
                     fontWeight='300'
@@ -107,7 +107,7 @@ const Accordion: React.FC<AccordionProps> = ({
 };
 
 const AccordionSection = styled.div`
-  border-bottom: 1px solid #2a2a39;
+  border-bottom: 1px solid var(--ifm-color-gray-200);
 
   h3 {
     white-space: pre-wrap;

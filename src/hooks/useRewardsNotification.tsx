@@ -80,14 +80,14 @@ const NotificationTitle = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 23px;
-  color: #17181b;
+  color: var(--ifm-color-neutral-950);
 `;
 
 const NotificationDescription = styled.span`
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
-  color: #8c93a0;
+  color: var(--ifm-color-neutral-500);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -101,7 +101,7 @@ const IconContainer = styled.div``;
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #202124;
+  color: var(--ifm-color-gray-700);
   padding: 0px;
   position: absolute;
   right: 8px;
