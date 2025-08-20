@@ -10,13 +10,13 @@ import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
 
-import { device, size } from '../../../src/config/globals';
-import useMediaQuery from '../../../src/hooks/useMediaQuery';
-import useModal from './hooks/useModal';
+import { device, size } from '../../config/globals';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import useModal from './hooks/useModal.tsx.deprecated';
 
-import ImageHolder from '../../../src/components/ImageHolder';
 import { A, Button, H2, H3, ItemH, ItemV } from '../../css/SharedStyling';
-import ChainAlertBar from './ChainAlertBar';
+import ImageHolder from '../ImageHolder';
+import ChainAlertBar from './ChainAlertBar.tsx.deprecated';
 import ChainElevateModal from './ChainElevateModal';
 
 // Register GSAP plugins

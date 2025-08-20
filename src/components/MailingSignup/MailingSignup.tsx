@@ -7,17 +7,16 @@ import React from 'react';
 
 // External Components
 import { useTranslation } from 'react-i18next';
-import { AiOutlineArrowRight } from 'react-icons/ai';
 import { BiLoaderAlt } from 'react-icons/bi';
 import styled from 'styled-components';
 
-// Internal Components
-import { Span } from '@site/src/css/SharedStyling';
-
-import useEmailValidationAndSend from '@site/src/hooks/useEmailValidationAndSend';
-
 // Internal Configs
 import { device } from '@site/src/config/globals';
+import useEmailValidationAndSend from '@site/src/hooks/useEmailValidationAndSend';
+
+// Internal Components
+import { Span } from '@site/src/css/SharedStyling';
+import ArrowRight from '@site/static/assets/website/footer/arrow-right.svg';
 
 export type signupType = {
   showButton?: boolean;
@@ -26,12 +25,22 @@ export type signupType = {
   borderColor?: string;
   inputWidth?: string;
   textColor?: string;
+  placeholderColor?: string;
+  buttonBg?: string;
+  buttonBorder?: string;
+  arrowColor?: string;
+  loaderColor?: string;
+  fontFamily?: string;
+  blendMode?: string;
+  boxShadow?: string;
+  backdrop?: string;
 };
 
 /**
  * MailingSignup component provides a user interface for subscribing to a mailing list.
  * It includes an input field for the email address and optional buttons for submission.
  * The component supports loading states and displays responses or errors based on the email validation process.
+ * Includes SEO optimization with proper ARIA labels and semantic HTML structure.
  *
  * @param {signupType} props - The properties object.
  * @param {boolean} [props.showButton] - Determines if the submit button should be displayed.
@@ -43,7 +52,7 @@ export type signupType = {
  */
 export const MailingSignup = (props: signupType) => {
   const [isLoading, apiResponse, emailError, onEmailSubmit] =
-    useEmailValidationAndSend();
+    useEmailValidationAndSend(true);
 
   // Internationalization
   const { t } = useTranslation();
@@ -51,8 +60,6 @@ export const MailingSignup = (props: signupType) => {
   return (
     <Box>
       <Wrapper
-        background={props.background}
-        border={props.borderColor}
         onSubmit={onEmailSubmit}
         role='form'
         aria-label={t('components.mailing-signup.form-aria-label')}
@@ -60,12 +67,20 @@ export const MailingSignup = (props: signupType) => {
         <SignupInputField
           type='email'
           name='email'
-          placeholder={t('components.mailing-signup.email-input-placeholder')}
+          placeholder={
+            t('components.mailing-signup.email-input-placeholder') ||
+            'satoshi@bitcoin.com'
+          }
           title={t('components.mailing-signup.email-input-title')}
           aria-label={t('components.mailing-signup.email-input-aria-label')}
           background={props.background}
           inputWidth={props.inputWidth}
           textColor={props.textColor}
+          border={props.borderColor}
+          blendMode={props.blendMode}
+          boxShadow={props.boxShadow}
+          backdrop={props.backdrop}
+          fontFamily={props.fontFamily}
           tabIndex={0}
           required
           autoComplete='email'
@@ -82,31 +97,16 @@ export const MailingSignup = (props: signupType) => {
               aria-label={t(
                 'components.mailing-signup.submit-button-aria-label'
               )}
+              buttonBg={props.buttonBg}
+              buttonBorder={props.buttonBorder}
+              arrowColor={props.arrowColor}
+              loaderColor={props.loaderColor}
               disabled={isLoading}
             >
-              {isLoading
-                ? t('components.mailing-signup.loading-submit-button')
-                : t('components.mailing-signup.submit-button')}
+              {!isLoading && <ArrowRight className='arrow' />}
+              {isLoading && <BiLoaderAlt size={32} className='loader' />}
             </Button>
             {isLoading ? <MaskInput /> : null}
-          </>
-        )}
-        {props.showArrow && (
-          <>
-            <IconButton
-              aria-label={t(
-                'components.mailing-signup.arrow-button-aria-label'
-              )}
-              title={t('components.mailing-signup.arrow-button-title')}
-              className='icon'
-              tabIndex={0}
-              type='submit'
-              disabled={isLoading}
-            >
-              {!isLoading && <AiOutlineArrowRight />}
-              {/* {isLoading && <MaskInput />} */}
-              {isLoading && <BiLoaderAlt size={24} className='loader' />}
-            </IconButton>
           </>
         )}
       </Wrapper>
@@ -114,7 +114,8 @@ export const MailingSignup = (props: signupType) => {
       {apiResponse && (
         <ResponseSpan
           className='msg'
-          color='green'
+          color='#fff'
+          fontFamily={props.fontFamily}
           role='status'
           aria-label={t('components.mailing-signup.success-message-aria-label')}
           aria-live='polite'
@@ -125,7 +126,8 @@ export const MailingSignup = (props: signupType) => {
       {!apiResponse && emailError && (
         <ResponseSpan
           className='msg'
-          color='#D98AEC'
+          color='red'
+          fontFamily={props.fontFamily}
           role='alert'
           aria-label={t('components.mailing-signup.error-message-aria-label')}
           aria-live='assertive'
@@ -140,18 +142,8 @@ export const MailingSignup = (props: signupType) => {
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-
-  // & ${Span} {
-  //   font-size: 20px;
-  //   margin: 10px 0px 0px 15px;
-  //   font-weight: 300;
-
-  //   &.msg {
-  //     line-height: 138.5%;
-  //     margin-top: 12px;
-  //     letter-spacing: -0.03em;
-  //   }
-  }
+  flex: 1;
+  position: relative;
 
   @media ${device.tablet} {
     & .msg {
@@ -165,87 +157,54 @@ const Wrapper = styled.form`
   position: relative;
   display: flex;
   flex: 1;
-  column-gap: 6px;
+  gap: 12px;
   align-items: center;
-  background: ${(props) => props.background || '#ffffff'};
-  border-bottom: 1px solid ${(props) => props.border || '#ffffff'};
   padding: 5px 0px;
   justify-content: space-between;
+  background: transparent !important;
 
   @media ${device.tablet} {
-    column-gap: 3px;
+    gap: 12px;
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{
+  buttonBg?: string;
+  buttonBorder?: string;
+  arrowColor?: string;
+  loaderColor?: string;
+}>`
   cursor: pointer;
-  min-width: 160px;
-  color: #ffffff;
-  background: #dd44b9;
+  background: ${(props) => props.buttonBg || '#000'};
+  border: ${(props) => props.buttonBorder || '0'};
   border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 32px;
+  height: 72px;
+  width: 72px;
   white-space: nowrap;
-  border: 0;
 
   @media ${device.tablet} {
     min-width: auto;
     font-size: 12px;
-    padding: 14px 16px;
-  }
-`;
-
-const SignupInputField = styled.input`
-  all: unset;
-
-  box-sizing: border-box;
-  font-family:
-    DM Sans,
-    san-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: normal;
-  letter-spacing: -0.03em;
-  color: ${(props) => props.textColor || '#a5abb8'};
-  background: ${(props) => props.background || '#ffffff'};
-  // min-width: 220px;
-  width: ${(props) => props.inputWidth || '100%'};
-  // padding: 0px;
-  // padding-left: 8px;
-
-  @media ${device.laptop} {
-    min-width: auto;
   }
 
-  &:placeholder {
-    color: #a5abb8;
-    opacity: 1;
+  @media ${device.mobileL} {
+    height: 72px;
+    width: 72px;
   }
-`;
 
-const MaskInput = styled.div`
-  position: absolute;
-  background: #fff;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 21px;
-  opacity: 0.4;
-  z-index: 10;
-`;
+  .arrow {
+    height: 100%;
+    width: 100%;
+    color: ${(props) => props.arrowColor || '#e492ff'};
+  }
 
-const IconButton = styled.button`
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  & svg {
+  .loader {
     height: 1.5rem;
     width: 1.5rem;
-    fill: #dd44b9;
+    color: ${(props) => props.arrowColor || '#e492ff'};
   }
 
   @keyframes loadingAnimation {
@@ -262,17 +221,86 @@ const IconButton = styled.button`
     animation-duration: 1500ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    color: ${(props) => props.loaderColor || '#FFF'};
   }
 `;
 
-const ResponseSpan = styled(Span)`
+const SignupInputField = styled.input`
+  all: unset;
+  box-sizing: border-box;
+  color: ${(props) => props.placeholderColor || '#a3a7ac'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans'};
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.48px;
+  background: ${(props) => props.background || '#ffffff'};
+  width: ${(props) => props.inputWidth || '100%'};
+  border: 1px solid ${(props) => props.border || 'transparent'};
+  padding: 24px;
+  flex: 1;
+  border-radius: 16px;
+  max-height: 72px;
+  min-height: 72px;
+  text-align: start;
+
+  background-blend-mode: ${(props) => props.blendMode || 'normal'};
+  box-shadow: ${(props) => props.boxShadow || 'none'};
+  backdrop-filter: ${(props) => props.backdrop || 'none'};
+
+  &:focus,
+  &:active,
+  &:not(:placeholder-shown) {
+    color: ${(props) => props.textColor || '#ffffff'};
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: ${(props) => props.boxShadow || 'none'} !important;
+    -webkit-text-fill-color: ${(props) =>
+      props.textColor || '#ffffff'} !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  @media ${device.laptop} {
+    min-width: auto;
+  }
+
+  @media ${device.mobileL} {
+    font-size: 16px;
+    padding: 16px 24px;
+  }
+
+  &::placeholder {
+    color: ${(props) => props.placeholderColor || '#a3a7ac'};
+    opacity: 1;
+  }
+`;
+
+const MaskInput = styled.div`
+  position: absolute;
+  background: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 21px;
+  opacity: 0.4;
+  z-index: 10;
+`;
+
+const ResponseSpan = styled(Span)<{ fontFamily?: string }>`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   margin: 0;
-  padding: 0;
-  font-family:
-    DM Sans,
-    san-serif;
+  padding: 4px 0 0 0;
+  font-family: ${(props) => props.fontFamily || 'DM Sans'};
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
-  margin-top: 12px;
 `;

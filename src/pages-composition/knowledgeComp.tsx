@@ -8,10 +8,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Internal Components
-import ChainElevateModal from '@site/src/components/Chain/ChainElevateModal';
-import { ChainEmailSignup } from '@site/src/components/Chain/ChainEmailSignup';
-import useModal from '@site/src/components/Chain/hooks/useModal';
 import ImageHolder from '@site/src/components/ImageHolder';
+import { MailingSignup } from '@site/src/components/MailingSignup/MailingSignup';
 import {
   Content,
   H1,
@@ -41,7 +39,6 @@ import { KBResourcesList } from '@site/src/config/KBResourcesList';
 // Main
 const KnowledgeComp = () => {
   const isMobile = useMediaQuery(device.mobileL);
-  const { isOpen, open, close } = useModal();
   const [showEmailSignup, setShowEmailSignup] = useState(false);
 
   const heroConfig = {
@@ -102,33 +99,38 @@ const KnowledgeComp = () => {
                 <EmailSignupSection>
                   <EmailSignupContent>
                     <EmailSignupTitle>
-                      Get Notified about Push Chain Testnet
+                      <Span className='long'>
+                        Get Notified about Push Chain Testnet
+                      </Span>
+                      <Span className='short'>Push Chain Testnet</Span>
                     </EmailSignupTitle>
                     <EmailSignupDescription>
                       Be the first to know when Push Chain testnet goes live.
                       Join our mailing list for exclusive updates.
                     </EmailSignupDescription>
-                    <ChainEmailSignup
-                      inputWidth={isMobile ? '100%' : '300px'}
-                      showButton={true}
-                      background={'rgba(0, 0, 0, 0.10)'}
-                      borderColor={'rgba(112, 90, 208, 0.40)'}
-                      textColor={'#494E54'}
-                      buttonBg={'#D548EC'}
-                      buttonBorder={'1px solid rgba(255, 255, 255, 0.30)'}
-                      arrowColor={'#fff'}
-                      loaderColor={'#fff'}
-                      blendMode='lighten'
-                      boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
-                      backdrop='blur(10px)'
-                    />
+                    <ItemV flex='0'>
+                      <MailingSignup
+                        showButton={true}
+                        background={'rgba(0, 0, 0, 0.10)'}
+                        borderColor={'rgba(112, 90, 208, 0.40)'}
+                        textColor={'#fff'}
+                        placeholderColor={'#494E54'}
+                        buttonBg={'#D548EC'}
+                        buttonBorder={'1px solid rgba(41, 33, 33, 0.3)'}
+                        arrowColor={'#fff'}
+                        loaderColor={'#fff'}
+                        blendMode='lighten'
+                        boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
+                        backdrop='blur(10px)'
+                      />
+                    </ItemV>
                   </EmailSignupContent>
                 </EmailSignupSection>
 
                 <HeroMediaCardInner>
                   <MediaDisplay
                     showEmailSignup={showEmailSignup}
-                    background={heroConfig?.image}
+                    type={heroConfig?.image ? 'image' : 'video'}
                     borderRadius='32px'
                   >
                     {heroConfig?.video && (
@@ -211,9 +213,6 @@ const KnowledgeComp = () => {
           />
         </Content>
       </Section>
-
-      {/* modal */}
-      <ChainElevateModal isOpen={isOpen} onClose={close} />
     </>
   );
 };
@@ -259,8 +258,8 @@ const MediaDisplay = styled(ItemH)`
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: ${(props) =>
     props.showEmailSignup ? 'translateY(-90%)' : 'translateY(0)'};
-  background: #f2c2fe;
-  z-index: -2;
+  background: ${(props) => (props.type === 'image' ? '#f2c2fe' : '#101010')};
+  z-index: 2;
 `;
 
 // Hero Media Card - Card container for media and footer
@@ -337,22 +336,24 @@ const EmailSignupSection = styled.div`
   right: 0;
   bottom: 0;
   z-index: 1;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: var(--ifm-color-primary-unified-text-inverse);
   border-radius: 32px;
-  padding: 32px;
+  padding: 32px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 1;
-  visibility: 'visible';
-  backdrop-filter: blur(20px);
 
-  @media ${device.tablet} {
-    padding: 24px;
+  @media ${device.laptopM} {
+    padding: 20px;
   }
 
   @media ${device.mobileL} {
-    padding: 20px;
+    padding: 24px;
+  }
+
+  @media ${device.mobile} {
+    padding: 24px 16px;
   }
 `;
 
@@ -363,7 +364,10 @@ const EmailSignupContent = styled.div`
   gap: 20px;
   align-items: center;
   text-align: center;
-  padding: 20px;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
 `;
 
 // Email Signup Title - Title for email signup
@@ -374,17 +378,30 @@ const EmailSignupTitle = styled.h3`
   margin: 0;
   line-height: 1.2;
 
-  @media ${device.desktopL} {
-    font-size: 20px;
+  & Span {
+    font-size: 24px;
+    text-align: center;
   }
 
-  @media ${device.desktopM} {
+  & Span.long {
+    display: block;
+  }
+
+  & Span.short {
     display: none;
   }
 
-  @media ${device.mobileL} {
-    display: block;
-    font-size: 18px;
+  @media ${device.desktop} {
+    & Span.long {
+      display: none;
+    }
+
+    & Span.short {
+      display: block;
+    }
+  }
+
+  @media ${device.tablet} {
   }
 
   @media ${device.mobileM} {
@@ -402,12 +419,17 @@ const EmailSignupDescription = styled.p`
   line-height: 1.5;
   max-width: 400px;
 
+  @media ${device.laptopM} {
+    display: none;
+  }
+
   @media ${device.tablet} {
+    display: block;
     font-size: 14px;
   }
 
   @media ${device.mobileL} {
-    font-size: 12px;
+    display: none;
   }
 `;
 

@@ -13,7 +13,7 @@ import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { H1, ItemV, LI, UL } from '@site/src/css/SharedStyling';
 
 import Breadcrumbs from '@site/src/components/Breadcrumbs/Breadcrumbs';
-import ExplainerIndexList from '@site/src/components/Chain/Explainer/Explainer';
+import ExplainerIndexList from '@site/src/components/Explainer/Explainer';
 import ExploreCollection from '@site/src/components/ExploreCollection/ExploreCollection';
 import Spinner, {
   SPINNER_TYPE,

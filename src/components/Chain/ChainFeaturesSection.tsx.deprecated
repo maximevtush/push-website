@@ -10,7 +10,7 @@ import { TbArrowUpRight } from 'react-icons/tb';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
-import { device, size } from '../../../src/config/globals';
+import { device, size } from '../../config/globals';
 
 import { Button } from '@site/src/css/SharedStyling';
 import ImageBg from '@site/static/assets/website/chain/chainFeaturesDivider@3x.png';

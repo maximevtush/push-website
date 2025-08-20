@@ -10,7 +10,7 @@ import { BsTwitterX } from 'react-icons/bs';
 import styled from 'styled-components';
 
 // Internal Components
-import { ChainEmailSignup } from '@site/src/components/Chain/ChainEmailSignup';
+import { MailingSignup } from '@site/src/components/MailingSignup/MailingSignup';
 import {
   A,
   Content,
@@ -66,14 +66,15 @@ function Footer() {
                 </DesktopSpan>
               </H2>
 
-              <ChainEmailSignup
+              <MailingSignup
                 inputWidth={isMobile ? '100%' : '300px'}
                 showButton={true}
                 background={'rgba(0, 0, 0, 0.10)'}
                 borderColor={'rgba(112, 90, 208, 0.40)'}
-                textColor={'#494E54'}
+                textColor={'#fff'}
+                placeholderColor={'#494E54'}
                 buttonBg={'#D548EC'}
-                buttonBorder={'1px solid rgba(255, 255, 255, 0.30)'}
+                buttonBorder={'1px solid rgba(30, 23, 23, 0.3)'}
                 arrowColor={'#fff'}
                 loaderColor={'#fff'}
                 blendMode='lighten'
@@ -373,6 +374,7 @@ const EmailSection = styled(Section)``;
 
 const EmailContent = styled(Content)`
   padding-bottom: 0px;
+  overflow: visible;
 `;
 
 const FooterColumns = styled.div`

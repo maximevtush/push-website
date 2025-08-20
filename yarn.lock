@@ -6445,13 +6445,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/matter-js@npm:^0.19.6":
-  version: 0.19.8
-  resolution: "@types/matter-js@npm:0.19.8"
-  checksum: 10c0/3bb99f1d8c633cb3a0ddc1ba7ebc29847a24f97a59d12017adc9fe9340991df3525aaa26c52db6f7b4b00b92d56cb32eea680ab987934294fee4565d16f4f4d2
-  languageName: node
-  linkType: hard
-
 "@types/mdast@npm:^3.0.0":
   version: 3.0.15
   resolution: "@types/mdast@npm:3.0.15"
@@ -15803,13 +15796,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"matter-js@npm:^0.19.0":
-  version: 0.19.0
-  resolution: "matter-js@npm:0.19.0"
-  checksum: 10c0/8b35d7838a608b02005016862eeb78f061fce5a4c156d1801e9d52c4b6e2a1c328b09c3a6e74fb3df5d13be08940083e5c3e519a4258e0aeb30079231994bb55
-  languageName: node
-  linkType: hard
-
 "md5.js@npm:^1.3.4":
   version: 1.3.5
   resolution: "md5.js@npm:1.3.5"
@@ -19157,7 +19143,6 @@ __metadata:
     "@splinetool/runtime": "npm:^0.9.270"
     "@tsconfig/docusaurus": "npm:^1.0.5"
     "@types/gh-pages": "npm:^6"
-    "@types/matter-js": "npm:^0.19.6"
     "@typescript-eslint/eslint-plugin": "npm:^7.9.0"
     "@typescript-eslint/parser": "npm:^7.9.0"
     "@web3-react/core": "npm:6.1.9"
@@ -19189,7 +19174,6 @@ __metadata:
     lint-staged: "npm:^15.2.2"
     lottie-react: "npm:^2.4.1"
     marked: "npm:^15.0.7"
-    matter-js: "npm:^0.19.0"
     os-browserify: "npm:^0.3.0"
     path: "npm:0.12.7"
     pino-pretty: "npm:^13.1.1"
