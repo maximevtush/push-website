@@ -71,12 +71,12 @@ function Footer() {
                 showButton={true}
                 background={'rgba(0, 0, 0, 0.10)'}
                 borderColor={'rgba(112, 90, 208, 0.40)'}
-                textColor={'#fff'}
+                textColor={'var(--ifm-color-white)'}
                 placeholderColor={'#494E54'}
                 buttonBg={'#D548EC'}
                 buttonBorder={'1px solid rgba(30, 23, 23, 0.3)'}
-                arrowColor={'#fff'}
-                loaderColor={'#fff'}
+                arrowColor={'var(--ifm-color-white)'}
+                loaderColor={'var(--ifm-color-white)'}
                 blendMode='lighten'
                 boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
                 backdrop='blur(10px)'

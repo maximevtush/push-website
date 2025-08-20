@@ -114,7 +114,7 @@ export const MailingSignup = (props: signupType) => {
       {apiResponse && (
         <ResponseSpan
           className='msg'
-          color='#fff'
+          color='var(--ifm-color-white)'
           fontFamily={props.fontFamily}
           role='status'
           aria-label={t('components.mailing-signup.success-message-aria-label')}
@@ -221,7 +221,7 @@ const Button = styled.button<{
     animation-duration: 1500ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    color: ${(props) => props.loaderColor || '#FFF'};
+    color: ${(props) => props.loaderColor || 'var(--ifm-color-white)'};
   }
 `;
 

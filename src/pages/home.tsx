@@ -1186,7 +1186,11 @@ const H1Text = styled(H1)`
   // line-height: 38.578px;
   letter-spacing: -2.067px;
 
-  background: linear-gradient(90deg, #f5f1ff -3.12%, #aa48ec 109.09%);
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-warning) -3.12%,
+    #aa48ec 109.09%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

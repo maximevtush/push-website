@@ -451,7 +451,7 @@ const DocsHeroSection = styled(Section)`
 `;
 
 const DocsHeader = styled(ItemV)`
-  background: #1b43c8;
+  background: var(--ifm-color-blue);
   border-radius: 24px;
   padding: 64px 24px;
   margin-top: 24px;

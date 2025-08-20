@@ -156,7 +156,7 @@ const NotificationItem: FC<NotificationProps> = ({
 // Notification Container
 const NotificationContainer = styled.div`
   position: relative;
-  background-color: #1b43c8;
+  background-color: var(--ifm-color-blue);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
