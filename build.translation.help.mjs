@@ -44,8 +44,14 @@ function showHelp() {
 
   // Nuke command
   log('🧹 translations:nuke', 'yellow');
-  log('   Clean up all auto-translated content and reset translation progress', 'gray');
-  log('   • Removes all autotranslate folders from language directories', 'gray');
+  log(
+    '   Clean up all auto-translated content and reset translation progress',
+    'gray'
+  );
+  log(
+    '   • Removes all autotranslate folders from language directories',
+    'gray'
+  );
   log('   • Cleans up translatemeta.json tracking file', 'gray');
   log('   • Preserves English source files and directory structure', 'gray');
   log('   Usage: yarn translations:nuke', 'cyan');
@@ -74,7 +80,10 @@ function showHelp() {
   log('   Generate translation for one specific language only', 'gray');
   log('   • Faster than translating all languages', 'gray');
   log('   • Perfect for testing or iterating on specific languages', 'gray');
-  log('   • Temporarily modifies automation script for targeted translation', 'gray');
+  log(
+    '   • Temporarily modifies automation script for targeted translation',
+    'gray'
+  );
   log('   Usage: yarn translations:generate:specific <language-code>', 'cyan');
   log('   Example: yarn translations:generate:specific es', 'cyan');
   log('', 'reset');
@@ -90,23 +99,38 @@ function showHelp() {
   log('', 'reset');
   log('   AI Provider Settings:', 'yellow');
   log('   • AI_PROVIDER=windsurf|local           (default: windsurf)', 'gray');
-  log('   • REACT_APP_WINDSURF_API_KEY=<key>     (for Windsurf/Anthropic)', 'gray');
+  log('   • WINDSURF_API_KEY=<key>     (for Windsurf/Anthropic)', 'gray');
   log('   • LOCAL_AI_BASE_URL=<url>              (for local AI)', 'gray');
   log('   • LOCAL_AI_MODEL=<model>               (for local AI)', 'gray');
   log('', 'reset');
   log('   Translation Settings:', 'yellow');
   log('   • AI_MAX_INPUT_TOKENS=100000           (max input tokens)', 'gray');
-  log('   • AI_MAX_CHUNK_TOKENS=2000             (max tokens per chunk)', 'gray');
-  log('   • AI_CHARS_PER_TOKEN=3.5               (characters per token)', 'gray');
-  log('   • AI_RATE_LIMIT_PER_MINUTE=5           (API calls per minute)', 'gray');
-  log('   • AI_REQUEST_TIMEOUT=60000             (timeout in milliseconds)', 'gray');
+  log(
+    '   • AI_MAX_CHUNK_TOKENS=2000             (max tokens per chunk)',
+    'gray'
+  );
+  log(
+    '   • AI_CHARS_PER_TOKEN=3.5               (characters per token)',
+    'gray'
+  );
+  log(
+    '   • AI_RATE_LIMIT_PER_MINUTE=5           (API calls per minute)',
+    'gray'
+  );
+  log(
+    '   • AI_REQUEST_TIMEOUT=60000             (timeout in milliseconds)',
+    'gray'
+  );
   log('', 'reset');
 
   log('🔄 Translation Workflow:', 'bold');
   log('', 'reset');
   log('   1. Clean slate:     yarn translations:nuke', 'cyan');
   log('   2. Generate all:    yarn translations:generate', 'cyan');
-  log('   3. Test specific:   yarn translations:generate:specific <lang>', 'cyan');
+  log(
+    '   3. Test specific:   yarn translations:generate:specific <lang>',
+    'cyan'
+  );
   log('   4. Force rebuild:   yarn translations:generate:force', 'cyan');
   log('', 'reset');
 
@@ -131,15 +155,27 @@ function showHelp() {
   log('📁 File Structure:', 'bold');
   log('', 'reset');
   log('   static/locales/en/01-translate/     - English source chunks', 'gray');
-  log('   static/locales/<lang>/autotranslate/ - Auto-generated translations', 'gray');
-  log('   translatemeta.json                  - Translation progress tracking', 'gray');
+  log(
+    '   static/locales/<lang>/autotranslate/ - Auto-generated translations',
+    'gray'
+  );
+  log(
+    '   translatemeta.json                  - Translation progress tracking',
+    'gray'
+  );
   log('', 'reset');
 
   log('🔗 Related Commands:', 'bold');
   log('', 'reset');
-  log('   yarn start                          - Start development server', 'cyan');
+  log(
+    '   yarn start                          - Start development server',
+    'cyan'
+  );
   log('   yarn build                          - Build production site', 'cyan');
-  log('   yarn write-translations             - Generate Docusaurus i18n files', 'cyan');
+  log(
+    '   yarn write-translations             - Generate Docusaurus i18n files',
+    'cyan'
+  );
   log('', 'reset');
 
   log('═'.repeat(60), 'gray');

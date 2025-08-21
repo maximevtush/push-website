@@ -19,7 +19,7 @@ const LOCALES_DIR = path.join(__dirname, 'static/locales');
 const SOURCE_LANG = 'en';
 const TRANSLATION_FILE = 'translation.json';
 const BUILD_META_FILE = path.join(__dirname, 'translatemeta.json');
-const TEMP_TRANSLATE_DIR = path.join(__dirname, '01-translate');
+const TEMP_TRANSLATE_DIR = path.join(LOCALES_DIR);
 const SOURCE_CHUNKS_DIR = path.join(LOCALES_DIR, SOURCE_LANG, '01-translate');
 
 // Supported languages with their full names
@@ -44,9 +44,9 @@ const AI_PROVIDER = process.env.AI_PROVIDER || 'windsurf';
 
 // Windsurf/Anthropic API configuration
 const WINDSURF_CONFIG = {
-  apiKey: process.env.REACT_APP_WINDSURF_API_KEY,
+  apiKey: process.env.WINDSURF_API_KEY,
   baseUrl: 'https://api.anthropic.com',
-  model: 'claude-sonnet-4-20250514',
+  model: process.env.CLOUD_AI_MODEL || 'claude-sonnet-4-20250514',
 };
 
 // Local AI configuration (OpenWebUI/Ollama)
@@ -57,7 +57,7 @@ const LOCAL_AI_CONFIG = {
 };
 
 // Get current AI configuration based on provider
-function getAIConfig() {
+function getAIConfig(modelIndex = 0) {
   const provider = process.env.AI_PROVIDER || 'windsurf';
   const timeout = parseInt(process.env.AI_REQUEST_TIMEOUT) || 60000; // Default 60 seconds
 
@@ -68,14 +68,19 @@ function getAIConfig() {
       baseUrl: 'https://api.anthropic.com',
       model: 'claude-sonnet-4-20250514',
       timeout,
+      availableModels: ['claude-sonnet-4-20250514'], // Only one model for windsurf
     };
   } else if (provider === 'local') {
+    const modelString = process.env.LOCAL_AI_MODEL || 'llama3.1';
+    const availableModels = modelString.split('|').map((m) => m.trim());
+    const selectedModel = availableModels[modelIndex] || availableModels[0];
     return {
       provider: 'local',
       apiKey: process.env.LOCAL_AI_API_KEY, // Optional
       baseUrl: process.env.LOCAL_AI_BASE_URL,
-      model: process.env.LOCAL_AI_MODEL || 'llama3.1',
+      model: selectedModel,
       timeout,
+      availableModels,
     };
   } else {
     throw new Error(`Unsupported AI provider: ${provider}`);
@@ -291,23 +296,6 @@ async function calculateChunksMD5(chunkFiles) {
 }
 
 /**
- * Calculate MD5 hash for individual chunk file
- */
-async function calculateChunkMD5(chunkFile) {
-  try {
-    const chunkPath = path.join(SOURCE_CHUNKS_DIR, chunkFile);
-    const content = await fs.readFile(chunkPath, 'utf8');
-    return crypto.createHash('md5').update(content).digest('hex');
-  } catch (error) {
-    console.error(
-      chalk.red(`❌ Error calculating MD5 for ${chunkFile}:`),
-      error.message
-    );
-    throw error;
-  }
-}
-
-/**
  * Load build metadata with enhanced chunk-level tracking
  */
 async function loadBuildMeta() {
@@ -317,9 +305,23 @@ async function loadBuildMeta() {
   } catch (error) {
     // File doesn't exist or is invalid, return default
     return {
-      sourceChunksMD5: '',
-      translations: {},
-      chunks: {},
+      translations: {
+        generated: {
+          ar: false,
+          de: false,
+          es: false,
+          fr: false,
+          hi: false,
+          id: false,
+          ja: false,
+          ko: false,
+          pt: false,
+          ru: false,
+          tr: false,
+          vi: false,
+          'zh-CN': false,
+        },
+      },
     };
   }
 }
@@ -352,28 +354,6 @@ async function initTempTranslateDir() {
 }
 
 /**
- * Save individual language translation to temp directory
- */
-async function saveTempTranslation(languageCode, translatedContent) {
-  const tempPath = path.join(TEMP_TRANSLATE_DIR, `${languageCode}.json`);
-
-  try {
-    await fs.writeFile(
-      tempPath,
-      JSON.stringify(translatedContent, null, 2),
-      'utf8'
-    );
-    console.log(chalk.green(`✅ Saved ${languageCode} to temp directory`));
-  } catch (error) {
-    console.error(
-      chalk.red(`❌ Failed to save ${languageCode} to temp directory:`),
-      error.message
-    );
-    throw error;
-  }
-}
-
-/**
  * Save translation to final location
  */
 async function saveTranslation(languageCode, translatedContent) {
@@ -398,24 +378,67 @@ async function saveTranslation(languageCode, translatedContent) {
 }
 
 /**
- * Combine all temp translations and move to final locations
+ * Combine all autotranslate files and move to final locations
  */
-async function combineAndDeployTranslations() {
+async function combineAndDeployTranslations(buildMeta) {
   console.log(chalk.cyan('🔄 Combining and deploying all translations...'));
 
-  const languagesToProcess = Object.keys(SUPPORTED_LANGUAGES);
+  // Only process languages that need generation (marked as false)
+  const languagesToProcess = Object.keys(SUPPORTED_LANGUAGES).filter(
+    (languageCode) => buildMeta.translations.generated[languageCode] === false
+  );
   const results = { success: [], failed: [] };
 
+  console.log(
+    chalk.gray(
+      `Processing ${languagesToProcess.length} languages that need deployment...`
+    )
+  );
+
   for (const languageCode of languagesToProcess) {
-    const tempPath = path.join(TEMP_TRANSLATE_DIR, `${languageCode}.json`);
+    const autotranslatePath = path.join(
+      LOCALES_DIR,
+      languageCode,
+      'autotranslate'
+    );
 
     try {
-      // Check if temp file exists
-      const tempContent = await fs.readFile(tempPath, 'utf8');
-      const translatedContent = JSON.parse(tempContent);
+      // Check if autotranslate directory exists
+      const autotranslateFiles = await fs.readdir(autotranslatePath);
+      const jsonFiles = autotranslateFiles.filter((file) =>
+        file.endsWith('.json')
+      );
+
+      if (jsonFiles.length === 0) {
+        console.warn(
+          chalk.yellow(`⚠️  No JSON files found in ${autotranslatePath}`)
+        );
+        results.failed.push(languageCode);
+        continue;
+      }
+
+      // Combine all JSON files
+      let translatedContent = {};
+
+      for (const jsonFile of jsonFiles) {
+        const filePath = path.join(autotranslatePath, jsonFile);
+        const fileContent = await fs.readFile(filePath, 'utf8');
+        const fileData = JSON.parse(fileContent);
+
+        // Deep merge the content, handling duplicate keys
+        translatedContent = deepMerge(translatedContent, fileData);
+      }
+
+      console.log(
+        chalk.gray(`📄 Combined ${jsonFiles.length} files for ${languageCode}`)
+      );
 
       // Save to final location
       await saveTranslation(languageCode, translatedContent);
+
+      // Mark this language as successfully generated
+      buildMeta.translations.generated[languageCode] = true;
+
       results.success.push(languageCode);
     } catch (error) {
       console.error(
@@ -430,18 +453,31 @@ async function combineAndDeployTranslations() {
 }
 
 /**
- * Clean up temp translation directory
+ * Deep merge objects, handling nested objects and arrays
  */
-async function cleanupTempTranslations() {
-  try {
-    await fs.rm(TEMP_TRANSLATE_DIR, { recursive: true, force: true });
-    console.log(chalk.gray('🧹 Cleaned up temp translation directory'));
-  } catch (error) {
-    console.warn(
-      chalk.yellow('⚠️  Failed to cleanup temp directory:'),
-      error.message
-    );
+function deepMerge(target, source) {
+  const result = { ...target };
+
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (
+        typeof source[key] === 'object' &&
+        source[key] !== null &&
+        !Array.isArray(source[key]) &&
+        typeof result[key] === 'object' &&
+        result[key] !== null &&
+        !Array.isArray(result[key])
+      ) {
+        // Recursively merge nested objects
+        result[key] = deepMerge(result[key], source[key]);
+      } else {
+        // Overwrite with source value (handles primitives, arrays, and null)
+        result[key] = source[key];
+      }
+    }
   }
+
+  return result;
 }
 
 /**
@@ -461,9 +497,7 @@ async function checkAIProvider() {
       )
     );
     console.log(chalk.yellow('💡 Set your Windsurf API key:'));
-    console.log(
-      chalk.gray('   export REACT_APP_WINDSURF_API_KEY="your_api_key_here"')
-    );
+    console.log(chalk.gray('   export WINDSURF_API_KEY="your_api_key_here"'));
     console.log(
       chalk.red(
         '\n🛑 Build process halted. Please set the API key and try again.'
@@ -596,7 +630,7 @@ async function checkAIProvider() {
 }
 
 /**
- * Translate content using configured AI provider
+ * Translate content using configured AI provider with fallback support
  */
 async function translateContent(sourceContent, targetLanguage, languageName) {
   // Check rate limit before making API call
@@ -615,8 +649,59 @@ async function translateContent(sourceContent, targetLanguage, languageName) {
   // Record this API call
   recordApiCall();
 
+  // Try each available model in sequence
+  const config = getAIConfig();
+  const maxRetries = config.availableModels.length;
+
+  for (let modelIndex = 0; modelIndex < maxRetries; modelIndex++) {
+    try {
+      const currentConfig = getAIConfig(modelIndex);
+
+      if (modelIndex > 0) {
+        console.log(
+          chalk.yellow(
+            `🔄 Trying fallback model ${currentConfig.model} for ${languageName}...`
+          )
+        );
+      }
+
+      return await attemptTranslation(
+        currentConfig,
+        sourceContent,
+        targetLanguage,
+        languageName
+      );
+    } catch (error) {
+      const isLastAttempt = modelIndex === maxRetries - 1;
+
+      if (isLastAttempt) {
+        console.error(
+          chalk.red(`❌ All models failed for ${targetLanguage}:`),
+          error.message
+        );
+        throw error;
+      } else {
+        console.warn(
+          chalk.yellow(
+            `⚠️ Model ${getAIConfig(modelIndex).model} failed for ${languageName}: ${error.message}`
+          )
+        );
+        // Continue to next model
+      }
+    }
+  }
+}
+
+/**
+ * Attempt translation with a specific AI configuration
+ */
+async function attemptTranslation(
+  config,
+  sourceContent,
+  targetLanguage,
+  languageName
+) {
   try {
-    const config = getAIConfig();
     const prompt = `You are a professional translator specializing in web application localization for blockchain and cryptocurrency platforms.
 
     TASK: Translate the following JSON object from English (en) into ${languageName} (${targetLanguage}).
@@ -770,34 +855,6 @@ ${JSON.stringify(sourceContent, null, 2)}`;
 }
 
 /**
- * Deep merge objects - properly combines nested objects instead of overwriting
- */
-function deepMerge(target, source) {
-  const result = { ...target };
-
-  for (const key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (
-        typeof source[key] === 'object' &&
-        source[key] !== null &&
-        !Array.isArray(source[key]) &&
-        typeof result[key] === 'object' &&
-        result[key] !== null &&
-        !Array.isArray(result[key])
-      ) {
-        // Both are objects, merge them recursively
-        result[key] = deepMerge(result[key], source[key]);
-      } else {
-        // Otherwise, use the source value
-        result[key] = source[key];
-      }
-    }
-  }
-
-  return result;
-}
-
-/**
  * Count keys recursively in a nested object
  */
 function countKeys(obj, path = '') {
@@ -877,11 +934,28 @@ async function showVerificationSamples(sourceContent, languages) {
     );
     console.log(chalk.gray('─'.repeat(100)));
 
+    // Helper function to extract a sample text value from nested objects
+    const extractSampleValue = (obj, maxLength = 22) => {
+      if (typeof obj === 'string') {
+        return obj.substring(0, maxLength);
+      }
+      if (typeof obj === 'object' && obj !== null) {
+        // Recursively search for the first string value
+        for (const value of Object.values(obj)) {
+          const sample = extractSampleValue(value, maxLength);
+          if (sample && sample !== '[object Object]') {
+            return sample;
+          }
+        }
+      }
+      return '[no text found]';
+    };
+
     for (const key of randomKeys) {
-      // Safely convert values to strings before calling substring
-      const enValue = String(sourceContent[key] || '').substring(0, 22);
-      const hiValue = String(hiContent[key] || '').substring(0, 22);
-      const esValue = String(esContent[key] || '').substring(0, 22);
+      // Extract sample text values from nested objects
+      const enValue = extractSampleValue(sourceContent[key] || '');
+      const hiValue = extractSampleValue(hiContent[key] || '');
+      const esValue = extractSampleValue(esContent[key] || '');
 
       console.log(
         chalk.blue(key.substring(0, 22).padEnd(25)) +
@@ -1049,6 +1123,10 @@ async function automateTranslations() {
           buildMeta.languageChunks[languageCode][chunkFile].translated = false;
           buildMeta.languageChunks[languageCode][chunkFile].checksum = null;
           buildMeta.languageChunks[languageCode][chunkFile].lastUpdated = null;
+
+          // Mark the entire language as needing regeneration
+          buildMeta.translations.generated[languageCode] = false;
+
           console.log(
             chalk.gray(
               `  ↳ Invalidated ${languageCode}/${chunkFile} (chunk changed)`
@@ -1089,6 +1167,19 @@ async function automateTranslations() {
       );
 
       try {
+        // Check if this language is already marked as generated
+        const isGenerated = buildMeta.translations.generated[languageCode];
+        if (isGenerated === true) {
+          console.log(
+            chalk.gray(
+              `${progress} ✅ ${languageName} - already generated, skipping`
+            )
+          );
+          results.skipped.push(languageCode);
+          completed++;
+          continue;
+        }
+
         // Initialize language chunk tracking
         if (!buildMeta.languageChunks[languageCode]) {
           buildMeta.languageChunks[languageCode] = {};
@@ -1307,11 +1398,11 @@ async function automateTranslations() {
                 );
               }
 
-              // Save final combined translation to 01-translate directory (required by deploy)
+              // Save final combined translation to locales directory (required by deploy)
               const finalTranslationPath = path.join(
-                process.cwd(),
-                '01-translate',
-                `${languageCode}.json`
+                LOCALES_DIR,
+                languageCode,
+                'translation.json'
               );
               await fs.mkdir(path.dirname(finalTranslationPath), {
                 recursive: true,
@@ -1363,8 +1454,19 @@ async function automateTranslations() {
     console.log(chalk.gray('─'.repeat(50)));
 
     // Step 8: Combine and deploy all translations
-    if (results.success.length > 0) {
-      const deployResults = await combineAndDeployTranslations();
+    const languagesNeedingDeployment = Object.keys(SUPPORTED_LANGUAGES).filter(
+      (languageCode) => buildMeta.translations.generated[languageCode] === false
+    );
+
+    let deployResults = null;
+    if (languagesNeedingDeployment.length > 0) {
+      console.log(
+        chalk.cyan(
+          `\n📦 Deploying ${languagesNeedingDeployment.length} languages that need generation...`
+        )
+      );
+      deployResults = await combineAndDeployTranslations(buildMeta);
+
       console.log(chalk.cyan('\n📦 Deployment Results:'));
       console.log(
         chalk.green(
@@ -1378,18 +1480,49 @@ async function automateTranslations() {
           )
         );
       }
+
+      // Save updated buildMeta with generation status
+      await saveBuildMeta(buildMeta);
+    } else {
+      console.log(
+        chalk.gray('\n📦 All languages already generated, skipping deployment.')
+      );
     }
 
-    // Step 9: Show results summary
+    // Step 9: Show comprehensive results summary
     console.log(chalk.cyan('\n📊 Translation Process Summary:'));
-    console.log(
-      chalk.green(`✅ Successful: ${results.success.length} languages`)
+
+    // Count current status from buildMeta
+    const generatedLanguages = Object.keys(SUPPORTED_LANGUAGES).filter(
+      (lang) => buildMeta.translations.generated[lang] === true
     );
+    const pendingLanguages = Object.keys(SUPPORTED_LANGUAGES).filter(
+      (lang) => buildMeta.translations.generated[lang] === false
+    );
+
     console.log(
-      chalk.gray(
-        `⏭️  Skipped (up-to-date): ${results.skipped.length} languages`
+      chalk.green(
+        `✅ Generated & Deployed: ${generatedLanguages.length} languages`
       )
     );
+    console.log(
+      chalk.yellow(
+        `⏳ Pending Generation: ${pendingLanguages.length} languages`
+      )
+    );
+
+    if (results.success.length > 0) {
+      console.log(
+        chalk.blue(`🔄 Processed this run: ${results.success.length} languages`)
+      );
+    }
+    if (results.skipped.length > 0) {
+      console.log(
+        chalk.gray(
+          `⏭️  Skipped (up-to-date): ${results.skipped.length} languages`
+        )
+      );
+    }
     if (results.failed.length > 0) {
       console.log(chalk.red(`❌ Failed: ${results.failed.length} languages`));
       console.log(
@@ -1397,14 +1530,28 @@ async function automateTranslations() {
       );
     }
 
-    // Step 10: Show verification samples if any translations succeeded
-    if (results.success.length > 0) {
+    // Step 10: Show verification samples if any translations were processed or deployed
+    const languagesForVerification =
+      results.success.length > 0
+        ? results.success
+        : languagesNeedingDeployment.length > 0 &&
+            deployResults?.success?.length > 0
+          ? deployResults.success
+          : [];
+
+    if (languagesForVerification.length > 0) {
       // Load first chunk as sample for verification
       const sampleChunkPath = path.join(SOURCE_CHUNKS_DIR, chunkFiles[0]);
       const sampleContent = JSON.parse(
         await fs.readFile(sampleChunkPath, 'utf8')
       );
-      await showVerificationSamples(sampleContent, results.success);
+      await showVerificationSamples(sampleContent, languagesForVerification);
+    } else if (generatedLanguages.length > 0) {
+      console.log(
+        chalk.gray(
+          `\n🔍 All ${generatedLanguages.length} languages already generated. Use 'yarn translations:help' for verification options.`
+        )
+      );
     }
 
     // Step 11: Update build metadata with individual chunk checksums

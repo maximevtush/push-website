@@ -335,7 +335,7 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  color: ${(props) => props.color || GLOBALS.COLORS.FONT_DARK};
+  color: ${(props) => props.color || 'inherit'};
   font-weight: ${(props) => props.fontWeight || 700};
   text-shadow: none;
   font-size: ${(props) => props.fontSize || GLOBALS.ADJUSTMENTS.FONT.HEADING};
@@ -614,7 +614,7 @@ export const PrimaryA = styled(A)`
 export const P = styled.p`
   flex: ${(props) => props.flex || 'initial'};
   align-self: ${(props) => props.alignSelf || 'auto'};
-  color: ${(props) => props.color || 'var(--ifm-color-black)'};
+  color: ${(props) => props.color || 'inherit)'};
   background: ${(props) => props.background || 'transparent'};
   font-weight: ${(props) => props.fontWeight || 300};
   font-size: ${(props) => props.fontSize || 'inherit'};
@@ -715,7 +715,7 @@ export const LinkTo = styled(Link)`
 `;
 
 export const B = styled.span`
-  color: ${(props) => props.color || 'var(--ifm-color-black)'};
+  color: ${(props) => props.color || 'inherit'};
   font-weight: ${(props) => props.fontWeight || 'bold'};
 `;
 

@@ -51,9 +51,9 @@ const prepForDeployment = async (appEnv, skipTranslation) => {
       // If API key is missing or invalid, halt the build process
       if (
         error.message.includes(
-          'REACT_APP_WINDSURF_API_KEY environment variable is required'
+          'WINDSURF_API_KEY environment variable is required'
         ) ||
-        error.message.includes('Invalid REACT_APP_WINDSURF_API_KEY')
+        error.message.includes('Invalid WINDSURF_API_KEY')
       ) {
         console.error(
           chalk.red('🛑 Translation process halted due to API key issue')
