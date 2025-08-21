@@ -34,7 +34,7 @@ const BootcampCurriculum = () => {
           fontWeight='400'
           lineHeight='32px'
         >
-          <Span color='#E64DE9' fontSize='20px'>
+          <Span color='var(--ifm-color-pink-secondary)' fontSize='20px'>
             Session {session?.session}:{' '}
           </Span>{' '}
           {session?.title}{' '}

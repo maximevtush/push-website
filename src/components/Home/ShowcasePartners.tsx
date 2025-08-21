@@ -225,7 +225,7 @@ function PartnerChannels() {
             letterSpacing='-0.03em'
             lineHeight='1rem'
             // width='100%'
-            // background='#DD44B9'
+            // background='var(--ifm-color-primary)'
             // borderRadius='16px'
             // padding='14px 32px'
             // fontSize='16px'

@@ -731,7 +731,7 @@ export const LI = styled.li`
 // Focus Anchor
 export const AImp = styled.a`
   color: var(--ifm-color-white);
-  background: #dd44b9;
+  background: var(--ifm-color-primary);
   font-size: 15px;
   padding: 6px 12px 6px 8px;
   font-weight: 500;
@@ -774,13 +774,13 @@ export const ABlock = styled.a`
   }
 
   &:hover {
-    color: #dd44b9;
+    color: var(--ifm-color-primary);
     box-shadow: rgba(0, 0, 0, 0.05) 0px 19px 43px;
     transform: translate3d(0px, -1px, 0px);
   }
 
   &:hover:after {
-    color: #dd44b9;
+    color: var(--ifm-color-primary);
   }
 
   & p {
@@ -890,7 +890,7 @@ export const ModalLarge = styled(ModalMid)`
 `;
 
 export const MetricTitle = styled(Span)`
-  color: #dd44b9 !important;
+  color: var(--ifm-color-primary) !important;
   font-weight: 600 !important;
 `;
 

@@ -241,7 +241,7 @@ export const BRBMainComponent = () => {
         <NavButtons id='elems' ref={elem0}>
           <ButtonItem
             borderRadius='24px'
-            background='#E64DE9'
+            background='var(--ifm-color-pink-secondary)'
             border='1px solid #FC6DFF'
             fontSize='18px'
             padding='16px 32px'
@@ -253,7 +253,7 @@ export const BRBMainComponent = () => {
           <ButtonBar
             borderRadius='24px'
             background='var(--ifm-color-black)'
-            border='1px solid #E64DE9'
+            border='1px solid var(--ifm-color-pink-secondary)'
             fontSize='18px'
             padding='16px 32px'
             fontWeight='400'
@@ -317,7 +317,7 @@ export const BRBMainComponent = () => {
                 <SpanContent
                   fontSize='112px'
                   fontWeight='400'
-                  color='#E64DE9'
+                  color='var(--ifm-color-pink-secondary)'
                   letterSpacing='0.01'
                 >
                   Drop us a GM!
@@ -428,7 +428,7 @@ const ButtonBar = styled(Button)`
   letter-spacing: 0.03em;
   font-family: Glancyr, sans-serif;
   &:hover {
-    border: 1px solid #e64de9;
+    border: 1px solid var(--ifm-color-pink-secondary);
   }
   @media ${device.mobileL} {
     width: 100%;
@@ -713,7 +713,7 @@ const NavigationMenuItem = styled.li`
 
   &:hover {
     & span {
-      color: #dd44b9;
+      color: var(--ifm-color-primary);
       transition-duration: 0.7s;
     }
 

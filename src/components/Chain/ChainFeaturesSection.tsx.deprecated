@@ -242,7 +242,7 @@ const ChainFeaturesSection: FC<ChainFeaturesSectionProps> = () => {
                 </div>
                 <KnowledgeBaseTextContainer>
                   <FeatureTextHeading
-                    style={{ color: '#000000', whiteSpace: 'break-spaces' }}
+                    style={{ color: 'var(--ifm-color-black)', whiteSpace: 'break-spaces' }}
                   >
                     Explore the
                     <br />
@@ -341,7 +341,7 @@ const DividerImg = styled.div`
 `;
 
 const ChainFeaturesWrapper = styled.div`
-  background-color: #000000;
+  background-color: var(--ifm-color-black);
   margin: -4px 0px;
   width: -webkit-fill-available;
   padding: 150px 0;

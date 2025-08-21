@@ -614,7 +614,7 @@ const Glassy = ({ item }) => {
                   return (
                     <ItemV padding='0px 0px 0px 0px' flex='initial'>
                       <ButtonItem
-                        background='#E64DE9'
+                        background='var(--ifm-color-pink-secondary)'
                         padding={!isTablet ? '14px 22px' : '10px 11px'}
                         margin='0px auto'
                         fontWeight='500'

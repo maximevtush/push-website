@@ -201,7 +201,7 @@ const ParallaxHeader = styled(Span)`
   font-size: 60px;
   font-weight: 400;
   letter-spacing: inherit;
-  color: #e64de9;
+  color: var(--ifm-color-pink-secondary);
   font-stretch: ultra-expanded;
 
   @media ${device.laptop} {

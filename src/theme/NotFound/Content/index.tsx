@@ -118,7 +118,8 @@ export default function NotFoundContent({ className }: Props): ReactElement {
 const PageContainer = styled.div<{ isDocsPage?: boolean }>`
   display: flex;
   flex-direction: column;
-  ${({ isDocsOrBlogsPage }) => !isDocsOrBlogsPage && 'background: #000000'};
+  ${({ isDocsOrBlogsPage }) =>
+    !isDocsOrBlogsPage && 'background: var(--ifm-color-black)'};
   ${({ isDocsOrBlogsPage }) => isDocsOrBlogsPage && 'min-height: 100vh;'};
   ${({ isDocsOrBlogsPage }) =>
     isDocsOrBlogsPage
