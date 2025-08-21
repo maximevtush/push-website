@@ -38,7 +38,7 @@ export const PartnerBounties = ({
       <ItemH gap='24px' margin='0px 0px 60px'>
         <Header>Partners {isMobile && <br />} Bounties</Header>
         <Button
-          background='#e64de9'
+          background='var(--ifm-color-pink-secondary)'
           display='flex'
           maxWidth='187px'
           alignItems='center'
@@ -145,7 +145,7 @@ export const PartnerBounties = ({
 };
 
 const TwitterLink = styled.div`
-  color: #e64de9;
+  color: var(--ifm-color-pink-secondary);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -224,11 +224,14 @@ const PartnerLine = styled.div`
 
   &:hover {
     border: ${(props) =>
-      props.disabled ? '1px solid transparent' : '1px solid #E64DE9'};
+      props.disabled
+        ? '1px solid transparent'
+        : '1px solid var(--ifm-color-pink-secondary)'};
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
     & .buttonId {
-      background: ${(props) => (!props.disabled ? '#E64DE9 !important' : '')};
+      background: ${(props) =>
+        !props.disabled ? 'var(--ifm-color-pink-secondary) !important' : ''};
     }
   }
 
@@ -270,8 +273,10 @@ const BountyButton = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 12px;
-  border: 1px solid ${(props) => props.borderColor || '#e64de9'};
-  background: ${(props) => (props.disabled ? '#53536C' : '#E64DE9')};
+  border: 1px solid
+    ${(props) => props.borderColor || 'var(--ifm-color-pink-secondary)'};
+  background: ${(props) =>
+    props.disabled ? '#53536C' : 'var(--ifm-color-pink-secondary)'};
   border-radius: 8px;
   cursor: pointer;
 `;

@@ -18,7 +18,7 @@ const colors = {
   like: '#548dff',
   love: '#f55064',
   white: 'var(--ifm-color-white)',
-  black: '#000000',
+  black: 'var(--ifm-color-black)',
   text: '#8a8a8a',
   angry: '#d5234c',
 };

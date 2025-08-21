@@ -143,7 +143,7 @@ const FooterItem = () => {
                   // href="https://x.com/PushChain"
                   title="Developer Docs"
                   target="_blank"
-                  bg="#DD44B9"
+                  bg="var(--ifm-color-primary)"
                   radius="12px"
                   padding="14px 20px"
                   size="16px"

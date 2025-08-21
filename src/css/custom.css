@@ -9,6 +9,7 @@
 /* https://cssnano.co/playground/ */
 
 :root {
+  /*For Docs/Blogs*/
   --ifm-color-primary: #dd44b9;
   --ifm-color-primary-unified: #dd44b9;
   --ifm-color-primary-unified-inverse: #ffffff;
@@ -69,6 +70,7 @@
 
   /* Primary Colors */
   --ifm-color-custom-pink: #D548EC;
+  --ifm-color-pink-secondary: #e64de9;
 
   --ifm-color-pink-50: #F2C2FE;
   --ifm-color-pink-100: #CCA4F0;
@@ -123,6 +125,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
+  /*For Docs/Blogs*/
   --ifm-color-primary: #dd44b9;
   --ifm-color-primary-unified: #dd44b9;
   --ifm-color-primary-unified-inverse: #ffffff;
@@ -176,6 +179,7 @@
 
   /* Primary Colors */
   --ifm-color-custom-pink: #D548EC;
+  --ifm-color-pink-secondary: #e64de9;
 
   --ifm-color-pink-50: #F2C2FE;
   --ifm-color-pink-100: #CCA4F0;
@@ -536,7 +540,7 @@ article em > code {
 }
 
 article em > code {
-  background: #dd44b9;
+  background: var(--ifm-color-primary);
   color: #fff;
   font-style: normal;
   font-weight: 500;
@@ -544,7 +548,7 @@ article em > code {
 
 article em > strong > code,
 article strong > em > code {
-  color: #dd44b9;
+  color: var(--ifm-color-primary);
   font-size: 80%;
   font-style: normal;
   font-weight: 600;
@@ -557,7 +561,7 @@ article strong > em > code {
 
 article em > strong > code:hover,
 article strong > em > code:hover {
-  background: #dd44b9;
+  background: var(--ifm-color-primary);
   color: #fff;
 }
 
@@ -570,7 +574,7 @@ article ol > li {
 }
 
 article ul > li::marker {
-  color: #dd44b9;
+  color: var(--ifm-color-primary);
 }
 
 article ol > li::marker {
@@ -705,7 +709,7 @@ article ul > li strong {
   width: 136px;
   height: 54px;
   font-size: 18px;
-  background-color: #dd44b9;
+  background-color: var(--ifm-color-primary);
   border-radius: 16px;
   border: none;
   color: white;
@@ -734,7 +738,7 @@ article ul > li strong {
 }
 
 .footer-description {
-  color: #dd44b9;
+  color: var(--ifm-color-primary);
   font-size: 18px;
   font-weight: 500;
 }
@@ -887,7 +891,7 @@ li {
 
   .menu__list-item > .menu__link--active {
     color: white !important;
-    background: #dd44b9 !important;
+    background: var(--ifm-color-primary) !important;
     border-radius: 8px !important;
     font-size: 16px !important;
     line-height: 142% !important;

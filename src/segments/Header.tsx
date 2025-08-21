@@ -1239,7 +1239,7 @@ const LanguageMenuItem = styled.li`
 
   // &:hover {
   // & span {
-  //   color: ${(props) => (props.expanded ? '#dd44b9' : '')};
+  //   color: ${(props) => (props.expanded ? 'var(--ifm-color-primary)' : '')};
   // }
 
   & .chevronIcon {
@@ -1253,7 +1253,7 @@ const LanguageMenuItem = styled.li`
 
   &:hover {
     & span {
-      color: #dd44b9;
+      color: var(--ifm-color-primary);
     }
 
     & .chevronIcon {

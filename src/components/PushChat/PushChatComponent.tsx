@@ -139,11 +139,18 @@ export const ChatComponent = () => {
         <TokenGated />
         <Span fontSize='16px' color='var(--ifm-color-white)' fontWeight='400'>
           This is a token gated group. You can join but will need{' '}
-          <span style={{ color: '#E64DE9', fontWeight: '400' }}>1 $PUSH</span>{' '}
+          <span
+            style={{
+              color: 'var(--ifm-color-pink-secondary)',
+              fontWeight: '400',
+            }}
+          >
+            1 $PUSH
+          </span>{' '}
           in your wallet to be able to send messages.
         </Span>
         <ButtonItem
-          background='#E64DE9'
+          background='var(--ifm-color-pink-secondary)'
           padding='8px'
           margin='0px 0px 0px 16px'
           fontWeight='500'

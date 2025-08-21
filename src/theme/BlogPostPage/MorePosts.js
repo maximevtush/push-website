@@ -103,7 +103,7 @@ const MorePosts = ({ allPosts, post }) => {
                 </TextView>
                 <Link
                   to={item?.Preview?.metadata?.permalink}
-                  style={{ color: '#dd44b9' }}
+                  style={{ color: 'var(--ifm-color-primary)' }}
                 >
                   Read More
                 </Link>
@@ -203,7 +203,7 @@ const LinkText = styled.div`
   line-height: 36px;
 
   &:hover {
-    color: #dd44b9 !important;
+    color: var(--ifm-color-primary) !important;
   }
 `;
 

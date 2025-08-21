@@ -137,12 +137,16 @@ const PartnerLine = styled.div`
 
   &:hover {
     border: ${(props) =>
-      props.disabled ? '1px solid transparent' : '1px solid #E64DE9'};
+      props.disabled
+        ? '1px solid transparent'
+        : '1px solid var(--ifm-color-pink-secondary)'};
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
     & .buttonId {
       background: ${(props) =>
-        !props.disabled ? '#E64DE9 !important' : 'transparent'};
+        !props.disabled
+          ? 'var(--ifm-color-pink-secondary) !important'
+          : 'transparent'};
     }
   }
 

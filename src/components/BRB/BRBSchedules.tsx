@@ -195,7 +195,11 @@ const Schedules = ({
         <div style={{ position: 'relative' }}>
           <ActionContainer className='splide__arrows'>
             <SplideArrow
-              background={index > 0 ? '#E64DE9' : 'var(--ifm-color-gray-200)'}
+              background={
+                index > 0
+                  ? 'var(--ifm-color-pink-secondary)'
+                  : 'var(--ifm-color-gray-200)'
+              }
               onClick={() =>
                 index !== 0 ? setIndex((prev) => prev - 1) : null
               }
@@ -204,10 +208,12 @@ const Schedules = ({
             >
               <Left />
             </SplideArrow>
-            {/* <Button background={direction === 'right' ? '#E64DE9' : 'var(--ifm-color-gray-200)'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
+            {/* <Button background={direction === 'right' ? 'var(--ifm-color-pink-secondary)' : 'var(--ifm-color-gray-200)'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
             <SplideArrow
               background={
-                !isLastSchedule ? '#E64DE9' : 'var(--ifm-color-gray-200)'
+                !isLastSchedule
+                  ? 'var(--ifm-color-pink-secondary)'
+                  : 'var(--ifm-color-gray-200)'
               }
               onClick={() =>
                 !isLastSchedule ? setIndex((prev) => prev + 1) : null
@@ -218,7 +224,7 @@ const Schedules = ({
               <Right />
             </SplideArrow>
             <Button
-              border='1px solid #E64DE9'
+              border='1px solid var(--ifm-color-pink-secondary)'
               onClick={() =>
                 window.open(
                   'https://pushprotocol.notion.site/Dev-Doc-Billion-Reasons-to-Buidl-One-place-to-start-b900d90937f440fcb737ffcd32078699?pvs=4',

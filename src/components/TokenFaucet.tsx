@@ -167,7 +167,7 @@ export const TokenFaucet = ({
       </InputContainer>
       {/* <ButtonItem
         borderRadius="16px"
-        background="#E64DE9"
+        background="var(--ifm-color-pink-secondary)"
         border="1px solid #FC6DFF"
         padding="16px 32px"
         style={{ width: '100%', fontSize: '18px', marginTop: '4px' }}
