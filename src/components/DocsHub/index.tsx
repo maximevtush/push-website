@@ -274,7 +274,7 @@ export default function DocsHub(): JSX.Element {
                 Push Chain Docs Launching Soon!
               </H3>
 
-              <Span
+              {/* <Span
                 fontFamily='DM Sans'
                 fontSize='1.25rem'
                 fontWeight='400'
@@ -283,9 +283,9 @@ export default function DocsHub(): JSX.Element {
               >
                 Get a sneak peek into Testnet, Donut, build universal apps and
                 win prizes!
-              </Span>
+              </Span> */}
 
-              <ExplorePrelaunchBuildLink
+              {/* <ExplorePrelaunchBuild
                 background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid rgba(255, 255, 255, 0.30)'
@@ -296,11 +296,11 @@ export default function DocsHub(): JSX.Element {
                 padding='16px 32px'
                 href='https://pushchain.github.io/push-chain-website/pr-preview/pr-1067/docs/'
                 target='_blank'
-                title={t('pages.docs.explorePrelaunchBuild.title')}
-                aria-label={t('pages.docs.explorePrelaunchBuild.ariaLabel')}
+                title={t('pages.docs.explore-prelaunch-build.title')}
+                aria-label={t('pages.docs.explore-prelaunch-build.ariaLabel')}
               >
-                <p>{t('pages.docs.explorePrelaunchBuild.text')}</p>
-              </ExplorePrelaunchBuildLink>
+                <p>{t('pages.docs.explore-prelaunch-build.text')}</p>
+              </ExplorePrelaunchBuild> */}
             </DocsHeader>
           </Content>
         </DocsHeroSection>
@@ -467,7 +467,7 @@ const DocsHeader = styled(ItemV)`
   }
 `;
 
-const ExplorePrelaunchBuildLink = styled(A)`
+const ExplorePrelaunchBuild = styled(A)`
   margin-top: 24px;
 
   p {
