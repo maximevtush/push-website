@@ -5,6 +5,7 @@
 import React from 'react';
 
 // External Components
+import { useTranslation } from 'react-i18next';
 
 // Internal Component
 import { Content, Section } from '@site/src/css/SharedStyling';
@@ -22,7 +23,17 @@ import { KBDeepDivesList } from '@site/src/config/KBDeepDivesList';
 
 // Main
 const DeepDivesComp = () => {
-  const breadcrumbs = [{ text: 'Knowledge Base', link: '/knowledge' }];
+  // Localization
+  const { t } = useTranslation();
+
+  const breadcrumbs = [
+    {
+      text: t(
+        'pages.knowledge.deepdives.explainer-section.breadcrumbs.knowledge-base'
+      ),
+      link: '/knowledge',
+    },
+  ];
 
   return (
     <Section>

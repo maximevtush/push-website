@@ -5,6 +5,7 @@
 import React from 'react';
 
 // External Components
+import { useTranslation } from 'react-i18next';
 
 // Internal Component
 import { Content, Section } from '@site/src/css/SharedStyling';
@@ -22,7 +23,17 @@ import { KBFaqList } from '@site/src/config/KBFaqList';
 
 // Main
 const FAQComp = () => {
-  const breadcrumbs = [{ text: 'Knowledge Base', link: '/knowledge' }];
+  // Localization
+  const { t } = useTranslation();
+
+  const breadcrumbs = [
+    {
+      text: t(
+        'pages.knowledge.faq.explainer-section.breadcrumbs.knowledge-base'
+      ),
+      link: '/knowledge',
+    },
+  ];
 
   return (
     <Section>

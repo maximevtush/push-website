@@ -7,6 +7,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
+import { generateTranslationPrompt } from './build.translation.prompt.mjs';
 
 // Load environment variables
 dotenv.config();
@@ -702,26 +703,12 @@ async function attemptTranslation(
   languageName
 ) {
   try {
-    const prompt = `You are a professional translator specializing in web application localization for blockchain and cryptocurrency platforms.
-
-    TASK: Translate the following JSON object from English (en) into ${languageName} (${targetLanguage}).
-
-REQUIREMENTS:
-1. **Preserve JSON structure**: Do not change keys, order, or formatting. Translate only the values.
-2. **Preserve placeholders**: Keep HTML tags, line breaks (\n), and variables like <1>, <2>, {token}, etc. exactly as they appear.
-3. **Keep terminology consistent**: Do not translate brand names (e.g., Push Chain, Push Portal, Testnet). Keep standard blockchain terms (Blockchain, DeFi, Web3, Validator, Staking) consistent with industry usage in ${targetLanguage}.
-4. **UI context**: Ensure buttons, labels, and short text remain concise, natural, and usable in interfaces.
-5. **Tone**: Use an approachable, informal tone that feels natural in ${languageName}, while still professional and trustworthy.
-6. **Cultural fit**: Adapt phrasing to feel natural for local users, but avoid changing technical meaning.
-7. **Clarity**: Use simple, clear language; avoid overly formal or academic phrasing.
-8. **Accuracy**: Ensure financial/technical details remain precise and unambiguous.
-9. Do not omit any keys.
-
-OUTPUT:
-Return only the translated JSON object, keeping the original structure intact.
-
-SOURCE JSON:
-${JSON.stringify(sourceContent, null, 2)}`;
+    // Generate prompt using shared function
+    const prompt = await generateTranslationPrompt(
+      sourceContent,
+      targetLanguage,
+      languageName
+    );
 
     let response;
 
@@ -993,6 +980,257 @@ async function showVerificationSamples(sourceContent, languages) {
     );
   }
 }
+
+/**
+ * Compare en translation.json with each language and retry missing keys
+ */
+async function retryMissingKeys(supportedLanguages) {
+  try {
+    // Load the English reference translation.json
+    const enTranslationPath = path.join(LOCALES_DIR, 'en', 'translation.json');
+    let enTranslation;
+
+    try {
+      const enContent = await fs.readFile(enTranslationPath, 'utf8');
+      enTranslation = JSON.parse(enContent);
+    } catch (error) {
+      console.log(
+        chalk.yellow(
+          '⚠️  English translation.json not found, skipping missing key check'
+        )
+      );
+      return;
+    }
+
+    const enKeys = getAllKeys(enTranslation);
+    console.log(chalk.gray(`📋 English translation has ${enKeys.length} keys`));
+
+    // Check each supported language
+    for (const languageCode of supportedLanguages) {
+      if (languageCode === 'en') continue; // Skip English itself
+
+      const languageName = SUPPORTED_LANGUAGES[languageCode];
+      const langTranslationPath = path.join(
+        LOCALES_DIR,
+        languageCode,
+        'translation.json'
+      );
+
+      console.log(
+        chalk.blue(`\n🔍 Checking ${languageName} (${languageCode})...`)
+      );
+
+      let langTranslation = {};
+      try {
+        const langContent = await fs.readFile(langTranslationPath, 'utf8');
+        langTranslation = JSON.parse(langContent);
+      } catch (error) {
+        console.log(
+          chalk.yellow(
+            `⚠️  ${languageCode}/translation.json not found, will create from scratch`
+          )
+        );
+      }
+
+      const langKeys = getAllKeys(langTranslation);
+      const missingKeys = enKeys.filter((key) => !langKeys.includes(key));
+      const extraKeys = langKeys.filter((key) => !enKeys.includes(key));
+
+      // Remove extra keys that don't exist in English
+      if (extraKeys.length > 0) {
+        console.log(
+          chalk.yellow(
+            `🗑️  ${languageName}: Removing ${extraKeys.length} extra keys not in English...`
+          )
+        );
+        const keysToShow = extraKeys.slice(0, 3);
+        console.log(
+          chalk.gray(
+            `   Extra keys: ${keysToShow.join(', ')}${extraKeys.length > 3 ? ` ... and ${extraKeys.length - 3} more` : ''}`
+          )
+        );
+
+        // Remove extra keys from the translation
+        for (const keyPath of extraKeys) {
+          deleteValueByPath(langTranslation, keyPath);
+        }
+      }
+
+      if (missingKeys.length === 0 && extraKeys.length === 0) {
+        console.log(
+          chalk.green(
+            `✅ ${languageName}: All keys synchronized (${enKeys.length}/${enKeys.length})`
+          )
+        );
+        continue;
+      }
+
+      let updatedTranslation = langTranslation;
+
+      if (missingKeys.length > 0) {
+        console.log(
+          chalk.yellow(
+            `🔄 ${languageName}: ${missingKeys.length} missing keys, translating one by one...`
+          )
+        );
+
+        let successCount = 0;
+        let failCount = 0;
+        updatedTranslation = { ...langTranslation }; // Start with existing translation
+
+        // Translate each missing key individually
+        for (let i = 0; i < missingKeys.length; i++) {
+          const keyPath = missingKeys[i];
+          const keyProgress = `[${i + 1}/${missingKeys.length}]`;
+
+          console.log(chalk.gray(`   ${keyProgress} 🔄 ${keyPath}`));
+
+          try {
+            // Get the English value for this specific key
+            const englishValue = getValueByPath(enTranslation, keyPath);
+
+            // Create a minimal object with just this one key
+            const singleKeyObject = {};
+            setValueByPath(singleKeyObject, keyPath, englishValue);
+
+            // Translate this single key
+            const translatedSingle = await translateContent(
+              singleKeyObject,
+              languageCode,
+              languageName
+            );
+
+            // Extract the translated value and set it in the updated translation
+            const translatedValue = getValueByPath(translatedSingle, keyPath);
+            setValueByPath(updatedTranslation, keyPath, translatedValue);
+
+            console.log(
+              chalk.green(
+                `   ${keyProgress} ✅ ${keyPath} → "${translatedValue}"`
+              )
+            );
+            successCount++;
+          } catch (error) {
+            console.log(
+              chalk.red(`   ${keyProgress} ❌ ${keyPath} - ${error.message}`)
+            );
+            failCount++;
+          }
+        }
+
+        console.log(
+          chalk.blue(
+            `📊 ${languageName}: Translation summary - ${successCount} success, ${failCount} failed`
+          )
+        );
+      }
+
+      // Save the updated translation (whether we translated missing keys, removed extra keys, or both)
+      if (missingKeys.length > 0 || extraKeys.length > 0) {
+        await fs.mkdir(path.dirname(langTranslationPath), { recursive: true });
+        await fs.writeFile(
+          langTranslationPath,
+          JSON.stringify(updatedTranslation, null, 2),
+          'utf8'
+        );
+
+        const finalKeys = getAllKeys(updatedTranslation);
+        const actionDescription = [];
+        if (missingKeys.length > 0)
+          actionDescription.push(`added ${missingKeys.length} missing keys`);
+        if (extraKeys.length > 0)
+          actionDescription.push(`removed ${extraKeys.length} extra keys`);
+
+        console.log(
+          chalk.green(
+            `✅ ${languageName}: Updated (${actionDescription.join(', ')}) - ${finalKeys.length}/${enKeys.length} keys`
+          )
+        );
+      }
+    }
+
+    console.log(chalk.green('\n✅ Missing key check and retry completed'));
+  } catch (error) {
+    console.error(
+      chalk.red('❌ Error during missing key retry:'),
+      error.message
+    );
+  }
+}
+
+/**
+ * Get all nested keys from an object as dot-notation paths
+ */
+function getAllKeys(obj, prefix = '') {
+  let keys = [];
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const currentPath = prefix ? `${prefix}.${key}` : key;
+
+      if (
+        typeof obj[key] === 'object' &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        keys = keys.concat(getAllKeys(obj[key], currentPath));
+      } else {
+        keys.push(currentPath);
+      }
+    }
+  }
+
+  return keys;
+}
+
+/**
+ * Get value from object using dot-notation path
+ */
+function getValueByPath(obj, path) {
+  return path.split('.').reduce((current, key) => current && current[key], obj);
+}
+
+/**
+ * Set value in object using dot-notation path
+ */
+function setValueByPath(obj, path, value) {
+  const keys = path.split('.');
+  const lastKey = keys.pop();
+
+  let current = obj;
+  for (const key of keys) {
+    if (!(key in current) || typeof current[key] !== 'object') {
+      current[key] = {};
+    }
+    current = current[key];
+  }
+
+  current[lastKey] = value;
+}
+
+/**
+ * Delete value from object using dot-notation path
+ */
+function deleteValueByPath(obj, path) {
+  const keys = path.split('.');
+  const lastKey = keys.pop();
+
+  let current = obj;
+  for (const key of keys) {
+    if (!(key in current) || typeof current[key] !== 'object') {
+      return; // Path doesn't exist, nothing to delete
+    }
+    current = current[key];
+  }
+
+  delete current[lastKey];
+
+  // Clean up empty parent objects
+  if (Object.keys(current).length === 0 && keys.length > 0) {
+    deleteValueByPath(obj, keys.join('.'));
+  }
+}
+
 /**
  * Main function to automate translations with dynamic chunk-based tracking
  */
@@ -1587,6 +1825,12 @@ async function automateTranslations() {
 
     // Step 12: Cleanup temp directory
     // Files will be overwritten as needed - no cleanup required
+
+    // Step 13: Compare with en translation.json and retry missing keys
+    console.log(
+      chalk.blue('\n📋 Step 13: Checking for missing keys and retrying...')
+    );
+    await retryMissingKeys(languagesToProcess);
 
     console.log(
       chalk.green('🎉 Optimized translation process completed successfully!')

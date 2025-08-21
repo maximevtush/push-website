@@ -9,19 +9,20 @@ export const KBBuildersList = {
         {
           type: 'text',
           valueKey:
-            'pages.knowledge.builders.explainer-section.blocks.sections.builders-intro.items.overview',
+            'pages.knowledge.builders.explainer-section.blocks.sections.builders-intro.items.intro',
         },
         {
           type: 'text',
+          valueKey:
+            'pages.knowledge.builders.explainer-section.blocks.sections.builders-intro.items.curated-reads',
           hidden: true,
-          value: `## Curated Reads 👇`,
         },
       ],
     },
-
     {
       type: 'list',
-      title: "Let's Build Universal Apps 💪",
+      title:
+        'pages.knowledge.builders.explainer-section.blocks.sections.universal-apps.title',
       topGap: true,
       bottomGap: true,
       variant: 'row',
@@ -57,7 +58,8 @@ export const KBBuildersList = {
 
     {
       type: 'list',
-      title: 'Developer Resources',
+      title:
+        'pages.knowledge.builders.explainer-section.blocks.sections.developer-resources.title',
       topGap: true,
       bottomGap: true,
       variant: 'row',

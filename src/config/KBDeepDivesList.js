@@ -9,12 +9,13 @@ export const KBDeepDivesList = {
         {
           type: 'text',
           valueKey:
-            'pages.knowledge.deepdives.explainer-section.blocks.sections.architecture-deep-dives.items.overview',
+            'pages.knowledge.deepdives.explainer-section.blocks.sections.architecture-deep-dives.items.intro',
         },
         {
           type: 'text',
+          valueKey:
+            'pages.knowledge.deepdives.explainer-section.blocks.sections.architecture-deep-dives.items.curated-reads',
           hidden: true,
-          value: `## Curated Reads 👇`,
         },
       ],
     },

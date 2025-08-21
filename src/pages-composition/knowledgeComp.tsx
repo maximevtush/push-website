@@ -41,7 +41,9 @@ import { KBRootResourcesList } from '@site/src/config/KBRootResourcesList';
 
 // Main
 const KnowledgeComp = () => {
+  // Localization
   const { t } = useTranslation();
+
   const isMobile = useMediaQuery(device.mobileL);
   const [showEmailSignup, setShowEmailSignup] = useState(false);
 
