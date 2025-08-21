@@ -146,7 +146,7 @@ function isChunkTooLarge(chunkContent) {
 /**
  * Recursively split JSON object into smaller chunks (3+ levels deep)
  */
-function splitLargeChunk(chunkContent, chunkFileName, maxDepth = 5) {
+function splitLargeChunk(chunkContent, chunkFileName, maxDepth = 10) {
   console.log(chalk.yellow(`📦 Splitting large chunk: ${chunkFileName}`));
 
   /**
@@ -617,25 +617,25 @@ async function translateContent(sourceContent, targetLanguage, languageName) {
 
   try {
     const config = getAIConfig();
-    const prompt = `You are a professional website/localization translator. Translate the following JSON object into ${languageName} (${targetLanguage}).
+    const prompt = `You are a professional translator specializing in web application localization for blockchain and cryptocurrency platforms.
 
-RULES — read carefully
-1) Keep the exact same JSON structure and keys. Do not add, remove, or reorder keys.
-2) Translate only human-readable VALUES.
-   - Do NOT translate: URLs, emails, handles/hashtags (@PushChain, #LFPush), token symbols ($PC), brand/product names (Push Chain, Donut Testnet, MetaMask Snap), code, or IDs.
-3) Preserve placeholders, markup, and variables exactly (copy them verbatim).
-   - Wrapper tags: <1>…</1>, <2>…</2> (translate inner text only; keep tags unchanged)
-   - HTML tags: <strong>, <em>, <br>, etc.
-   - Variables/placeholders: {name}, {{count}}, %s, $1, :id, \n
-   - Do not change punctuation or spacing around placeholders.
-4) Keep cultural tone appropriate for ${languageName}. Use natural UI copy; prefer concise, action-oriented text.
-5) Keep the words simple as spoken. For eg: if a word is spoken as is in english but written in hindi, then write it in hindi, don't complexify it.
-6) SEO fields: keep titles punchy (~55–60 chars) and descriptions clear (~120–160 chars) when possible.
-7) Do not change capitalization of brand/technical terms.
-8) If a value is empty (""), leave it empty.
-9) Return ONLY the translated JSON object (valid JSON, UTF-8). No commentary.
+    TASK: Translate the following JSON object from English (en) into ${languageName} (${targetLanguage}).
 
-Source JSON to translate:
+REQUIREMENTS:
+1. **Preserve JSON structure**: Do not change keys, order, or formatting. Translate only the values.
+2. **Preserve placeholders**: Keep HTML tags, line breaks (\n), and variables like <1>, <2>, {token}, etc. exactly as they appear.
+3. **Keep terminology consistent**: Do not translate brand names (e.g., Push Chain, Push Portal, Testnet). Keep standard blockchain terms (Blockchain, DeFi, Web3, Validator, Staking) consistent with industry usage in ${targetLanguage}.
+4. **UI context**: Ensure buttons, labels, and short text remain concise, natural, and usable in interfaces.
+5. **Tone**: Use an approachable, informal tone that feels natural in ${languageName}, while still professional and trustworthy.
+6. **Cultural fit**: Adapt phrasing to feel natural for local users, but avoid changing technical meaning.
+7. **Clarity**: Use simple, clear language; avoid overly formal or academic phrasing.
+8. **Accuracy**: Ensure financial/technical details remain precise and unambiguous.
+9. Do not omit any keys.
+
+OUTPUT:
+Return only the translated JSON object, keeping the original structure intact.
+
+SOURCE JSON:
 ${JSON.stringify(sourceContent, null, 2)}`;
 
     let response;
@@ -878,9 +878,10 @@ async function showVerificationSamples(sourceContent, languages) {
     console.log(chalk.gray('─'.repeat(100)));
 
     for (const key of randomKeys) {
-      const enValue = (sourceContent[key] || '').substring(0, 22);
-      const hiValue = (hiContent[key] || '').substring(0, 22);
-      const esValue = (esContent[key] || '').substring(0, 22);
+      // Safely convert values to strings before calling substring
+      const enValue = String(sourceContent[key] || '').substring(0, 22);
+      const hiValue = String(hiContent[key] || '').substring(0, 22);
+      const esValue = String(esContent[key] || '').substring(0, 22);
 
       console.log(
         chalk.blue(key.substring(0, 22).padEnd(25)) +
