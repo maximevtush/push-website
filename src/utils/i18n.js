@@ -44,7 +44,8 @@ export default function i18nInitialize() {
         de: { translation: german },
         ar: { translation: arabic },
       },
-      lng: 'en', // default language for SSR
+      // Remove hardcoded lng to allow language detection to work
+      // lng: 'en', // default language for SSR
       fallbackLng: 'en', // fallback language
       debug: false,
 
@@ -70,12 +71,12 @@ export default function i18nInitialize() {
         // optional expire and domain for set cookie
         cookieMinutes: 10080, // 7 days
 
-        // only detect languages that are in the whitelist
-        checkWhitelist: true,
+        // only detect languages that are in the supported languages
+        checkForSupportedLanguage: true,
       },
 
-      // Whitelist of supported languages
-      whitelist: [
+      // Supported languages list
+      supportedLngs: [
         'en',
         'zh-CN',
         'es',
