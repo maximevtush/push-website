@@ -47,7 +47,7 @@ This will create a new directory called `universal-payment-gateway` with a basic
 Now install the required Push Chain packages:
 
 ```bash
-npm install @pushchain/ui-kit @pushchain/core
+npm install @pushchain/ui-kit
 ```
 
 ## 2) Wrap your app with Push Universal Wallet
@@ -66,13 +66,6 @@ import { PushUniversalWalletProvider, PushUI } from '@pushchain/ui-kit';
 // Add Wallet Config
 const walletConfig = {
   network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
-  chainConfig: {
-    rpcUrls: {
-      [PushUI.CONSTANTS.CHAIN.SOLANA]: [
-        'https://devnet.helius-rpc.com/?api-key=YOUR_HELIUS_API_KEY'
-      ],
-    },
-  },
 };
 
 createRoot(document.getElementById('root')!).render(
@@ -93,12 +86,14 @@ createRoot(document.getElementById('root')!).render(
 
 - `usePushWalletContext()` → wallet connection state (e.g., connectionStatus).
 - `usePushChainClient()` → the initialized pushChainClient used to send universal transactions.
+- `usePushChain()` → PushChain class that has helper methods for parsing units, etc.
 
 ```tsx title="src/App.tsx"
-import { usePushWalletContext, usePushChainClient } from '@pushchain/ui-kit';
+import { usePushWalletContext, usePushChainClient, usePushChain } from '@pushchain/ui-kit';
 
 const { connectionStatus } = usePushWalletContext();
 const { pushChainClient } = usePushChainClient();
+const { PushChain } = usePushChain();
 ```
 
 ### 3.2) Local state & derived amount
@@ -124,9 +119,10 @@ const canSend = connected && validAddr && amount > 0 && !sending;
 The `handleSend` function uses client from the `usePushChainClient` hook to send the transaction.
 
 ```tsx title="src/App.tsx"
-import { PushChain } from '@pushchain/core';
+import { usePushChainClient, usePushChain } from '@pushchain/ui-kit';
 
 const { pushChainClient } = usePushChainClient();
+const { PushChain } = usePushChain();
 
 async function send() {
   if (!pushChainClient || !canSend) return;
@@ -184,13 +180,13 @@ After success, show the tx hash with a link from the client’s explorer helper 
 
 ```jsx live
 import { useState } from 'react';
-import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI } from '@pushchain/ui-kit';
-import { PushChain } from '@pushchain/core';
+import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI, usePushChain } from '@pushchain/ui-kit';
 
 function App() {
   function PaymentGateway() {
     const { connectionStatus } = usePushWalletContext();
     const { pushChainClient } = usePushChainClient();
+    const { PushChain } = usePushChain();
 
     const connected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
 
