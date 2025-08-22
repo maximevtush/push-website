@@ -279,7 +279,7 @@ export default function DocsHub(): JSX.Element {
                 lineHeight='125%'
                 textAlign='center'
               >
-                Testnet Docs Launch in
+                {t('pages.docs.header.title')}
               </H3>
 
               {!isExpired && (
@@ -303,11 +303,10 @@ export default function DocsHub(): JSX.Element {
                 color='var(--ifm-color-white)'
                 lineHeight='140%'
               >
-                Psst... want a sneak peek of Testnet Donut? Drop us a shout with
-                #pushchainsecret and we’ll send you access to a test build.
+                {t('pages.docs.header.description')}
               </TextSpan>
 
-              <ExplorePrelaunchBuild
+              <TweetAboutPushChain
                 background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid var(--ifm-color-overlay-white-30)'
@@ -318,11 +317,11 @@ export default function DocsHub(): JSX.Element {
                 padding='16px 32px'
                 href={tweetUrl}
                 target='_blank'
-                title={t('pages.docs.explore-prelaunch-build.title')}
-                aria-label={t('pages.docs.explore-prelaunch-build.ariaLabel')}
+                title={t('pages.docs.header.title')}
+                aria-label={t('pages.docs.header.ariaLabel')}
               >
-                <p>Tweet about Push Chain</p>
-              </ExplorePrelaunchBuild>
+                <p>{t('pages.docs.header.title')}</p>
+              </TweetAboutPushChain>
             </DocsHeader>
           </Content>
         </DocsHeroSection>
@@ -385,7 +384,7 @@ const DocsHeader = styled(ItemV)`
   }
 `;
 
-const ExplorePrelaunchBuild = styled(A)`
+const TweetAboutPushChain = styled(A)`
   margin-top: 24px;
 
   p {
