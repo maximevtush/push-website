@@ -25,7 +25,19 @@ const SOURCE_CHUNKS_DIR = path.join(LOCALES_DIR, SOURCE_LANG, '01-translate');
 
 // Supported languages with their full names
 const SUPPORTED_LANGUAGES = {
-  'hi': 'Hindi',
+  ar: 'Arabic',
+  de: 'German',
+  es: 'Spanish',
+  fr: 'French',
+  hi: 'Hindi',
+  id: 'Indonesian',
+  ja: 'Japanese',
+  ko: 'Korean',
+  pt: 'Portuguese',
+  ru: 'Russian',
+  tr: 'Turkish',
+  vi: 'Vietnamese',
+  'zh-CN': 'Chinese (Simplified)',
 };
 
 // AI Provider configuration
