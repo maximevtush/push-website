@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 // Internal Components
 import { Button, H2, ItemV, Span } from '@site/src/css/SharedStyling';
@@ -14,6 +15,7 @@ import Modal from 'react-modal';
 import { device } from '@site/src/config/globals';
 
 const FooterItem = () => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.tablet);
   const [open, setOpen] = React.useState(false);
 
@@ -67,7 +69,7 @@ const FooterItem = () => {
       >
         <ModalItem>
           <ModalDiv>
-            <ModalTopic>Share</ModalTopic>
+            <ModalTopic>{t('components.blog.footer-item.share-modal-title')}</ModalTopic>
             <BsX
               color=''
               size={28}
@@ -118,7 +120,7 @@ const FooterItem = () => {
                 navigator.clipboard.writeText(window.location.href)
               }
             >
-              Copy link
+              {t('components.blog.footer-item.copy-link')}
             </ModalCopy>
           </ModalLink>
         </ModalItem>
@@ -136,7 +138,7 @@ const FooterItem = () => {
           lineHeight='110%'
           color='#00000'
         >
-          Be a part of the conversation by sharing this article
+          {t('components.blog.footer-item.share-title')}
         </ResponsiveH2>
 
         {/* <Anchor
@@ -172,7 +174,7 @@ const FooterItem = () => {
             color='var(--ifm-color-white)'
             style={{ marginRight: '10px' }}
           />
-          Share
+          {t('components.blog.footer-item.share-button')}
         </ShareButton>
         {/* </Anchor> */}
       </ShareRow>
@@ -180,7 +182,7 @@ const FooterItem = () => {
       {open && <LinkModal />}
 
       <AboutSection>
-        <AboutTitle>About Push Chain</AboutTitle>
+        <AboutTitle>{t('components.blog.footer-item.about-title')}</AboutTitle>
         <AboutSpan
           fontFamily='Inter, sans-serif'
           textAlign='center'
@@ -188,15 +190,7 @@ const FooterItem = () => {
           fontWeight='400'
           lineHeight='32px'
         >
-          Push Chain is the first true universal blockchain designed to
-          eliminate fragmentation across all chains. It enables developers to
-          deploy once, and instantly become available for users on any chain,
-          whether EVM or Non-EVM (including Ethereum, Solana, Bitcoin among
-          others).
-          <p />
-          It is 100% EVM compatible, Proof of Stake (PoS) chain that allows
-          users to interact with the apps deployed on Push Chain from any chain,
-          as they natively do on their own chain.
+          {t('components.blog.footer-item.about-description')}
         </AboutSpan>
       </AboutSection>
 
@@ -209,7 +203,7 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsTwitter size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>Twitter</KPIMetric>
+          <KPIMetric>{t('components.blog.footer-item.social-twitter')}</KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -220,7 +214,7 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <FaDiscord size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>Discord</KPIMetric>
+          <KPIMetric>{t('components.blog.footer-item.social-discord')}</KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -231,7 +225,7 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsYoutube size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>YouTube</KPIMetric>
+          <KPIMetric>{t('components.blog.footer-item.social-youtube')}</KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -244,7 +238,7 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsLinkedin size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>Linkedin</KPIMetric>
+          <KPIMetric>{t('components.blog.footer-item.social-linkedin')}</KPIMetric>
         </BannerItem>
       </KPIBanner>
     </div>

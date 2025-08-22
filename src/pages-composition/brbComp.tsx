@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
 // React + Web3 Essentials
 import React, { useRef, useState } from 'react';
 
@@ -9,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styled from 'styled-components';
 
 // Internal Components
+import { BRBAlert } from '@site/src/components/BRB/BRBAlert';
 import { CommunityPartners } from '@site/src/components/BRB/BRBCommunityPartners';
 import BRBParallax from '@site/src/components/BRB/BRBParallax';
 import { PartnerBounties } from '@site/src/components/BRB/BRBPartnerBounties';
@@ -26,7 +28,6 @@ import {
   Span,
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import { BRBAlert } from './BRBAlert';
 
 // Import Assets
 import Discord from '@site/static/assets/website/brb/Discord-BRB.svg';
@@ -38,14 +39,20 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 // Internal Configs
+import BRBOnline from '@site/src/components/BRB/BRBOnline';
 import GLOBALS, { device, structure } from '@site/src/config/globals';
-import BRBOnline from './BRBOnline';
-import { useScrollDirection } from '../../hooks/useScrollDirection';
+import { useScrollDirection } from '@site/src/hooks/useScrollDirection';
 
+// Interfaces and Props
+
+// Helper Functions
+
+// Helper Component
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-export const BRBMainComponent = () => {
+// Main
+const BRBComp = () => {
   const d = new Date();
   const year = d.getFullYear();
   const isMobile = useMediaQuery(device.mobileL);
@@ -854,3 +861,5 @@ const BottomGrad = styled.div`
   padding-bottom: 57px;
   box-sizing: border-box;
 `;
+
+export default BRBComp;

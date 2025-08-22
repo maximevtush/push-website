@@ -15,8 +15,9 @@ This repository contains the complete source code for the Push Chain website, in
 - **Knowledge Base**: Technical documentation, tutorials, and guides
 - **Developer Resources**: API docs, SDKs, and integration guides
 - **Blog System**: Latest news, updates, and technical articles
-- **Multilingual Support**: 13+ languages with full localization
+- **Multilingual Support**: 14 languages with AI-powered translation automation
 - **Interactive Components**: Live demos, code playgrounds, and examples
+- **Translation Management**: Automated translation system with glossary support
 
 ## 📋 Table of Contents
 
@@ -24,6 +25,7 @@ This repository contains the complete source code for the Push Chain website, in
 - [🛠️ Development](#️-development)
 - [🏗️ Architecture](#️-architecture)
 - [🌐 Internationalization](#-internationalization)
+- [🔄 Translation Management](#-translation-management)
 - [📝 Content Management](#-content-management)
 - [🎨 Styling & Theming](#-styling--theming)
 - [🚀 Deployment](#-deployment)
@@ -57,6 +59,12 @@ yarn start
 
 # Start development server (lite mode - faster, fewer blog posts)
 yarn start:lite
+
+# Translation management
+yarn translations:generate          # Generate all language translations
+yarn translations:generate:specific <lang>  # Target specific language (e.g., es, fr, de)
+yarn translations:nuke              # Clean up auto-translations
+yarn translations:help              # Show comprehensive translation help
 
 # Build for production
 yarn build
@@ -116,7 +124,7 @@ yarn build --locale en
 - **Framework**: [Docusaurus 3](https://docusaurus.io/) - Modern static site generator
 - **Frontend**: React 18+ with TypeScript
 - **Styling**: Styled Components + CSS Modules
-- **Internationalization**: react-i18next with 13+ languages
+- **Internationalization**: react-i18next with 14 languages and automated translation pipeline
 - **Content**: MDX for documentation, Markdown for blogs
 - **Animations**: GSAP for smooth interactions
 - **Build**: Webpack with optimizations
@@ -155,63 +163,133 @@ push-website/
 
 ### Supported Languages
 
-The website supports 13+ languages with full localization:
+The website supports 14 languages with full localization:
 
-- English (en) - Default
-- Chinese (zh)
-- Spanish (es)
-- Hindi (hi)
-- Korean (ko)
-- Japanese (ja)
-- Portuguese (pt)
-- Russian (ru)
-- Turkish (tr)
-- French (fr)
-- Indonesian (id)
-- Vietnamese (vi)
-- German (de)
-- Arabic (ar)
+- **English** (en) - Base language
+- **Chinese Simplified** (zh-CN)
+- **Spanish** (es)
+- **Hindi** (hi)
+- **Japanese** (ja)
+- **Korean** (ko)
+- **Portuguese** (pt)
+- **Russian** (ru)
+- **Turkish** (tr)
+- **French** (fr)
+- **Indonesian** (id)
+- **Vietnamese** (vi)
+- **German** (de)
+- **Arabic** (ar)
 
-### Translation Management
+### Language Persistence
 
-```bash
-# Extract translatable strings
-yarn write-translations
+Language selection is automatically persisted using localStorage. The i18n system:
 
-# Update specific language
-yarn write-translations --locale zh
-
-# Build specific language
-yarn build --locale en
-```
+- Detects user language from localStorage first
+- Falls back to browser language or English
+- Saves language selection across sessions
+- Supports real-time language switching
 
 ### Translation Files Structure
 
 ```
-static/locales/{locale}/
-├── translation.json        # Main translations
-└── 01-translate/
+static/locales/en/
+├── translation.json        # Main translations automatic script merge
+└── 01-translate/           # This is where all translations are done and edited
     ├── 01-homepage.json    # Homepage content
     ├── 05-components.json  # Component strings
     └── 06-notifications.json # Notification messages
 ```
 
-### Adding New Translations
+### Using Translations
 
-1. Add translation keys to appropriate JSON files
-2. Use `useTranslation` hook in components:
-
-```tsx
+```jsx
 import { useTranslation } from 'react-i18next';
 
 const MyComponent = () => {
   const { t } = useTranslation();
 
-  return (
-    <h1>{t('components.my-component.title')}</h1>
-  );
+  return <h1>{t('components.my-component.title')}</h1>;
 };
 ```
+
+## 🔄 Translation Management
+
+The website includes a comprehensive AI-powered translation automation system:
+
+### Quick Commands
+
+```bash
+# Generate all language translations
+yarn translations:generate
+
+# Target specific language
+yarn translations:generate:specific es
+yarn translations:generate:specific fr
+
+# Clean up auto-translations and reset
+yarn translations:nuke
+
+# Show comprehensive help
+yarn translations:help
+```
+
+### AI Provider Support
+
+The translation system supports multiple AI providers:
+
+**Windsurf/Anthropic (Default)**:
+
+```bash
+AI_PROVIDER=windsurf
+REACT_APP_WINDSURF_API_KEY=your_api_key
+```
+
+**Local AI (OpenWebUI/Ollama)**:
+
+```bash
+AI_PROVIDER=local
+LOCAL_AI_BASE_URL=http://localhost:11434
+LOCAL_AI_MODEL=llama3.1
+```
+
+### Configuration Options
+
+```bash
+# Token and rate limiting
+AI_MAX_INPUT_TOKENS=100000      # Maximum input tokens
+AI_MAX_CHUNK_TOKENS=2000        # Maximum tokens per chunk
+AI_RATE_LIMIT_PER_MINUTE=5      # API calls per minute
+AI_REQUEST_TIMEOUT=60000        # Request timeout (ms)
+```
+
+### Translation Features
+
+- **Automated Translation**: AI-powered translation with glossary support
+- **Chunk Management**: Automatic splitting of large translation files
+- **Progress Tracking**: Real-time progress with detailed console output
+- **Error Handling**: Robust error handling with automatic retries
+- **Missing Key Detection**: Identifies and translates missing keys
+- **Extra Key Cleanup**: Removes keys not present in English source
+- **Rate Limiting**: Respects API limits with automatic throttling
+
+### Glossary System
+
+Translation glossary is managed in `build.translation.automation.glossary.json`:
+
+```json
+{
+  "Push Protocol": "keep",
+  "blockchain": "transliterate",
+  "wallet": "transliterate",
+  "DeFi": "keep"
+}
+```
+
+**Glossary Rules**:
+
+- `"keep"`: Keep exactly as in source (brand names, technical terms)
+- `"transliterate"`: Convert to local script pronunciation
+- No entry: Translate naturally in context
 
 ## 📝 Content Management
 
@@ -225,13 +303,14 @@ const MyComponent = () => {
 
 ```yaml
 ---
-title: "Your Doc Title"
-description: "Brief description"
-image: "/path/to/preview-image.png"
+title: 'Your Doc Title'
+description: 'Brief description'
+image: '/path/to/preview-image.png'
 ---
 ```
 
 **Asset Organization**:
+
 ```
 static/assets/docs/{product}/{category}/{article}/
 ```
@@ -318,6 +397,14 @@ yarn deploy --locale en
 GIT_USER=your-github-username
 USE_SSH=true
 DEPLOYMENT_BRANCH=gh-pages
+
+# Translation system
+AI_PROVIDER=windsurf
+REACT_APP_WINDSURF_API_KEY=your_api_key
+AI_MAX_INPUT_TOKENS=100000
+AI_MAX_CHUNK_TOKENS=2000
+AI_RATE_LIMIT_PER_MINUTE=5
+AI_REQUEST_TIMEOUT=60000
 ```
 
 ## 🤝 Contributing
@@ -329,6 +416,15 @@ DEPLOYMENT_BRANCH=gh-pages
 3. **Commit** changes: `git commit -m 'Add amazing feature'`
 4. **Push** to branch: `git push origin feature/amazing-feature`
 5. **Open** a Pull Request
+
+### Translation Workflow
+
+1. **Update English content** in `/static/locales/en/01-translate`
+2. **Run translation automation**: `yarn translations:generate`
+3. **Review generated translations** for accuracy
+4. **Update glossary** if needed for consistent terminology
+5. **Test language switching** and persistence
+6. **Commit all translation files** together
 
 ### Code Standards
 
@@ -356,6 +452,7 @@ yarn build
 ### Contribution Guidelines
 
 #### Documentation
+
 - Place assets in `/static/assets/docs/{product}/{category}/{article}/`
 - Follow existing numbering and folder structure
 - Use modern image formats (WebP, AVIF)
@@ -363,17 +460,27 @@ yarn build
 - Maintain consistency with existing documentation
 
 #### Blog Posts
+
 - Follow naming convention: `yyyy-mm-dd-title-in-kebab-case/`
 - Include proper frontmatter and meta tags
 - Add author information to `/blog/authors.yml`
 - Optimize images for web
 
 #### Website Features
+
 - Follow component-based architecture
 - Implement responsive design
 - Add proper TypeScript types
 - Include accessibility features
 - Test across different browsers and devices
+
+#### Translations
+
+- Use the automated translation system for new content
+- Follow glossary guidelines for consistent terminology
+- Test language switching and persistence
+- Ensure all new keys are properly structured
+- Verify translations maintain technical accuracy
 
 ## 📚 Resources
 

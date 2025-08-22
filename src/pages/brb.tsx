@@ -10,7 +10,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Internal Components
-import { BRBMainComponent } from '@site/src/components/BRB/BRBMainComponent';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
+import BRBComp from '@site/src/pages-composition/brbComp';
 
 function BRBPage() {
   // Internationalization
@@ -57,7 +58,9 @@ function BRBPage() {
         />
       </Head>
 
-      <BRBMainComponent />
+      <DefaultDarkTheme>
+        <BRBComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }

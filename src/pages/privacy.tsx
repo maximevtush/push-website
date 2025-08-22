@@ -10,10 +10,9 @@ import React from 'react';
 // External Components
 import { useTranslation } from 'react-i18next';
 
-import PrivacyComp from '@site/src/pages-composition/privacyComp';
-
 // Internal Components
 import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
+import PrivacyComp from '@site/src/pages-composition/privacyComp';
 
 function PrivacyPage() {
   // Internationalization

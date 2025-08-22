@@ -4,13 +4,14 @@ title: 'PUSH Token Economics'
 description: 'PUSH Token Economics'
 authors: [push]
 image: './cover-image.webp'
-text: "Ethereum Push Notification Service (EPNS) is a protocol for decentralized notifications on the Ethereum blockchain. EPNS enables applications and users to create and subscribe to notification channels, enabling blockchain-native communication between apps and users."
-tags: [ Token Economics
-,Token
-,Governance
-,Ethereum
-,Announcements
-]
+text: 'Ethereum Push Notification Service (EPNS) is a protocol for decentralized notifications on the Ethereum blockchain. EPNS enables applications and users to create and subscribe to notification channels, enabling blockchain-native communication between apps and users.'
+tags:
+  [
+    Push Notifications Tokenomics,
+    Push Notifications Token,
+    Push Notifications Governance,
+    Push Notifications Announcements,
+  ]
 ---
 
 import { ImageText } from '@site/src/css/SharedStyling';
