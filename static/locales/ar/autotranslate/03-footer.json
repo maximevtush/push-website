@@ -1,0 +1,95 @@
+{
+  "footer": {
+    "email-section": {
+      "title": "ابقَ على اطلاع بـ Push Chain",
+      "title-secondary": "آخر الأخبار والتحديثات!",
+      "title-aria-label": "قسم الاشتراك في النشرة الإخبارية",
+      "section-aria-label": "قسم الاشتراك في النشرة الإخبارية لـ Push Chain"
+    },
+    "main-section": {
+      "section-aria-label": "روابط وتصفح تذييل الصفحة",
+      "logo-link-title": "الصفحة الرئيسية لـ Push Chain",
+      "logo-link-aria-label": "الصفحة الرئيسية لـ Push Chain",
+      "logo-alt": "Push Chain logo"
+    },
+    "columns": {
+      "resources": {
+        "title": "المصادر",
+        "title-aria-label": "تصفح المصادر"
+      },
+      "developers": {
+        "title": "المطورون",
+        "title-aria-label": "تصفح المطورين"
+      },
+      "community": {
+        "title": "المجتمع",
+        "title-aria-label": "تصفح المجتمع"
+      },
+      "help": {
+        "title": "المساعدة",
+        "title-aria-label": "تصفح المساعدة"
+      }
+    },
+    "links": {
+      "get-started": "ابدأ الآن",
+      "get-started-title": "ابدأ البناء على Push Chain",
+      "docs": "الوثائق",
+      "docs-title": "وثائق Push Chain",
+      "github": "GitHub",
+      "github-title": "مستودعات Push Chain على GitHub",
+      "knowledge-base": "قاعدة المعرفة",
+      "knowledge-base-title": "قاعدة معرفة Push Chain",
+      "blog": "المدونة",
+      "blog-title": "مدونة Push Chain",
+      "litepaper": "الورقة البيضاء الموجزة",
+      "litepaper-title": "ورقة Push Chain البيضاء الموجزة (PDF)",
+      "brand-kit": "عدة العلامة التجارية",
+      "brand-kit-title": "أصول وإرشادات العلامة التجارية لـ Push Chain",
+      "push-scan": "Push Scan",
+      "push-scan-title": "مستكشف بلوكشين Push Chain",
+      "faucet": "الصنبور",
+      "faucet-title": "احصل على رموز اختبار من صنبور Push Chain",
+      "push-portal": "Push Portal",
+      "push-portal-title": "بوابة مجتمع Push Chain",
+      "support": "الدعم",
+      "support-title": "مركز المساعدة",
+      "security": "الأمان والإفصاح",
+      "security-title": "الإبلاغ عن ثغرة أمنية (الإفصاح المسؤول)",
+      "contact-us": "اتصل بنا",
+      "contact-us-title": "الشراكات، تطوير الأعمال، وسائل الإعلام، أو الاستفسارات العامة",
+      "careers": "الوظائف",
+      "careers-title": "الوظائف المتاحة في Push Chain",
+      "twitter": "X (Twitter)",
+      "twitter-title": "تابع Push Chain على X (Twitter)",
+      "discord": "Discord",
+      "discord-title": "انضم إلى مجتمع Discord الخاص بـ Push Chain",
+      "reddit": "Reddit",
+      "reddit-title": "انضم إلى مجتمع Reddit الخاص بـ Push Chain",
+      "telegram": "Telegram",
+      "telegram-title": "انضم إلى مجتمع Telegram الخاص بـ Push Chain"
+    },
+    "social-section": {
+      "section-aria-label": "روابط وسائل التواصل الاجتماعي ومعلومات قانونية",
+      "twitter-icon-title": "Push Chain على X (Twitter)",
+      "twitter-icon-aria-label": "Push Chain على X (Twitter)",
+      "github-icon-title": "Push Chain على GitHub",
+      "github-icon-aria-label": "Push Chain على GitHub",
+      "discord-icon-title": "Push Chain على Discord",
+      "discord-icon-aria-label": "Push Chain على Discord"
+    },
+    "legal": {
+      "privacy-policy": "سياسة الخصوصية",
+      "privacy-policy-title": "اقرأ سياسة الخصوصية",
+      "privacy-policy-aria-label": "سياسة الخصوصية",
+      "terms-of-service": "شروط الخدمة",
+      "terms-of-service-title": "اقرأ شروط الخدمة",
+      "terms-of-service-aria-label": "شروط الخدمة",
+      "cookie-preferences": "تفضيلات ملفات تعريف الارتباط",
+      "cookie-preferences-title": "إدارة إعدادات ملفات تعريف الارتباط"
+    },
+    "footer-image": {
+      "alt": "رسم توضيحي لتذييل الصفحة الخاص بـ Push Chain",
+      "title": "Push Chain - بلوكشين عالمي"
+    }
+  }
+}

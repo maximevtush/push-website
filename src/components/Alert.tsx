@@ -19,41 +19,38 @@ import { device } from '@site/src/config/globals';
 // turn alert to false to disable this
 export const Alert = () => {
   const [isAlertVisible, setIsAlertVisible] = React.useState(false);
+  const { t } = useTranslation();
+
+  // Prevent rendering during SSR
+  if (typeof window === 'undefined') return null;
 
   const hideAlertHandler = () => {
     setIsAlertVisible(false);
   };
 
-  const alertMessage = 'Push Metamask Snap is now live,';
-
-  const alertMessageEs = 'Push Metamask Snap ya está disponible, ';
-  const alertMessageHi = 'पुश मेटामास्क स्नैप अब लाइव है, ';
-
   const alertLink = `https://snaps.metamask.io/snap/npm/pushprotocol/snap/`;
-
-  // Internationalization
-  const { t, i18n } = useTranslation();
-
-  const openLink = () => {};
 
   return (
     <Section>
       {isAlertVisible && (
-        <AlertContainer>
+        <AlertContainer
+          role='alert'
+          aria-label={t('notifications.alert.container-aria-label')}
+          aria-live='assertive'
+        >
           <AlertText
             onClick={() => {
-              window.open(alertLink, '_blank');
+              window.open(alertLink, '_blank', 'noopener');
             }}
+            title={t('notifications.alert.know-more-title')}
           >
-            {i18n.language === 'es'
-              ? alertMessageEs
-              : i18n.language === 'hi'
-                ? alertMessageHi
-                : alertMessage}
+            {t('notifications.alert.message')}
 
-            <KnowMoreLink>{t('alert.know-more')}</KnowMoreLink>
+            <KnowMoreLink>
+              {t('notifications.alert.know-more-text')}
+            </KnowMoreLink>
 
-            <FiArrowUpRight className='icon' />
+            <FiArrowUpRight className='icon' aria-hidden='true' role='img' />
           </AlertText>
 
           <CancelIcon>
@@ -62,6 +59,8 @@ export const Alert = () => {
               color='#7f7b80'
               className='icon'
               onClick={hideAlertHandler}
+              title={t('notifications.alert.close-button-title')}
+              aria-label={t('notifications.alert.close-button-aria-label')}
             />
           </CancelIcon>
         </AlertContainer>
@@ -93,7 +92,7 @@ const AlertText = styled.div`
   font-size: 18px;
   line-height: 142%;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: auto auto;
   cursor: pointer;
   @media ${device.tablet} {
@@ -126,7 +125,7 @@ const KnowMoreLink = styled.span`
   background: none;
   font-size: 1.125rem;
   padding-left: 0.3rem;
-  color: #fff;
+  color: var(--ifm-color-white);
   text-decoration: none;
   cursor: pointer;
   font-weight: 700;

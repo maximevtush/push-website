@@ -62,7 +62,6 @@ import {
 } from '@site/src/config/HomeNotifFeaturesList';
 import { OthersFeaturesList } from '@site/src/config/HomeOthersFeaturesList';
 import GLOBALS, { device } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
 
 export default function Home() {
   // Internationalization
@@ -111,6 +110,7 @@ export default function Home() {
 
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+<meta name='twitter:creator' content='@PushChain' />
         <meta name='twitter:title' content='Push Protocol (Previously EPNS)' />
         <meta
           name='twitter:description'
@@ -123,21 +123,6 @@ export default function Home() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Protocol',
-            description: 'The Communication Protocol of Web3',
-            url: 'https://comms.push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
       <HomeWrapper>
@@ -166,9 +151,9 @@ export default function Home() {
                     fontWeight='500'
                     lineHeight='116%'
                     letterSpacing='normal'
-                    fontFamily='FK Grotesk Neue'
+                    fontFamily='DM Sans, san-serif'
                   >
-                    {t('home.hero.title')}
+                    {t('pages.home.hero.title')}
                   </H1>
 
                   <Span
@@ -179,21 +164,21 @@ export default function Home() {
                     lineHeight='140%'
                     letterSpacing='normal'
                   >
-                    {t('home.hero.description')}
+                    {t('pages.home.hero.description')}
                   </Span>
                 </HeroBody>
 
                 <HeroCTA gap='18px'>
                   <A
                     href={useBaseUrl('/docs')}
-                    title={t('home.hero.alt-start-button')}
+                    title={t('pages.home.hero.alt-start-button')}
                     background={GLOBALS.COLORS.HIGHLIGHT}
                     color={GLOBALS.COLORS.FONT_LIGHT}
                     lineHeight='142%'
                     fontSize='16px'
                     zIndex='2'
                   >
-                    {t('home.hero.start-button')}
+                    {t('pages.home.hero.start-button')}
                   </A>
                 </HeroCTA>
               </HeroItem>
@@ -229,12 +214,12 @@ export default function Home() {
                 lineHeight='normal'
                 fontWeight='400'
                 letterSpacing='normal'
-                fontFamily='FK Grotesk Neue'
+                fontFamily='DM Sans, san-serif'
               >
-                <B color='#fff'>
-                  {t('home.notification-section.header.main-text')}
+                <B color='var(--ifm-color-white)'>
+                  {t('pages.home.notification-section.header.main-text')}
                 </B>{' '}
-                {t('home.notification-section.header.other-text')}
+                {t('pages.home.notification-section.header.other-text')}
               </H2>
             </ItemV>
 
@@ -276,7 +261,7 @@ export default function Home() {
                           <H2
                             fontWeight='400'
                             letterSpacing='normal'
-                            fontFamily='FK Grotesk Neue'
+                            fontFamily='DM Sans, san-serif'
                           >
                             {item.title}
                           </H2>
@@ -301,10 +286,10 @@ export default function Home() {
                 textAlign={isMobile ? 'left' : 'center'}
                 lineHeight={isMobile && '30px'}
                 fontWeight='500'
-                fontFamily='FK Grotesk Neue'
+                fontFamily='DM Sans, san-serif'
               >
-                <B color='#fff'>{t('home.chat-section.header.main-text')} </B>
-                {t('home.chat-section.header.other-text')}
+                <B color='var(--ifm-color-white)'>{t('pages.home.chat-section.header.main-text')} </B>
+                {t('pages.home.chat-section.header.other-text')}
                 <TagItem>COMING SOON</TagItem>
               </H2>
             </ItemV>
@@ -340,7 +325,7 @@ export default function Home() {
                     <SplideSlide>
                       <NotificationMarquee>
                         <GridItem>
-                          <H2 fontFamily='FK Grotesk Neue'>{item.title}</H2>
+                          <H2 fontFamily='DM Sans, san-serif'>{item.title}</H2>
                           <StarIcon />
                         </GridItem>
                       </NotificationMarquee>
@@ -378,27 +363,27 @@ export default function Home() {
                 <ItemV alignItems='flex-start' justifyContent={'flex-start'}>
                   <H2
                     textAlign='left'
-                    color='#D98AEC'
+                    color='var(--ifm-color-pink-200)'
                     textTransform='uppercase'
                     fontSize='14px'
                     fontWeight='700'
                     lineHeight='130%'
                     letterSpacing='0.56px'
-                    fontFamily='FK Grotesk Neue'
+                    fontFamily='DM Sans, san-serif'
                   >
                     Push Network
                   </H2>
 
                   <H2
-                    color='#FFF'
+                    color='var(--ifm-color-white)'
                     fontSize={isMobile ? '28px' : '30px'}
                     fontWeight='500'
                     margin='8px 0 0 0'
-                    fontFamily='FK Grotesk Neue'
+                    fontFamily='DM Sans, san-serif'
                     lineHeight='130%'
                     letterSpacing='normal'
                   >
-                    {t('home.network-section.title')}
+                    {t('pages.home.network-section.title')}
                   </H2>
                 </ItemV>
 
@@ -417,14 +402,14 @@ export default function Home() {
               </ItemV>
 
               <ItemV>
-                <TokenItem>{t('home.network-section.first-text')}</TokenItem>
-                <TokenItem>{t('home.network-section.second-text')}</TokenItem>
+                <TokenItem>{t('pages.home.network-section.first-text')}</TokenItem>
+                <TokenItem>{t('pages.home.network-section.second-text')}</TokenItem>
                 <TokenItem>
-                  {t('home.network-section.third-text')}
+                  {t('pages.home.network-section.third-text')}
                   <TagItem style={{ marginLeft: '10px' }}>NEW</TagItem>
                 </TokenItem>
-                <TokenItem>{t('home.network-section.fourth-text')}</TokenItem>
-                <TokenItem>{t('home.network-section.fifth-text')}</TokenItem>
+                <TokenItem>{t('pages.home.network-section.fourth-text')}</TokenItem>
+                <TokenItem>{t('pages.home.network-section.fifth-text')}</TokenItem>
               </ItemV>
             </ItemH>
             <SlideLink
@@ -452,12 +437,12 @@ export default function Home() {
               <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
                 <StarSolidIcon />
                 <H2
-                  color='#D98AEC'
+                  color='var(--ifm-color-pink-200)'
                   fontSize={'21px'}
                   fontWeight='500'
                   letterSpacing='0.84px'
                   lineHeight='130%'
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                 >
                   Push Blog
                 </H2>
@@ -472,10 +457,10 @@ export default function Home() {
                     hover='transparent'
                     background='transparent'
                     filter='none'
-                    color='#fff'
+                    color='var(--ifm-color-white)'
                     borderRadius='0'
                     padding='0px 0px'
-                    fontFamily='FK Grotesk Neue'
+                    fontFamily='DM Sans, san-serif'
                   >
                     <SpanLink>Explore Blog</SpanLink>
                     <BsArrowRight className='anchorSVGlink' />
@@ -486,10 +471,10 @@ export default function Home() {
 
             <H2
               fontSize={isMobile ? '24px' : '30px'}
-              color='#fff'
+              color='var(--ifm-color-white)'
               margin='8px 0 0 0'
               fontWeight='500'
-              fontFamily='FK Grotesk Neue'
+              fontFamily='DM Sans, san-serif'
               lineHeight='120%'
               letterSpacing='normal'
             >
@@ -514,16 +499,16 @@ export default function Home() {
           <Content alignSelf='center'>
             <InvestorItem alignItems='stretch'>
               <InvestorHeader
-                color='#FFFFFF'
+                color='var(--ifm-color-white)'
                 fontWeight='700'
                 letterSpacing='-0.02em'
                 lineHeight='120%'
                 fontSize={isMobile ? '24px' : '36px'}
-                fontFamily='FK Grotesk Neue'
+                fontFamily='DM Sans, san-serif'
                 lineHeight='130%'
                 textAlign='center'
               >
-                {t('home.investors-section.title')}
+                {t('pages.home.investors-section.title')}
               </InvestorHeader>
             </InvestorItem>
 
@@ -620,15 +605,15 @@ export default function Home() {
           <Content className='fluid'>
             <ItemH justifyContent='center'>
               <H2
-                color='#FFFFFF'
+                color='var(--ifm-color-white)'
                 fontWeight='500'
                 letterSpacing='normal'
                 fontSize={isMobile ? '24px' : '36px'}
-                fontFamily='FK Grotesk Neue'
+                fontFamily='DM Sans, san-serif'
                 lineHeight='130%'
                 textAlign='center'
               >
-                {t('home.featured-section.title')}
+                {t('pages.home.featured-section.title')}
               </H2>
             </ItemH>
 
@@ -645,9 +630,9 @@ export default function Home() {
             >
               <ItemV alignItems='flex-start' justifyContent='flex-start'>
                 <H2
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   fontSize={isMobile ? '32px' : '36px'}
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                   textAlign={isMobile && 'center'}
                   margin={isMobile && '0 auto'}
                   fontWeight='500'
@@ -664,7 +649,7 @@ export default function Home() {
                   margin={isMobile ? '24px auto 0 auto' : '24px 0 0 0'}
                   background={GLOBALS.COLORS.HIGHLIGHT}
                   color={GLOBALS.COLORS.FONT_LIGHT}
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                 >
                   <p>Ask us on Discord</p>
                   <BsArrowRight className='anchorSVGlink' />
@@ -675,15 +660,15 @@ export default function Home() {
                 <AccordionGrid>
                   <Accordion
                     items={General}
-                    fontFamily='FK Grotesk Neue'
-                    textColor='#BBBCD0 !important'
+                    fontFamily='DM Sans, san-serif'
+                    textColor='var(--ifm-color-neutral-300) !important'
                   />
                 </AccordionGrid>
 
                 <AccordionGrid>
                   <Accordion
                     items={Notifs.slice(0, 2)}
-                    fontFamily='FK Grotesk Neue'
+                    fontFamily='DM Sans, san-serif'
                     firstOpen={false}
                   />
                 </AccordionGrid>
@@ -717,27 +702,27 @@ export default function Home() {
                 zIndex='888'
               >
                 <H2
-                  color='#FFF'
+                  color='var(--ifm-color-white)'
                   fontSize={isMobile ? '20px' : '32px'}
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                   fontWeight='500'
                   lineHeight='140%'
                   textAlign={isTablet && 'center'}
                   margin={isTablet && '0 auto'}
                 >
-                  {t('home.bg-section.title')}
+                  {t('pages.home.bg-section.title')}
                 </H2>
 
                 <H3
                   color='#a5abb8'
                   fontSize={isMobile ? '14px' : '19px'}
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                   fontWeight='400'
                   lineHeight='192%'
                   textAlign={isTablet && 'center'}
                   margin={isTablet && '0 auto'}
                 >
-                  {t('home.bg-section.subtitle')}
+                  {t('pages.home.bg-section.subtitle')}
                 </H3>
 
                 <FaqLink
@@ -747,9 +732,9 @@ export default function Home() {
                   margin='48px 0 0 0'
                   background={GLOBALS.COLORS.HIGHLIGHT}
                   color={GLOBALS.COLORS.FONT_LIGHT}
-                  fontFamily='FK Grotesk Neue'
+                  fontFamily='DM Sans, san-serif'
                 >
-                  <p>{t('home.bg-section.buttonText')}</p>
+                  <p>{t('pages.home.bg-section.buttonText')}</p>
                 </FaqLink>
               </ItemV>
             </ImageBackgroundDiv>
@@ -765,7 +750,7 @@ const HomeWrapper = styled(ItemV)`
   margin: 0;
   padding: 0;
   overflow-x: hidden !important;
-  font-family: FK Grotesk Neue !important;
+  font-family: DM Sans, san-serif !important;
 
   box-sizing: border-box;
   & #hero .contentBox {
@@ -859,7 +844,7 @@ const HeroBody = styled(ItemV)`
 `;
 
 const HeroCTA = styled(ItemH)`
-  font-family: FK Grotesk Neue !important;
+  font-family: DM Sans, san-serif !important;
   letter-spacing: normal;
   justify-content: flex-start;
 
@@ -957,8 +942,8 @@ const TokenItem = styled.div`
   padding: 24px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-  color: #fff;
-  font-family: 'FK Grotesk Neue';
+  color: var(--ifm-color-white);
+  font-family: 'DM Sans, san-serif';
   font-size: 19px;
   font-weight: 400;
   line-height: 130%;
@@ -1024,7 +1009,7 @@ const InvestorTitle = styled(Span)`
   font-weight: 500;
   font-size: 22px;
   line-height: 142%;
-  color: #09090b;
+  color: var(--ifm-color-neutral-1200);
 `;
 
 const InvestorSubtitle = styled(Span)`
@@ -1032,12 +1017,12 @@ const InvestorSubtitle = styled(Span)`
   font-size: 9px;
   line-height: 160%;
   letter-spacing: 0.11em;
-  color: #303c5e;
+  color: var(--ifm-color-neutral-900);
   text-transform: uppercase;
 `;
 
 const NotificationFeatures = styled(ItemH)`
-  font-family: FK Grotesk Neue;
+  font-family: DM Sans, san-serif;
   gap: 24px;
   flex-wrap: wrap;
   margin-top: 72px;
@@ -1121,10 +1106,10 @@ const OtherFeatureItem = styled(NotificationFeatureItem)``;
 const TagItem = styled.b`
   width: fit-content;
   border-radius: 12px;
-  border: 1px solid #d98aec;
+  border: 1px solid var(--ifm-color-pink-200);
   background: transparent;
   padding: 2px 5px;
-  color: #d98aec;
+  color: var(--ifm-color-pink-200);
   font-size: 9px;
   font-style: normal;
   font-weight: bolder;
@@ -1157,7 +1142,7 @@ const GridItem = styled(ItemH)`
   &:hover {
     cursor: pointer;
     h2 {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
   }
 
@@ -1170,13 +1155,13 @@ const GridItem = styled(ItemH)`
 const SlideLink = styled(A)`
   overflow: inherit;
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 3px;
   }
 
   &:hover {
     .anchorSVGlink {
-      color: #d98aec;
+      color: var(--ifm-color-pink-200);
     }
   }
 `;
@@ -1191,14 +1176,14 @@ const FaqLink = styled(A)`
     margin: 0px !important;
   }
   .anchorSVGlink {
-    color: #fff;
+    color: var(--ifm-color-white);
     top: 0px;
   }
 
   &:hover {
     text-decoration: none !important;
     .anchorSVGlink {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
   }
 `;
@@ -1219,7 +1204,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: var(--ifm-color-white);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

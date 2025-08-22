@@ -1,0 +1,18 @@
+{
+  "pages": {
+    "contact": {
+      "seo": {
+        "title": "Contacto — Ponte en contacto",
+        "description": "Contacta al equipo de Push Chain para asociaciones, integraciones, subvenciones, medios, soporte y divulgaciones de seguridad.",
+        "og-title": "Contacto de Push Chain - Ponte en contacto",
+        "og-description": "Contacta al equipo de Push Chain sobre asociaciones, integraciones, subvenciones, medios, soporte y seguridad.",
+        "twitter-title": "Contacto - Equipo de Push Chain",
+        "twitter-description": "Asociaciones, integraciones, subvenciones, medios, soporte y seguridad — ponte en contacto con Push Chain."
+      },
+      "hero-section": {
+        "title": "Contacta al Equipo de Push Chain",
+        "description": "Asociaciones e integraciones, subvenciones, medios y charlas, validadores, legal, carreras o preguntas generales—comunícate aquí. Para ayuda técnica o divulgaciones de seguridad, visita el Centro de Soporte."
+      }
+    }
+  }
+}

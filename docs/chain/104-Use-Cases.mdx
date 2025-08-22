@@ -1,0 +1,29 @@
+---
+id: docs-chain-use-cases
+title: Use Cases of Push Chain
+hide_title: true
+slug: ./use-cases
+displayed_sidebar: pushChainSidebar
+sidebar_position: 104
+image: "/assets/docs/previews/docs_chain_use_cases--use_cases_of_push_chain.png"
+---
+
+import { useEffect } from 'react';
+import { useHistory } from '@docusaurus/router';
+
+export default function ChainRedirect() {
+  const history = useHistory();
+  
+  useEffect(() => {
+    history.replace('/docs');
+  }, [history]);
+
+  return (
+    <div>
+      <h1>Redirecting...</h1>
+      <p>If you are not redirected automatically, <a href="/docs">click here to go to the main docs</a>.</p>
+    </div>
+  );
+}
+
+<ChainRedirect />

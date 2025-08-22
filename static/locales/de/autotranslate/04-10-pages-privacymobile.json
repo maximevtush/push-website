@@ -1,0 +1,19 @@
+{
+  "pages": {
+    "privacymobile": {
+      "seo": {
+        "title": "Mobile Datenschutzrichtlinie",
+        "description": "Wie wir Daten in Push Chain Mobile Apps sammeln, verwenden und schützen, und Ihre Auswahlmöglichkeiten.",
+        "og-title": "Push Chain Mobile Datenschutzrichtlinie - App-Datenschutz",
+        "og-description": "Datenpraktiken und Ihre Rechte für unsere mobilen Anwendungen.",
+        "twitter-title": "Mobile Datenschutzrichtlinie - Push Chain",
+        "twitter-description": "Ihre Daten und Auswahlmöglichkeiten in Push Mobile Apps."
+      },
+      "hero-section": {
+        "title": "Mobile Datenschutzrichtlinie",
+        "description": "Wie wir Daten in Push Chain Mobile Apps sammeln, verwenden und schützen, und Ihre Auswahlmöglichkeiten.",
+        "update-text": "Letzte Aktualisierung: 2. November 2020"
+      }
+    }
+  }
+}

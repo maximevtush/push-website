@@ -1,0 +1,22 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.pushChainSidebar.category.Build": {
+    "message": "Build",
+    "description": "The label for category Build in sidebar pushChainSidebar"
+  },
+  "sidebar.pushChainSidebar.category.Tutorials": {
+    "message": "Tutorials",
+    "description": "The label for category Tutorials in sidebar pushChainSidebar"
+  },
+  "sidebar.pushChainSidebar.category.Concepts": {
+    "message": "Concepts",
+    "description": "The label for category Concepts in sidebar pushChainSidebar"
+  },
+  "sidebar.pushRewardsSidebar.category.Push Rewards": {
+    "message": "Push Rewards",
+    "description": "The label for category Push Rewards in sidebar pushRewardsSidebar"
+  }
+}

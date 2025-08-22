@@ -677,11 +677,13 @@ const Answer = styled(ItemH)`
   padding: 0 0 24px 0;
 
   & ${Span} {
-    color: #bbbcd0;
-    font-size: 19px;
-    font-family: FK Grotesk Neue;
+    color: var(--ifm-color-neutral-300);
+    font-size: 1.25rem;
+    font-family:
+      DM Sans,
+      sans-serif;
     font-weight: 400;
-    line-height: 140%;
+    line-height: 150%;
 
     @media ${device.mobileL} {
       font-size: 16px;
@@ -711,9 +713,11 @@ const AMod = styled(A)`
 `;
 
 const LIFaq = styled(LI)`
-  color: #bbbcd0;
+  color: var(--ifm-color-neutral-300);
   font-size: 19px;
-  font-family: FK Grotesk Neue;
+  font-family:
+    DM Sans,
+    san-serif;
   font-weight: 400;
   line-height: 140%;
   list-style-type: circle;

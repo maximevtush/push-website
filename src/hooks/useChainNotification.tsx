@@ -2,13 +2,17 @@
 // @ts-nocheck
 
 // React and other libraries
-import React, { useEffect, useState, FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { toast, Toaster } from 'sonner';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BiX } from 'react-icons/bi';
+import { toast, Toaster } from 'sonner';
+import styled from 'styled-components';
 
 // Internal Components
 import { Button, Image } from '../../src/css/SharedStyling';
+
+// Internal Configs
+import { device } from '@site/src/config/globals';
 
 type NotificationProps = {
   image?: ReactNode;
@@ -26,17 +30,22 @@ type NotificationProps = {
   position?: 'bottom-right' | 'bottom-left' | 'top-center';
   /* Optional duration of the notification component */
   duration?: number;
+  /* Translation function */
+  t?: (key: string) => string;
 };
 
 // Custom Hook
 export const useChainNotification = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { t } = useTranslation();
 
   const showNotification = () => {
     const toastId = toast.custom(
       () => (
         <NotificationItem
-          description='Explore, Deploy, Test & Win up to $500 in prizes!'
+          title={t('notifications.chain-notification.title')}
+          description={t('notifications.chain-notification.description')}
+          position='bottom-left'
           onClick={() => {
             localStorage.setItem('testnetNotificationShown', 'true');
             window.open('https://t.me/+dHOCilvxNR9jZjM9', '_blank');
@@ -46,6 +55,7 @@ export const useChainNotification = () => {
             localStorage.setItem('testnetNotificationShown', 'true');
             toast.dismiss(toastId);
           }}
+          t={t}
         />
       ),
       {
@@ -82,6 +92,7 @@ const NotificationItem: FC<NotificationProps> = ({
   description,
   onClick,
   onClose,
+  t,
 }) => {
   const handleNotificationClick = () => onClick?.();
   const handleNotificationClose = () => {
@@ -90,16 +101,26 @@ const NotificationItem: FC<NotificationProps> = ({
   };
 
   return (
-    <NotificationContainer onClick={handleNotificationClick}>
+    <NotificationContainer
+      onClick={handleNotificationClick}
+      role='alert'
+      aria-label={t?.('notifications.chain-notification.container-aria-label')}
+      aria-describedby='chain-notification-content'
+      aria-live='assertive'
+    >
       <CloseButton
         onClick={(e) => {
           e.stopPropagation();
           handleNotificationClose();
         }}
+        title={t?.('notifications.chain-notification.close-button-title')}
+        aria-label={t?.(
+          'notifications.chain-notification.close-button-aria-label'
+        )}
       >
-        <BiX size={20} color='#FFF' />
+        <BiX size={20} color='var(--ifm-color-white)' />
       </CloseButton>
-      <TextContainer>
+      <TextContainer id='chain-notification-content'>
         <PushLogoBlackContainer>
           <Image
             src={
@@ -107,8 +128,8 @@ const NotificationItem: FC<NotificationProps> = ({
                 `@site/static/assets/website/notifications/testnet-donut-img.png`
               ).default
             }
-            srcSet={`${require(`@site/static/assets/website/notifications/testnet-donut-img@2x.png`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-donut-img@3x.png`).default} 3x`}
-            alt='Push Testnet'
+            srcSet={`${require(`@site/static/assets/website/notifications/testnet-donut@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-donut@3x.webp`).default} 3x`}
+            alt={t?.('notifications.chain-notification.image-alt')}
             loading='lazy'
           />
         </PushLogoBlackContainer>
@@ -119,12 +140,14 @@ const NotificationItem: FC<NotificationProps> = ({
         <Button
           background='transparent'
           margin='0 auto'
-          border='1.5px solid #fff'
-          hoverBorder='1.5px solid #fff'
-          fontFamily='DM Sans !important'
+          border='1.5px solid var(--ifm-color-white)'
+          hoverBorder='1.5px solid var(--ifm-color-white)'
+          fontFamily='N27'
           width='100%'
+          title={t?.('notifications.chain-notification.button-title')}
+          aria-label={t?.('notifications.chain-notification.button-aria-label')}
         >
-          Enter Donut Contest
+          {t?.('notifications.chain-notification.button-text')}
         </Button>
       </TextContainer>
     </NotificationContainer>
@@ -134,7 +157,7 @@ const NotificationItem: FC<NotificationProps> = ({
 // Notification Container
 const NotificationContainer = styled.div`
   position: relative;
-  background-color: #f6f;
+  background-color: var(--ifm-color-blue);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -146,8 +169,8 @@ const NotificationContainer = styled.div`
   font-family: DM Sans !important;
   overflow: hidden;
 
-  @media (max-width: 425px) {
-    width: -webkit-fill-available;
+  @media ${device.tablet} {
+    display: none;
   }
 
   img {
@@ -160,7 +183,7 @@ const NotificationContainer = styled.div`
 const StyledToaster = styled(Toaster)`
   width: 397px;
 
-  @media (max-width: 425px) {
+  @media ${device.mobileL} {
     width: -webkit-fill-available;
   }
 `;
@@ -177,7 +200,7 @@ const TextContainer = styled.div`
 `;
 
 const NotificationTitle = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: DM Sans !important;
   font-size: 36px;
@@ -189,7 +212,7 @@ const NotificationTitle = styled.span`
 `;
 
 const NotificationDescription = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
   font-family: DM Sans !important;
   font-size: 16px;
@@ -203,7 +226,7 @@ const NotificationDescription = styled.span`
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #fff;
+  color: var(--ifm-color-white);
   padding: 0px;
   position: absolute;
   right: 8px;

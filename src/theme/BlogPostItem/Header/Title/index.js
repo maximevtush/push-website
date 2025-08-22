@@ -43,7 +43,7 @@ const LinkText = styled.h1`
   line-height: 36px;
 
   &:hover {
-    color: #dd44b9 !important;
+    color: var(--ifm-color-primary) !important;
   }
 `;
 

@@ -1,58 +1,45 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+/* eslint-disable */
+
 // React + Web3 Essentials
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import React from 'react';
-import styled from 'styled-components';
 
-// Internal Config
-import { PageMeta } from '@site/src/config/pageMeta';
-import ChainBottomComponent from '../components/Chain/ChainBottomComponent';
-import { ChainFeaturesSection } from '../components/Chain/ChainFeaturesSection';
-import ChainHeroSection from '../components/Chain/ChainHeroSection';
-import ChainMarqueeSection from '../components/Chain/ChainMarqueeSection';
-import ChainRoadmapSection from '../components/Chain/ChainRoadmapSection';
-import ChainUseCase from '../components/Chain/ChainUseCase';
-import {
-  ChainMarqueeList,
-  ChainMarqueeSecondList,
-} from '../components/Chain/config/ChainMarqueeList';
-import { device } from '../config/globals';
+// External Components
+import { useTranslation } from 'react-i18next';
 
-// Internal Component
-import { ItemV } from '../../src/css/SharedStyling';
+// Internal Components
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import HomeComp from '@site/src/pages-composition/homeComp';
 
-// Import assets
-import StarIcon from '@site/static/assets/website/chain/StarIcon.svg';
-import UnionIcon from '@site/static/assets/website/chain/Union.svg';
-import BellIcon from '@site/static/assets/website/chain/bellicon.svg';
-import DCAIcon from '@site/static/assets/website/chain/dcaicon.svg';
-import EmailIcon from '@site/static/assets/website/chain/email.svg';
-import NoteIcon from '@site/static/assets/website/chain/note.svg';
-import SmileIcon from '@site/static/assets/website/chain/smile.svg';
-import SpadeIcon from '@site/static/assets/website/chain/spades.svg';
-import TechnologyIcon from '@site/static/assets/website/chain/technology.svg';
+// Create the HomePage component
+function HomePage() {
+  // Internationalization
+  const { t } = useTranslation();
 
-function PushHomepage() {
   return (
     <Layout
-      title={PageMeta.CHAIN.pageTitle}
-      description={PageMeta.CHAIN.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.home.seo.title')}
+      description={t('pages.home.seo.description')}
+      showNavbar='website'
     >
       <Head>
-        {/* <!-- Update Facebook Meta Tags --> */}
-        <meta property='og:url' content='https://push.org' />
+        {/* <!-- HTML Meta Tags --> */}
+        <title>{t('pages.home.seo.title')}</title>
+        <meta name='description' content={t('pages.home.seo.description')} />
+        <meta name='keywords' content={t('pages.home.seo.keywords')} />
+        <meta name='robots' content='index, follow' />
+        <meta name='googlebot' content='index, follow' />
+
+        {/* <!-- Facebook Meta Tags --> */}
+        <meta property='og:url' content='https://push.org/' />
         <meta property='og:type' content='website' />
+        <meta property='og:title' content={t('pages.home.seo.og-title')} />
         <meta
-          property='og:title'
-          content='Home | Push Chain: True Universal Blockchain'
-        />
-        <meta
-          name='og:description'
-          content='Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying L1s & L2s and enabling apps from any chain to be accessed by the users of any chain.'
+          property='og:description'
+          content={t('pages.home.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -65,13 +52,14 @@ function PushHomepage() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Home | Push Chain: True Universal Blockchain'
+          content={t('pages.home.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying L1s & L2s and enabling apps from any chain to be accessed by the users of any chain.'
+          content={t('pages.home.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -80,102 +68,15 @@ function PushHomepage() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any Wallet. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-chain',
-            ],
-          })}
-        </script>
       </Head>
 
-      <div style={{ background: '#e8eff8' }}>
-        <ChainWrapper>
-          <MainContent>
-            <ChainHeroSection />
-          </MainContent>
+      {/* FAQ Schema Markup with default FAQs */}
+      <SchemaMarkup type='FAQPage' />
 
-          {/* marquee section */}
-          <ChainMarqueeSection
-            chainMarqueeList={ChainMarqueeList}
-            backgroundColor='#F19AFF'
-            rotateDegree={-5}
-            icons={[StarIcon, UnionIcon]}
-          />
-
-          <ChainFeaturesSection />
-
-          <MainContent>
-            <ChainUseCase />
-          </MainContent>
-
-          {/* second marquee section */}
-          <ChainMarqueeSection
-            chainMarqueeList={ChainMarqueeSecondList}
-            backgroundColor='#3EF09D'
-            rotateDegree={5}
-            icons={[
-              SpadeIcon,
-              SmileIcon,
-              EmailIcon,
-              NoteIcon,
-              BellIcon,
-              DCAIcon,
-              TechnologyIcon,
-            ]}
-          />
-
-          <MainContent>
-            <ChainRoadmapSection />
-
-            <ChainBottomComponent showFaq={true} />
-          </MainContent>
-        </ChainWrapper>
-      </div>
+      {/* Render Home Content */}
+      <HomeComp />
     </Layout>
   );
 }
 
-export default PushHomepage;
-
-const ChainWrapper = styled(ItemV)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #e8eff8;
-  font-family: N27, sans-serif;
-`;
-
-const MainContent = styled(ItemV)`
-  margin: 0 auto;
-
-  @media ${device.desktopL} {
-    width: 1400px;
-  }
-
-  @media ${device.desktop} {
-    width: 1200px;
-  }
-
-  @media (max-width: 1248px) {
-    width: 100%;
-    padding: 0 24px;
-  }
-
-  @media ${device.tablet} {
-    padding: 0 24px;
-  }
-  @media ${device.mobileL} {
-    padding: 0 16px;
-  }
-`;
+export default HomePage;

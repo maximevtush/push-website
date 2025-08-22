@@ -76,7 +76,11 @@ const FeaturedList = () => {
         {MediaList.map((item) => {
           return (
             <FeaturedCard id={item.srcref} key={item.srcref}>
-              <FeaturedCardTitle>{t(item.translatedtitle)}</FeaturedCardTitle>
+              <FeaturedCardTitle>
+                {t(
+                  `pages.home.featured-section.articles.${item.translationKey}.text`
+                )}
+              </FeaturedCardTitle>
               <ArticleSource>
                 <Image
                   width={item.title ? '64px' : 'auto'}
@@ -87,24 +91,27 @@ const FeaturedList = () => {
                     ).default
                   }
                   srcSet={`${require(`@site/static/assets/website/coverage/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/coverage/${item.srcref}@3x.webp`).default} 3x`}
-                  alt={`${item?.alt}`}
+                  alt={`${t('pages.home.featured-section.articles-image-alt')}${item.outlet}`}
                   loading='lazy'
+                  title={`${item.outlet} logo`}
                 />
                 <A
                   href={item.url}
-                  title={t(item.urltranslatedtitle)}
+                  title={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
                   display='flex'
                   alignItems='center'
                   target='_blank'
+                  rel='noopener'
                   background='transparent'
                   hoverBackground='transparent'
                   hover='transparent'
                   filter='none'
                   borderRadius='16px'
                   padding='0'
+                  aria-label={`${t('pages.home.featured-section.articles-title-1')}${item.outlet}${t('pages.home.featured-section.articles-title-2')}`}
                 >
                   <SpanLink className='text-underline'>
-                    {t(item.urltranslatedtitle)}
+                    {t('pages.home.featured-section.articles-text')}
                   </SpanLink>
                   <FiArrowUpRight className='anchorSVG' />
                 </A>
@@ -131,7 +138,7 @@ const FeaturedCard = styled(ItemV)`
   flex-direction: column;
   justify-content: space-between;
   border-radius: 32px;
-  border: 2px solid #fff;
+  border: 2px solid var(--ifm-color-white);
   margin: 0 12px;
   overflow: hidden !important;
 
@@ -140,7 +147,7 @@ const FeaturedCard = styled(ItemV)`
   }
   &:hover {
     // background: linear-gradient(251.72deg, rgb(221, 68, 185) 14.29%, rgb(139, 111, 217) 86.35%);
-    background: #d548ec;
+    background: var(--ifm-color-custom-pink);
 
     .text-underline {
       text-decoration: text-underline;
@@ -218,7 +225,7 @@ const SpanLink = styled(Span)`
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--ifm-color-white);
   font-family: N27;
   line-height: 142%;
 
@@ -230,7 +237,7 @@ const SpanLink = styled(Span)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: var(--ifm-color-white);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

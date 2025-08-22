@@ -6,8 +6,12 @@ import React, { useState } from 'react';
 // React + Web3 Essentials + External Components
 import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
-import styled, { keyframes } from 'styled-components';
+import { useLocation } from '@docusaurus/router';
+import { useColorMode } from '@docusaurus/theme-common';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useTranslation } from 'react-i18next';
 import { BsArrowRight, BsArrowUpRight } from 'react-icons/bs';
+import styled, { keyframes } from 'styled-components';
 import { Button } from '../../css/SharedStyling';
 
 // Internal Components
@@ -22,9 +26,9 @@ import {
   Section,
   Span,
 } from '@site/src/css/SharedStyling';
-import Footer from '../../segments/Footer';
 import CodeBlock from '@theme/CodeBlock';
 import Layout from '@theme/Layout';
+import Footer from '../../segments/Footer';
 
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -34,7 +38,8 @@ import {
   TutorialDocumentationItems,
 } from '@site/src/config/DocsHubList';
 import GLOBALS, { device } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
 import { Grid } from './Grid';
 import './styles.css';
@@ -54,21 +59,32 @@ export const TechnicalGrid = ({ item }) => {
   );
 };
 
-export default function HomepageFeatures(): JSX.Element {
+export default function DocsHub(): JSX.Element {
+  // Internationalization
+  const { t } = useTranslation();
+  const isMobile = useMediaQuery(device.mobileL);
+
+  const { colorMode, setColorMode } = useColorMode();
+
+  // Fallback data in case imports fail
+  const fallbackQuickstartItems = QuickstartItems || [];
+  const fallbackToolingItems = ToolingItems || [];
+  const fallbackTutorialItems = TutorialDocumentationItems || [];
+
   return (
     <Layout
-      title={PageMeta.DOCS.pageTitle}
-      description={PageMeta.DOCS.pageDescription}
+      title={t('pages.docs.seo.title')}
+      description={t('pages.docs.seo.description')}
       showNavbar={false}
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/docs' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push | Documentation Hub' />
+        <meta property='og:title' content={t('pages.docs.seo.og-title')} />
         <meta
           property='og:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -81,10 +97,14 @@ export default function HomepageFeatures(): JSX.Element {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push | Documentation Hub' />
+        <meta name='twitter:creator' content='@PushChain' />
+        <meta
+          name='twitter:title'
+          content={t('pages.docs.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -93,21 +113,6 @@ export default function HomepageFeatures(): JSX.Element {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'The Communication Protocol of Web3',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
       {/* DOCS HERO SECTION */}
@@ -195,7 +200,7 @@ export default function HomepageFeatures(): JSX.Element {
           </HomepageSubHeader>
 
           <PopularQuickiesList>
-            {QuickstartItems.map((item, idx) => {
+            {fallbackQuickstartItems.map((item, idx) => {
               return (
                 <PopularQuickiesCard key={idx}>
                   <PopularQuickiesHeader>
@@ -239,7 +244,7 @@ export default function HomepageFeatures(): JSX.Element {
           </HomepageSubHeader>
 
           <GridSection>
-            {ToolingItems.map((item, idx) => (
+            {fallbackToolingItems.map((item, idx) => (
               <TechnicalGrid key={idx} item={item} />
             ))}
           </GridSection>
@@ -268,7 +273,7 @@ export default function HomepageFeatures(): JSX.Element {
           </HomepageSubHeader>
 
           <GridSection>
-            {TutorialDocumentationItems.map((item, idx) => (
+            {fallbackTutorialItems.map((item, idx) => (
               <TechnicalGrid key={idx} item={item} />
             ))}
           </GridSection>

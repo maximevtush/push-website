@@ -6,10 +6,10 @@
  */
 
 // React + Web3 Essentials
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
 
 import { ErrorCauseBoundary, useThemeConfig } from '@docusaurus/theme-common';
 import {
@@ -22,10 +22,6 @@ import CaretSVG from '../../../../static/assets/website/header/caretdown.svg';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
-import NavbarLogo from '@theme/Navbar/Logo';
-import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
-import NavbarSearch from '@theme/Navbar/Search';
 import {
   H2,
   H3,
@@ -34,6 +30,10 @@ import {
   LinkTo,
   Span,
 } from '@site/src/css/SharedStyling';
+import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
+import NavbarLogo from '@theme/Navbar/Logo';
+import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
+import NavbarSearch from '@theme/Navbar/Search';
 import NavbarItem from '@theme/NavbarItem';
 import SearchBar from '@theme/SearchBar';
 import { HeaderList } from '../../../config/HeaderList';
@@ -176,8 +176,9 @@ export default function NavbarContent() {
           padding='0px'
         >
           <H2
-            fontSize='1rem'
-            color='var(--ifm-header-dropdown-title-color)'
+            fontSize='16px'
+            fontFamily='DM Sans, san-serif'
+            color='var(--ifm-color-primary-text)'
             lineHeight='130%'
             letterSpacing='normal'
             fontWeight='500'
@@ -186,7 +187,8 @@ export default function NavbarContent() {
           </H2>
 
           <H3
-            fontSize='0.875rem'
+            fontSize='14px'
+            fontFamily='DM Sans, san-serif'
             color='var(--ifm-navbar-dropdown-subtext)'
             lineHeight='130%'
             letterSpacing='normal'
@@ -206,7 +208,7 @@ export default function NavbarContent() {
       if (id !== activeId) {
         const element = document.getElementById(id);
         if (element) {
-          element.style.color = '#6C6C6C';
+          element.style.color = 'var(--ifm-color-neutral-700)';
           element.style.transitionDuration = '1s';
         }
       }
@@ -217,7 +219,7 @@ export default function NavbarContent() {
     textIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
-        element.style.color = '#fff';
+        element.style.color = 'var(--ifm-color-white)';
         element.style.transitionDuration = '1s';
       }
     });
@@ -268,9 +270,10 @@ export default function NavbarContent() {
                 className='menuContent'
                 expanded={mobileMenuMap[0]}
               >
-                {HeaderList.docshub.map((item, index) => (
-                  <HeaderSpace item={item} index={index} />
-                ))}
+                {HeaderList.developers &&
+                  HeaderList.developers.map((item, index) => (
+                    <HeaderSpace item={item} index={index} />
+                  ))}
               </NavigationMenuContent>
             </NavigationMenuItem>
           )}
@@ -303,21 +306,24 @@ const NavigationMenuItem = styled.div`
   }
 
   & span {
+    font-family: 'DM Sans, san-serif';
+
     padding: 4px;
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
     letter-spacing: normal;
+    // color: var(--ifm-color-neutral-700);
   }
 
   &:hover {
     & span {
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .menuContent {
@@ -442,7 +448,7 @@ const HeaderItem = styled.li`
     border-radius: 16px;
 
     h2 {
-      color: #c742dd;
+      color: var(--ifm-color-pink-200);
       font-weight: 600;
     }
     & ${Image} {

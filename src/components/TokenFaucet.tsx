@@ -90,7 +90,7 @@ export const TokenFaucet = ({
         <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
           <ButtonItem
             borderRadius='12px'
-            background={isFollowed ? '#FFF' : '#25AAF5'}
+            background={isFollowed ? 'var(--ifm-color-white)' : '#25AAF5'}
             border='1px solid #25AAF5'
             padding='6.5px 8.5px'
             onClick={() => openLink('https://x.com/PushChain')}
@@ -100,7 +100,7 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isFollowed ? '#25AAF5' : '#FFF'}
+              color={isFollowed ? '#25AAF5' : 'var(--ifm-color-white)'}
             >
               {isFollowed ? 'Following' : 'Follow @PushChain'}
             </Span>
@@ -110,7 +110,7 @@ export const TokenFaucet = ({
           </ButtonItem>
           <ButtonItem
             borderRadius='12px'
-            background={isPosted ? '#FFF' : '#25AAF5'}
+            background={isPosted ? 'var(--ifm-color-white)' : '#25AAF5'}
             border='1px solid #25AAF5'
             padding='6.5px 8.5px'
             onClick={() =>
@@ -124,7 +124,7 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isPosted ? '#25AAF5' : '#FFF'}
+              color={isPosted ? '#25AAF5' : 'var(--ifm-color-white)'}
             >
               {isPosted ? 'Posted' : 'Post about BRB'}
             </Span>
@@ -141,7 +141,7 @@ export const TokenFaucet = ({
         </Label>
         <ButtonItem
           borderRadius='12px'
-          background={isJoined ? '#FFF' : '#3C63C6'}
+          background={isJoined ? 'var(--ifm-color-white)' : '#3C63C6'}
           border='1px solid #3C63C6'
           padding='6.5px 8.5px'
           onClick={() => openLink('https://discord.gg/cTRqvYzXpW')}
@@ -151,7 +151,7 @@ export const TokenFaucet = ({
           <Span
             fontSize='16px'
             fontWeight='400'
-            color={isJoined ? '#3C63C6' : '#FFF'}
+            color={isJoined ? '#3C63C6' : 'var(--ifm-color-white)'}
           >
             {isJoined ? 'Joined' : 'Join Discord and Share link'}
           </Span>
@@ -167,7 +167,7 @@ export const TokenFaucet = ({
       </InputContainer>
       {/* <ButtonItem
         borderRadius="16px"
-        background="#E64DE9"
+        background="var(--ifm-color-pink-secondary)"
         border="1px solid #FC6DFF"
         padding="16px 32px"
         style={{ width: '100%', fontSize: '18px', marginTop: '4px' }}
@@ -198,7 +198,7 @@ const Container = styled(ItemV)`
   height: fit-content;
   justify-content: flex-start;
   border-radius: 32px;
-  background: #2a2a39;
+  background: var(--ifm-color-gray-200);
   padding: 20px;
   z-index: 10;
   margin-top: 115px;
@@ -239,7 +239,7 @@ const Label = styled.label`
   font-size: 14px;
   font-weight: 600;
   text-align: left;
-  color: #fff;
+  color: var(--ifm-color-white);
   // padding: 5px;
   margin-bottom: 8px;
 `;

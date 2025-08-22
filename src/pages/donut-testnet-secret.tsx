@@ -1,16 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+// React + Web3 Essentials
 import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-import PushLogo from '@site/static/assets/website/brb/pushIcon.svg';
 import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
 
+// Internal Component
 import { ItemV } from '../../src/css/SharedStyling';
 
-function TOS() {
+// External Components
+import { useTranslation } from 'react-i18next';
+
+function donutTestnetSecretPage() {
+  // Internationalization
+  const { t } = useTranslation();
+
   // Redirect to Home Page
   useEffect(() => {
     window.location.href = 'https://t.me/+dHOCilvxNR9jZjM9';
@@ -19,13 +26,23 @@ function TOS() {
   return (
     <Container>
       <Head>
+        {/* Title and Description */}
+        <title>t({'pages.donutsecret.seo.title'})</title>
+        <meta
+          name='description'
+          content={t('pages.donutsecret.seo.description')}
+        />
+
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Donut Early Pass is here' />
         <meta
-          name='og:description'
-          content='Donut is the closed beta for devs who don’t sleep.…mmm Donuts! 🍩 🎟️ Be one of the first to grab it and get access to Push Chain Testnet'
+          property='og:title'
+          content={t('pages.donutsecret.seo.og-title')}
+        />
+        <meta
+          property='og:description'
+          content={t('pages.donutsecret.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -39,11 +56,16 @@ function TOS() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Donut Early Pass is here' />
+        <meta name='twitter:creator' content='@PushChain' />
+        <meta
+          name='twitter:title'
+          content={t('pages.donutsecret.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Donut is the closed beta for devs who don’t sleep.…mmm Donuts! 🍩 🎟️ Be one of the first to grab it and get access to Push Chain Testnet'
+          content={t('pages.donutsecret.seo.twitter-description')}
         />
+
         <meta
           name='twitter:image'
           content={useBaseUrl(
@@ -52,25 +74,9 @@ function TOS() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any Wallet. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-chain',
-            ],
-          })}
-        </script>
       </Head>
 
       <PushLogoBlackContainer className='headerlogo' flex='initial'>
-        <PushLogo style={{ margin: '0px 9px 0px 4px' }} />
         <ChainLogoDark />
       </PushLogoBlackContainer>
       <Message>Redirecting...</Message>
@@ -78,7 +84,7 @@ function TOS() {
   );
 }
 
-export default TOS;
+export default donutTestnetSecretPage;
 
 const Container = styled.div`
   display: flex;
@@ -95,7 +101,7 @@ const PushLogoBlackContainer = styled(ItemV)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 
 const Message = styled.p`

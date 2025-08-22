@@ -9,10 +9,14 @@
 /* https://cssnano.co/playground/ */
 
 :root {
+  /*For Docs/Blogs*/
   --ifm-background-color: #fff;
-  --ifm-color-primary: #c742dd;
-  --ifm-color-primary-unified-text: #fff;
-  --ifm-color-primary-text: #313338;
+  --ifm-color-primary: #dd44b9;
+  --ifm-color-primary-unified: #dd44b9;
+  --ifm-color-primary-unified-inverse: #ffffff;
+  --ifm-color-primary-unified-text: #ffffff;
+  --ifm-color-primary-unified-text-inverse: #000;
+  --ifm-color-primary-text: #000;
   --ifm-color-title-text-color: #17181b;
   --ifm-color-secondary-text: #575d73;
   --ifm-color-primary-inverse: #fff;
@@ -23,6 +27,7 @@
   --ifm-color-primary-lighter: #c924a2;
   --ifm-color-primary-lightest: #d026a8;
   --ifm-color-primary-preferred: #d53a94;
+  --ifm-link-color: #d548ec;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-font-family-base: 'DM Sans', sans-serif;
@@ -107,14 +112,75 @@
   --ifm-surface-alert-danger-subtle: #ffecec;
   --ifm-stroke-alert-danger-subtle: #f11f1f;
   --ifm-border-alert-danger-subtle: #ff4e4e;
+
+  /* Base Colors */
+  --ifm-color-white: #ffffff;
+  --ifm-color-black: #000000;
+
+  /* Primary Colors */
+  --ifm-color-custom-pink: #d548ec;
+  --ifm-color-pink-secondary: #e64de9;
+
+  --ifm-color-pink-50: #f2c2fe;
+  --ifm-color-pink-100: #cca4f0;
+  --ifm-color-pink-200: #d98aec;
+  --ifm-color-pink-300: #cb3faa;
+  --ifm-color-pink-400: #e163ff;
+  --ifm-color-pink-500: #e1087f;
+
+  /* Neutral Colors */
+  --ifm-color-neutral-100: #f1f1f1;
+  --ifm-color-neutral-200: #e8eff8;
+  --ifm-color-neutral-300: #bbbcd0;
+  --ifm-color-neutral-400: #a3a7ac;
+  --ifm-color-neutral-500: #8c93a0;
+  --ifm-color-neutral-600: #787e99;
+  --ifm-color-neutral-700: #6c6c6c;
+  --ifm-color-neutral-800: #494e54;
+  --ifm-color-neutral-900: #303c5e;
+  --ifm-color-neutral-950: #17181b;
+  --ifm-color-neutral-1000: #121315;
+
+  --ifm-color-neutral-1100: #101010;
+  --ifm-color-neutral-1200: #09090b;
+
+  /* Grey Theme Colors */
+  --ifm-color-gray-200: #2a2a39;
+  --ifm-color-gray-300: #424258;
+  --ifm-color-gray-400: #3a3a4a;
+  --ifm-color-gray-500: #2f3137;
+  --ifm-color-gray-600: #282a2e;
+  --ifm-color-gray-700: #202124;
+  --ifm-color-gray-800: #2d2d2d;
+  --ifm-color-gray-900: #1a1a1a;
+
+  /* Chat Theme Colors */
+  --ifm-color-chat-sent: #af3fb1;
+  --ifm-color-chat-received: #424258;
+  --ifm-color-chat-timestamp: #87879a;
+  --ifm-color-chat-text: #b6bcd6;
+  --ifm-color-chat-border: #4a4f67;
+  --ifm-color-chat-bg: #404650;
+
+  /* Status Colors */
+  --ifm-color-success: #30cc8b;
+  --ifm-color-error: #ff2070;
+  --ifm-color-warning: #f5f1ff;
+
+  /* Special Colors */
+  --ifm-color-blue: #1b43c8;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
+  /*For Docs/Blogs*/
   --ifm-background-color: #202124;
-  --ifm-color-primary: #cf59e2;
+  --ifm-color-primary: #dd44b9;
+  --ifm-color-primary-unified: #dd44b9;
+  --ifm-color-primary-unified-inverse: #ffffff;
   --ifm-color-primary-unified-text: #fff;
-  --ifm-color-primary-text: #c4cbd5;
+  --ifm-color-primary-unified-inverse: #000;
+  --ifm-color-primary-text: #fff;
   --ifm-color-title-text-color: #f5f6f8;
   --ifm-color-secondary-text: #8f99bd;
   --ifm-color-primary-inverse: #000;
@@ -126,6 +192,8 @@
   --ifm-color-primary-lightest: #ea8dd4;
   --ifm-color-primary-preferred: #d53a94;
   --ifm-navbar-link-color: #fff;
+  --ifm-link-color: #d548ec;
+  --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --ifm-custom-base: rgba(255, 255, 255, 0.75);
   --ifm-navbar-sidebar-width: 90vw;
@@ -144,9 +212,9 @@
   --ifm-color-moved-to: #575d73;
   --ifm-color-new-indicator: #ff8282;
   --ifm-color-update-indicator: #575d73;
-  --ifm-navbar-bg: transparent;
+  --ifm-navbar-bg: #202124;
   --ifm-docs-navbar-border: 1px solid #313338;
-  --ifm-navbar-search-bg: #17181b;
+  --ifm-navbar-search-bg: rgba(255, 255, 255, 0.1);
   --ifm-navbar-docs-bg: #484d58;
   --ifm-search-text-color: #bbbcd0;
   --ifm-navbar-text-color: #6c6c6c;
@@ -202,6 +270,63 @@
   --ifm-surface-alert-danger-subtle: #670000;
   --ifm-stroke-alert-danger-subtle: #ff4e4e;
   --ifm-border-alert-danger-subtle: #ffb1b1;
+
+  /* Base Colors */
+  --ifm-color-white: #ffffff;
+  --ifm-color-black: #000000;
+
+  /* Primary Colors */
+  --ifm-color-custom-pink: #d548ec;
+  --ifm-color-pink-secondary: #e64de9;
+
+  --ifm-color-pink-50: #f2c2fe;
+  --ifm-color-pink-100: #cca4f0;
+  --ifm-color-pink-200: #d98aec;
+  --ifm-color-pink-300: #cb3faa;
+  --ifm-color-pink-400: #e163ff;
+  --ifm-color-pink-500: #e1087f;
+
+  /* Neutral Colors */
+  --ifm-color-neutral-100: #f1f1f1;
+  --ifm-color-neutral-200: #e8eff8;
+  --ifm-color-neutral-300: #bbbcd0;
+  --ifm-color-neutral-400: #a3a7ac;
+  --ifm-color-neutral-500: #8c93a0;
+  --ifm-color-neutral-600: #787e99;
+  --ifm-color-neutral-700: #6c6c6c;
+  --ifm-color-neutral-800: #494e54;
+  --ifm-color-neutral-900: #303c5e;
+  --ifm-color-neutral-950: #17181b;
+  --ifm-color-neutral-1000: #121315;
+
+  --ifm-color-neutral-1100: #101010;
+  --ifm-color-neutral-1200: #09090b;
+
+  /* Grey Theme Colors */
+  --ifm-color-gray-200: #2a2a39;
+  --ifm-color-gray-300: #424258;
+  --ifm-color-gray-400: #3a3a4a;
+  --ifm-color-gray-500: #2f3137;
+  --ifm-color-gray-600: #282a2e;
+  --ifm-color-gray-700: #202124;
+  --ifm-color-gray-800: #2d2d2d;
+  --ifm-color-gray-900: #1a1a1a;
+
+  /* Chat Theme Colors */
+  --ifm-color-chat-sent: #af3fb1;
+  --ifm-color-chat-received: #424258;
+  --ifm-color-chat-timestamp: #87879a;
+  --ifm-color-chat-text: #b6bcd6;
+  --ifm-color-chat-border: #4a4f67;
+  --ifm-color-chat-bg: #404650;
+
+  /* Status Colors */
+  --ifm-color-success: #30cc8b;
+  --ifm-color-error: #ff2070;
+  --ifm-color-warning: #f5f1ff;
+
+  /* Special Colors */
+  --ifm-color-blue: #1b43c8;
 }
 
 /* update docs/blogs dark mode color */
@@ -684,7 +809,9 @@ a:hover {
 .navbar--fixed-top {
   background-color: transparent;
   margin: 26px auto 0 auto !important;
-  width: 86%;
+  width: calc(100% - 54px);
+  max-width: 1378px;
+  /*width: 86%;*/
   height: 92px;
   border: 0px;
   box-shadow: none;
@@ -747,6 +874,12 @@ a:hover {
 }
 
 @media (max-width: 1024px) {
+  .navbar--fixed-top {
+    width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 400px) {
   .navbar--fixed-top {
     width: 100%;
   }
@@ -886,7 +1019,7 @@ article ol > li {
 }
 
 article ul > li::marker {
-  color: #dd44b9;
+  color: var(--ifm-color-primary);
 }
 
 article ol > li::marker {
@@ -1170,7 +1303,7 @@ table {
   width: 136px;
   height: 54px;
   font-size: 18px;
-  background-color: #dd44b9;
+  background-color: var(--ifm-color-primary);
   border-radius: 16px;
   border: none;
   color: white;
@@ -1199,7 +1332,7 @@ table {
 }
 
 .footer-description {
-  color: #dd44b9;
+  color: var(--ifm-color-primary);
   font-size: 18px;
   font-weight: 500;
 }
@@ -1532,6 +1665,53 @@ ul.tabs.liveplaytab li {
     box-shadow: none !important;
     background: #d1d5db !important;
     color: #4b5563 !important;
+  }
+
+  .menu__list-item > .menu__link--active {
+    color: white !important;
+    background: var(--ifm-color-primary) !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    line-height: 142% !important;
+  }
+
+  .menu__link {
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 142% !important;
+    letter-spacing: -0.03em !important;
+    padding: 10px 15px !important;
+    margin: 0px 10px 0px 0px;
+  }
+
+  .menu__list_item {
+    font-weight: 300 !important;
+    font-size: 15px !important;
+    line-height: 142% !important;
+    letter-spacing: -0.03em !important;
+    padding: 10px 15px !important;
+  }
+
+  .menu__list_item .menu__link {
+    border-left: 1px solid red !important;
+  }
+
+  .menu__list-item > .menu__list--sublist {
+    font-weight: 300 !important;
+    font-size: 16px !important;
+    line-height: 142% !important;
+    letter-spacing: -0.03em !important;
+    padding: 10px 15px !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .menu__list-item-collapsible,
+  .menu__list-item-collapsible--active {
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 142% !important;
+    letter-spacing: -0.03em !important;
+    background: transparent !important;
   }
 }
 

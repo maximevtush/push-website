@@ -1,14 +1,29 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-// const lightCodeTheme = require('prism-react-renderer').themes.dracula;
 const { lightCodeTheme, darkCodeTheme } = require('./src/theme/codeTheme');
+const fs = require('fs');
+const path = require('path');
+
+// Determine blog directory based on mode
+const getBlogPath = () => {
+  const blogMode = process.env.BLOG_MODE || 'full';
+  const blogLitePath = path.join(__dirname, 'blog-lite');
+
+  if (blogMode === 'lite' && fs.existsSync(blogLitePath)) {
+    console.log('🚀 Using blog-lite directory for faster development');
+    return './blog-lite';
+  }
+
+  console.log('📚 Using full blog directory');
+  return './blog';
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Push Chain: True Universal L1 Blockchain',
+  title: 'Push Chain — Universal L1 for Apps',
   tagline:
-    'Push Chain is a shared state L1 blockchain for Universal Apps. Capable of doing transactions from any chain, unifying all L1s, L2s and enabling apps from any chain to be accessed by the users of any chain.',
+    'Shared-state L1 for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token. No network switching.',
   favicon: '/assets/website/favicon.ico',
 
   // Set the production url of your site here
@@ -24,19 +39,25 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'push-protocol', // Usually your GitHub org/user name.
+  organizationName: 'push-chain', // Usually your GitHub org/user name.
   projectName: 'push-chain-website', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace 'en' with 'zh-Hans'.
+  // Internationalization configuration
+  // Note: Using react-i18next for actual translations, Docusaurus i18n for base setup
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+    },
   },
 
   markdown: {
@@ -55,7 +76,7 @@ const config = {
       './plugins/blog-plugin',
       {
         id: 'blog',
-        path: './blog',
+        path: getBlogPath(),
         routeBasePath: 'blog',
         blogSidebarTitle: 'All posts',
         blogSidebarCount: 'ALL',
@@ -85,6 +106,26 @@ const config = {
           {
             from: '/docs/chat/build/get-started/',
             to: 'https://comms.push.org/docs',
+          },
+          {
+            from: '/cheatsheet',
+            to: 'https://comms.push.org/cheatsheet',
+          },
+          {
+            from: '/bootcamp',
+            to: 'https://comms.push.org/bootcamp',
+          },
+          {
+            from: '/chain',
+            to: '/',
+          },
+          {
+            from: '/chain/knowledge',
+            to: '/knowledge',
+          },
+          {
+            from: '/frens',
+            to: 'https://comms.push.org/frens',
           },
         ],
         createRedirects(existingPath) {
@@ -151,6 +192,22 @@ const config = {
         type: 'text/javascript',
       },
       innerHTML: `
+        (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:6483480,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      `,
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+      },
+      innerHTML: `
        (function (l) {
           if (l.search[1] === '/') {
             var decoded = l.search
@@ -179,7 +236,7 @@ const config = {
         logo: {
           alt: 'Push Logo',
           src: '/assets/website/docshub/PushLogoBlack@3x.png',
-          srcDark: '/assets/website/docshub/PushLogo@3x.png',
+          srcDark: '/assets/website/segments/PushLogoTextWhite@3x.webp',
           href: '/',
         },
         items: [
@@ -235,6 +292,14 @@ const config = {
          */
         playgroundPosition: 'bottom',
       },
+      // announcementBar: {
+      //   id: 'support_us',
+      //   content:
+      //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener' href='#'>this survey</a>',
+      //   backgroundColor: 'var(--ifm-color-white)',
+      //   textColor: '#e03dc1',
+      //   isCloseable: true,
+      // },
     }),
 };
 

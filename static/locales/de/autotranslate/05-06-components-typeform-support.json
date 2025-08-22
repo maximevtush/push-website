@@ -1,0 +1,120 @@
+{
+  "components": {
+    "typeform-support": {
+      "collapsed-text-for-support": "Open a Support Ticket",
+      "expanded-title-for-support": "Need help? 👋",
+      "collapsed-text-for-contact": "Contact the Team",
+      "expanded-title-for-contact": "Hi There! 👋",
+      "categories": {
+        "technical": {
+          "label": "🔧 Technical Support",
+          "description": "Bug reports, SDK/API, smart contracts, integration help"
+        },
+        "network": {
+          "label": "🌐 Network & Testnet",
+          "description": "Explorer/Push Scan, RPC, Faucet, Donut testnet issues"
+        },
+        "wallet": {
+          "label": "👛 Universal Wallet",
+          "description": "Push Wallet, universal chain connection or other wallet issues"
+        },
+        "identity": {
+          "label": "🪪 Accounts & Identity",
+          "description": "UEA/UOA, signatures, attribution questions"
+        },
+        "security": {
+          "label": "🛡️ Security",
+          "description": "Vulnerability reports, responsible disclosure (security@push.org)"
+        },
+        "general": {
+          "label": "💬 General Inquiry",
+          "description": "Questions, feedback, other topics"
+        },
+        "partnerships": {
+          "label": "🤝 Partnerships & Integrations",
+          "description": "BD, ecosystem integrations (wallets, infra, exchanges, protocols)"
+        },
+        "grants": {
+          "label": "💰 Grants & Ecosystem Programs",
+          "description": "BRB, Bootcamp, grants, funding inquiries"
+        },
+        "media": {
+          "label": "📰 Media & Press",
+          "description": "Interviews, statements, assets, fact-checks"
+        },
+        "events": {
+          "label": "🎤 Speaking & Events",
+          "description": "Talks, workshops, hackathons, sponsorships"
+        },
+        "careers": {
+          "label": "👩‍💻 Careers",
+          "description": "Open roles, internships, contractor opportunities"
+        },
+        "validators": {
+          "label": "🧡 Validator / Node Operators",
+          "description": "Operator interest, RPC providers, infra partners"
+        },
+        "legal": {
+          "label": "⚖️ Legal & Compliance",
+          "description": "Trademarks, data requests, agreements"
+        }
+      },
+      "form": {
+        "steps": {
+          "category": {
+            "title": "Was können wir für Sie tun?",
+            "subtitle": "Wählen Sie die Kategorie, die Ihre Anfrage am besten beschreibt"
+          },
+          "contact": {
+            "title": "Lernen wir uns kennen",
+            "subtitle": "Wir verwenden diese Informationen, um Sie zu kontaktieren",
+            "name-label": "Ihr Name",
+            "name-placeholder": "Geben Sie Ihren vollständigen Namen ein",
+            "name-aftergreet": "Schön, Sie kennenzulernen, ",
+            "email-label": "E-Mail-Adresse",
+            "email-placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+          },
+          "details": {
+            "title": "Erzählen Sie uns mehr",
+            "subtitle": "Geben Sie Details zu Ihrer Anfrage an",
+            "subject-label": "Betreff",
+            "subject-placeholder": "Kurze Zusammenfassung Ihres Problems",
+            "message-label": "Nachricht",
+            "message-placeholder": "Beschreiben Sie Ihr Problem im Detail. Fügen Sie alle Fehlermeldungen, Schritte zur Reproduktion oder relevante Informationen ein."
+          },
+          "submit": {
+            "title": "Überprüfen und Absenden",
+            "subtitle": "Bitte überprüfen Sie Ihre Informationen, bevor Sie sie absenden",
+            "placeholder": "Erzählen Sie uns mehr darüber, wobei Sie Hilfe benötigen..."
+          }
+        },
+        "buttons": {
+          "next": "Weiter",
+          "previous": "Zurück",
+          "submit": "Ticket absenden",
+          "submitting": "Wird abgesendet..."
+        },
+        "validation": {
+          "name-required": "Name ist erforderlich",
+          "name-min-length": "Der Name muss mindestens 2 Zeichen lang sein",
+          "email-required": "E-Mail ist erforderlich",
+          "email-invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+          "subject-required": "Betreff ist erforderlich",
+          "message-required": "Nachricht ist erforderlich",
+          "category-required": "Bitte wählen Sie eine Kategorie",
+          "default": "Dieses Feld ist erforderlich"
+        },
+        "success": {
+          "title": "Ticket erfolgreich abgesendet!",
+          "message": "Vielen Dank, dass Sie uns kontaktiert haben. Wir haben Ihr Support-Ticket erhalten und werden uns so schnell wie möglich bei Ihnen melden.",
+          "button": "Ein weiteres Ticket absenden"
+        },
+        "error": {
+          "title": "Absenden fehlgeschlagen",
+          "message": "Beim Absenden Ihres Tickets ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+          "button": "Erneut versuchen"
+        }
+      }
+    }
+  }
+}

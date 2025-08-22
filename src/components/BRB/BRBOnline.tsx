@@ -8,7 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Internal Components
-import { Image, ItemH } from '@site/src/css/SharedStyling';
+import { Image, ItemH, Span } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 
 // Internal Configs
@@ -38,7 +38,7 @@ const BRBOnline = ({ sectionRef }) => {
         <Span
           fontSize={isMobile ? '18px' : '23px'}
           fontWeight='200'
-          color='#fff'
+          color='var(--ifm-color-white)'
           margin='0px 0px 40px'
         >
           Join Virtually, Build and Win $50k+
@@ -95,7 +95,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px;
 
   @media ${device.mobileL} {
@@ -137,12 +137,16 @@ const PartnerLine = styled.div`
 
   &:hover {
     border: ${(props) =>
-      props.disabled ? '1px solid transparent' : '1px solid #E64DE9'};
+      props.disabled
+        ? '1px solid transparent'
+        : '1px solid var(--ifm-color-pink-secondary)'};
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
     & .buttonId {
       background: ${(props) =>
-        !props.disabled ? '#E64DE9 !important' : 'transparent'};
+        !props.disabled
+          ? 'var(--ifm-color-pink-secondary) !important'
+          : 'transparent'};
     }
   }
 

@@ -1,6 +1,7 @@
 import Link from '@docusaurus/Link';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 // Internal Components
 import { Button, H2, Image } from '@site/src/css/SharedStyling';
@@ -12,6 +13,7 @@ import { BsTwitter } from 'react-icons/bs';
 import GLOBALS, { device } from '@site/src/config/globals';
 
 const MorePosts = ({ allPosts, post }) => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.tablet);
   const [filteredArray, setFilteredArray] = useState();
 
@@ -57,7 +59,7 @@ const MorePosts = ({ allPosts, post }) => {
           lineHeight='110%'
           color='#00000'
         >
-          More from Push Chain
+          {t('components.blog.more-posts.title')}
         </ResponsiveH2>
 
         <MoreButton
@@ -77,8 +79,12 @@ const MorePosts = ({ allPosts, post }) => {
             window.open(`https://x.com/PushChain`, '_blank');
           }}
         >
-          <BsTwitter size={23} color='#fff' style={{ marginRight: '10px' }} />
-          Follow
+          <BsTwitter
+            size={23}
+            color='var(--ifm-color-white)'
+            style={{ marginRight: '10px' }}
+          />
+          {t('components.blog.more-posts.follow-button')}
         </MoreButton>
         {/* </Anchor> */}
       </MoreRow>
@@ -99,9 +105,9 @@ const MorePosts = ({ allPosts, post }) => {
                 </TextView>
                 <Link
                   to={item?.Preview?.metadata?.permalink}
-                  style={{ color: '#dd44b9' }}
+                  style={{ color: 'var(--ifm-color-primary)' }}
                 >
-                  Read More
+                  {t('components.blog.more-posts.read-more')}
                 </Link>
               </div>
             )}
@@ -203,7 +209,7 @@ const LinkText = styled.div`
   line-height: 36px;
 
   &:hover {
-    color: #dd44b9 !important;
+    color: var(--ifm-color-primary) !important;
   }
 `;
 
