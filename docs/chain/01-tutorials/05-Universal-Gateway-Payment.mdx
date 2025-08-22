@@ -128,14 +128,14 @@ import { PushChain } from '@pushchain/core';
 
 const { pushChainClient } = usePushChainClient();
 
-async function send()   async function send() {
+async function send() {
   if (!pushChainClient || !canSend) return;
   setSending(true);
   setHash(null);
   try {
     const value = PushChain.utils.helpers.parseUnits(String(amount), 18);
     const res = await pushChainClient.universal.sendTransaction({
-      to: recipient.trim() as `0x${string}`,
+      to: recipient.trim(),
       value,
     });
     setHash(res.hash);
@@ -182,152 +182,156 @@ After success, show the tx hash with a link from the client’s explorer helper 
 
 ### 2.6) Complete code
 
-```tsx title="src/App.tsx"
+```jsx live
 import { useState } from 'react';
 import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI } from '@pushchain/ui-kit';
 import { PushChain } from '@pushchain/core';
 
-type Preset = 1 | 5 | 10 | 'custom';
-
 function App() {
-  const { connectionStatus } = usePushWalletContext();
-  const { pushChainClient } = usePushChainClient();
+  function PaymentGateway() {
+    const { connectionStatus } = usePushWalletContext();
+    const { pushChainClient } = usePushChainClient();
 
-  const connected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
+    const connected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
 
-  const [recipient, setRecipient] = useState('');
-  const [preset, setPreset] = useState<Preset>(1);
-  const [custom, setCustom] = useState('');
-  const [sending, setSending] = useState(false);
-  const [hash, setHash] = useState<string | null>(null);
+    const [recipient, setRecipient] = useState('');
+    const [preset, setPreset] = useState(1);
+    const [custom, setCustom] = useState('');
+    const [sending, setSending] = useState(false);
+    const [hash, setHash] = useState(null);
 
-  const amount = preset === 'custom' ? Number(custom) || 0 : preset;
-  const validAddr = /^0x[a-fA-F0-9]{40}$/.test(recipient.trim());
-  const canSend = connected && validAddr && amount > 0 && !sending;
+    const amount = preset === 'custom' ? Number(custom) || 0 : preset;
+    const validAddr = /^0x[a-fA-F0-9]{40}$/.test(recipient.trim());
+    const canSend = connected && validAddr && amount > 0 && !sending;
 
-  async function send() {
-    if (!pushChainClient || !canSend) return;
-    setSending(true);
-    setHash(null);
-    try {
-      const value = PushChain.utils.helpers.parseUnits(String(amount), 18);
-      const res = await pushChainClient.universal.sendTransaction({
-        to: recipient.trim() as `0x${string}`,
-        value,
-      });
-      setHash(res.hash);
-    } finally {
-      setSending(false);
+    async function send() {
+      if (!pushChainClient || !canSend) return;
+      setSending(true);
+      setHash(null);
+      try {
+        const value = PushChain.utils.helpers.parseUnits(String(amount), 18);
+        const res = await pushChainClient.universal.sendTransaction({
+          to: recipient.trim(),
+          value,
+        });
+        setHash(res.hash);
+      } finally {
+        setSending(false);
+      }
     }
-  }
 
-  return (
-    <div style={{ maxWidth: 520, margin: '24px auto', padding: 16, fontFamily: 'system-ui' }}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <PushUniversalAccountButton />
-      </div>
+    return (
+      <div style={{ maxWidth: 520, margin: '24px auto', padding: 16, fontFamily: 'system-ui' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <PushUniversalAccountButton />
+        </div>
 
-      <h2 style={{ marginTop: 16 }}>Universal Payment Gateway</h2>
-      <p style={{ marginTop: 6, color: '#666' }}>
-        Pay a Push address from Ethereum or Solana—no manual network switching.
-      </p>
+        <h2 style={{ marginTop: 16 }}>Universal Payment Gateway</h2>
+        <p style={{ marginTop: 6, color: '#666' }}>
+          Pay a Push address from Ethereum or Solana—no manual network switching.
+        </p>
 
-      <label style={{ display: 'block', fontWeight: 600, marginTop: 16 }}>Recipient (Push EVM address)</label>
-      <input
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        placeholder="0x..."
-        style={{ width: '100%', padding: 10, borderRadius: 10, border: '1px solid #ccc' }}
-      />
-      {!validAddr && recipient.trim() !== '' && (
-        <div style={{ color: '#b00020', fontSize: 12, marginTop: 6 }}>Enter a valid 0x address</div>
-      )}
+        <label style={{ display: 'block', fontWeight: 600, marginTop: 16 }}>Recipient (Push EVM address)</label>
+        <input
+          value={recipient}
+          onChange={(e) => setRecipient(e.target.value)}
+          placeholder="0x..."
+          style={{ width: '100%', padding: 10, borderRadius: 10, border: '1px solid #ccc' }}
+        />
+        {!validAddr && recipient.trim() !== '' && (
+          <div style={{ color: '#b00020', fontSize: 12, marginTop: 6 }}>Enter a valid 0x address</div>
+        )}
 
-      <div style={{ fontWeight: 600, marginTop: 16 }}>Amount (PC)</div>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
-        {[1, 5, 10].map((a) => (
+        <div style={{ fontWeight: 600, marginTop: 16 }}>Amount (PC)</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+          {[1, 5, 10].map((a) => (
+            <button
+              key={a}
+              onClick={() => setPreset(a)}
+              disabled={sending}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 10,
+                border: '1px solid #111',
+                background: preset === a ? '#111' : 'transparent',
+                color: preset === a ? '#fff' : '#111',
+                cursor: 'pointer',
+              }}
+            >
+              {a} PC
+            </button>
+          ))}
           <button
-            key={a}
-            onClick={() => setPreset(a as Preset)}
+            onClick={() => setPreset('custom')}
             disabled={sending}
             style={{
               padding: '8px 12px',
               borderRadius: 10,
               border: '1px solid #111',
-              background: preset === a ? '#111' : 'transparent',
-              color: preset === a ? '#fff' : '#111',
+              background: preset === 'custom' ? '#111' : 'transparent',
+              color: preset === 'custom' ? '#fff' : '#111',
               cursor: 'pointer',
             }}
           >
-            {a} PC
+            Custom
           </button>
-        ))}
-        <button
-          onClick={() => setPreset('custom')}
-          disabled={sending}
-          style={{
-            padding: '8px 12px',
-            borderRadius: 10,
-            border: '1px solid #111',
-            background: preset === 'custom' ? '#111' : 'transparent',
-            color: preset === 'custom' ? '#fff' : '#111',
-            cursor: 'pointer',
-          }}
-        >
-          Custom
-        </button>
-      </div>
+        </div>
 
-      {preset === 'custom' && (
-        <input
-          type="number"
-          min={0}
-          step={0.000001}
-          placeholder="Enter PC amount"
-          value={custom}
-          onChange={(e) => setCustom(e.target.value)}
+        {preset === 'custom' && (
+          <input
+            type="number"
+            min={0}
+            step={0.000001}
+            placeholder="Enter PC amount"
+            value={custom}
+            onChange={(e) => setCustom(e.target.value)}
+            style={{
+              width: '100%',
+              padding: 10,
+              borderRadius: 10,
+              border: '1px solid #ccc',
+              marginTop: 8,
+            }}
+          />
+        )}
+
+        <button
+          onClick={send}
+          disabled={!canSend}
           style={{
             width: '100%',
-            padding: 10,
+            marginTop: 16,
+            padding: '12px 16px',
             borderRadius: 10,
-            border: '1px solid #ccc',
-            marginTop: 8,
+            border: '1px solid #111',
+            background: canSend ? '#111' : '#999',
+            color: '#fff',
+            cursor: canSend ? 'pointer' : 'not-allowed',
           }}
-        />
-      )}
+        >
+          {sending ? 'Sending…' : `Send ${amount || ''} PC`}
+        </button>
 
-      <button
-        onClick={send}
-        disabled={!canSend}
-        style={{
-          width: '100%',
-          marginTop: 16,
-          padding: '12px 16px',
-          borderRadius: 10,
-          border: '1px solid #111',
-          background: canSend ? '#111' : '#999',
-          color: '#fff',
-          cursor: canSend ? 'pointer' : 'not-allowed',
-        }}
-      >
-        {sending ? 'Sending…' : `Send ${amount || ''} PC`}
-      </button>
+        {hash && (
+          <div style={{ marginTop: 12, fontSize: 14 }}>
+            Txn: <code>{hash}</code>{' '}
+            <a href={pushChainClient?.explorer.getTransactionUrl(hash)} target="_blank" rel="noreferrer noopener">
+              View
+            </a>
+          </div>
+        )}
 
-      {hash && (
-        <div style={{ marginTop: 12, fontSize: 14 }}>
-          Txn: <code>{hash}</code>{' '}
-          <a href={pushChainClient?.explorer.getTransactionUrl(hash)} target="_blank" rel="noreferrer noopener">
-            View
-          </a>
-        </div>
-      )}
+        {!connected && <div style={{ color: '#555', marginTop: 8, fontSize: 12 }}>Connect your wallet to send.</div>}
+      </div>
+    );
+  }
 
-      {!connected && <div style={{ color: '#555', marginTop: 8, fontSize: 12 }}>Connect your wallet to send.</div>}
-    </div>
+  return (
+    <PushUniversalWalletProvider config={{ network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET }}>
+      <PaymentGateway />
+    </PushUniversalWalletProvider>
   );
 }
-
-export default App;
 ```
 
 ### How this enables “Stripe‑like” payments
