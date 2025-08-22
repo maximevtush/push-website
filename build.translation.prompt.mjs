@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk';
 import fs from 'fs/promises';
 import path from 'path';
-import chalk from 'chalk';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,7 +32,11 @@ async function loadGlossary() {
  * Generate the translation prompt for a given language and content
  * This is the single source of truth for the translation prompt
  */
-async function generateTranslationPrompt(sourceContent, targetLanguage, languageName) {
+async function generateTranslationPrompt(
+  sourceContent,
+  targetLanguage,
+  languageName
+) {
   // Load glossary dynamically
   const glossary = await loadGlossary();
 
@@ -46,7 +50,21 @@ REQUIREMENTS:
 2. Preserve placeholders exactly: HTML tags, wrapper tags (<1>…</1>, <2>…</2>), variables ({token}, {{count}}, %s, $1, :id, \\n).
 3. Apply glossary rules:
    - "keep" → Do not translate; keep exactly as in source.
-   - "transliterate" → Write the word in ${languageName} script as pronounced (Hinglish-style for Hindi, Katakana for Japanese, etc.).
+   - "transliterate" → Do NOT translate the meaning of the word into the local language. 
+      Instead, convert the English word into how it is pronounced and write it in the local script.
+
+      - For Hindi and related languages: Write the English term in Hindi script, as commonly used in Hinglish.  
+        Example: "blockchain" → "ब्लॉकचेन", "token" → "टोकन", "wallet" → "वॉलेट".  
+      - For Japanese: Use Katakana for foreign loanwords.  
+        Example: "blockchain" → "ブロックチェーン", "token" → "トークン", "wallet" → "ウォレット".  
+      - For Arabic: Use Arabic script phonetic spelling.  
+        Example: "blockchain" → "بلوكشين", "token" → "توكن".  
+      - For German, Spanish, French, Italian and similar European languages: If the word is normally used in English in the crypto industry, KEEP the English spelling (do not translate).  
+        Example: "blockchain" → "Blockchain", "token" → "Token".  
+      - For Chinese (Simplified): Use standard transliteration or commonly adopted crypto term.  
+        Example: "blockchain" → "区块链", "token" → "代币".  
+
+      Always preserve capitalization (e.g., NFT, DAO, DeFi must remain uppercase).  
    - If a term is neither in glossary nor a brand name, translate naturally in context.
 4. Keep blockchain terms consistent across the translation.
 5. Ensure UI strings (buttons, labels) remain short, natural, and usable.

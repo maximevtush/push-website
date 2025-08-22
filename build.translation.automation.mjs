@@ -960,19 +960,20 @@ async function showVerificationSamples(sourceContent, languages) {
       output: process.stdout,
     });
 
-    const answer = await new Promise((resolve) => {
-      rl.question(
-        chalk.yellow('Do you want to continue with the build? (y/N): '),
-        resolve
-      );
-    });
+    // turning asking question off for now
+    // const answer = await new Promise((resolve) => {
+    //   rl.question(
+    //     chalk.yellow('Do you want to continue with the build? (y/N): '),
+    //     resolve
+    //   );
+    // });
 
-    rl.close();
+    // rl.close();
 
-    if (answer.toLowerCase() !== 'y' && answer.toLowerCase() !== 'yes') {
-      console.log(chalk.yellow('⏹️  Build cancelled by user'));
-      process.exit(0);
-    }
+    // if (answer.toLowerCase() !== 'y' && answer.toLowerCase() !== 'yes') {
+    //   console.log(chalk.yellow('⏹️  Build cancelled by user'));
+    //   process.exit(0);
+    // }
   } catch (error) {
     console.warn(
       chalk.yellow('⚠️  Could not load verification samples:'),
