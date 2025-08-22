@@ -64,7 +64,7 @@ export const TokenFaucet = ({
         />
         <Span
           fontSize='13px'
-          color='#F0A5FC'
+          color='var(--ifm-color-token-highlight)'
           margin='5px 0px 0px 16px'
           flex='1'
           letterSpacing='1.5px'
@@ -90,8 +90,12 @@ export const TokenFaucet = ({
         <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
           <ButtonItem
             borderRadius='12px'
-            background={isFollowed ? 'var(--ifm-color-white)' : '#25AAF5'}
-            border='1px solid #25AAF5'
+            background={
+              isFollowed
+                ? 'var(--ifm-color-white)'
+                : 'var(--ifm-color-twitter-blue-btn)'
+            }
+            border='1px solid var(--ifm-color-twitter-blue-btn)'
             padding='6.5px 8.5px'
             onClick={() => openLink('https://x.com/PushChain')}
           >
@@ -100,7 +104,11 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isFollowed ? '#25AAF5' : 'var(--ifm-color-white)'}
+              color={
+                isFollowed
+                  ? 'var(--ifm-color-twitter-blue-btn)'
+                  : 'var(--ifm-color-white)'
+              }
             >
               {isFollowed ? 'Following' : 'Follow @PushChain'}
             </Span>
@@ -110,8 +118,12 @@ export const TokenFaucet = ({
           </ButtonItem>
           <ButtonItem
             borderRadius='12px'
-            background={isPosted ? 'var(--ifm-color-white)' : '#25AAF5'}
-            border='1px solid #25AAF5'
+            background={
+              isPosted
+                ? 'var(--ifm-color-white)'
+                : 'var(--ifm-color-twitter-blue-btn)'
+            }
+            border='1px solid var(--ifm-color-twitter-blue-btn)'
             padding='6.5px 8.5px'
             onClick={() =>
               openLink(
@@ -124,7 +136,11 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isPosted ? '#25AAF5' : 'var(--ifm-color-white)'}
+              color={
+                isPosted
+                  ? 'var(--ifm-color-twitter-blue-btn)'
+                  : 'var(--ifm-color-white)'
+              }
             >
               {isPosted ? 'Posted' : 'Post about BRB'}
             </Span>
@@ -137,12 +153,18 @@ export const TokenFaucet = ({
       <InputContainer>
         <Label>
           2. Join Discord and Share a link of your post in{' '}
-          <span style={{ color: '#F878DC' }}>#brb-faucet</span>
+          <span style={{ color: 'var(--ifm-color-discord-channel)' }}>
+            #brb-faucet
+          </span>
         </Label>
         <ButtonItem
           borderRadius='12px'
-          background={isJoined ? 'var(--ifm-color-white)' : '#3C63C6'}
-          border='1px solid #3C63C6'
+          background={
+            isJoined
+              ? 'var(--ifm-color-white)'
+              : 'var(--ifm-color-discord-blue)'
+          }
+          border='1px solid var(--ifm-color-discord-blue)'
           padding='6.5px 8.5px'
           onClick={() => openLink('https://discord.gg/cTRqvYzXpW')}
         >
@@ -151,7 +173,11 @@ export const TokenFaucet = ({
           <Span
             fontSize='16px'
             fontWeight='400'
-            color={isJoined ? '#3C63C6' : 'var(--ifm-color-white)'}
+            color={
+              isJoined
+                ? 'var(--ifm-color-discord-blue)'
+                : 'var(--ifm-color-white)'
+            }
           >
             {isJoined ? 'Joined' : 'Join Discord and Share link'}
           </Span>

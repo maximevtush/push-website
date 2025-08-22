@@ -56,7 +56,7 @@ export const KBRootResourcesList = {
           target: '_self',
           image: '/static/assets/website/docshub/TechnicalDeepDivesIcon',
           // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-          bgColor: '#101010',
+          bgColor: 'var(--ifm-color-kb-dark)',
           bgStylizing: {
             type: 'sparkle',
             density: 40,
@@ -72,7 +72,7 @@ export const KBRootResourcesList = {
           target: '_self',
           image: '/static/assets/website/docshub/DeveloperDocsIcon',
           // bgImage: require(`@site/static/assets/website/docshub/BlueBG.png`).default,
-          bgColor: '#4277F7',
+          bgColor: 'var(--ifm-color-kb-blue)',
           bgStylizing: {
             type: 'lines',
             gridSize: 30,
@@ -89,7 +89,7 @@ export const KBRootResourcesList = {
           target: '_self',
           image: '/static/assets/website/docshub/TokenomicsIcon',
           // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-          bgColor: '#101010',
+          bgColor: 'var(--ifm-color-kb-dark)',
           bgStylizing: {
             type: 'sparkle',
             density: 40,
@@ -104,7 +104,7 @@ export const KBRootResourcesList = {
           target: '_self',
           image: '/static/assets/website/docshub/FAQIcons',
           // bgImage: require(`@site/static/assets/website/docshub/BlackBG.png`).default,
-          bgColor: '#101010',
+          bgColor: 'var(--ifm-color-kb-dark)',
           bgStylizing: {
             type: 'sparkle',
             density: 40,

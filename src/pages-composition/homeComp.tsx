@@ -166,7 +166,7 @@ export default function HomeComp() {
           <MultiContent>
             <FeaturesTopSection maxWidth={'840px'} margin='0px auto'>
               <H2
-                color='#DDD8D8'
+                color='var(--ifm-color-home-subtitle)'
                 fontSize={isMobile ? '24px' : '30px'}
                 textAlign={isMobile ? 'left' : 'center'}
                 lineHeight='normal'
@@ -1135,7 +1135,7 @@ const H1Text = styled(H1)`
   background: linear-gradient(
     90deg,
     var(--ifm-color-warning) -3.12%,
-    #aa48ec 109.09%
+    var(--ifm-color-home-gradient-end) 109.09%
   );
   background-clip: text;
   -webkit-background-clip: text;

@@ -288,7 +288,7 @@ export default function DocsHub(): JSX.Element {
               {/* <ExplorePrelaunchBuild
                 background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
-                border='1px solid rgba(255, 255, 255, 0.30)'
+                border='1px solid var(--ifm-color-overlay-white-30)'
                 fontSize='1.125rem'
                 fontWeight='600'
                 letterSpacing='-0.03em'
@@ -679,13 +679,13 @@ const PopularQuickiesHeader = styled(ItemH)`
 `;
 
 const PopularQuickiesTitle = styled(Span)`
-  color: #9aa3db;
+  color: var(--ifm-color-docs-title);
   font-size: 16px;
   font-weight: bold;
 `;
 
 const PopularQuickiesContent = styled(ItemV)`
-  border-top: 1px solid #3d3d3d;
+  border-top: 1px solid var(--ifm-color-docs-border);
   align-items: stretch;
   width: 100%;
 `;
@@ -726,7 +726,7 @@ const TechDocContent = styled.div`
   position: relative;
   border-radius: 24px;
   padding: 40px 20px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--ifm-color-tech-doc-border);
   background: transparent;
   align-self: stretch;
   display: flex;
@@ -839,12 +839,12 @@ const PushSdkContent = styled(A)`
   display: flex;
   justify-content: stretch;
   align-self: stretch;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--ifm-color-tech-doc-border);
   width: 100%;
   padding: 24px;
 
   & svg {
-    color: #d9d9d9;
+    color: var(--ifm-color-tech-doc-border);
   }
 
   &:after {

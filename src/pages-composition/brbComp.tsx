@@ -249,7 +249,7 @@ const BRBComp = () => {
           <ButtonItem
             borderRadius='24px'
             background='var(--ifm-color-pink-secondary)'
-            border='1px solid #FC6DFF'
+            border='1px solid var(--ifm-color-pink-secondary)'
             fontSize='18px'
             padding='16px 32px'
             fontWeight='400'
@@ -340,7 +340,11 @@ const BRBComp = () => {
                     <Discord />
                   </i>
 
-                  <Span fontSize='36px' fontWeight='400' color='#6F8BEE'>
+                  <Span
+                    fontSize='36px'
+                    fontWeight='400'
+                    color='var(--ifm-color-discord-blue)'
+                  >
                     24x7 Support on Discord
                   </Span>
 
@@ -364,7 +368,11 @@ const BRBComp = () => {
                     <X className='discord' />
                   </i>
 
-                  <Span fontSize='36px' fontWeight='400' color='#63BFF3'>
+                  <Span
+                    fontSize='36px'
+                    fontWeight='400'
+                    color='var(--ifm-color-twitter-blue)'
+                  >
                     Updates & Announcements
                   </Span>
 
@@ -417,7 +425,7 @@ const ButtonItem = styled(Button)`
   font-family: Glancyr, sans-serif;
   letter-spacing: 0.03em;
   &:hover {
-    box-shadow: 0px 4px 12px 0px rgba(230, 77, 233, 0.5);
+    box-shadow: 0px 4px 12px 0px var(--ifm-color-overlay-pink-50);
     border: 1px solid transparent;
   }
   &:hover:after {
@@ -475,7 +483,7 @@ const NavList = styled.div`
 
   border-radius: 55px;
   border: 1px solid var(--ifm-color-gray-200);
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--ifm-color-overlay-black-50);
   backdrop-filter: blur(12px);
   padding: 0px 23px;
   margin: 51px auto 0 auto;
@@ -849,9 +857,9 @@ const FooterBar = styled.div`
 const BottomGrad = styled.div`
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(70, 37, 244, 0.8) 75.63%,
-    rgba(251, 142, 255, 0.8) 100%
+    var(--ifm-color-transparent) 0%,
+    var(--ifm-color-grad-blue-start) 75.63%,
+    var(--ifm-color-grad-pink-end) 100%
   );
   height: 340px;
   width: 100%;

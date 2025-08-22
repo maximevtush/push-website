@@ -69,12 +69,14 @@ function Footer() {
               <MailingSignup
                 inputWidth={isMobile ? '100%' : '300px'}
                 showButton={true}
-                background={'rgba(0, 0, 0, 0.10)'}
-                borderColor={'rgba(112, 90, 208, 0.40)'}
+                background={'var(--ifm-color-footer-mailing-bg)'}
+                borderColor={'var(--ifm-color-footer-mailing-border)'}
                 textColor={'var(--ifm-color-white)'}
-                placeholderColor={'#494E54'}
-                buttonBg={'#D548EC'}
-                buttonBorder={'1px solid rgba(30, 23, 23, 0.3)'}
+                placeholderColor={'var(--ifm-color-knowledge-placeholder)'}
+                buttonBg={'var(--ifm-color-custom-pink)'}
+                buttonBorder={
+                  '1px solid var(--ifm-color-footer-mailing-button-border)'
+                }
                 arrowColor={'var(--ifm-color-white)'}
                 loaderColor={'var(--ifm-color-white)'}
                 blendMode='lighten'
@@ -467,7 +469,7 @@ const SocialLinks = styled(ItemH)`
 
 const FooterAnchorSecondary = styled(A)`
   padding: 0px;
-  color: #94a3b6 !important;
+  color: var(--ifm-color-footer-anchor-secondary) !important;
   font-family:
     DM Sans,
     sans-serif;

@@ -918,9 +918,9 @@ const HeaderItemH = styled(ItemH)`
   border-radius: 24px;
   border: 1px solid rgba(171, 70, 248, 0.4);
   background: rgba(0, 0, 0, 0.5);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   z-index: 1;
 
   &::before {
@@ -1379,9 +1379,9 @@ const NavigationMenuContent = styled.ul`
 
   border: 1px solid rgba(171, 70, 248, 0.4);
   background: rgba(0, 0, 0, 0.5);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   overflow: hidden;
 
   &::before {
@@ -1460,9 +1460,9 @@ const LanguageMenuContent = styled.div`
 
   border: 1px solid rgba(171, 70, 248, 0.4);
   // background: rgba(0, 0, 0, 0.8);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   overflow: hidden;
 
   &::before {

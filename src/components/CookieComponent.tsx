@@ -111,8 +111,8 @@ const CookieContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  backdrop-filter: blur(12px);
+  border: 1px solid var(--ifm-color-overlay-black-10);
+  backdrop-filter: var(--ifm-color-backdrop-blur-light);
 
   h2 {
 

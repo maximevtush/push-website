@@ -121,6 +121,218 @@
 
   /* Special Colors */
   --ifm-color-blue: #1B43C8;
+  --ifm-color-icon-close: #7f7b80;
+  --ifm-color-icon-bootcamp: #94979F;
+
+  /* System Colors */
+  --ifm-color-transparent: transparent;
+  --ifm-color-red: #FF2070;
+  --ifm-color-yellow: #f9b732;
+  --ifm-color-orange: #fc6394;
+  --ifm-color-cyan: #5adaea;
+  --ifm-color-purple: #974cbe;
+  --ifm-color-teal: #3cbecd;
+  --ifm-color-indigo: #813bbe;
+
+  /* Transparency & Overlays */
+  --ifm-color-backdrop-blur: blur(15px);
+  --ifm-color-backdrop-blur-light: blur(12px);
+  --ifm-color-backdrop-blur-heavy: blur(60px);
+  --ifm-color-overlay-black-50: rgba(0, 0, 0, 0.5);
+  --ifm-color-overlay-black-65: rgba(18, 18, 24, 0.65);
+  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.30);
+  --ifm-color-overlay-white-20: rgba(255, 255, 255, 0.2);
+  --ifm-color-overlay-white-70: rgba(255, 255, 255, 0.7);
+  --ifm-color-overlay-pink-50: rgba(230, 77, 233, 0.5);
+  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.10);
+  --ifm-color-shadow-light: rgba(0, 0, 0, 0.05);
+
+  /* Brand Gradient Colors */
+  --ifm-color-grad-start-dark: rgba(18, 19, 21, 0.5);
+  --ifm-color-grad-mid-purple: rgba(42, 42, 57, 0.5);
+  --ifm-color-grad-end-pink: rgba(142, 49, 122, 0.5);
+  --ifm-color-grad-alt-pink: rgba(213, 86, 244, 0.5);
+  --ifm-color-grad-blue-start: rgba(70, 37, 244, 0.8);
+  --ifm-color-grad-pink-end: rgba(251, 142, 255, 0.8);
+
+  /* Push Logo Colors */
+  --ifm-color-confetti-pink: #fc6394;
+  --ifm-color-confetti-magenta: #ef3c8a;
+  --ifm-color-confetti-cyan: #5adaea;
+  --ifm-color-confetti-purple: #974cbe;
+  --ifm-color-confetti-teal: #3cbecd;
+  --ifm-color-confetti-indigo: #813bbe;
+  --ifm-color-confetti-yellow: #f9b732;
+
+  /* Utility Colors */
+  --ifm-color-text-muted: #8a8a8a;
+  --ifm-color-text-light: #d0d3e7;
+  --ifm-color-text-secondary: #959caa;
+  --ifm-color-border-light: #d9d9d9;
+  --ifm-color-border-medium: #bac4d6;
+  --ifm-color-input-error: #ef4444;
+  --ifm-color-success-bg: rgba(34, 197, 94, 0.1);
+  --ifm-color-success-border: rgba(34, 197, 94, 0.3);
+  --ifm-color-error-bg: rgba(239, 68, 68, 0.1);
+  --ifm-color-error-border: rgba(239, 68, 68, 0.3);
+
+  /* Component-Specific Colors */
+  --ifm-color-brb-background: #1b1b25;
+  --ifm-color-brb-disabled: #53536C;
+  --ifm-color-brb-border: #494968;
+  --ifm-color-brb-success: #b0ffc3;
+  --ifm-color-discord-blue: #6F8BEE;
+  --ifm-color-twitter-blue: #63BFF3;
+  --ifm-color-breadcrumb-hover: #cf59e2;
+
+  /* Feature Colors */
+  --ifm-color-animated-base: #ffda6a;
+  --ifm-color-animated-like: #548dff;
+  --ifm-color-animated-love: #f55064;
+  --ifm-color-animated-angry: #d5234c;
+
+  /* Interactive States */
+  --ifm-color-hover-shadow: rgba(230, 77, 233, 0.5);
+  --ifm-color-focus-outline: #cf59e2;
+  --ifm-color-button-spinner: rgb(202, 89, 155);
+  --ifm-color-scrollbar: rgb(202, 89, 155);
+
+  /* RGB Color Values for Complex Usage */
+  --ifm-color-rgb-chat-input: rgb(182, 188, 214);
+  --ifm-color-rgb-chat-encryption: rgb(182, 188, 214);
+  --ifm-color-rgb-chat-search: rgb(101, 119, 149);
+  --ifm-color-rgb-modal-sub: rgb(182, 188, 214);
+  --ifm-color-rgb-criteria-bg: rgb(47, 49, 55);
+  --ifm-color-rgb-modal-hover: rgb(64, 70, 80);
+  --ifm-color-rgb-modal-border: rgb(74, 79, 103);
+  --ifm-color-rgb-icon-color: rgba(120, 126, 153, 1);
+
+  /* DocsHub & Explainer Colors */
+  --ifm-color-docs-title: #9aa3db;
+  --ifm-color-docs-border: #3d3d3d;
+  --ifm-color-tech-doc-border: #d9d9d9;
+  --ifm-color-admonition-info-bg: #002d6d;
+  --ifm-color-admonition-info-border: #a2c9ff;
+  --ifm-color-admonition-warning-bg: #fff3e0;
+  --ifm-color-admonition-warning-border: #ff9800;
+  --ifm-color-admonition-caution-border: #f44336;
+  --ifm-color-admonition-tip-border: #4caf50;
+  --ifm-color-admonition-note-border: #9c27b0;
+  --ifm-color-toc-inactive: #757d8d;
+  --ifm-color-toc-scrollbar: #cf59e2;
+  --ifm-color-toc-scrollbar-hover: #b84ac8;
+
+  /* Featured & Glowy Colors */
+  --ifm-color-glow-primary: rgb(202, 55, 237);
+  --ifm-color-glow-secondary: #ca37ed;
+  --ifm-color-card-dark: #101010;
+  --ifm-color-gradient-hue-start: #D162EC;
+  --ifm-color-gradient-hue-end: #EAB7F6;
+
+  /* Mailing Signup Colors */
+  --ifm-color-signup-button-bg: #000;
+  --ifm-color-signup-arrow: #e492ff;
+  --ifm-color-signup-input-bg: #ffffff;
+  --ifm-color-signup-placeholder: #a3a7ac;
+  --ifm-color-signup-text: #ffffff;
+
+  /* Token Faucet Colors */
+  --ifm-color-token-highlight: #F0A5FC;
+  --ifm-color-twitter-blue-btn: #25AAF5;
+  --ifm-color-discord-channel: #F878DC;
+  --ifm-color-discord-blue: #3C63C6;
+
+  /* QnA Colors */
+  --ifm-color-qna-discord: #5865f2;
+
+  /* SEO/Meta Colors */
+  --ifm-color-theme-purple: #AA39BC;
+
+  /* SVG Fill Colors */
+  --ifm-color-svg-gray: #808080;
+
+  /* Home Features Gradient Colors */
+  --ifm-color-features-gradient: linear-gradient(90deg, #B1B1B9 0%, #635D65 100%);
+
+  /* Push Logo Gradient Colors */
+  --ifm-color-logo-gradient-start: #FF94A6;
+  --ifm-color-logo-gradient-17: #EA6AC0;
+  --ifm-color-logo-gradient-33: #DA4AD5;
+  --ifm-color-logo-gradient-42: #D53EDD;
+  --ifm-color-logo-gradient-53: #CB3EDD;
+  --ifm-color-logo-gradient-72: #B341E0;
+  --ifm-color-logo-gradient-95: #8B45E4;
+  --ifm-color-logo-gradient-end: #8247E5;
+
+  /* City Background Colors */
+  --ifm-color-city-teal: #299EC2;
+  --ifm-color-city-green: #16837C;
+  --ifm-color-city-blue: #194395;
+  --ifm-color-city-purple: #7A3DA9;
+  --ifm-color-city-coral: #E26059;
+  --ifm-color-city-forest: #2E7D5C;
+
+  /* Knowledge Base Colors */
+  --ifm-color-kb-dark: #101010;
+  --ifm-color-kb-blue: #4277F7;
+
+  /* Footer Colors */
+  --ifm-color-footer-bg: #121315;
+  --ifm-color-footer-subscribe: #cec3f9;
+  --ifm-color-footer-input: #ffffff;
+  --ifm-color-footer-info: #2a2a39;
+  --ifm-color-footer-header: #ffffff;
+  --ifm-color-footer-link: #9c9cbe;
+
+  /* Additional CSS Colors */
+  --ifm-color-navbar-hover: #dd45b9;
+  --ifm-color-code-em: #fff;
+
+  /* Terms of Service Colors */
+  --ifm-color-tos-highlight: #e20880;
+
+  /* Home Component Colors */
+  --ifm-color-home-subtitle: #DDD8D8;
+  --ifm-color-home-gradient-end: #aa48ec;
+
+  /* Knowledge Component Colors */
+  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.10);
+  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-knowledge-placeholder: #494E54;
+  --ifm-color-knowledge-button-border: rgba(41, 33, 33, 0.3);
+  --ifm-color-knowledge-media-pink: #f2c2fe;
+
+  /* LFPush Component Colors */
+  --ifm-color-tweet-border: #425364;
+  --ifm-color-tweet-icon: #536471;
+
+  /* Footer Additional Colors */
+  --ifm-color-footer-icon-border: #2a2a39;
+  --ifm-color-footer-partition: #2a2a39;
+
+  /* DocSearch Colors */
+  --ifm-color-docsearch-key-bg: #d1d5db;
+  --ifm-color-docsearch-key-text: #4b5563;
+
+  /* LFPush Tweet Additional Colors */
+  --ifm-color-tweet-like: #f91880;
+  --ifm-color-tweet-verified: #1da1f2;
+  --ifm-color-tweet-username: #8b949e;
+  --ifm-color-tweet-skeleton-dark: #333;
+  --ifm-color-tweet-skeleton-light: #444;
+  --ifm-color-tweet-skeleton-border: #333;
+  --ifm-color-tweet-spinner-primary: #aa39bc;
+  --ifm-color-tweet-end-message: #888;
+
+  /* Footer Additional Colors */
+  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.10);
+  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-footer-mailing-button-border: rgba(30, 23, 23, 0.3);
+  --ifm-color-footer-anchor-secondary: #94a3b6;
+
+  /* Tag Colors */
+  --ifm-color-tag-border: #bac4d6;
+  --ifm-color-tag-hover: #d53a94;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -172,6 +384,7 @@
   --ifm-navbar-dropdown-hover: rgba(255, 255, 255, 0.05);
   --ifm-navbar-dropdown-image: 'none';
   --ifm-docs-hero-bg: #0d0c0f;
+
 
   /* Base Colors */
   --ifm-color-white: #ffffff;
@@ -230,6 +443,218 @@
 
   /* Special Colors */
   --ifm-color-blue: #1B43C8;
+  --ifm-color-icon-close: #7f7b80;
+  --ifm-color-icon-bootcamp: #94979F;
+
+  /* System Colors */
+  --ifm-color-transparent: transparent;
+  --ifm-color-red: #FF2070;
+  --ifm-color-yellow: #f9b732;
+  --ifm-color-orange: #fc6394;
+  --ifm-color-cyan: #5adaea;
+  --ifm-color-purple: #974cbe;
+  --ifm-color-teal: #3cbecd;
+  --ifm-color-indigo: #813bbe;
+
+  /* Transparency & Overlays */
+  --ifm-color-backdrop-blur: blur(15px);
+  --ifm-color-backdrop-blur-light: blur(12px);
+  --ifm-color-backdrop-blur-heavy: blur(60px);
+  --ifm-color-overlay-black-50: rgba(0, 0, 0, 0.5);
+  --ifm-color-overlay-black-65: rgba(18, 18, 24, 0.65);
+  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.30);
+  --ifm-color-overlay-white-20: rgba(255, 255, 255, 0.2);
+  --ifm-color-overlay-white-70: rgba(255, 255, 255, 0.7);
+  --ifm-color-overlay-pink-50: rgba(230, 77, 233, 0.5);
+  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.10);
+  --ifm-color-shadow-light: rgba(0, 0, 0, 0.05);
+
+  /* Brand Gradient Colors */
+  --ifm-color-grad-start-dark: rgba(18, 19, 21, 0.5);
+  --ifm-color-grad-mid-purple: rgba(42, 42, 57, 0.5);
+  --ifm-color-grad-end-pink: rgba(142, 49, 122, 0.5);
+  --ifm-color-grad-alt-pink: rgba(213, 86, 244, 0.5);
+  --ifm-color-grad-blue-start: rgba(70, 37, 244, 0.8);
+  --ifm-color-grad-pink-end: rgba(251, 142, 255, 0.8);
+
+  /* Push Logo Colors */
+  --ifm-color-confetti-pink: #fc6394;
+  --ifm-color-confetti-magenta: #ef3c8a;
+  --ifm-color-confetti-cyan: #5adaea;
+  --ifm-color-confetti-purple: #974cbe;
+  --ifm-color-confetti-teal: #3cbecd;
+  --ifm-color-confetti-indigo: #813bbe;
+  --ifm-color-confetti-yellow: #f9b732;
+
+  /* Utility Colors */
+  --ifm-color-text-muted: #8a8a8a;
+  --ifm-color-text-light: #d0d3e7;
+  --ifm-color-text-secondary: #959caa;
+  --ifm-color-border-light: #d9d9d9;
+  --ifm-color-border-medium: #bac4d6;
+  --ifm-color-input-error: #ef4444;
+  --ifm-color-success-bg: rgba(34, 197, 94, 0.1);
+  --ifm-color-success-border: rgba(34, 197, 94, 0.3);
+  --ifm-color-error-bg: rgba(239, 68, 68, 0.1);
+  --ifm-color-error-border: rgba(239, 68, 68, 0.3);
+
+  /* Component-Specific Colors */
+  --ifm-color-brb-background: #1b1b25;
+  --ifm-color-brb-disabled: #53536C;
+  --ifm-color-brb-border: #494968;
+  --ifm-color-brb-success: #b0ffc3;
+  --ifm-color-discord-blue: #6F8BEE;
+  --ifm-color-twitter-blue: #63BFF3;
+  --ifm-color-breadcrumb-hover: #cf59e2;
+
+  /* Feature Colors */
+  --ifm-color-animated-base: #ffda6a;
+  --ifm-color-animated-like: #548dff;
+  --ifm-color-animated-love: #f55064;
+  --ifm-color-animated-angry: #d5234c;
+
+  /* Interactive States */
+  --ifm-color-hover-shadow: rgba(230, 77, 233, 0.5);
+  --ifm-color-focus-outline: #cf59e2;
+  --ifm-color-button-spinner: rgb(202, 89, 155);
+  --ifm-color-scrollbar: rgb(202, 89, 155);
+
+  /* RGB Color Values for Complex Usage */
+  --ifm-color-rgb-chat-input: rgb(182, 188, 214);
+  --ifm-color-rgb-chat-encryption: rgb(182, 188, 214);
+  --ifm-color-rgb-chat-search: rgb(101, 119, 149);
+  --ifm-color-rgb-modal-sub: rgb(182, 188, 214);
+  --ifm-color-rgb-criteria-bg: rgb(47, 49, 55);
+  --ifm-color-rgb-modal-hover: rgb(64, 70, 80);
+  --ifm-color-rgb-modal-border: rgb(74, 79, 103);
+  --ifm-color-rgb-icon-color: rgba(120, 126, 153, 1);
+
+  /* DocsHub & Explainer Colors */
+  --ifm-color-docs-title: #9aa3db;
+  --ifm-color-docs-border: #3d3d3d;
+  --ifm-color-tech-doc-border: #d9d9d9;
+  --ifm-color-admonition-info-bg: #002d6d;
+  --ifm-color-admonition-info-border: #a2c9ff;
+  --ifm-color-admonition-warning-bg: #fff3e0;
+  --ifm-color-admonition-warning-border: #ff9800;
+  --ifm-color-admonition-caution-border: #f44336;
+  --ifm-color-admonition-tip-border: #4caf50;
+  --ifm-color-admonition-note-border: #9c27b0;
+  --ifm-color-toc-inactive: #757d8d;
+  --ifm-color-toc-scrollbar: #cf59e2;
+  --ifm-color-toc-scrollbar-hover: #b84ac8;
+
+  /* Featured & Glowy Colors */
+  --ifm-color-glow-primary: rgb(202, 55, 237);
+  --ifm-color-glow-secondary: #ca37ed;
+  --ifm-color-card-dark: #101010;
+  --ifm-color-gradient-hue-start: #D162EC;
+  --ifm-color-gradient-hue-end: #EAB7F6;
+
+  /* Mailing Signup Colors */
+  --ifm-color-signup-button-bg: #000;
+  --ifm-color-signup-arrow: #e492ff;
+  --ifm-color-signup-input-bg: #ffffff;
+  --ifm-color-signup-placeholder: #a3a7ac;
+  --ifm-color-signup-text: #ffffff;
+
+  /* Token Faucet Colors */
+  --ifm-color-token-highlight: #F0A5FC;
+  --ifm-color-twitter-blue-btn: #25AAF5;
+  --ifm-color-discord-channel: #F878DC;
+  --ifm-color-discord-blue: #3C63C6;
+
+  /* QnA Colors */
+  --ifm-color-qna-discord: #5865f2;
+
+  /* SEO/Meta Colors */
+  --ifm-color-theme-purple: #AA39BC;
+
+  /* SVG Fill Colors */
+  --ifm-color-svg-gray: #808080;
+
+  /* Home Features Gradient Colors */
+  --ifm-color-features-gradient: linear-gradient(90deg, #B1B1B9 0%, #635D65 100%);
+
+  /* Push Logo Gradient Colors */
+  --ifm-color-logo-gradient-start: #FF94A6;
+  --ifm-color-logo-gradient-17: #EA6AC0;
+  --ifm-color-logo-gradient-33: #DA4AD5;
+  --ifm-color-logo-gradient-42: #D53EDD;
+  --ifm-color-logo-gradient-53: #CB3EDD;
+  --ifm-color-logo-gradient-72: #B341E0;
+  --ifm-color-logo-gradient-95: #8B45E4;
+  --ifm-color-logo-gradient-end: #8247E5;
+
+  /* City Background Colors */
+  --ifm-color-city-teal: #299EC2;
+  --ifm-color-city-green: #16837C;
+  --ifm-color-city-blue: #194395;
+  --ifm-color-city-purple: #7A3DA9;
+  --ifm-color-city-coral: #E26059;
+  --ifm-color-city-forest: #2E7D5C;
+
+  /* Knowledge Base Colors */
+  --ifm-color-kb-dark: #101010;
+  --ifm-color-kb-blue: #4277F7;
+
+  /* Footer Colors */
+  --ifm-color-footer-bg: #121315;
+  --ifm-color-footer-subscribe: #cec3f9;
+  --ifm-color-footer-input: #ffffff;
+  --ifm-color-footer-info: #2a2a39;
+  --ifm-color-footer-header: #ffffff;
+  --ifm-color-footer-link: #9c9cbe;
+
+  /* Additional CSS Colors */
+  --ifm-color-navbar-hover: #dd45b9;
+  --ifm-color-code-em: #fff;
+
+  /* Terms of Service Colors */
+  --ifm-color-tos-highlight: #e20880;
+
+  /* Home Component Colors */
+  --ifm-color-home-subtitle: #DDD8D8;
+  --ifm-color-home-gradient-end: #aa48ec;
+
+  /* Knowledge Component Colors */
+  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.10);
+  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-knowledge-placeholder: #494E54;
+  --ifm-color-knowledge-button-border: rgba(41, 33, 33, 0.3);
+  --ifm-color-knowledge-media-pink: #f2c2fe;
+
+  /* LFPush Component Colors */
+  --ifm-color-tweet-border: #425364;
+  --ifm-color-tweet-icon: #536471;
+
+  /* Footer Additional Colors */
+  --ifm-color-footer-icon-border: #2a2a39;
+  --ifm-color-footer-partition: #2a2a39;
+
+  /* DocSearch Colors */
+  --ifm-color-docsearch-key-bg: #d1d5db;
+  --ifm-color-docsearch-key-text: #4b5563;
+
+  /* LFPush Tweet Additional Colors */
+  --ifm-color-tweet-like: #f91880;
+  --ifm-color-tweet-verified: #1da1f2;
+  --ifm-color-tweet-username: #8b949e;
+  --ifm-color-tweet-skeleton-dark: #333;
+  --ifm-color-tweet-skeleton-light: #444;
+  --ifm-color-tweet-skeleton-border: #333;
+  --ifm-color-tweet-spinner-primary: #aa39bc;
+  --ifm-color-tweet-end-message: #888;
+
+  /* Footer Additional Colors */
+  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.10);
+  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-footer-mailing-button-border: rgba(30, 23, 23, 0.3);
+  --ifm-color-footer-anchor-secondary: #94a3b6;
+
+  /* Tag Colors */
+  --ifm-color-tag-border: #bac4d6;
+  --ifm-color-tag-hover: #d53a94;
 }
 
 /* ----- */
@@ -431,7 +856,7 @@ a:hover {
   font-family: var(--ifm-font-family-homepage) !important;
 }
 .navbar__link:hover {
-  color: #dd45b9 !important;
+  color: var(--ifm-color-navbar-hover) !important;
 }
 
 .navbar__logo img {
@@ -541,7 +966,7 @@ article em > code {
 
 article em > code {
   background: var(--ifm-color-primary);
-  color: #fff;
+  color: var(--ifm-color-code-em);
   font-style: normal;
   font-weight: 500;
 }
@@ -562,7 +987,7 @@ article strong > em > code {
 article em > strong > code:hover,
 article strong > em > code:hover {
   background: var(--ifm-color-primary);
-  color: #fff;
+  color: var(--ifm-color-code-em);
 }
 
 article ul > li {
@@ -660,7 +1085,7 @@ article ul > li strong {
 /* Footer Styling */
 /* ---- */
 .footer-container {
-  background-color: #121315;
+  background-color: var(--ifm-color-footer-bg);
   /* height: 80vh; */
 }
 
@@ -676,7 +1101,7 @@ article ul > li strong {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #cec3f9;
+  background-color: var(--ifm-color-footer-subscribe);
   margin-top: 10%;
   height: 301px;
   width: 80%;
@@ -698,7 +1123,7 @@ article ul > li strong {
 .input-section {
   height: 66px;
   width: 404px;
-  background-color: #ffffff;
+  background-color: var(--ifm-color-footer-input);
   border-radius: 21px;
   display: flex;
   padding: 10px;
@@ -725,7 +1150,7 @@ article ul > li strong {
 }
 
 .footer_more_info {
-  background-color: #2a2a39;
+  background-color: var(--ifm-color-footer-info);
   border-radius: 32px;
   display: flex;
   column-gap: 20px;
@@ -755,7 +1180,7 @@ article ul > li strong {
 .footer_more_info_header {
   font-size: 24px;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--ifm-color-footer-header);
 }
 
 .open_pos_link {
@@ -781,7 +1206,7 @@ li {
 }
 
 .link-list-sub-container a {
-  color: #9c9cbe;
+  color: var(--ifm-color-footer-link);
 }
 
 .link-list-sub-container {
@@ -823,7 +1248,7 @@ li {
 .footer-icons {
   height: 43px;
   width: 43px;
-  border: 1px solid #2a2a39;
+  border: 1px solid var(--ifm-color-footer-icon-border);
   padding: 10px;
   border-radius: 12px;
 }
@@ -838,7 +1263,7 @@ li {
 }
 
 .dash_partition {
-  background-color: #2a2a39;
+  background-color: var(--ifm-color-footer-partition);
   width: 70%;
   margin: auto;
 }
@@ -885,8 +1310,8 @@ li {
 
   .DocSearch-Button-Key {
     box-shadow: none !important;
-    background: #d1d5db !important;
-    color: #4b5563 !important;
+    background: var(--ifm-color-docsearch-key-bg) !important;
+    color: var(--ifm-color-docsearch-key-text) !important;
   }
 
   .menu__list-item > .menu__link--active {
@@ -1112,7 +1537,7 @@ em sup sub a {
 sup em,
 sup strong {
   background: var(--ifm-color-new-indicator);
-  color: #fff;
+  color: var(--ifm-color-code-em);
   font-size: 0.6em;
   padding: 2px 6px;
   font-style: normal;

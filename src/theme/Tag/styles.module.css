@@ -10,7 +10,7 @@
 }
 
 .tagRegular {
-  border: 1px solid #bac4d6;
+  border: 1px solid var(--ifm-color-tag-border);
   transition: border var(--ifm-transition-fast);
   border-radius: 62px;
   padding: 16px 32px;
@@ -27,8 +27,8 @@
 
 .tagRegular:hover {
   text-decoration: none;
-  color: #d53a94;
-  border: 1px solid #d53a94;
+  color: var(--ifm-color-tag-hover);
+  border: 1px solid var(--ifm-color-tag-hover);
 }
 
 .tagWithCount {
@@ -45,5 +45,5 @@
 
 .tagWithCount:hover {
   text-decoration: underline;
-  color: #d53a94;
+  color: var(--ifm-color-tag-hover);
 }

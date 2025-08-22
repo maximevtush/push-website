@@ -166,9 +166,9 @@ const Container = styled.a`
   position: relative;
   &:hover {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid #bac4d6;
-    backdrop-filter: blur(60px);
+    background: var(--ifm-color-overlay-white-70);
+    border: 1px solid var(--ifm-color-border-medium);
+    backdrop-filter: var(--ifm-color-backdrop-blur-heavy);
     .arrow-body {
       display: block;
     }
