@@ -1617,9 +1617,9 @@
         "lastUpdated": "2025-08-22T15:10:42.823Z"
       },
       "04-02-04-pages-knowledge-tokenomics.json": {
-        "translated": false,
-        "checksum": null,
-        "lastUpdated": null
+        "translated": true,
+        "checksum": "53a00f23fec7b8ac1c46cc18d4882835",
+        "lastUpdated": "2025-08-22T15:13:58.559Z"
       },
       "04-02-05-pages-knowledge-faq.json": {
         "translated": false,
