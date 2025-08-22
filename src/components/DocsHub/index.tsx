@@ -55,6 +55,7 @@ import {
 import GLOBALS, { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
+import { useCountdown } from '@site/src/hooks/useCountDown';
 
 function QuickstartList({ title, codeblock, Svg }: IQuickstartItem) {
   return (
@@ -194,6 +195,13 @@ export default function DocsHub(): JSX.Element {
   const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
 
+  // TODO: add correct testnet launch date
+  const targetDate = '2025-09-31T23:59:59';
+  const { timeLeft, isExpired } = useCountdown(targetDate);
+  const tweetUrl =
+    'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent('[ Your shoutout here ] #pushchainsecret');
+
   const { colorMode, setColorMode } = useColorMode();
 
   return (
@@ -271,21 +279,35 @@ export default function DocsHub(): JSX.Element {
                 lineHeight='125%'
                 textAlign='center'
               >
-                Push Chain Docs Launching Soon!
+                Testnet Docs Launch in
               </H3>
 
-              {/* <Span
+              {!isExpired && (
+                <H3
+                  fontFamily='DM Sans'
+                  fontSize={isMobile ? '3rem' : '4rem'}
+                  fontWeight='500'
+                  color='var(--ifm-color-white)'
+                  lineHeight='110%'
+                  textAlign='center'
+                >
+                  {timeLeft.days}H : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
+                  {timeLeft.seconds}S
+                </H3>
+              )}
+
+              <TextSpan
                 fontFamily='DM Sans'
                 fontSize='1.25rem'
                 fontWeight='400'
                 color='var(--ifm-color-white)'
                 lineHeight='140%'
               >
-                Get a sneak peek into Testnet, Donut, build universal apps and
-                win prizes!
-              </Span> */}
+                Psst... want a sneak peek of Testnet Donut? Drop us a shout with
+                #pushchainsecret and we’ll send you access to a test build.
+              </TextSpan>
 
-              {/* <ExplorePrelaunchBuild
+              <ExplorePrelaunchBuild
                 background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid var(--ifm-color-overlay-white-30)'
@@ -294,115 +316,16 @@ export default function DocsHub(): JSX.Element {
                 letterSpacing='-0.03em'
                 lineHeight='1rem'
                 padding='16px 32px'
-                href='https://pushchain.github.io/push-chain-website/pr-preview/pr-1067/docs/'
+                href={tweetUrl}
                 target='_blank'
                 title={t('pages.docs.explore-prelaunch-build.title')}
                 aria-label={t('pages.docs.explore-prelaunch-build.ariaLabel')}
               >
-                <p>{t('pages.docs.explore-prelaunch-build.text')}</p>
-              </ExplorePrelaunchBuild> */}
+                <p>Tweet about Push Chain</p>
+              </ExplorePrelaunchBuild>
             </DocsHeader>
           </Content>
         </DocsHeroSection>
-
-        {/* QUICKSTART SECTION */}
-        {/* TODO: Comment out these data temporarily */}
-        {/* <HomepageSection alignItems='flex-start'>
-        <FluidContent>
-          <HomepageSubHeader id='quickstart'>
-            Popular Quickstart
-          </HomepageSubHeader>
-
-          <PopularQuickiesList>
-            {QuickstartItems.map((item, idx) => {
-              return (
-                <PopularQuickiesCard key={idx}>
-                  <PopularQuickiesHeader>
-                    <PopularQuickiesTitle>{`${item.title}`}</PopularQuickiesTitle>
-                  </PopularQuickiesHeader>
-
-                  <PopularQuickiesContent>
-                    <PopularQuickiesCodeBlock
-                      language='jsx'
-                      showLineNumbers={true}
-                    >
-                      {item.codeblock}
-                    </PopularQuickiesCodeBlock>
-                  </PopularQuickiesContent>
-                </PopularQuickiesCard>
-              );
-            })}
-          </PopularQuickiesList>
-        </FluidContent>
-      </HomepageSection> */}
-
-        {/* TECH DOCS SECTION */}
-        {/* <HomepageSection>
-        <FluidContent>
-          <HomepageSubHeader id='techdocs'>
-            Technical Documentation
-          </HomepageSubHeader>
-          <TechDocCardList>
-            {TechDocItems.map((props, idx) => (
-              <TechDocItem key={idx} docutheme={colorMode} {...props} />
-            ))}
-          </TechDocCardList>
-        </FluidContent>
-      </HomepageSection> */}
-
-        {/* SDK SECTION */}
-        {/* <HomepageSection>
-        <FluidContent>
-          <ItemH justifyContent='flex-start'>
-            <HomepageSubHeader>Push Chain SDK</HomepageSubHeader>
-            <Link
-              to='https://www.npmjs.com/package/@pushprotocol/restapi'
-              target='_blank'
-            >
-              <Span fontSize='18px' margin='0 5px 0 10px'>
-                Explore SDK
-              </Span>
-              <Span>
-                <FiArrowUpRight size={20} />
-              </Span>
-            </Link>
-          </ItemH>
-
-          <PushSdkCardList justifyContent='flex-start'>
-            {SdkItemsList.map((item, idx) => (
-              <PushSdkCard>
-                <PushSdkContent href={item.link} target='_blank'>
-                  <PushSdkContentTitle>{item.title}</PushSdkContentTitle>
-                  <PushSdkContentArrow>
-                    <FiArrowUpRight size={24} />
-                  </PushSdkContentArrow>
-                </PushSdkContent>
-              </PushSdkCard>
-            ))}
-          </PushSdkCardList> */}
-
-        {/* <div className='Faqs-main-container'>
-                  <div className='sub-container'>
-                    <span className="hero_home_Faq_header">
-                      Frequently Asked Questions
-                    </span>
-                    <Link to='https://push.org/faq' target='_blank'>
-                      <div className='hero_home_explore'>
-                        <p className='hero_home_explore_link'>
-                          Explore FAQs
-                        </p>
-                        <FiArrowUpRight className='arrowUp-icon' />
-                      </div>
-                    </Link>
-                  </div>
-                  <FAQ />
-
-                </div> */}
-        {/* </FluidContent>
-      </HomepageSection> */}
-
-        {/* NOTE: added extra div for larger screens since body is removed */}
-        <ExtraDiv></ExtraDiv>
 
         <Footer showPattern={false} />
       </DocsWrapper>
@@ -420,13 +343,8 @@ const DocsWrapper = styled.div`
   }
 `;
 
-const ExtraDiv = styled.div`
-  display: none;
-
-  @media (min-width: 1800px) {
-    display: block;
-    height: 60px; // or adjust to whatever spacing you need
-  }
+const TextSpan = styled(Span)`
+  max-width: 774px;
 `;
 
 const DocsHeroSection = styled(Section)`
@@ -454,7 +372,7 @@ const DocsHeader = styled(ItemV)`
   background: var(--ifm-color-blue);
   border-radius: 24px;
   padding: 64px 24px;
-  margin-top: 24px;
+  margin: 24px 0 64px 0;
 
   img {
     width: 700px;
