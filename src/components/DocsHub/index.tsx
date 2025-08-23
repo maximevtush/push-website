@@ -291,7 +291,7 @@ export default function DocsHub(): JSX.Element {
                   lineHeight='110%'
                   textAlign='center'
                 >
-                  {timeLeft.days}H : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
+                  {timeLeft.days}D : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
                   {timeLeft.seconds}S
                 </H3>
               )}
