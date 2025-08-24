@@ -27,7 +27,7 @@ Initializing the SDK client gives you:
 - **Chain-agnostic** `PushChainClient` for submitting on-chain calls  
 - Automatic **RPC & block-explorer resolution** (with optional overrides)  
 - Built-in **UEA** (Universal Executor Account) and **origin-account** getters  
-- End-to-end **gas abstraction**, signature orchestration & debug traces  
+- End-to-end **Universal fee abstraction**, signature orchestration & debug traces  
 
 Just pass your universal signer and network, and you’re ready to write and transact on Push Chain from any wallet.
 
@@ -143,7 +143,7 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
       // Initialize Push Chain SDK
       const pushChainClient = await PushChain.initialize(universalSigner, {
-          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
       console.log('🔑 Got push chain client');
       console.log(JSON.stringify(pushChainClient));
@@ -182,7 +182,7 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
       // Initialize Push Chain SDK
       const pushChainClient = await PushChain.initialize(universalSigner, {
-          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
       console.log('🔑 Got push chain client');
       console.log(JSON.stringify(pushChainClient));
@@ -215,7 +215,7 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
       // Initialize Push Chain SDK
       const pushChainClient = await PushChain.initialize(universalSigner, {
-          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
       console.log('🔑 Got push chain client');
       console.log(JSON.stringify(pushChainClient));
@@ -276,27 +276,42 @@ const pushChainClient = await PushChain.initialize(universalSigner, {
 
 ## Read-only Mode
 
-You can initialize a read-only `PushChainClient` by passing a `UniversalAccount` (address + chain) instead of a `UniversalSigner`. This is useful when you want to inspect account state, resolve explorer URLs, or read metadata without signing or sending transactions.
+**_`PushChain.initialize(account, {options}): Promise<PushChainClient>`_**
+
+You can initialize a **read-only** `PushChainClient` by passing a `UniversalAccount` (address + chain) instead of a `UniversalSigner`. This is useful when you want to inspect account state, resolve explorer URLs, or read metadata without signing or sending transactions.
+
+```typescript
+// Import @pushchain/core and ethers
+// Ensure you have created Universal Account. 
+// If not done, then check out Create Universal Account under Utility Functions.
+
+// Initialize Push Chain Client
+const pushChainClient = await PushChain.initialize(universalAccount, {
+  network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
+});
+```
+
+<Details summary="Live Playground: Initialize Read-only Push Chain Client" className="alert alert--live-play">
 
 <NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/initialize-push-chain-client"}}>
 
   {`
   // customPropHighlightRegexStart=PushChain\.initialize
-  // customPropHighlightRegexEnd=}\);
+  // customPropHighlightRegexEnd=}\\);
   import { PushChain } from '@pushchain/core';
 
   async function main() {
       console.log('Initializing Read-only Push Chain Client');
 
       // Create a UniversalAccount (read-only)
-      const readOnlyAccount = {
+      const universalAccount = {
           address: '0x1234567890123456789012345678901234567890',
           chain: PushChain.CONSTANTS.CHAIN.ETHEREUM_SEPOLIA,
       };
 
       // Initialize read-only client
-      const readOnlyClient = await PushChain.initialize(readOnlyAccount, {
-          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+      const readOnlyClient = await PushChain.initialize(universalAccount, {
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
 
       // Allowed operations (prettified)
@@ -331,15 +346,37 @@ You can initialize a read-only `PushChainClient` by passing a `UniversalAccount`
 
 </NodeJSVirtualIDE>
 
+</Details>
+
 ## Reinitialize Client
 
-Use `pushChainClient.reinitialize(newSignerOrAccount, options)` to get a fresh `PushChainClient` with a different signer/account and/or updated configuration (RPCs, explorers, traces, progress hook).
+**_`pushChainClient.reinitialize(signerOrAccount, {options}): Promise<PushChainClient>`_**
+
+You can reinitialize a `PushChainClient` with a different signer/account and/or updated configuration (RPCs, explorers, traces, progress hook).
+
+- Reinitialize will take the same parameters that you have passed for initializing the previous client.
+- To update the parameters, simply pass new ones in options object. **Parameters list** is same as [initialize(...)](#initialize-push-chain-client).
+- Reinitialize always returns a new client instance; swap references accordingly.
+- Changing the signer/account updates `universal.origin` and `universal.account`.
+
+```typescript
+// Import @pushchain/core and ethers
+// Ensure you have created Universal Account. 
+// If not done, then check out Create Universal Account under Utility Functions.
+
+// Initialize Push Chain Client
+const pushChainClient2 = await pushChainClient1.reinitialize(newSignerOrAccount, {
+  // pass new parameters if needed
+});
+```
+
+<Details summary="Live Playground: Reinitialize Push Chain Client" className="alert alert--live-play">
 
 <NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/initialize-push-chain-client"}}>
 
   {`
-  // customPropHighlightRegexStart=\.reinitialize\(
-  // customPropHighlightRegexEnd=}\);
+  // customPropHighlightRegexStart=client1\.reinitialize
+  // customPropHighlightRegexEnd=\\);
   import { PushChain } from '@pushchain/core';
   import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts';
   import { createWalletClient, http } from 'viem';
@@ -355,13 +392,12 @@ Use `pushChainClient.reinitialize(newSignerOrAccount, options)` to get a fresh `
 
       // Initialize with default options
       const client1 = await PushChain.initialize(signer, {
-        network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+        network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
       console.log('Before (explorer URLs):', client1.explorer.listUrls());
 
       // Reinitialize with SAME signer, change only ONE option (blockExplorers)
       const client2 = await client1.reinitialize(signer, {
-        network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
         blockExplorers: { 
           [PushChain.CONSTANTS.CHAIN.PUSH_TESTNET_DONUT]: ['https://custom-explorer.push.network'] },
         }
@@ -374,11 +410,7 @@ Use `pushChainClient.reinitialize(newSignerOrAccount, options)` to get a fresh `
 
 </NodeJSVirtualIDE>
 
-> The input parameters to `reinitialize(...)` are the same as [`initialize(...)`](#initialize-push-chain-client) above: pass a `UniversalSigner` or `UniversalAccount`, along with the same `options` object (e.g., `network`, `rpcUrls`, `blockExplorers`, `printTraces`, `progressHook`).
-
-Notes:
-- Reinitialize always returns a new client instance; swap references accordingly.
-- Changing the signer/account updates `universal.origin` and `universal.account`.
+</Details>
 
 ## Access Account Information
 
