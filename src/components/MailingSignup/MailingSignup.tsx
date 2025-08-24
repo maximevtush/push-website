@@ -175,7 +175,8 @@ const Button = styled.button<{
   loaderColor?: string;
 }>`
   cursor: pointer;
-  background: ${(props) => props.buttonBg || '#000'};
+  background: ${(props) =>
+    props.buttonBg || 'var(--ifm-color-signup-button-bg)'};
   border: ${(props) => props.buttonBorder || '0'};
   border-radius: 16px;
   display: flex;
@@ -198,13 +199,13 @@ const Button = styled.button<{
   .arrow {
     height: 100%;
     width: 100%;
-    color: ${(props) => props.arrowColor || '#e492ff'};
+    color: ${(props) => props.arrowColor || 'var(--ifm-color-signup-arrow)'};
   }
 
   .loader {
     height: 1.5rem;
     width: 1.5rem;
-    color: ${(props) => props.arrowColor || '#e492ff'};
+    color: ${(props) => props.arrowColor || 'var(--ifm-color-signup-arrow)'};
   }
 
   @keyframes loadingAnimation {
@@ -228,14 +229,16 @@ const Button = styled.button<{
 const SignupInputField = styled.input`
   all: unset;
   box-sizing: border-box;
-  color: ${(props) => props.placeholderColor || '#a3a7ac'};
+  color: ${(props) =>
+    props.placeholderColor || 'var(--ifm-color-signup-placeholder)'};
   font-family: ${(props) => props.fontFamily || 'DM Sans'};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.48px;
-  background: ${(props) => props.background || '#ffffff'};
+  background: ${(props) =>
+    props.background || 'var(--ifm-color-signup-input-bg)'};
   width: ${(props) => props.inputWidth || '100%'};
   border: 1px solid ${(props) => props.border || 'transparent'};
   padding: 24px;
@@ -252,7 +255,7 @@ const SignupInputField = styled.input`
   &:focus,
   &:active,
   &:not(:placeholder-shown) {
-    color: ${(props) => props.textColor || '#ffffff'};
+    color: ${(props) => props.textColor || 'var(--ifm-color-signup-text)'};
   }
 
   &:-webkit-autofill,
@@ -261,7 +264,7 @@ const SignupInputField = styled.input`
   &:-webkit-autofill:active {
     -webkit-box-shadow: ${(props) => props.boxShadow || 'none'} !important;
     -webkit-text-fill-color: ${(props) =>
-      props.textColor || '#ffffff'} !important;
+      props.textColor || 'var(--ifm-color-signup-text)'} !important;
     transition: background-color 5000s ease-in-out 0s;
   }
 
@@ -275,7 +278,8 @@ const SignupInputField = styled.input`
   }
 
   &::placeholder {
-    color: ${(props) => props.placeholderColor || '#a3a7ac'};
+    color: ${(props) =>
+      props.placeholderColor || 'var(--ifm-color-signup-placeholder)'};
     opacity: 1;
   }
 `;

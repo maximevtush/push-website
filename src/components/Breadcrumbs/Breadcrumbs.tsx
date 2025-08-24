@@ -161,11 +161,11 @@ const BreadcrumbLink = styled(Link)`
   }
 
   &:hover {
-    color: #cf59e2;
+    color: var(--ifm-color-breadcrumb-hover);
   }
 
   &:focus {
-    outline: 2px solid #cf59e2;
+    outline: 2px solid var(--ifm-color-focus-outline);
     outline-offset: 2px;
     border-radius: 2px;
   }

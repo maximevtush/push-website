@@ -143,25 +143,25 @@ const ConfettiSVG = styled.svg`
   height: 100%;
 
   .conf0 {
-    fill: #fc6394;
+    fill: var(--ifm-color-confetti-pink);
   }
   .conf1 {
-    fill: #ef3c8a;
+    fill: var(--ifm-color-confetti-magenta);
   }
   .conf2 {
-    fill: #5adaea;
+    fill: var(--ifm-color-confetti-cyan);
   }
   .conf3 {
-    fill: #974cbe;
+    fill: var(--ifm-color-confetti-purple);
   }
   .conf4 {
-    fill: #3cbecd;
+    fill: var(--ifm-color-confetti-teal);
   }
   .conf5 {
-    fill: #813bbe;
+    fill: var(--ifm-color-confetti-indigo);
   }
   .conf6 {
-    fill: #f9b732;
+    fill: var(--ifm-color-confetti-yellow);
   }
   .conf7 {
     display: none;
@@ -171,7 +171,7 @@ const ConfettiSVG = styled.svg`
   }
   .conf8 {
     fill: none;
-    stroke: #f9b732;
+    stroke: var(--ifm-color-confetti-yellow);
     stroke-width: 3;
     stroke-linecap: round;
     stroke-miterlimit: 10;
@@ -184,7 +184,7 @@ const ConfettiSVG = styled.svg`
 
   #yellow-strip {
     fill: none;
-    stroke: #f9b732;
+    stroke: var(--ifm-color-confetti-yellow);
     stroke-width: 3;
     stroke-linecap: round;
     stroke-miterlimit: 10;

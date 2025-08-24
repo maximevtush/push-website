@@ -101,7 +101,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
       borderRadius='32px'
       justifyContent='space-between'
       bgImage={variant === 'tile' ? item.bgImage : ''}
-      bgColor={variant === 'tile' ? item.bgColor : '#101010'}
+      bgColor={variant === 'tile' ? item.bgColor : 'var(--ifm-color-card-dark)'}
       href={getHref(item)}
       rel='noopener'
       target={item?.target ? item?.target : '_self'}
@@ -160,7 +160,7 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
 
       {variant === 'row' && (
         <RowLinkArrow flex='0' alignItems='center' justifyContent='center'>
-          <TbArrowUpRight color='#D548EC' size={24} />
+          <TbArrowUpRight color='var(--ifm-color-custom-pink)' size={24} />
         </RowLinkArrow>
       )}
 
@@ -176,7 +176,11 @@ const ExploreCard: FC = ({ item, index, variant = 'tile' }) => {
               fontWeight='400'
               lineHeight='133%'
               letterSpacing='-0.64px'
-              color={variant === 'tile' ? 'var(--ifm-color-white)' : '#757D8D'}
+              color={
+                variant === 'tile'
+                  ? 'var(--ifm-color-white)'
+                  : 'var(--ifm-color-toc-inactive)'
+              }
               fontFamily='DM Sans'
               margin='0'
             >
@@ -244,7 +248,9 @@ const Card = styled.a`
   &:active {
     outline: none;
     background: ${(props) =>
-      props.variant === 'row' ? '#101010' : props.bgColor || props.background};
+      props.variant === 'row'
+        ? 'var(--ifm-color-card-dark)'
+        : props.bgColor || props.background};
     background-image: ${({ bgImage }) =>
       bgImage ? `url(${bgImage})` : 'none'};
     background-repeat: no-repeat;

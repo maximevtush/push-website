@@ -943,27 +943,27 @@ const TextItem = styled.div`
   }
 
   .admonition-info {
-    border-left-color: #a2c9ff;
-    background: #002d6d;
+    border-left-color: var(--ifm-color-admonition-info-border);
+    background: var(--ifm-color-admonition-info-bg);
     color: var(--ifm-color-white);
   }
 
   .admonition-warning {
-    background-color: #fff3e0;
-    border-left-color: #ff9800;
+    background-color: var(--ifm-color-admonition-warning-bg);
+    border-left-color: var(--ifm-color-admonition-warning-border);
     color: var(--ifm-color-black);
   }
 
   .admonition-caution {
-    border-left-color: #f44336;
+    border-left-color: var(--ifm-color-admonition-caution-border);
   }
 
   .admonition-tip {
-    border-left-color: #4caf50;
+    border-left-color: var(--ifm-color-admonition-tip-border);
   }
 
   .admonition-note {
-    border-left-color: #9c27b0;
+    border-left-color: var(--ifm-color-admonition-note-border);
   }
 
   .admonition-title {
@@ -1008,7 +1008,10 @@ const TextItem = styled.div`
 
 const ListItem = styled.a`
   display: block;
-  color: ${({ isActive }) => (isActive ? '#cf59e2' : '#757d8d')};
+  color: ${({ isActive }) =>
+    isActive
+      ? 'var(--ifm-color-toc-scrollbar)'
+      : 'var(--ifm-color-toc-inactive)'};
   font-family: DM Sans;
   font-size: ${({ level }) =>
     level === 1 ? '1.25em' : level === 2 ? '1.125em' : '1em'};
@@ -1022,7 +1025,7 @@ const ListItem = styled.a`
     color 0.2s ease,
     font-weight 0.2s ease;
   &:hover {
-    color: #cf59e2;
+    color: var(--ifm-color-toc-scrollbar);
   }
 `;
 
@@ -1062,17 +1065,17 @@ const DesktopTOC = styled(ItemV)`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #cf59e2;
+    background: var(--ifm-color-toc-scrollbar);
     border-radius: 1px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #b84ac8;
+    background: var(--ifm-color-toc-scrollbar-hover);
   }
 
   /* Firefox scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: #cf59e2 transparent;
+  scrollbar-color: var(--ifm-color-toc-scrollbar) transparent;
 
   /* Ensure scrollbar is contained within the TOC */
   box-sizing: border-box;
@@ -1097,6 +1100,6 @@ const ToggleIcon = styled.div`
   text-align: center;
   margin-top: 12px;
   cursor: pointer;
-  color: #757d8d;
+  color: var(--ifm-color-toc-inactive);
   font-weight: bold;
 `;

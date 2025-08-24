@@ -347,7 +347,7 @@ const TweetsGrid = styled.div`
 
 const TweetWrapper = styled.div`
   background: var(--ifm-color-gray-900);
-  border: 1px solid #425364;
+  border: 1px solid var(--ifm-color-tweet-border);
   color: var(--ifm-color-primary-unified-text);
   border-radius: 12px;
   padding: 0;
@@ -367,37 +367,37 @@ const TweetWrapper = styled.div`
 
   /* Specific fixes for tweet icons */
   .verified_node_modules-react-tweet-dist-twitter-theme-icons-icons-module {
-    fill: #536471;
+    fill: var(--ifm-color-tweet-icon);
     width: 20px;
     height: 20px;
   }
 
   .twitterIcon_node_modules-react-tweet-dist-twitter-theme-tweet-header-module {
-    fill: #536471;
+    fill: var(--ifm-color-tweet-icon);
     width: 20px;
     height: 20px;
   }
 
   .likeIcon_node_modules-react-tweet-dist-twitter-theme-tweet-actions-module {
-    fill: #f91880;
+    fill: var(--ifm-color-tweet-like);
     width: 20px;
     height: 20px;
   }
 
   .replyIcon_node_modules-react-tweet-dist-twitter-theme-tweet-actions-module {
-    fill: #536471;
+    fill: var(--ifm-color-tweet-icon);
     width: 20px;
     height: 20px;
   }
 
   .copyIcon_node_modules-react-tweet-dist-twitter-theme-tweet-actions-module {
-    fill: #536471;
+    fill: var(--ifm-color-tweet-icon);
     width: 20px;
     height: 20px;
   }
 
   .infoIcon_node_modules-react-tweet-dist-twitter-theme-tweet-info-module {
-    fill: #536471;
+    fill: var(--ifm-color-tweet-icon);
     width: 16px;
     height: 16px;
   }
@@ -457,7 +457,7 @@ const SkeletonAvatar = styled.img`
   height: 40px;
   border-radius: 50%;
   margin-right: 12px;
-  border: 2px solid #aa39bc;
+  border: 2px solid var(--ifm-color-tweet-spinner-primary);
 `;
 
 const SkeletonInfo = styled.div`
@@ -473,13 +473,13 @@ const SkeletonName = styled.div`
 `;
 
 const VerifiedBadge = styled.span`
-  color: #1da1f2;
+  color: var(--ifm-color-tweet-verified);
   margin-left: 4px;
   font-size: 14px;
 `;
 
 const SkeletonUsername = styled.div`
-  color: #8b949e;
+  color: var(--ifm-color-tweet-username);
   font-size: 14px;
   margin-top: 2px;
 `;
@@ -487,7 +487,12 @@ const SkeletonUsername = styled.div`
 const SkeletonTimestamp = styled.div`
   width: 60px;
   height: 14px;
-  background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-tweet-skeleton-dark) 25%,
+    var(--ifm-color-tweet-skeleton-light) 50%,
+    var(--ifm-color-tweet-skeleton-dark) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
@@ -499,7 +504,12 @@ const SkeletonText = styled.div`
 
 const SkeletonLine = styled.div<{ width: string }>`
   height: 16px;
-  background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-tweet-skeleton-dark) 25%,
+    var(--ifm-color-tweet-skeleton-light) 50%,
+    var(--ifm-color-tweet-skeleton-dark) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
@@ -512,13 +522,18 @@ const SkeletonActions = styled.div`
   justify-content: space-between;
   max-width: 300px;
   padding-top: 12px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--ifm-color-tweet-skeleton-border);
 `;
 
 const SkeletonAction = styled.div`
   width: 60px;
   height: 20px;
-  background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-tweet-skeleton-dark) 25%,
+    var(--ifm-color-tweet-skeleton-light) 50%,
+    var(--ifm-color-tweet-skeleton-dark) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 10px;
@@ -549,8 +564,8 @@ const LoadingIndicator = styled.div`
 const LoadingSpinner = styled.div`
   width: 40px;
   height: 40px;
-  border: 3px solid #333;
-  border-top: 3px solid #aa39bc;
+  border: 3px solid var(--ifm-color-tweet-skeleton-dark);
+  border-top: 3px solid var(--ifm-color-tweet-spinner-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 
@@ -573,7 +588,7 @@ const LoadingText = styled.div`
 const EndMessage = styled.div`
   text-align: center;
   padding: 40px 20px;
-  color: #888;
+  color: var(--ifm-color-tweet-end-message);
   font-size: 18px;
   font-weight: 500;
 `;

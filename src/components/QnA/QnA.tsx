@@ -151,7 +151,7 @@ const QnAPrimaryLink = styled(A)`
   text-decoration: none;
   transition: all 0.2s ease;
   font-size: 16px;
-  background: #5865f2;
+  background: var(--ifm-color-qna-discord);
   color: var(--ifm-color-white);
   font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.3);

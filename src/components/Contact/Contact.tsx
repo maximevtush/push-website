@@ -258,13 +258,13 @@ const AlertContainer = styled.div<{ variant: 'success' | 'error' }>`
   border-radius: 8px;
   background-color: ${(props) =>
     props.variant === 'success'
-      ? 'rgba(34, 197, 94, 0.1)'
-      : 'rgba(239, 68, 68, 0.1)'};
+      ? 'var(--ifm-color-success-bg)'
+      : 'var(--ifm-color-error-bg)'};
   border: 1px solid
     ${(props) =>
       props.variant === 'success'
-        ? 'rgba(34, 197, 94, 0.3)'
-        : 'rgba(239, 68, 68, 0.3)'};
+        ? 'var(--ifm-color-success-border)'
+        : 'var(--ifm-color-error-border)'};
 `;
 
 const AlertContent = styled.div`
@@ -392,14 +392,18 @@ const inputStyles = `
 const StyledInput = styled.input<{ hasError?: boolean }>`
   ${inputStyles}
   border-color: ${(props) =>
-    props.hasError ? '#ef4444' : 'rgba(255, 255, 255, 0.2)'};
+    props.hasError
+      ? 'var(--ifm-color-input-error)'
+      : 'var(--ifm-color-overlay-white-20)'};
 `;
 
 const StyledSelect = styled.select<{ hasError?: boolean }>`
   ${inputStyles}
   cursor: pointer;
   border-color: ${(props) =>
-    props.hasError ? '#ef4444' : 'rgba(255, 255, 255, 0.2)'};
+    props.hasError
+      ? 'var(--ifm-color-input-error)'
+      : 'var(--ifm-color-overlay-white-20)'};
   padding-right: 40px;
   background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
   background-repeat: no-repeat;
@@ -421,7 +425,9 @@ const StyledTextArea = styled.textarea<{ hasError?: boolean }>`
   min-height: 150px;
   font-family: inherit;
   border-color: ${(props) =>
-    props.hasError ? '#ef4444' : 'rgba(255, 255, 255, 0.2)'};
+    props.hasError
+      ? 'var(--ifm-color-input-error)'
+      : 'var(--ifm-color-overlay-white-20)'};
 `;
 
 const ErrorMessage = styled.span`

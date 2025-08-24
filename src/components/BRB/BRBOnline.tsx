@@ -123,7 +123,7 @@ const GridItem = styled.div`
 
 const PartnerLine = styled.div`
   width: 100%;
-  background: #1b1b25;
+  background: var(--ifm-color-brb-background);
   margin: 0 auto;
   display: flex;
   border-radius: 32px;
@@ -166,7 +166,7 @@ const PartnersLogo = styled(Image)`
 const BountyDescription = styled(Span)`
   font-weight: 200;
   font-size: 15px;
-  color: #d0d3e7;
+  color: var(--ifm-color-text-light);
 
   margin: 16px 0px;
   position: relative;
@@ -175,7 +175,7 @@ const BountyDescription = styled(Span)`
 `;
 
 const DateSpan = styled(Span)`
-  color: #959caa;
+  color: var(--ifm-color-text-secondary);
   font-size: 21px;
   font-style: normal;
   font-weight: 200;
