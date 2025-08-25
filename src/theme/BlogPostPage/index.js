@@ -99,7 +99,7 @@ export default function BlogPostPage(props) {
 }
 
 const BlogItem = styled.div`
-  width: 800px !important;
+  width: 100% !important;
   margin: 0 auto;
 
   & article .markdown {
