@@ -1,50 +1,68 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import PushLogo from '@site/static/assets/website/brb/pushIcon.svg';
-import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
+// React + Web3 Essentials
+import Head from '@docusaurus/Head';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Layout from '@theme/Layout';
+import React from 'react';
 
-import { ItemV } from '../../src/css/SharedStyling';
+// External Components
+import { useTranslation } from 'react-i18next';
 
-function BRB() {
-  // Redirect to Home Page
-  useEffect(() => {
-    window.location.href = 'https://comms.push.org/brb';
-  }, []);
+// Internal Components
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
+import BRBComp from '@site/src/pages-composition/brbComp';
+
+function BRBPage() {
+  // Internationalization
+  const { t } = useTranslation();
 
   return (
-    <Container>
-      <PushLogoBlackContainer className='headerlogo' flex='initial'>
-        <PushLogo style={{ margin: '0px 9px 0px 4px' }} />
-        <ChainLogoDark />
-      </PushLogoBlackContainer>
-      <Message>Redirecting...</Message>
-    </Container>
+    <Layout
+      title={t('pages.brb.seo.title')}
+      description={t('pages.brb.seo.description')}
+      showNavbar={false}
+    >
+      <Head>
+        {/* <!-- Facebook Meta Tags --> */}
+        <meta property='og:url' content='https://push.org/brb' />
+        <meta property='og:type' content='website' />
+        <meta property='og:title' content={t('pages.brb.seo.og-title')} />
+        <meta
+          property='og:description'
+          content={t('pages.brb.seo.og-description')}
+        />
+        <meta
+          property='og:image'
+          content={useBaseUrl(
+            require('/static/assets/previews/brbpreview.png').default,
+            { absolute: true }
+          )}
+        />
+
+        {/* <!-- Twitter Meta Tags --> */}
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
+        <meta name='twitter:title' content={t('pages.brb.seo.twitter-title')} />
+        <meta
+          name='twitter:description'
+          content={t('pages.brb.seo.twitter-description')}
+        />
+        <meta
+          name='twitter:image'
+          content={useBaseUrl(
+            require('/static/assets/previews/brbpreview.png').default,
+            { absolute: true }
+          )}
+        />
+      </Head>
+
+      <DefaultDarkTheme>
+        <BRBComp />
+      </DefaultDarkTheme>
+    </Layout>
   );
 }
 
-export default BRB;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: black;
-  color: white;
-  text-align: center;
-`;
-
-const PushLogoBlackContainer = styled(ItemV)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #fff;
-`;
-
-const Message = styled.p`
-  font-size: 18px;
-  margin-top: 8px;
-`;
+export default BRBPage;

@@ -6,33 +6,40 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import DeepDivesComp from '@site/src/pages-composition/deepdivesComp';
 
 // Internal Configs
-import { deepDivesContent } from '@site/src/components/Chain/content/deepdives';
-import { PageMeta } from '@site/src/config/pageMeta';
-function Page() {
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
+
+// Main
+function DeepDivesPage() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.DEEPDIVES.pageTitle}
-      description={PageMeta.DEEPDIVES.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.deepdives.seo.title')}
+      description={t('pages.knowledge.deepdives.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
         <meta
           property='og:url'
-          content='https://push.org/chain/knowledge/deepdives'
+          content='https://push.org/knowledge/deepdives'
         />
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
-          content='Deepdives | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.deepdives.seo.og-title')}
         />
         <meta
-          name='og:description'
-          content='Want to know the intricate working of Push? or just a curious fellow? If so, this section is for you ❤️'
+          property='og:description'
+          content={t('pages.knowledge.deepdives.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -45,13 +52,14 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Deepdives | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.deepdives.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Want to know the intricate working of Push? or just a curious fellow? If so, this section is for you ❤️'
+          content={t('pages.knowledge.deepdives.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -60,26 +68,13 @@ function Page() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
-      <ChainKnowledgeBaseArticle item={deepDivesContent} />
+      <DefaultDarkTheme>
+        <DeepDivesComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }
 
-export default Page;
+export default DeepDivesPage;

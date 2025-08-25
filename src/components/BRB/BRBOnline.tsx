@@ -8,7 +8,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Internal Components
-import { Image, ItemH } from '@site/src/css/SharedStyling';
+import { Image, ItemH, Span } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 
 // Internal Configs
@@ -38,7 +38,7 @@ const BRBOnline = ({ sectionRef }) => {
         <Span
           fontSize={isMobile ? '18px' : '23px'}
           fontWeight='200'
-          color='#fff'
+          color='var(--ifm-color-white)'
           margin='0px 0px 40px'
         >
           Join Virtually, Build and Win $50k+
@@ -95,7 +95,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px;
 
   @media ${device.mobileL} {
@@ -123,7 +123,7 @@ const GridItem = styled.div`
 
 const PartnerLine = styled.div`
   width: 100%;
-  background: #1b1b25;
+  background: var(--ifm-color-brb-background);
   margin: 0 auto;
   display: flex;
   border-radius: 32px;
@@ -137,12 +137,16 @@ const PartnerLine = styled.div`
 
   &:hover {
     border: ${(props) =>
-      props.disabled ? '1px solid transparent' : '1px solid #E64DE9'};
+      props.disabled
+        ? '1px solid transparent'
+        : '1px solid var(--ifm-color-pink-secondary)'};
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
     & .buttonId {
       background: ${(props) =>
-        !props.disabled ? '#E64DE9 !important' : 'transparent'};
+        !props.disabled
+          ? 'var(--ifm-color-pink-secondary) !important'
+          : 'transparent'};
     }
   }
 
@@ -162,7 +166,7 @@ const PartnersLogo = styled(Image)`
 const BountyDescription = styled(Span)`
   font-weight: 200;
   font-size: 15px;
-  color: #d0d3e7;
+  color: var(--ifm-color-text-light);
 
   margin: 16px 0px;
   position: relative;
@@ -171,7 +175,7 @@ const BountyDescription = styled(Span)`
 `;
 
 const DateSpan = styled(Span)`
-  color: #959caa;
+  color: var(--ifm-color-text-secondary);
   font-size: 21px;
   font-style: normal;
   font-weight: 200;

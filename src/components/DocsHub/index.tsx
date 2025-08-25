@@ -17,6 +17,7 @@ import './styles.css';
 
 // External Components
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from 'styled-components';
 
 // Internal Components
@@ -26,6 +27,7 @@ import {
   Content,
   H1,
   H2,
+  H3,
   Image,
   ItemH,
   ItemV,
@@ -51,8 +53,9 @@ import {
   TechDocItems,
 } from '@site/src/config/DocsHubList';
 import GLOBALS, { device } from '@site/src/config/globals';
-import { PageMeta } from '@site/src/config/pageMeta';
+import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
+import { useCountdown } from '@site/src/hooks/useCountDown';
 
 function QuickstartList({ title, codeblock, Svg }: IQuickstartItem) {
   return (
@@ -187,23 +190,34 @@ function TechDocItem({
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function DocsHub(): JSX.Element {
+  // Internationalization
+  const { t } = useTranslation();
+  const isMobile = useMediaQuery(device.mobileL);
+
+  // TODO: add correct testnet launch date
+  const targetDate = '2025-09-16T12:00:00';
+  const { timeLeft, isExpired } = useCountdown(targetDate);
+  const tweetUrl =
+    'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent('[ Your shoutout here ] #pushchainsecret');
+
   const { colorMode, setColorMode } = useColorMode();
 
   return (
     <Layout
-      title={PageMeta.DOCS.pageTitle}
-      description={PageMeta.DOCS.pageDescription}
+      title={t('pages.docs.seo.title')}
+      description={t('pages.docs.seo.description')}
       showNavbar={false}
     >
       <Head>
         {/* <!-- Facebook Meta Tags --> */}
         <meta property='og:url' content='https://push.org/docs' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Push | Documentation Hub' />
+        <meta property='og:title' content={t('pages.docs.seo.og-title')} />
         <meta
           property='og:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -216,10 +230,14 @@ export default function HomepageFeatures(): JSX.Element {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
-        <meta name='twitter:title' content='Push | Documentation Hub' />
+        <meta name='twitter:creator' content='@PushChain' />
+        <meta
+          name='twitter:title'
+          content={t('pages.docs.seo.twitter-title')}
+        />
         <meta
           name='twitter:description'
-          content='Explore our comprehensive cheat sheet, packed with quick references, tips, and key information to master the subject. Get a handy resource to boost your knowledge and productivity instantly.'
+          content={t('pages.docs.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -228,21 +246,6 @@ export default function HomepageFeatures(): JSX.Element {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'The Communication Protocol of Web3',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
       <DocsWrapper>
@@ -254,149 +257,75 @@ export default function HomepageFeatures(): JSX.Element {
             left='0'
             right='0'
             height='149px'
-            background={'var(--ifm-docs-hero-bg)'}
+            background={'var(--ifm-color-primary-inverse)'}
           ></ItemV>
           <Content padding='0px'>
-            <HeroHeader>
-              <ItemV zIndex='1'>
-                <H1 color='var(--ifm-color-primary-text)' margin='0 !important'>
-                  Push Chain Documentation Hub
-                </H1>
-                <Span
-                  color='var(--ifm-color-primary-text)'
-                  padding='0 0 64px 0'
-                  textAlign='center'
-                >
-                  Get started with building shared state apps for any chain.
-                </Span>
-                {/* <HeroButton onClick={() => (window.location.href = '#techdocs')}> */}
-                <Span padding='0 10px 0 0' fontSize='1.5rem' fontWeight='600'>
-                  Coming Soon
-                </Span>{' '}
-                {/* ↗ */}
-                {/* </HeroButton> */}
-              </ItemV>
+            <DocsHeader>
+              <Image
+                src={
+                  require(
+                    `@site/static/assets/website/docshub/Testnet-Docs-img.webp`
+                  ).default
+                }
+                srcSet={`${require(`@site/static/assets/website/docshub/Testnet-Docs-img@2x.webp`).default} 2x, ${require(`@site/static/assets/website/docshub/Testnet-Docs-img@3x.webp`).default} 3x`}
+                alt={`${t('pages.home.trustedby-section.trusted-by-alt')}}`}
+              />
 
-              <ItemV
-                position='absolute'
-                bottom='-25%'
-                left='0'
-                right='0'
-                height='50%'
+              <H3
+                fontFamily='DM Sans'
+                fontSize={isMobile ? '2rem' : '3rem'}
+                fontWeight='600'
+                color='var(--ifm-color-white)'
+                lineHeight='125%'
+                textAlign='center'
               >
-                <PulseStatic />
-                <Pulse>
-                  <Pulsate stagger={0}></Pulsate>
-                  <Pulsate stagger={1}></Pulsate>
-                  <Pulsate stagger={2}></Pulsate>
-                  <Pulsate stagger={3}></Pulsate>
-                  <Pulsate stagger={4}></Pulsate>
-                  <Pulsate stagger={5}></Pulsate>
-                  <Pulsate stagger={6}></Pulsate>
-                </Pulse>
-              </ItemV>
-            </HeroHeader>
+                {t('pages.docs.header.countdown-title')}
+              </H3>
+
+              {!isExpired && (
+                <H3
+                  fontFamily='DM Sans'
+                  fontSize={isMobile ? '3rem' : '4rem'}
+                  fontWeight='500'
+                  color='var(--ifm-color-white)'
+                  lineHeight='110%'
+                  textAlign='center'
+                  margin='12px auto'
+                >
+                  {timeLeft.days}D : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
+                  {timeLeft.seconds}S
+                </H3>
+              )}
+
+              <TextSpan
+                fontFamily='DM Sans'
+                fontSize='1.25rem'
+                fontWeight='400'
+                color='var(--ifm-color-white)'
+                lineHeight='140%'
+              >
+                {t('pages.docs.header.description')}
+              </TextSpan>
+
+              <TweetAboutPushChain
+                background='var(--ifm-color-custom-pink)'
+                borderRadius='16px'
+                border='1px solid var(--ifm-color-overlay-white-30)'
+                fontSize='1.125rem'
+                fontWeight='600'
+                letterSpacing='-0.03em'
+                lineHeight='1rem'
+                padding='16px 32px'
+                href={tweetUrl}
+                target='_blank'
+                title={t('pages.docs.header.title')}
+                aria-label={t('pages.docs.header.ariaLabel')}
+              >
+                <p>{t('pages.docs.header.title')}</p>
+              </TweetAboutPushChain>
+            </DocsHeader>
           </Content>
         </DocsHeroSection>
-
-        {/* QUICKSTART SECTION */}
-        {/* TODO: Comment out these data temporarily */}
-        {/* <HomepageSection alignItems='flex-start'>
-        <FluidContent>
-          <HomepageSubHeader id='quickstart'>
-            Popular Quickstart
-          </HomepageSubHeader>
-
-          <PopularQuickiesList>
-            {QuickstartItems.map((item, idx) => {
-              return (
-                <PopularQuickiesCard key={idx}>
-                  <PopularQuickiesHeader>
-                    <PopularQuickiesTitle>{`${item.title}`}</PopularQuickiesTitle>
-                  </PopularQuickiesHeader>
-
-                  <PopularQuickiesContent>
-                    <PopularQuickiesCodeBlock
-                      language='jsx'
-                      showLineNumbers={true}
-                    >
-                      {item.codeblock}
-                    </PopularQuickiesCodeBlock>
-                  </PopularQuickiesContent>
-                </PopularQuickiesCard>
-              );
-            })}
-          </PopularQuickiesList>
-        </FluidContent>
-      </HomepageSection> */}
-
-        {/* TECH DOCS SECTION */}
-        {/* <HomepageSection>
-        <FluidContent>
-          <HomepageSubHeader id='techdocs'>
-            Technical Documentation
-          </HomepageSubHeader>
-          <TechDocCardList>
-            {TechDocItems.map((props, idx) => (
-              <TechDocItem key={idx} docutheme={colorMode} {...props} />
-            ))}
-          </TechDocCardList>
-        </FluidContent>
-      </HomepageSection> */}
-
-        {/* SDK SECTION */}
-        {/* <HomepageSection>
-        <FluidContent>
-          <ItemH justifyContent='flex-start'>
-            <HomepageSubHeader>Push Chain SDK</HomepageSubHeader>
-            <Link
-              to='https://www.npmjs.com/package/@pushprotocol/restapi'
-              target='_blank'
-            >
-              <Span fontSize='18px' margin='0 5px 0 10px'>
-                Explore SDK
-              </Span>
-              <Span>
-                <FiArrowUpRight size={20} />
-              </Span>
-            </Link>
-          </ItemH>
-
-          <PushSdkCardList justifyContent='flex-start'>
-            {SdkItemsList.map((item, idx) => (
-              <PushSdkCard>
-                <PushSdkContent href={item.link} target='_blank'>
-                  <PushSdkContentTitle>{item.title}</PushSdkContentTitle>
-                  <PushSdkContentArrow>
-                    <FiArrowUpRight size={24} />
-                  </PushSdkContentArrow>
-                </PushSdkContent>
-              </PushSdkCard>
-            ))}
-          </PushSdkCardList> */}
-
-        {/* <div className='Faqs-main-container'>
-                  <div className='sub-container'>
-                    <span className="hero_home_Faq_header">
-                      Frequently Asked Questions
-                    </span>
-                    <Link to='https://push.org/faq' target='_blank'>
-                      <div className='hero_home_explore'>
-                        <p className='hero_home_explore_link'>
-                          Explore FAQs
-                        </p>
-                        <FiArrowUpRight className='arrowUp-icon' />
-                      </div>
-                    </Link>
-                  </div>
-                  <FAQ />
-
-                </div> */}
-        {/* </FluidContent>
-      </HomepageSection> */}
-
-        {/* NOTE: added extra div for larger screens since body is removed */}
-        <ExtraDiv></ExtraDiv>
 
         <Footer showPattern={false} />
       </DocsWrapper>
@@ -414,30 +343,53 @@ const DocsWrapper = styled.div`
   }
 `;
 
-const ExtraDiv = styled.div`
-  display: none;
-
-  @media (min-width: 1800px) {
-    display: block;
-    height: 6rem; // or adjust to whatever spacing you need
-  }
+const TextSpan = styled(Span)`
+  max-width: 774px;
 `;
 
 const DocsHeroSection = styled(Section)`
-  background: var(--ifm-docs-hero-bg);
+  background: var(--ifm-color-primary-inverse);
   // background: ${GLOBALS.COLORS.BG_DARK};
 
   padding: ${GLOBALS.STRUCTURE.PADDING.DESKTOP};
+  padding-top: 0px;
   padding-bottom: 0px;
 
   @media ${device.laptop} {
     padding: ${GLOBALS.STRUCTURE.PADDING.TABLET};
+    padding-top: 0px;
     padding-bottom: 0px;
   }
 
   @media ${device.mobileM} {
     padding: ${GLOBALS.STRUCTURE.PADDING.MOBILE};
+    padding-top: 0px;
     padding-bottom: 0px;
+  }
+`;
+
+const DocsHeader = styled(ItemV)`
+  background: var(--ifm-color-blue);
+  border-radius: 24px;
+  padding: 64px 24px;
+  margin: 24px 0 64px 0;
+
+  img {
+    width: 700px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  span {
+    text-align: center;
+  }
+`;
+
+const TweetAboutPushChain = styled(A)`
+  margin-top: 24px;
+
+  p {
+    margin: 0;
   }
 `;
 
@@ -456,9 +408,9 @@ const HeroHeader = styled(ItemV)`
 const HeroButton = styled(Button)`
   cursor: ${(props) => (props.disabled ? 'not-allowed !important' : 'pointer')};
   align-items: center;
-  background-color: #d548ec;
+  background-color: var(--ifm-color-custom-pink);
   border-radius: 16px;
-  color: #fff;
+  color: var(--ifm-color-white);
   display: flex;
   flex-direction: row;
   font-size: 16px;
@@ -470,7 +422,7 @@ const HeroButton = styled(Button)`
 
   &:hover {
     transform: scale(1.05);
-    color: #fff;
+    color: var(--ifm-color-white);
   }
 `;
 
@@ -484,7 +436,7 @@ const pulseStaticAnim = keyframes`
 const PulseStatic = styled.div`
   width: 40px;
   height: 40px;
-  background: #000;
+  background: var(--ifm-color-black);
   border-radius: 50%;
   position: absolute;
   animation: ${pulseStaticAnim} 5s ease-out forwards;
@@ -583,12 +535,12 @@ const PopularQuickiesCard = styled(ItemV)`
   }
 
   *::-webkit-scrollbar-thumb {
-    background: #cb3faa;
+    background: var(--ifm-color-pink-300);
     border-radius: 6px;
   }
 
   *::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--ifm-color-neutral-100);
   }
 
   *::-webkit-scrollbar-button {
@@ -597,7 +549,7 @@ const PopularQuickiesCard = styled(ItemV)`
 
   /* Firefox */
   * {
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 
@@ -645,13 +597,13 @@ const PopularQuickiesHeader = styled(ItemH)`
 `;
 
 const PopularQuickiesTitle = styled(Span)`
-  color: #9aa3db;
+  color: var(--ifm-color-docs-title);
   font-size: 16px;
   font-weight: bold;
 `;
 
 const PopularQuickiesContent = styled(ItemV)`
-  border-top: 1px solid #3d3d3d;
+  border-top: 1px solid var(--ifm-color-docs-border);
   align-items: stretch;
   width: 100%;
 `;
@@ -692,7 +644,7 @@ const TechDocContent = styled.div`
   position: relative;
   border-radius: 24px;
   padding: 40px 20px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--ifm-color-tech-doc-border);
   background: transparent;
   align-self: stretch;
   display: flex;
@@ -760,12 +712,12 @@ const TechDocCodeBlock = styled(CodeBlock)`
   }
 
   *::-webkit-scrollbar-thumb {
-    background: #cb3faa;
+    background: var(--ifm-color-pink-300);
     border-radius: 6px;
   }
 
   *::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--ifm-color-neutral-100);
   }
 
   *::-webkit-scrollbar-button {
@@ -774,7 +726,7 @@ const TechDocCodeBlock = styled(CodeBlock)`
 
   /* Firefox */
   * {
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 `;
@@ -805,12 +757,12 @@ const PushSdkContent = styled(A)`
   display: flex;
   justify-content: stretch;
   align-self: stretch;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--ifm-color-tech-doc-border);
   width: 100%;
   padding: 24px;
 
   & svg {
-    color: #d9d9d9;
+    color: var(--ifm-color-tech-doc-border);
   }
 
   &:after {

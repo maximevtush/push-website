@@ -166,7 +166,7 @@ export default function NavbarContent() {
         <ItemH flexDirection='column' alignItems='flex-start' gap='4px'>
           <H2
             fontSize='16px'
-            fontFamily='FK Grotesk Neue'
+            fontFamily='DM Sans, san-serif'
             color='var(--ifm-color-primary-text)'
             lineHeight='130%'
             letterSpacing='normal'
@@ -177,7 +177,7 @@ export default function NavbarContent() {
 
           <H3
             fontSize='14px'
-            fontFamily='FK Grotesk Neue'
+            fontFamily='DM Sans, san-serif'
             color='var(--ifm-navbar-dropdown-subtext)'
             lineHeight='130%'
             letterSpacing='normal'
@@ -197,7 +197,7 @@ export default function NavbarContent() {
       if (id !== activeId) {
         const element = document.getElementById(id);
         if (element) {
-          element.style.color = '#6C6C6C';
+          element.style.color = 'var(--ifm-color-neutral-700)';
           element.style.transitionDuration = '1s';
         }
       }
@@ -208,7 +208,7 @@ export default function NavbarContent() {
     textIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
-        element.style.color = '#fff';
+        element.style.color = 'var(--ifm-color-white)';
         element.style.transitionDuration = '1s';
       }
     });
@@ -295,24 +295,24 @@ const NavigationMenuItem = styled.div`
   }
 
   & span {
-    font-family: 'FK Grotesk Neue';
+    font-family: 'DM Sans, san-serif';
 
     padding: 4px;
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
     letter-spacing: normal;
-    // color: #6c6c6c;
+    // color: var(--ifm-color-neutral-700);
   }
 
   &:hover {
     & span {
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .menuContent {
@@ -432,7 +432,7 @@ const HeaderItem = styled.div`
     border-radius: 16px;
 
     h2 {
-      color: #d98aec;
+      color: var(--ifm-color-pink-200);
     }
     & ${Image} {
       filter: brightness(0) saturate(100%) invert(83%) sepia(53%)
@@ -457,7 +457,9 @@ const HeaderImage = styled(Image)`
 const NavItem = styled(LinkTo)`
   color: var(--ifm-color-primary-text);
 
-  font-family: 'FK Grotesk Neue';
+  font-family:
+    DM Sans,
+    san-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;

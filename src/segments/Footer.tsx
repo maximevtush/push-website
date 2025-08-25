@@ -2,21 +2,20 @@
 // @ts-nocheck
 
 // React + Web3 Essentials
-import { useLocation } from '@docusaurus/router';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // External Components
 import { BsTwitterX } from 'react-icons/bs';
 import styled from 'styled-components';
-import Typewriter from 'typewriter-effect';
 
 // Internal Components
-import FeaturedList from '@site/src/components/Featured/FeaturedList';
+import { MailingSignup } from '@site/src/components/MailingSignup/MailingSignup';
 import {
   A,
   Content,
   H2,
+  Image,
   ItemH,
   ItemV,
   LinkTo,
@@ -24,96 +23,107 @@ import {
   Span,
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
-import ImageBg from '@site/static/assets/website/chain/chainFeaturesDivider@3x.png';
 import DiscordSVG from '@site/static/assets/website/shared/discord.svg';
 import GithubSVG from '@site/static/assets/website/shared/github.svg';
 
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 import { device } from '@site/src/config/globals';
-import { ChainFooterList } from '../components/Chain/config/ChainFooterList';
+import { FooterList, FooterUrls } from '../config/FooterList';
+import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 
-const tosPrivacyLinks = [
-  { href: '/tos', text: 'Terms of service' },
-  { href: '/privacy', text: 'Privacy' },
-];
-
-function Footer({ showPattern }) {
+function Footer() {
   // Internationalization
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
   const isTablet = useMediaQuery(device.tablet);
   const baseURL = useSiteBaseUrl() || '';
-
-  // for navigation
-  const history = useHistory();
-  const location = useLocation();
 
   const scrollToTop = () => {
     document.documentElement.scrollTo(0, 0);
   };
 
-  // const handleNavigation = (e, href, id, target) => {
-  //   e.stopPropagation();
-  //   if (href) {
-  //     const fullHref = href.includes('http') ? href : `${baseURL}${href}`;
-  //     target === '_self'
-  //       ? (window.location.href = fullHref)
-  //       : window.open(fullHref, target || '_blank');
-  //   } else if (id) {
-  //     const scrollTarget = document.getElementById(id);
-  //     if (location?.pathname !== `${baseURL}/`) {
-  //       history.push(`${baseURL}/`);
-  //       setTimeout(
-  //         () => scrollTarget?.scrollIntoView({ behavior: 'smooth' }),
-  //         300
-  //       );
-  //     } else {
-  //       scrollTarget?.scrollIntoView({ behavior: 'smooth' });
-  //     }
-  //   }
-  // };
-
-  // Determine if the pathname starts with '/docs' or Blog
-  const isDocsOrBlogsPage =
-    location?.pathname.startsWith(baseURL + '/docs') ||
-    location?.pathname.startsWith(baseURL + '/blog');
-
   return (
     <ChainFooterContainer>
-      {showPattern && <DividerImg />}
-
       <StyledFooter>
-        {/* featured section */}
-        {!isDocsOrBlogsPage && (
-          <FeaturedInSection id='featured'>
-            <Content className='fluid'>
-              <ItemH justifyContent='center' flex='0'>
-                <H2
-                  color='#FFF'
-                  fontWeight='500'
-                  letterSpacing='normal'
-                  fontSize={isMobile ? '24px' : '36px'}
-                  fontFamily='N27'
-                  lineHeight='130%'
-                  textAlign='center'
-                >
-                  Featured Stories
-                </H2>
-              </ItemH>
+        <EmailSection
+          id='featured'
+          aria-label={t('footer.email-section.section-aria-label')}
+        >
+          <EmailContent>
+            <EmailDiv>
+              <H2
+                color='var(--ifm-color-white)'
+                fontWeight='400'
+                letterSpacing='-0.56px'
+                fontSize={isMobile ? '1.rem' : '1.75rem'}
+                lineHeight='140%'
+                aria-label={t('footer.email-section.title-aria-label')}
+              >
+                {t('footer.email-section.title')}
+                <DesktopSpan>
+                  {t('footer.email-section.title-secondary')}
+                </DesktopSpan>
+              </H2>
 
-              <FeaturedList />
-            </Content>
-          </FeaturedInSection>
-        )}
+              <MailingSignup
+                inputWidth={isMobile ? '100%' : '300px'}
+                showButton={true}
+                background={'var(--ifm-color-footer-mailing-bg)'}
+                borderColor={'var(--ifm-color-footer-mailing-border)'}
+                textColor={'var(--ifm-color-white)'}
+                placeholderColor={'var(--ifm-color-knowledge-placeholder)'}
+                buttonBg={'var(--ifm-color-custom-pink)'}
+                buttonBorder={
+                  '1px solid var(--ifm-color-footer-mailing-button-border)'
+                }
+                arrowColor={'var(--ifm-color-white)'}
+                loaderColor={'var(--ifm-color-white)'}
+                blendMode='lighten'
+                boxShadow='2.788px 2.598px 12px rgba(255, 255, 255, 0.15) inset, 1.858px 1.732px 6px rgba(255, 255, 255, 0.15) inset'
+                backdrop='blur(10px)'
+              />
+            </EmailDiv>
+          </EmailContent>
+        </EmailSection>
 
-        <FooterSection id='footer'>
+        <FooterSection
+          id='footer'
+          aria-label={t('footer.main-section.section-aria-label')}
+        >
           <Content alignSelf='center'>
+            <TopLogoSection>
+              <FooterLinkItem>
+                <LinkTo
+                  className='pushLogo'
+                  to={useBaseUrl('/')}
+                  title={t('footer.main-section.logo-link-title')}
+                  aria-label={t('footer.main-section.logo-link-aria-label')}
+                  onClick={scrollToTop}
+                  justifyContent={isMobile ? 'center' : 'flex-start'}
+                  padding='0px 0px'
+                >
+                  <Image
+                    src={
+                      require(
+                        `@site/static/assets/website/footer/PushLogoOnly.png`
+                      ).default
+                    }
+                    srcSet={`${require(`@site/static/assets/website/footer/PushLogoOnly@2x.png`).default} 2x, ${require(`@site/static/assets/website/footer/PushLogoOnly@3x.png`).default} 3x`}
+                    alt={t('footer.main-section.logo-alt')}
+                    title={t('footer.main-section.logo-link-title')}
+                    loading='lazy'
+                    width='90px'
+                    height='auto'
+                  />
+                </LinkTo>
+              </FooterLinkItem>
+            </TopLogoSection>
+
             {/* footer links */}
             <ItemH flex='1' margin='0px 0 0 0'>
               <FooterContainer>
-                <FooterColumn>
+                <FooterColumn className='logo'>
                   <FooterLinkItem>
                     <LinkTo
                       className='pushLogo'
@@ -123,96 +133,56 @@ function Footer({ showPattern }) {
                       justifyContent={isMobile ? 'center' : 'flex-start'}
                       padding='0px 0px'
                     >
-                      <ChainLogoDark style={{ margin: '0px 9px 0px 4px' }} />
-                    </LinkTo>
-
-                    <Span fontWeight='500' fontSize='16px' lineHeight='142%'>
-                      <Typewriter
-                        options={{
-                          strings: [
-                            'Interoperable,',
-                            'Any Chain,',
-                            'Omnichain,',
-                            'Shared State,',
-                          ],
-                          autoStart: true,
-                          loop: true,
-                          delay: 50,
-                          deleteSpeed: 75,
-                          pauseFor: 1500,
-                          cursor: '',
-                        }}
+                      <Image
+                        src={
+                          require(
+                            `@site/static/assets/website/footer/PushLogoOnly.png`
+                          ).default
+                        }
+                        srcSet={`${require(`@site/static/assets/website/footer/PushLogoOnly@2x.png`).default} 2x, ${require(`@site/static/assets/website/footer/PushLogoOnly@3x.png`).default} 3x`}
+                        alt={`Push Chain`}
+                        loading='lazy'
+                        width='90px'
+                        height='auto'
                       />
-                      Universal Apps
-                    </Span>
+                    </LinkTo>
                   </FooterLinkItem>
                 </FooterColumn>
 
                 <FooterColumns>
-                  {['resources', 'community', 'developers'].map((key) => (
-                    <FooterColumn key={key}>
+                  {Object.entries(FooterList).map(([columnKey, linkKeys]) => (
+                    <FooterColumn key={columnKey}>
                       <FooterLinks>
                         <Span
                           fontWeight='700'
-                          fontSize='18px'
+                          fontSize='1rem'
                           lineHeight='140%'
-                          letterSpacing='-0.36px'
+                          letterSpacing='1.8px'
                           textTransform='uppercase'
                           margin='0 0 8px 0'
+                          aria-label={t(
+                            `footer.columns.${columnKey}.title-aria-label`
+                          )}
                         >
-                          {key}
+                          {t(`footer.columns.${columnKey}.title`)}
                         </Span>
-                        {ChainFooterList[key]?.map((item) => {
-                          const fullHref = item.href
-                            ? item.href.includes('http')
-                              ? item.href
-                              : `${baseURL}${item.href}`
-                            : item.id
-                              ? `/#${item.id}`
-                              : '#'; // fallback
+                        {linkKeys.map((linkKey) => {
+                          const urlConfig = FooterUrls[linkKey];
+                          if (!urlConfig) return null;
+
+                          const fullHref = urlConfig.href.includes('http')
+                            ? urlConfig.href
+                            : `${baseURL}${urlConfig.href}`;
 
                           return (
                             <FooterAnchorSecondary
-                              key={item.title}
+                              key={linkKey}
                               href={fullHref}
-                              target={
-                                item.target || (item.href ? '_blank' : '_self')
-                              }
-                              rel='noopener noreferrer'
-                              onClick={(e) => {
-                                if (!item.href && item.id) {
-                                  e.preventDefault(); // prevent default <a> behavior
-                                  const scrollTarget = document.getElementById(
-                                    item.id
-                                  );
-
-                                  if (location?.pathname !== `${baseURL}/`) {
-                                    history.push(`${baseURL}/`);
-                                    setTimeout(() => {
-                                      scrollTarget?.scrollIntoView({
-                                        behavior: 'smooth',
-                                      });
-                                    }, 300);
-                                  } else {
-                                    scrollTarget?.scrollIntoView({
-                                      behavior: 'smooth',
-                                    });
-                                  }
-                                }
-                              }}
-                              // as='div'
-                              // key={item.title}
-                              // title={item.title}
-                              // onClick={(e) =>
-                              //   handleNavigation(
-                              //     e,
-                              //     item.href,
-                              //     item.id,
-                              //     item.target
-                              //   )
-                              // }
+                              target={urlConfig.target}
+                              rel='noopener'
+                              title={t(`footer.links.${linkKey}-title`)}
                             >
-                              {item.title}
+                              {t(`footer.links.${linkKey}`)}
                             </FooterAnchorSecondary>
                           );
                         })}
@@ -224,7 +194,9 @@ function Footer({ showPattern }) {
             </ItemH>
 
             {/* Social Icon Links */}
-            <SocialLinks>
+            <SocialLinks
+              aria-label={t('footer.social-section.section-aria-label')}
+            >
               <ItemV
                 flexDirection={isTablet ? 'column' : 'row'}
                 gap={isMobile ? '24px' : '16px'}
@@ -233,15 +205,21 @@ function Footer({ showPattern }) {
                 <ItemH flex='0' gap='16px' className='pushLinks'>
                   <FooterAnchorIcon
                     href='https://x.com/PushChain'
-                    title='Push Twitter'
+                    title={t('footer.social-section.twitter-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.twitter-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <BsTwitterX size={30} />
                   </FooterAnchorIcon>
 
                   <FooterAnchorIcon
-                    href='https://github.com/push-protocol/'
-                    title='Push Github'
+                    href='https://github.com/pushchain/'
+                    title={t('footer.social-section.github-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.github-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <GithubSVG width={30} height={30} />
@@ -249,7 +227,10 @@ function Footer({ showPattern }) {
 
                   <FooterAnchorIcon
                     href='https://discord.com/invite/pushchain'
-                    title='Push Discord'
+                    title={t('footer.social-section.discord-icon-title')}
+                    aria-label={t(
+                      'footer.social-section.discord-icon-aria-label'
+                    )}
                     target='_blank'
                   >
                     <DiscordSVG width={30} height={30} />
@@ -258,34 +239,49 @@ function Footer({ showPattern }) {
               </ItemV>
 
               <ItemH justifyContent='flex-end' className='pushLinks' gap='32px'>
-                {tosPrivacyLinks.map(({ href, text }) => (
-                  <FooterAnchorSecondary
-                    as={LinkTo}
-                    key={href}
-                    to={useBaseUrl(href)}
-                    onClick={() => document.documentElement.scrollTo(0, 0)}
-                  >
-                    {text}
-                  </FooterAnchorSecondary>
-                ))}
+                <FooterIconSecondary
+                  as={LinkTo}
+                  to={useBaseUrl('/privacy')}
+                  title={t('footer.legal.privacy-policy-title')}
+                  aria-label={t('footer.legal.privacy-policy-aria-label')}
+                  onClick={() => document.documentElement.scrollTo(0, 0)}
+                >
+                  {t('footer.legal.privacy-policy')}
+                </FooterIconSecondary>
+                <FooterIconSecondary
+                  as={LinkTo}
+                  to={useBaseUrl('/tos')}
+                  title={t('footer.legal.terms-of-service-title')}
+                  aria-label={t('footer.legal.terms-of-service-aria-label')}
+                  onClick={() => document.documentElement.scrollTo(0, 0)}
+                >
+                  {t('footer.legal.terms-of-service')}
+                </FooterIconSecondary>
               </ItemH>
             </SocialLinks>
           </Content>
         </FooterSection>
+
+        <Section>
+          <ImageContent>
+            <Image
+              src={
+                require(`@site/static/assets/website/footer/PushFooterImg.webp`)
+                  .default
+              }
+              srcSet={`${require(`@site/static/assets/website/footer/PushFooterImg@2x.webp`).default} 2x, ${require(`@site/static/assets/website/footer/PushFooterImg@3x.webp`).default} 3x`}
+              alt={t('footer.footer-image.alt')}
+              title={t('footer.footer-image.title')}
+              loading='lazy'
+              width='100%'
+              height='auto'
+            />
+          </ImageContent>
+        </Section>
       </StyledFooter>
     </ChainFooterContainer>
   );
 }
-
-const DividerImg = styled.div`
-  width: 100%;
-  height: 200px;
-  background-image: url(${ImageBg});
-  background-repeat: repeat-x;
-  background-size: contain;
-  background-position: ${({ inverted }) => (inverted ? 'top' : 'bottom')};
-  transform: ${({ inverted }) => (inverted ? 'rotate(180deg)' : 'none')};
-`;
 
 const ChainFooterContainer = styled.div`
   align-items: flex-start;
@@ -295,16 +291,47 @@ const ChainFooterContainer = styled.div`
 `;
 
 const StyledFooter = styled.footer`
-  font-family: N27;
+  font-family:
+    DM Sans,
+    sans-serif;
   display: flex;
   flex-direction: column;
   position: relative;
-  background: #000;
+  background: var(--ifm-color-black);
   width: 100%;
   margin: -4px auto;
 `;
 
 const FooterSection = styled(Section)``;
+
+const TopLogoSection = styled.div`
+  display: none;
+
+  @media ${device.tablet} {
+    display: flex;
+    margin: 0 auto;
+  }
+`;
+
+const EmailDiv = styled(ItemH)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+
+  @media ${device.tablet} {
+    gap: 30px;
+  }
+`;
+
+const DesktopSpan = styled.span`
+  display: block;
+
+  @media ${device.tablet} {
+    display: none;
+  }
+`;
 
 const FooterContainer = styled.div`
   display: flex;
@@ -312,40 +339,67 @@ const FooterContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  gap: 48px;
+  flex-grow: 1;
+
+  @media ${device.tablet} {
+    .logo {
+      display: none;
+    }
+  }
+`;
+
+const ImageContent = styled(Content)`
+  @media ${device.tablet} {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 `;
 
 const FooterColumn = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--ifm-color-white);
+  flex-grow: 1;
 
   flex-direction: column;
 
   align-items: center;
+
+  @media ${device.mobileL} {
+    width: 100%;
+  }
 `;
 
-const FeaturedInSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 0px;
+const EmailSection = styled(Section)``;
+
+const EmailContent = styled(Content)`
+  padding-bottom: 0px;
+  overflow: visible;
 `;
 
 const FooterColumns = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 90px;
+  gap: 80px;
+  flex-grow: 1;
+  min-width: 200px;
+
+  @media ${device.laptop} {
+    gap: 40px;
+  }
 
   @media ${device.tablet} {
-    gap: 20px;
+    gap: 40px;
     margin: 48px 0 0 0;
   }
 
   @media ${device.mobileL} {
     gap: 20px;
     justify-content: space-between;
+    min-width: auto;
 
     /* Ensure two items per row */
     & > * {
@@ -371,7 +425,6 @@ const FooterLinkItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  //   min-width: 280px;
 
   svg {
     width: 106px;
@@ -408,7 +461,7 @@ const SocialLinks = styled(ItemH)`
       justify-content: center;
     }
   }
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     flex-direction: column;
     gap: 24px;
   }
@@ -416,19 +469,46 @@ const SocialLinks = styled(ItemH)`
 
 const FooterAnchorSecondary = styled(A)`
   padding: 0px;
-  color: #e8eff8 !important;
-  font-family: N27;
-  font-size: 16px;
+  color: var(--ifm-color-footer-anchor-secondary) !important;
+  font-family:
+    DM Sans,
+    sans-serif;
+  font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.36px;
   justify-content: flex-start;
   background: transparent;
   border-radius: 0;
 
   &:hover {
-    color: #fff !important;
+    color: var(--ifm-color-white) !important;
+    background: transparent !important;
+  }
+
+  &:before {
+    background: transparent;
+  }
+`;
+
+const FooterIconSecondary = styled(A)`
+  padding: 0px;
+  color: var(--ifm-color-white) !important;
+  font-family:
+    DM Sans,
+    sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.36px;
+  justify-content: flex-start;
+  background: transparent;
+  border-radius: 0;
+
+  &:hover {
+    color: var(--ifm-color-white) !important;
     background: transparent !important;
   }
 

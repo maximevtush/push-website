@@ -4,50 +4,33 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import Translate, { translate } from '@docusaurus/Translate';
 import PaginatorNavLink from '@theme/PaginatorNavLink';
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 // Internal Configs
 import { device } from '@site/src/config/globals';
 
 export default function BlogListPaginator(props) {
+  const { t } = useTranslation();
   const { metadata } = props;
   const { previousPage, nextPage } = metadata;
   return (
     <NavItem
       // className="pagination-nav"
-      aria-label={translate({
-        id: 'theme.blog.paginator.navAriaLabel',
-        message: 'Blog list page navigation',
-        description: 'The ARIA label for the blog pagination',
-      })}
+      aria-label={t('components.blog.paginator.nav-aria-label')}
     >
       {previousPage && (
         <PaginatorNavLink
           permalink={previousPage}
-          title={
-            <Translate
-              id='theme.blog.paginator.newerEntries'
-              description='The label used to navigate to the newer blog posts page (previous page)'
-            >
-              Newer Entries
-            </Translate>
-          }
+          title={t('components.blog.paginator.newer-entries')}
         />
       )}
       {nextPage && (
         <PaginatorNavLink
           permalink={nextPage}
-          title={
-            <Translate
-              id='theme.blog.paginator.olderEntries'
-              description='The label used to navigate to the older blog posts page (next page)'
-            >
-              Older Entries
-            </Translate>
-          }
+          title={t('components.blog.paginator.older-entries')}
           isNext
         />
       )}

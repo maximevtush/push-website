@@ -2,9 +2,7 @@
 // @ts-nocheck
 /* eslint-disable */
 
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useCookies } from 'react-cookie';
+import GLOBALS, { device } from '@site/src/config/globals';
 import {
   A,
   Button,
@@ -15,13 +13,17 @@ import {
   Section,
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import GLOBALS, { device } from '@site/src/config/globals';
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 const CookieComponent = () => {
   const [cookies, setCookie] = useCookies(['pushCookies']);
   const [showModal, setShowModal] = useState(
     () => cookies.pushCookies === undefined
   );
+  const { t } = useTranslation();
 
   const handleAccept = () => {
     setCookie('pushCookies', true, { path: '/' });
@@ -38,30 +40,56 @@ const CookieComponent = () => {
   return (
     <>
       {showModal && (
-        <CookieContainer>
+        <CookieContainer
+          role='dialog'
+          aria-label={t('components.cookie-banner.banner-aria-label')}
+          aria-describedby='cookie-message'
+        >
           <H2
-            color='#000'
+            id='cookie-message'
+            color='var(--ifm-color-black)'
             fontWeight='400'
             letterSpacing='normal'
             fontSize={'14px'}
-            fontFamily='FK Grotesk Neue'
+            fontFamily='DM Sans'
             lineHeight='130%'
             textAlign='left'
           >
-            We use cookies to personalize your experience. Learn more in our{' '}
+            {t('components.cookie-banner.message')}{' '}
             <a
               href='https://push.org/privacy'
               target='_blank'
+              rel='noopener'
               style={{ textDecoration: 'underline' }}
+              title={t('components.cookie-banner.privacy-policy-link-title')}
+              aria-label={t(
+                'components.cookie-banner.privacy-policy-link-aria-label'
+              )}
             >
-              Privacy Policy
+              {t('components.cookie-banner.privacy-policy-link')}
             </a>
             .
           </H2>
 
           <ButtonContainer>
-            <AcceptButton onClick={handleAccept}>Accept</AcceptButton>
-            <RejectButton onClick={handleReject}>Opt-out</RejectButton>
+            <AcceptButton
+              onClick={handleAccept}
+              title={t('components.cookie-banner.accept-button-title')}
+              aria-label={t(
+                'components.cookie-banner.accept-button-aria-label'
+              )}
+            >
+              {t('components.cookie-banner.accept-button')}
+            </AcceptButton>
+            <RejectButton
+              onClick={handleReject}
+              title={t('components.cookie-banner.reject-button-title')}
+              aria-label={t(
+                'components.cookie-banner.reject-button-aria-label'
+              )}
+            >
+              {t('components.cookie-banner.reject-button')}
+            </RejectButton>
           </ButtonContainer>
         </CookieContainer>
       )}
@@ -83,8 +111,8 @@ const CookieContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  backdrop-filter: blur(12px);
+  border: 1px solid var(--ifm-color-overlay-black-10);
+  backdrop-filter: var(--ifm-color-backdrop-blur-light);
 
   h2 {
 
@@ -113,7 +141,7 @@ const ButtonContainer = styled.div`
 `;
 
 const AcceptButton = styled(Button)`
-  color: #ffffff;
+  color: var(--ifm-color-white);
   border: none;
   height: 48px;
   width: 104px;
@@ -121,15 +149,14 @@ const AcceptButton = styled(Button)`
   border-radius: 4px;
   cursor: pointer;
   border-radius: 8px;
-  background: #d548ec;
+  background: var(--ifm-color-custom-pink);
   font-size: 14px;
   font-weight: 500;
-  font-family: FK Grotesk Neue;
 `;
 
 const RejectButton = styled(Button)`
   background-color: transparent;
-  color: #000;
+  color: var(--ifm-color-black);
   border: none;
   height: 48px;
   width: 104px;
@@ -138,7 +165,6 @@ const RejectButton = styled(Button)`
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  font-family: FK Grotesk Neue;
 
   &:hover {
     background-color: transparent !important;

@@ -16,7 +16,7 @@ import GLOBALS, { device, structure } from '@site/src/config/globals';
  */
 
 export const HeroHeader = styled.h1`
-  font-family: ${(props) => props.fontFamily || 'Inter, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
   color: ${(props) => props.color || GLOBALS.COLORS.FONT_LIGHT};
   font-size: 68px;
   line-height: 110%;
@@ -32,6 +32,51 @@ export const HeroHeader = styled.h1`
 
   @media ${device.tablet} {
     font-size: 36px;
+  }
+`;
+
+// Theme Wrapper
+export const DefaultDarkTheme = styled.div`
+  background: var(--ifm-color-black);
+  color: var(--ifm-color-white);
+  font-family:
+    DM Sans,
+    sans-serif;
+
+  H1 {
+    margin-bottom: 20px;
+    font-size: 3.5rem;
+    font-weight: 600;
+    text-align: left;
+    color: inherit;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 2.5rem;
+    }
+  }
+
+  H2 {
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 1.8rem;
+    }
+  }
+
+  H3 {
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    @media ${device.tablet} {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -86,6 +131,11 @@ export const Content = styled.div`
       props.padding || GLOBALS.STRUCTURE.PADDING.VERTICAL_FLUID.DESKTOP};
   }
 
+  &.skeletonsmall {
+    margin: ${(props) =>
+      props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.DESKTOP};
+  }
+
   @media ${device.laptop} {
     max-width: ${(props) =>
       props.maxWidth ||
@@ -100,6 +150,11 @@ export const Content = styled.div`
     &.vertfluid {
       padding: ${(props) =>
         props.padding || GLOBALS.STRUCTURE.PADDING.VERTICAL_FLUID.TABLET};
+    }
+
+    &.skeletonsmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.TABLET};
     }
   }
 
@@ -117,6 +172,75 @@ export const Content = styled.div`
     &.vertfluid {
       padding: ${(props) =>
         props.padding || GLOBALS.STRUCTURE.PADDING.VERTICAL_FLUID.MOBILE};
+    }
+
+    &.skeletonsmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.MOBILE};
+    }
+  }
+`;
+
+export const MultiContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: ${(props) => props.position || 'relative'};
+
+  flex: ${(props) => props.flex || '1'};
+  align-self: ${(props) => props.alignSelf || 'stretch'};
+  width: inherit;
+  max-width: inherit;
+
+  justify-content: ${(props) => props.justifyContent || 'center'};
+  box-sizing: border-box;
+
+  margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP};
+
+  &:first-child {
+    margin-top: 0 !important;
+  }
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  &.xsmall {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.DESKTOP};
+  }
+
+  &.small {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.DESKTOP};
+  }
+
+  &.large {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.DESKTOP};
+  }
+
+  @media ${device.tablet} {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.TABLET};
+    &.xsmall {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.TABLET};
+    }
+    &.small {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.TABLET};
+    }
+
+    &.large {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.TABLET};
+    }
+  }
+
+  @media ${device.mobileL} {
+    margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_DEFAULT.MOBILE};
+    &.xsmall {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_XSMALL.MOBILE};
+    }
+    &.small {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_SMALL.MOBILE};
+    }
+
+    &.large {
+      margin: ${GLOBALS.STRUCTURE.MARGIN.MULTI_CONTENT_LARGE.MOBILE};
     }
   }
 `;
@@ -193,7 +317,7 @@ export const H1 = styled.h1`
   margin: ${(props) => props.margin || '0px'};
   padding: ${(props) => props.padding || '0px'};
   letter-spacing: ${(props) => props.letterSpacing || '-0.03em'};
-  font-family: ${(props) => props.fontFamily || 'Inter, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
   text-align: ${(props) => props.textAlign || 'inherit'};
   line-height: ${(props) => props.lineHeight || '110%'};
   text-shadow: none;
@@ -211,7 +335,7 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  color: ${(props) => props.color || GLOBALS.COLORS.FONT_DARK};
+  color: ${(props) => props.color || 'inherit'};
   font-weight: ${(props) => props.fontWeight || 700};
   text-shadow: none;
   font-size: ${(props) => props.fontSize || GLOBALS.ADJUSTMENTS.FONT.HEADING};
@@ -219,8 +343,9 @@ export const H2 = styled.h2`
   margin: ${(props) => props.margin || '0px'};
   padding: ${(props) => props.padding || '0px'};
   letter-spacing: ${(props) => props.letterSpacing || '-0.02em'};
-  font-family: ${(props) => props.fontFamily || 'Inter, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
   text-align: ${(props) => props.textAlign || 'inherit'};
+  white-space: ${(props) => props.whiteSpace || 'normal'};
   line-height: ${(props) => props.lineHeight || '110%'};
   text-shadow: none;
   z-index: ${(props) => props.zIndex || 'auto'};
@@ -239,13 +364,15 @@ export const H2 = styled.h2`
 export const H3 = styled.h3`
   color: ${(props) => props.color || GLOBALS.COLORS.FONT_DARK};
   font-weight: ${(props) => props.fontWeight || 700};
+  opacity: ${(props) => props.opacity || 'inherit'};
   text-shadow: none;
   font-size: ${(props) => props.fontSize || GLOBALS.ADJUSTMENTS.FONT.HEADING};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '0px'};
+  max-width: ${(props) => props.maxWidth || 'initial'};
   padding: ${(props) => props.padding || '0px'};
   letter-spacing: ${(props) => props.letterSpacing || '-0.02em'};
-  font-family: ${(props) => props.fontFamily || 'Inter, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
   text-align: ${(props) => props.textAlign || 'inherit'};
   line-height: ${(props) => props.lineHeight || '110%'};
   text-shadow: none;
@@ -277,10 +404,12 @@ export const Span = styled.span`
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) =>
     props.fontSize || GLOBALS.ADJUSTMENTS.FONT.NORMAL_TEXT.DESKTOP};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '0px'};
   padding: ${(props) => props.padding || '0px'};
   letter-spacing: ${(props) => props.letterSpacing || '-0.03em'};
+  white-space: ${(props) => props.whiteSpace || 'break-spaces'};
   text-align: ${(props) => props.textAlign || 'initial'};
   line-height: ${(props) => props.lineHeight || '142%'};
   position: ${(props) => props.position || 'initial'};
@@ -311,7 +440,7 @@ export const Button = styled.button`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'};
+  color: ${(props) => props.color || 'var(--ifm-color-white)'};
   background: ${(props) => props.background || GLOBALS.COLORS.BG_DARK};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '14px 32px'};
@@ -326,7 +455,7 @@ export const Button = styled.button`
   pointer: ${(props) => props.pointer || 'hand'};
   cursor: ${(props) => props.cursor || 'pointer'};
   gap: ${(props) => props.gap};
-  font-family: ${(props) => props.fontFamily || 'Inter, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
 
   @media ${device.laptop} {
     font-size: ${(props) =>
@@ -352,7 +481,7 @@ export const Button = styled.button`
   }
 
   &:after {
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     bottom: 0;
     content: '';
     left: 0;
@@ -396,7 +525,7 @@ export const A = styled.a`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 500};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'} !important;
+  color: ${(props) => props.color || 'var(--ifm-color-white)'} !important;
   background: ${(props) => props.background || GLOBALS.COLORS.BG_DARK};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '14px 32px'};
@@ -435,7 +564,7 @@ export const A = styled.a`
   }
 
   &:after {
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     bottom: 0;
     content: '';
     left: 0;
@@ -471,10 +600,21 @@ export const A = styled.a`
   }
 `;
 
+export const PrimaryA = styled(A)`
+  background: var(--ifm-link-color);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1rem;
+  padding: 16px 32px;
+`;
+
 export const P = styled.p`
   flex: ${(props) => props.flex || 'initial'};
   align-self: ${(props) => props.alignSelf || 'auto'};
-  color: ${(props) => props.color || '#000'};
+  color: ${(props) => props.color || 'inherit)'};
   background: ${(props) => props.background || 'transparent'};
   font-weight: ${(props) => props.fontWeight || 300};
   font-size: ${(props) => props.fontSize || 'inherit'};
@@ -483,6 +623,7 @@ export const P = styled.p`
   padding: ${(props) => props.padding || '0px'};
   letter-spacing: ${(props) => props.letterSpacing || 'inherit'};
   text-align: ${(props) => props.textAlign || 'initial'};
+  font-family: ${(props) => props.fontFamily || 'inherit'};
 `;
 
 export const LinkTo = styled(Link)`
@@ -496,7 +637,7 @@ export const LinkTo = styled(Link)`
   justify-content: ${(props) => props.justifyContent || 'center'};
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) => props.fontSize || 'inherit'};
-  color: ${(props) => props.color || '#fff'};
+  color: ${(props) => props.color || 'var(--ifm-color-white)'};
   background: ${(props) => props.background || 'transparent'};
   margin: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '10px 15px'};
@@ -527,7 +668,7 @@ export const LinkTo = styled(Link)`
         ? props.hoverColor
         : props.color
           ? props.color
-          : '#fff') || '#fff'};
+          : 'var(--ifm-color-white)') || 'var(--ifm-color-white)'};
   }
 
   &:before {
@@ -550,7 +691,7 @@ export const LinkTo = styled(Link)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: ${(props) => props.hoverBackground || '#000'};
+    background: ${(props) => props.hoverBackground || 'var(--ifm-color-black)'};
     opacity: 0;
     z-index: -1;
   }
@@ -574,7 +715,7 @@ export const LinkTo = styled(Link)`
 `;
 
 export const B = styled.span`
-  color: ${(props) => props.color || '#000'};
+  color: ${(props) => props.color || 'inherit'};
   font-weight: ${(props) => props.fontWeight || 'bold'};
 `;
 
@@ -589,8 +730,8 @@ export const LI = styled.li`
 // Docusaurus Specific
 // Focus Anchor
 export const AImp = styled.a`
-  color: #fff;
-  background: #dd44b9;
+  color: var(--ifm-color-white);
+  background: var(--ifm-color-primary);
   font-size: 15px;
   padding: 6px 12px 6px 8px;
   font-weight: 500;
@@ -605,7 +746,7 @@ export const AImp = styled.a`
   }
 
   &:hover {
-    color: #000;
+    color: var(--ifm-color-black);
   }
 `;
 
@@ -633,13 +774,13 @@ export const ABlock = styled.a`
   }
 
   &:hover {
-    color: #dd44b9;
+    color: var(--ifm-color-primary);
     box-shadow: rgba(0, 0, 0, 0.05) 0px 19px 43px;
     transform: translate3d(0px, -1px, 0px);
   }
 
   &:hover:after {
-    color: #dd44b9;
+    color: var(--ifm-color-primary);
   }
 
   & p {
@@ -749,7 +890,7 @@ export const ModalLarge = styled(ModalMid)`
 `;
 
 export const MetricTitle = styled(Span)`
-  color: #dd44b9 !important;
+  color: var(--ifm-color-primary) !important;
   font-weight: 600 !important;
 `;
 

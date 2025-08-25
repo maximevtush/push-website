@@ -6,34 +6,37 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import BuildersComp from '@site/src/pages-composition/buildersComp';
 
 // Internal Configs
-import { buildersContent } from '@site/src/components/Chain/content/builders';
-import { PageMeta } from '@site/src/config/pageMeta';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
-function Page() {
+// Main
+function BuildersPage() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.PUSHBUILDERS.pageTitle}
-      description={PageMeta.PUSHBUILDERS.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.builders.seo.title')}
+      description={t('pages.knowledge.builders.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta
-          property='og:url'
-          content='https://push.org/chain/knowledge/push101'
-        />
+        <meta property='og:url' content='https://push.org/knowledge/builders' />
         <meta property='og:type' content='website' />
         <meta
           property='og:title'
-          content='Builders | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.builders.seo.og-title')}
         />
         <meta
-          name='og:description'
-          content='Learn about basics of Push Chain. The innovations it introduces, what makes it tick and why is it required!'
+          property='og:description'
+          content={t('pages.knowledge.builders.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -46,13 +49,14 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='Builders | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.builders.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='Learn about basics of Push Chain. The innovations it introduces, what makes it tick and why is it required!'
+          content={t('pages.knowledge.builders.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -61,26 +65,13 @@ function Page() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
-      <ChainKnowledgeBaseArticle item={buildersContent} />
+      <DefaultDarkTheme>
+        <BuildersComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }
 
-export default Page;
+export default BuildersPage;

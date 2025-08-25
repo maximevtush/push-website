@@ -6,31 +6,38 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import React from 'react';
 
+// External Components
+import { useTranslation } from 'react-i18next';
+
 // Internal Component
-import ChainKnowledgeBaseArticle from '../../components/Chain/ChainKnowledgeBaseArticle/ChainKnowledgeBaseArticle';
+import FAQComp from '@site/src/pages-composition/faqComp';
 
 // Internal Configs
-import { faqContent } from '@site/src/components/Chain/content/faq';
-import { PageMeta } from '@site/src/config/pageMeta';
+import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
 
-function Page() {
+// Main
+function FAQPage() {
+  // Internationalization
+  const { t } = useTranslation();
+
   return (
     <Layout
-      title={PageMeta.FAQ.pageTitle}
-      description={PageMeta.FAQ.pageDescription}
-      showNavbar={'chain'}
+      title={t('pages.knowledge.faq.seo.title')}
+      description={t('pages.knowledge.faq.seo.description')}
+      showNavbar={'website'}
     >
       <Head>
         {/* <!-- Update Facebook Meta Tags --> */}
-        <meta
-          property='og:url'
-          content='https://push.org/chain/knowledge/faq-push-chain'
-        />
+        <meta property='og:url' content='https://push.org/knowledge/faq' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='FAQ | Knowledge Base | Push Chain' />
         <meta
-          name='og:description'
-          content='The place to find answers to all the popular questions the community has asked. Crowdsourced from Push Fam ❤️ and curated by the Push team 💪.'
+          property='og:title'
+          content={t('pages.knowledge.faq.seo.og-title')}
+        />
+        <meta
+          property='og:description'
+          content={t('pages.knowledge.faq.seo.og-description')}
         />
         <meta
           property='og:image'
@@ -43,13 +50,14 @@ function Page() {
         {/* <!-- Update Twitter Meta Tags --> */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
         <meta
           name='twitter:title'
-          content='FAQ | Knowledge Base | Push Chain'
+          content={t('pages.knowledge.faq.seo.twitter-title')}
         />
         <meta
           name='twitter:description'
-          content='The place to find answers to all the popular questions the community has asked. Crowdsourced from Push Fam ❤️ and curated by the Push team 💪.'
+          content={t('pages.knowledge.faq.seo.twitter-description')}
         />
         <meta
           name='twitter:image'
@@ -58,26 +66,15 @@ function Page() {
             { absolute: true }
           )}
         />
-
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org/',
-            '@type': 'Organization',
-            name: 'Push Chain',
-            description: 'Any Chain. Any User. Any App',
-            url: 'https://push.org',
-            logo: '/assets/website/favicon.ico',
-            sameAs: [
-              'https://x.com/PushChain',
-              'https://www.linkedin.com/company/push-protocol/mycompany/',
-            ],
-          })}
-        </script>
       </Head>
 
-      <ChainKnowledgeBaseArticle item={faqContent} />
+      {/* FAQ Schema Markup with default FAQs */}
+      <SchemaMarkup type='FAQPage' />
+      <DefaultDarkTheme>
+        <FAQComp />
+      </DefaultDarkTheme>
     </Layout>
   );
 }
 
-export default Page;
+export default FAQPage;

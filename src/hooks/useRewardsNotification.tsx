@@ -3,10 +3,11 @@
 // @ts-nocheck
 
 // React and other libraries
-import React, { useEffect, useState, FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { toast, Toaster } from 'sonner';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { toast, Toaster } from 'sonner';
+import styled from 'styled-components';
 
 // Internal Components
 import { Image } from '../../src/css/SharedStyling';
@@ -29,6 +30,8 @@ type NotificationProps = {
   position?: 'bottom-right' | 'bottom-left' | 'top-center';
   /* Optional duration of the notification component */
   duration?: number;
+  /* Translation function */
+  t?: (key: string) => string;
 };
 
 // Notification Container
@@ -44,7 +47,9 @@ const NotificationContainer = styled.div`
   width: 397px;
   cursor: pointer;
   box-sizing: border-box;
-  font-family: FK Grotesk Neue;
+  font-family:
+    DM Sans,
+    san-serif;
   overflow: hidden;
 
   @media (max-width: 425px) {
@@ -75,14 +80,14 @@ const NotificationTitle = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 23px;
-  color: #17181b;
+  color: var(--ifm-color-neutral-950);
 `;
 
 const NotificationDescription = styled.span`
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
-  color: #8c93a0;
+  color: var(--ifm-color-neutral-500);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -96,7 +101,7 @@ const IconContainer = styled.div``;
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #202124;
+  color: var(--ifm-color-gray-700);
   padding: 0px;
   position: absolute;
   right: 8px;
@@ -106,6 +111,7 @@ const CloseButton = styled.div`
 // Custom Hook
 export const useRewardsNotification = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { t } = useTranslation();
 
   const location = useLocation();
   const baseURL = useSiteBaseUrl();
@@ -117,8 +123,8 @@ export const useRewardsNotification = () => {
     const toastId = toast.custom(
       () => (
         <NotificationItem
-          title='Donut Testnet Closed beta is Live!'
-          description='Get a sneak peek into Testnet, Donut, build universal apps and win prizes!'
+          title={t('notifications.rewards-notification.title')}
+          description={t('notifications.rewards-notification.description')}
           image={
             <Image
               src={
@@ -127,7 +133,7 @@ export const useRewardsNotification = () => {
                 ).default
               }
               srcSet={`${require(`@site/static/assets/website/notifications/testnet-notif@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-notif@3x.webp`).default} 3x`}
-              alt='Push Testnet'
+              alt={t('notifications.rewards-notification.image-alt')}
               loading='lazy'
             />
           }
@@ -141,6 +147,7 @@ export const useRewardsNotification = () => {
             localStorage.setItem('notificationShown', 'true');
             toast.dismiss(toastId);
           }}
+          t={t}
         />
       ),
       {
@@ -178,6 +185,7 @@ const NotificationItem: FC<NotificationProps> = ({
   image,
   onClick,
   onClose,
+  t,
 }) => {
   const handleNotificationClick = () => onClick?.();
   const handleNotificationClose = () => {
@@ -186,17 +194,29 @@ const NotificationItem: FC<NotificationProps> = ({
   };
 
   return (
-    <NotificationContainer onClick={handleNotificationClick}>
+    <NotificationContainer
+      onClick={handleNotificationClick}
+      role='alert'
+      aria-label={t?.(
+        'notifications.rewards-notification.container-aria-label'
+      )}
+      aria-describedby='rewards-notification-content'
+      aria-live='assertive'
+    >
       {image && <IconContainer>{image}</IconContainer>}
       <CloseButton
         onClick={(e) => {
           e.stopPropagation();
           handleNotificationClose();
         }}
+        title={t?.('notifications.rewards-notification.close-button-title')}
+        aria-label={t?.(
+          'notifications.rewards-notification.close-button-aria-label'
+        )}
       >
         <CrossSVG width={16} height={16} />
       </CloseButton>
-      <TextContainer>
+      <TextContainer id='rewards-notification-content'>
         <NotificationTitle>{title}</NotificationTitle>
         <NotificationDescription>{description}</NotificationDescription>
       </TextContainer>

@@ -4,13 +4,14 @@ title: 'Announcing the EPNS $PUSH Token Generation Event'
 description: 'Announcing the EPNS $PUSH Token Generation Event'
 authors: [push]
 image: './cover-image.webp'
-text: "Since we announced our seed round last fall, we’ve been heads down continuing to build the world’s first decentralized notification protocol for Ethereum. We’re fast approaching mainnet launch, so we’re taking the time today to explain to the community what they can expect for the $PUSH token generation event (TGE)."
-tags: [ Token
-,Tge
-,Tokenomics
-,Ethereum
-,Announcements
-]
+text: 'Since we announced our seed round last fall, we’ve been heads down continuing to build the world’s first decentralized notification protocol for Ethereum. We’re fast approaching mainnet launch, so we’re taking the time today to explain to the community what they can expect for the $PUSH token generation event (TGE).'
+tags:
+  [
+    Push Notifications Token,
+    Push Notifications Tge,
+    Push Notifications Tokenomics,
+    Push Notifications Announcements,
+  ]
 ---
 
 import { ImageText } from '@site/src/css/SharedStyling';
@@ -43,7 +44,7 @@ We also want to take this opportunity to say **thank you** to the wonderful comm
 - 0.28% will be distributed to those who donated during Gitcoin Grants rounds 6 and 7; over 200 addresses.
 - 0.24% is reserved for distribution through a community NFT activation immediately following token genesis. Stay tuned for more on this soon! 🎨🙃
 
-5.51% of the total $PUSH supply is reserved for **LP Rewards and Staking.**
+  5.51% of the total $PUSH supply is reserved for **LP Rewards and Staking.**
 
 - For the 3.01% reserved for LP rewards, 35,000 will be unlocked every week, with 100 fewer $PUSH released every week (i.e. 34,900 released during week 2). This will continue for 100 weeks.
 - For the 2.51% reserved for staking, 30,000 will be unlocked every week, with 100 fewer $PUSH released every week (i.e. 29,900 released during week 2). This will continue for 100 weeks.
