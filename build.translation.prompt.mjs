@@ -48,13 +48,14 @@ TASK: Translate the following JSON object from English (en) into ${languageName}
 REQUIREMENTS:
 1. Preserve the exact JSON structure — do not change keys, order, or formatting. Translate only the values.
 2. Preserve placeholders exactly: HTML tags, wrapper tags (<1>…</1>, <2>…</2>), variables ({token}, {{count}}, %s, $1, :id, \\n).
-3. Apply glossary rules:
+3. Do not add placeholders unless when they are explicitly present.
+4. Apply glossary rules:
    - "keep" → Do not translate; keep exactly as in source.
    - "transliterate" → Do NOT translate the meaning of the word into the local language. 
       Instead, convert the English word into how it is pronounced and write it in the local script.
 
       - For Hindi and related languages: Write the English term in Hindi script, as commonly used in Hinglish.  
-        Example: "blockchain" → "ब्लॉकचेन", "token" → "टोकन", "wallet" → "वॉलेट".  
+        Example: "blockchain" → "ब्लॉकचेन", "token" → "टोकन", "wallet" → "वॉलेट", "shared-state" → "शेयर्ड-स्टेट", "shared state" → "शेयर्ड स्टेट".  
       - For Japanese: Use Katakana for foreign loanwords.  
         Example: "blockchain" → "ブロックチェーン", "token" → "トークン", "wallet" → "ウォレット".  
       - For Arabic: Use Arabic script phonetic spelling.  
@@ -64,15 +65,16 @@ REQUIREMENTS:
       - For Chinese (Simplified): Use standard transliteration or commonly adopted crypto term.  
         Example: "blockchain" → "区块链", "token" → "代币".  
 
-      Always preserve capitalization (e.g., NFT, DAO, DeFi must remain uppercase).  
+      Always preserve capitalization (e.g., NFT, DAO, DeFi must remain uppercase).
+   - Do not add any tags like <transliterate> or <keep> from glossary, there are included for your internal understanding. 
    - If a term is neither in glossary nor a brand name, translate naturally in context.
-4. Keep blockchain terms consistent across the translation.
-5. Ensure UI strings (buttons, labels) remain short, natural, and usable.
-6. Use an approachable, informal tone that feels natural in ${languageName}, while professional and trustworthy.
-7. Adapt for cultural fit without altering technical meaning.
-8. Keep language simple and clear — avoid academic phrasing.
-9. Do not omit any keys or values. If empty, leave as "".
-10. Output only the translated JSON object (valid JSON, UTF-8).
+5. Keep blockchain terms consistent across the translation.
+6. Ensure UI strings (buttons, labels) remain short, natural, and usable.
+7. Use an approachable, informal tone that feels natural in ${languageName}, while professional and trustworthy.
+8. Adapt for cultural fit without altering technical meaning.
+9. Keep language simple and clear — avoid academic phrasing.
+10. Do not omit any keys or values. If empty, leave as "".
+11. Output only the translated JSON object (valid JSON, UTF-8).
 
 Glossary reference:
 ${JSON.stringify(glossary, null, 2)}

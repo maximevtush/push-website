@@ -8,6 +8,10 @@ import path from 'path';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
 import { generateTranslationPrompt } from './build.translation.prompt.mjs';
+import {
+  createPushChainGlossary,
+  validateAndCorrectTranslation,
+} from './build.translation.validator.mjs';
 
 // Load environment variables
 dotenv.config();
@@ -381,13 +385,30 @@ async function saveTranslation(languageCode, translatedContent) {
 /**
  * Combine all autotranslate files and move to final locations
  */
-async function combineAndDeployTranslations(buildMeta) {
+async function combineAndDeployTranslations(buildMeta, targetLanguages) {
   console.log(chalk.cyan('🔄 Combining and deploying all translations...'));
 
-  // Only process languages that need generation (marked as false)
-  const languagesToProcess = Object.keys(SUPPORTED_LANGUAGES).filter(
-    (languageCode) => buildMeta.translations.generated[languageCode] === false
-  );
+  // Determine which languages to process
+  const languagesToProcess =
+    targetLanguages || Object.keys(SUPPORTED_LANGUAGES);
+
+  // Validate target languages if specified
+  if (targetLanguages) {
+    const invalidLanguages = targetLanguages.filter(
+      (lang) => !SUPPORTED_LANGUAGES[lang]
+    );
+    if (invalidLanguages.length > 0) {
+      throw new Error(
+        `Unsupported languages: ${invalidLanguages.join(', ')}. Supported: ${Object.keys(SUPPORTED_LANGUAGES).join(', ')}`
+      );
+    }
+    console.log(
+      chalk.blue(
+        `🎯 Processing specific languages: ${targetLanguages.map((lang) => SUPPORTED_LANGUAGES[lang]).join(', ')}`
+      )
+    );
+  }
+
   const results = { success: [], failed: [] };
 
   console.log(
@@ -633,7 +654,12 @@ async function checkAIProvider() {
 /**
  * Translate content using configured AI provider with fallback support
  */
-async function translateContent(sourceContent, targetLanguage, languageName) {
+async function translateContent(
+  sourceContent,
+  targetLanguage,
+  languageName,
+  correctionPrompt = null
+) {
   // Check rate limit before making API call
   const waitTime = waitForRateLimit();
   if (waitTime > 0) {
@@ -670,7 +696,8 @@ async function translateContent(sourceContent, targetLanguage, languageName) {
         currentConfig,
         sourceContent,
         targetLanguage,
-        languageName
+        languageName,
+        correctionPrompt
       );
     } catch (error) {
       const isLastAttempt = modelIndex === maxRetries - 1;
@@ -694,21 +721,80 @@ async function translateContent(sourceContent, targetLanguage, languageName) {
 }
 
 /**
+ * Translate content with less sensitive validation and automatic correction
+ */
+async function translateContentWithValidation(
+  sourceContent,
+  targetLanguage,
+  languageName
+) {
+  // Create glossary for Push Chain terms
+  const glossary = createPushChainGlossary();
+
+  // Simple translation function for the validator
+  const translateFunction = async (
+    content,
+    lang,
+    langName,
+    correctionPrompt
+  ) => {
+    return await translateContent(content, lang, langName, correctionPrompt);
+  };
+
+  // Initial translation
+  const initialTranslation = await translateContent(
+    sourceContent,
+    targetLanguage,
+    languageName
+  );
+
+  // Validate and potentially correct the translation (less sensitive mode)
+  const result = await validateAndCorrectTranslation(
+    sourceContent,
+    initialTranslation,
+    targetLanguage,
+    languageName,
+    translateFunction,
+    {
+      glossary,
+      maxRetries: 1,
+      showValidationDetails: true,
+      strictMode: false, // Less sensitive validation
+      checkEnglishLeakage: undefined, // Let validator decide based on language
+    }
+  );
+
+  return result.content;
+}
+
+/**
  * Attempt translation with a specific AI configuration
  */
 async function attemptTranslation(
   config,
   sourceContent,
   targetLanguage,
-  languageName
+  languageName,
+  correctionPrompt = null
 ) {
   try {
     // Generate prompt using shared function
-    const prompt = await generateTranslationPrompt(
-      sourceContent,
-      targetLanguage,
-      languageName
-    );
+    let prompt;
+    if (correctionPrompt) {
+      // For correction attempts, use the correction prompt
+      prompt = `${await generateTranslationPrompt(
+        sourceContent,
+        targetLanguage,
+        languageName
+      )}\n\nIMPORTANT CORRECTION NEEDED:\n${correctionPrompt}`;
+    } else {
+      // Normal translation
+      prompt = await generateTranslationPrompt(
+        sourceContent,
+        targetLanguage,
+        languageName
+      );
+    }
 
     let response;
 
@@ -1095,7 +1181,7 @@ async function retryMissingKeys(supportedLanguages) {
             setValueByPath(singleKeyObject, keyPath, englishValue);
 
             // Translate this single key
-            const translatedSingle = await translateContent(
+            const translatedSingle = await translateContentWithValidation(
               singleKeyObject,
               languageCode,
               languageName
@@ -1234,8 +1320,9 @@ function deleteValueByPath(obj, path) {
 
 /**
  * Main function to automate translations with dynamic chunk-based tracking
+ * @param {string[]} targetLanguages - Optional array of specific languages to process
  */
-async function automateTranslations() {
+async function automateTranslations(targetLanguages = null) {
   console.log(
     chalk.blue('🌍 Starting smart iterative chunk-based translation...')
   );
@@ -1385,7 +1472,25 @@ async function automateTranslations() {
     await checkAIProvider();
 
     // Step 7: Process each language with smart chunk-by-chunk translation
-    const languagesToProcess = Object.keys(SUPPORTED_LANGUAGES);
+    const languagesToProcess =
+      targetLanguages || Object.keys(SUPPORTED_LANGUAGES);
+
+    // Validate target languages if specified
+    if (targetLanguages) {
+      const invalidLanguages = targetLanguages.filter(
+        (lang) => !SUPPORTED_LANGUAGES[lang]
+      );
+      if (invalidLanguages.length > 0) {
+        throw new Error(
+          `Unsupported languages: ${invalidLanguages.join(', ')}. Supported: ${Object.keys(SUPPORTED_LANGUAGES).join(', ')}`
+        );
+      }
+      console.log(
+        chalk.blue(
+          `🎯 Processing specific languages: ${targetLanguages.map((lang) => SUPPORTED_LANGUAGES[lang]).join(', ')}`
+        )
+      );
+    }
     const results = { success: [], failed: [], skipped: [] };
     let completed = 0;
     const total = languagesToProcess.length;
@@ -1464,8 +1569,95 @@ async function automateTranslations() {
                 await fs.readFile(chunkPath, 'utf8')
               );
 
-              // Check if chunk is too large for translation
-              if (isChunkTooLarge(chunkContent)) {
+              // Check if using local AI - if so, process keys one by one
+              const isLocalAI = process.env.AI_PROVIDER === 'local';
+
+              if (isLocalAI) {
+                console.log(
+                  chalk.cyan(
+                    `🔑 Local AI detected - processing ${chunkFile} keys one by one...`
+                  )
+                );
+
+                // Get all keys from the chunk
+                const allKeys = getAllKeys(chunkContent);
+                console.log(
+                  chalk.gray(`   Found ${allKeys.length} keys to translate`)
+                );
+
+                let combinedTranslation = {};
+                let successCount = 0;
+                let failCount = 0;
+
+                // Process each key individually
+                for (let k = 0; k < allKeys.length; k++) {
+                  const keyPath = allKeys[k];
+                  const keyProgress = `${chunkProgress}[${k + 1}/${
+                    allKeys.length
+                  }]`;
+
+                  console.log(chalk.gray(`   ${keyProgress} 🔄 ${keyPath}`));
+
+                  try {
+                    // Get the English value for this specific key
+                    const englishValue = getValueByPath(chunkContent, keyPath);
+
+                    // Create a minimal object with just this one key
+                    const singleKeyObject = {};
+                    setValueByPath(singleKeyObject, keyPath, englishValue);
+
+                    // Translate this single key
+                    const translatedSingle =
+                      await translateContentWithValidation(
+                        singleKeyObject,
+                        languageCode,
+                        languageName
+                      );
+
+                    // Extract the translated value and set it in the combined translation
+                    const translatedValue = getValueByPath(
+                      translatedSingle,
+                      keyPath
+                    );
+                    setValueByPath(
+                      combinedTranslation,
+                      keyPath,
+                      translatedValue
+                    );
+
+                    console.log(
+                      chalk.green(
+                        `   ${keyProgress} ✅ ${keyPath} → "${translatedValue}"`
+                      )
+                    );
+                    successCount++;
+                  } catch (error) {
+                    console.log(
+                      chalk.red(
+                        `   ${keyProgress} ❌ ${keyPath} - ${error.message}`
+                      )
+                    );
+                    failCount++;
+                  }
+                }
+
+                console.log(
+                  chalk.blue(
+                    `   📊 ${chunkFile}: ${successCount} success, ${failCount} failed`
+                  )
+                );
+
+                // Save the translated chunk
+                const translatedChunkPath = path.join(
+                  autoTranslateDir,
+                  chunkFile
+                );
+                await fs.writeFile(
+                  translatedChunkPath,
+                  JSON.stringify(combinedTranslation, null, 2),
+                  'utf8'
+                );
+              } else if (isChunkTooLarge(chunkContent)) {
                 console.log(
                   chalk.yellow(
                     `📦 Chunk ${chunkFile} is too large, splitting...`
@@ -1489,11 +1681,12 @@ async function automateTranslations() {
                   );
 
                   // Translate this specific sub-chunk
-                  const translatedSubChunk = await translateContent(
-                    subChunk.content,
-                    languageCode,
-                    languageName
-                  );
+                  const translatedSubChunk =
+                    await translateContentWithValidation(
+                      subChunk.content,
+                      languageCode,
+                      languageName
+                    );
 
                   // Merge sub-chunk translation into combined result
                   combinedTranslation = {
@@ -1526,7 +1719,7 @@ async function automateTranslations() {
                 );
               } else {
                 // Translate this specific chunk normally
-                const translatedChunk = await translateContent(
+                const translatedChunk = await translateContentWithValidation(
                   chunkContent,
                   languageCode,
                   languageName
@@ -1840,13 +2033,57 @@ async function automateTranslations() {
 }
 
 /**
+ * Show help information
+ */
+function showHelp() {
+  console.log(chalk.blue('🌍 Push Chain Translation Automation'));
+  console.log('');
+  console.log(chalk.bold('Usage:'));
+  console.log('  node build.translation.automation.mjs [language-codes...]');
+  console.log('');
+  console.log(chalk.bold('Examples:'));
+  console.log(
+    '  node build.translation.automation.mjs              # Process all languages'
+  );
+  console.log(
+    '  node build.translation.automation.mjs hi           # Process Hindi only'
+  );
+  console.log(
+    '  node build.translation.automation.mjs es fr de     # Process Spanish, French, German'
+  );
+  console.log('');
+  console.log(chalk.bold('Supported Languages:'));
+  Object.entries(SUPPORTED_LANGUAGES).forEach(([code, name]) => {
+    console.log(`  ${code.padEnd(6)} - ${name}`);
+  });
+  console.log('');
+}
+
+/**
  * Main execution function
  */
 async function main() {
-  console.log(
-    chalk.blue('🌍 Push Protocol Translation Automation (Optimized)')
-  );
+  const args = process.argv.slice(2);
+
+  // Show help if requested
+  if (args.includes('--help') || args.includes('-h')) {
+    showHelp();
+    return;
+  }
+
+  console.log(chalk.blue('🌍 Push Chain Translation Automation (Optimized)'));
   console.log(chalk.gray('─'.repeat(60)));
+
+  // Parse target languages from command line arguments
+  let targetLanguages = null;
+  if (args.length > 0) {
+    targetLanguages = args.filter((arg) => !arg.startsWith('-'));
+    if (targetLanguages.length === 0) {
+      console.error(chalk.red('❌ No valid language codes provided'));
+      showHelp();
+      process.exit(1);
+    }
+  }
 
   // Check if source translation file exists
   const sourceTranslationPath = path.join(
@@ -1870,7 +2107,7 @@ async function main() {
   }
 
   // Start the optimized translation process
-  await automateTranslations();
+  await automateTranslations(targetLanguages);
 }
 
 // CLI interface
