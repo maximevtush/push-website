@@ -279,7 +279,7 @@ export default function DocsHub(): JSX.Element {
                 lineHeight='125%'
                 textAlign='center'
               >
-                {t('pages.docs.header.title')}
+                {t('pages.docs.header.countdown-title')}
               </H3>
 
               {!isExpired && (
@@ -290,6 +290,7 @@ export default function DocsHub(): JSX.Element {
                   color='var(--ifm-color-white)'
                   lineHeight='110%'
                   textAlign='center'
+                  margin='12px auto'
                 >
                   {timeLeft.days}D : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
                   {timeLeft.seconds}S
