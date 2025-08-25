@@ -108,7 +108,7 @@ export default function BlogLayout(props) {
 }
 
 const BlogItem = styled.div`
-  width: calc(100% - 54px);
+  width: calc(100% - 68px);
   max-width: 1356px !important;
   margin: 0 auto !important;
 
@@ -116,6 +116,7 @@ const BlogItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: clamp(64px, 6vw, 128px);
   }
 `;
 
@@ -135,8 +136,7 @@ const TOC = styled.div`
   display: none;
 
   @media (min-width: 1200px) {
-    max-width: 25%;
-    width: 250px;
+    max-width: 250px;
     display: block;
     margin-top: 100px;
   }
