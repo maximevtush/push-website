@@ -2,7 +2,6 @@
 
 import chalk from 'chalk';
 import { spawn } from 'child_process';
-import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -43,7 +42,7 @@ const SUPPORTED_LANGUAGES = {
 };
 
 function showHelp() {
-  log('🌍 Push Protocol Translation - Specific Language Tool', 'cyan');
+  log('🌍 Push Chain Translation - Specific Language Tool', 'cyan');
   log('', 'reset');
   log('Usage:', 'bold');
   log('  yarn translations:generate:specific <language-code>', 'cyan');
@@ -80,80 +79,15 @@ function showHelp() {
   );
 }
 
-async function modifyAutomationScript(targetLanguage) {
-  const automationScriptPath = path.join(
-    __dirname,
-    'build.translation.automation.mjs'
-  );
-  const backupPath = path.join(
-    __dirname,
-    'build.translation.automation.backup.mjs'
-  );
 
-  try {
-    // Read the original script
-    const originalContent = await fs.readFile(automationScriptPath, 'utf8');
 
-    // Create backup
-    await fs.writeFile(backupPath, originalContent, 'utf8');
-    log('📋 Created backup of automation script', 'gray');
 
-    // Modify the SUPPORTED_LANGUAGES constant to only include target language
-    const modifiedContent = originalContent.replace(
-      /const SUPPORTED_LANGUAGES = \{[^}]+\};/s,
-      `const SUPPORTED_LANGUAGES = {\n  '${targetLanguage}': '${SUPPORTED_LANGUAGES[targetLanguage]}',\n};`
-    );
 
-    // Write modified script
-    await fs.writeFile(automationScriptPath, modifiedContent, 'utf8');
-    log(
-      `🎯 Modified automation script to target: ${targetLanguage} (${SUPPORTED_LANGUAGES[targetLanguage]})`,
-      'green'
-    );
-
-    return true;
-  } catch (error) {
-    log(`❌ Failed to modify automation script: ${error.message}`, 'red');
-    return false;
-  }
-}
-
-async function restoreAutomationScript() {
-  const automationScriptPath = path.join(
-    __dirname,
-    'build.translation.automation.mjs'
-  );
-  const backupPath = path.join(
-    __dirname,
-    'build.translation.automation.backup.mjs'
-  );
-
-  try {
-    // Check if backup exists
-    const backupExists = await fs
-      .access(backupPath)
-      .then(() => true)
-      .catch(() => false);
-
-    if (backupExists) {
-      // Restore from backup
-      const backupContent = await fs.readFile(backupPath, 'utf8');
-      await fs.writeFile(automationScriptPath, backupContent, 'utf8');
-
-      // Remove backup file
-      await fs.unlink(backupPath);
-      log('🔄 Restored automation script from backup', 'green');
-    }
-  } catch (error) {
-    log(`⚠️  Failed to restore automation script: ${error.message}`, 'yellow');
-  }
-}
-
-function runAutomationScript() {
+function runAutomationScript(targetLanguage) {
   return new Promise((resolve, reject) => {
-    log('🚀 Starting translation automation...', 'cyan');
+    log(`🚀 Starting translation automation for ${SUPPORTED_LANGUAGES[targetLanguage]}...`, 'cyan');
 
-    const child = spawn('node', ['build.translation.automation.mjs'], {
+    const child = spawn('node', ['build.translation.automation.mjs', targetLanguage], {
       cwd: __dirname,
       stdio: 'inherit',
     });
@@ -197,7 +131,7 @@ async function main() {
     process.exit(1);
   }
 
-  log('🎯 Push Protocol Translation - Specific Language Mode', 'cyan');
+  log('🎯 Push Chain Translation - Specific Language Mode', 'cyan');
   log('─'.repeat(60), 'gray');
   log(
     `Target Language: ${targetLanguage} (${SUPPORTED_LANGUAGES[targetLanguage]})`,
@@ -206,17 +140,8 @@ async function main() {
   log('', 'reset');
 
   try {
-    // Step 1: Modify automation script to target specific language
-    const modifySuccess = await modifyAutomationScript(targetLanguage);
-    if (!modifySuccess) {
-      process.exit(1);
-    }
-
-    // Step 2: Run the automation script
-    await runAutomationScript();
-
-    // Step 3: Restore original automation script
-    await restoreAutomationScript();
+    // Run the automation script with specific language argument
+    await runAutomationScript(targetLanguage);
 
     log('', 'reset');
     log('🎉 Specific language translation completed successfully!', 'green');
@@ -239,29 +164,22 @@ async function main() {
     );
   } catch (error) {
     log(`❌ Translation process failed: ${error.message}`, 'red');
-
-    // Always try to restore the original script on error
-    await restoreAutomationScript();
-
     process.exit(1);
   }
 }
 
-// Handle process termination to ensure cleanup
-process.on('SIGINT', async () => {
-  log('\n⚠️  Process interrupted, cleaning up...', 'yellow');
-  await restoreAutomationScript();
+// Handle process termination
+process.on('SIGINT', () => {
+  log('\n⚠️  Process interrupted', 'yellow');
   process.exit(0);
 });
 
-process.on('SIGTERM', async () => {
-  log('\n⚠️  Process terminated, cleaning up...', 'yellow');
-  await restoreAutomationScript();
+process.on('SIGTERM', () => {
+  log('\n⚠️  Process terminated', 'yellow');
   process.exit(0);
 });
 
-main().catch(async (error) => {
+main().catch((error) => {
   log(`❌ Unexpected error: ${error.message}`, 'red');
-  await restoreAutomationScript();
   process.exit(1);
 });

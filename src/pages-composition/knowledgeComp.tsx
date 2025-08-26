@@ -2,8 +2,6 @@
 // @ts-nocheck
 
 // React + Web3 Essentials
-import Head from '@docusaurus/Head';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -123,12 +121,16 @@ const KnowledgeComp = () => {
                     <ItemV flex='0'>
                       <MailingSignup
                         showButton={true}
-                        background={'rgba(0, 0, 0, 0.10)'}
-                        borderColor={'rgba(112, 90, 208, 0.40)'}
+                        background={'var(--ifm-color-knowledge-bg)'}
+                        borderColor={'var(--ifm-color-knowledge-border)'}
                         textColor={'var(--ifm-color-white)'}
-                        placeholderColor={'#494E54'}
-                        buttonBg={'#D548EC'}
-                        buttonBorder={'1px solid rgba(41, 33, 33, 0.3)'}
+                        placeholderColor={
+                          'var(--ifm-color-knowledge-placeholder)'
+                        }
+                        buttonBg={'var(--ifm-color-custom-pink)'}
+                        buttonBorder={
+                          '1px solid var(--ifm-color-knowledge-button-border)'
+                        }
                         arrowColor={'var(--ifm-color-white)'}
                         loaderColor={'var(--ifm-color-white)'}
                         blendMode='lighten'
@@ -266,7 +268,10 @@ const MediaDisplay = styled(ItemH)`
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: ${(props) =>
     props.showEmailSignup ? 'translateY(-90%)' : 'translateY(0)'};
-  background: ${(props) => (props.type === 'image' ? '#f2c2fe' : '#101010')};
+  background: ${(props) =>
+    props.type === 'image'
+      ? 'var(--ifm-color-knowledge-media-pink)'
+      : 'var(--ifm-color-card-dark)'};
   z-index: 2;
 `;
 

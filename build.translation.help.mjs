@@ -35,7 +35,7 @@ const SUPPORTED_LANGUAGES = {
 };
 
 function showHelp() {
-  log('🌍 Push Protocol Translation System - Help', 'cyan');
+  log('🌍 Push Chain Translation System - Help', 'cyan');
   log('═'.repeat(60), 'gray');
   log('', 'reset');
 

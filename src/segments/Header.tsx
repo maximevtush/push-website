@@ -588,6 +588,8 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[0]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
                       {/* Insert Liquid Glass */}
                       <LiquidGlassOuter>
@@ -635,6 +637,8 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[1]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
                       {/* Insert Liquid Glass */}
                       <LiquidGlassOuter>
@@ -682,8 +686,14 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[2]}
-                      onMouseEnter={(e) => handleMouseEnter(e, 'text1')}
-                      onMouseLeave={(e) => handleMouseLeave(e)}
+                      onMouseEnter={(e) => {
+                        e.stopPropagation();
+                        handleMouseEnter(e, 'text2');
+                      }}
+                      onMouseLeave={(e) => {
+                        e.stopPropagation();
+                        handleMouseLeave(e);
+                      }}
                     >
                       {/* Insert Liquid Glass */}
                       <LiquidGlassOuter>
@@ -727,6 +737,8 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[3]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
                       {/* Insert Liquid Glass */}
                       <LiquidGlassOuter>
@@ -798,6 +810,8 @@ function Header() {
                     <LanguageMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[4]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
                       {/* Insert Liquid Glass */}
                       <LiquidGlassOuter>
@@ -918,9 +932,9 @@ const HeaderItemH = styled(ItemH)`
   border-radius: 24px;
   border: 1px solid rgba(171, 70, 248, 0.4);
   background: rgba(0, 0, 0, 0.5);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   z-index: 1;
 
   &::before {
@@ -1209,6 +1223,27 @@ const NavigationMenuItem = styled.li`
       flex-direction: column;
     }
   }
+
+  // Add a small delay to prevent accidental closing
+  & .menuContent {
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  // Create a hover bridge to prevent dropdown from closing
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    pointer-events: auto;
+  }
 `;
 
 const LanguageMenuItem = styled.li`
@@ -1264,6 +1299,27 @@ const LanguageMenuItem = styled.li`
     & .menuContent {
       display: block;
     }
+  }
+
+  // Add a small delay to prevent accidental closing
+  & .menuContent {
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  // Create a hover bridge to prevent dropdown from closing
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    pointer-events: auto;
   }
 
   @media ${device.laptopM} {
@@ -1370,18 +1426,19 @@ const NavigationMenuContent = styled.ul`
   position: absolute;
 
   // logic - this should touch the parent li for enough hover surface area.
-  top: 50px;
+  top: 100%;
   left: 50%;
-  transform: translateX(-10%);
+  transform: translateX(-50%);
   z-index: 1;
   border-radius: 24px;
   padding: 12px;
+  margin-top: 4px;
 
   border: 1px solid rgba(171, 70, 248, 0.4);
   background: rgba(0, 0, 0, 0.5);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   overflow: hidden;
 
   &::before {
@@ -1400,6 +1457,12 @@ const NavigationMenuContent = styled.ul`
   }
 
   min-width: 390px;
+
+  // Keep dropdown open when hovering over the content
+  &:hover {
+    display: flex;
+    flex-direction: column;
+  }
 
   @media ${device.mobileL} {
     min-width: 100%;
@@ -1451,18 +1514,19 @@ const LanguageMenuContent = styled.div`
   position: absolute;
 
   // logic - this should touch the parent li for enough hover surface area.
-  top: 50px;
+  top: 100%;
   left: 50%;
-  transform: translateX(-85%);
+  transform: translateX(-50%);
   z-index: 1;
   padding: 12px;
   border-radius: 24px;
+  margin-top: 4px;
 
   border: 1px solid rgba(171, 70, 248, 0.4);
   // background: rgba(0, 0, 0, 0.8);
-  box-shadow:
-    2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
-    1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
   overflow: hidden;
 
   &::before {
@@ -1480,6 +1544,11 @@ const LanguageMenuContent = styled.div`
 
   & button {
     min-width: 182px;
+  }
+
+  // Keep dropdown open when hovering over the content
+  &:hover {
+    display: block;
   }
 
   @media ${device.laptopM} {

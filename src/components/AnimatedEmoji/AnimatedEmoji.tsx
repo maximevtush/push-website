@@ -14,13 +14,13 @@ interface AnimatedEmojiProps {
 
 // Color constants
 const colors = {
-  base: '#ffda6a',
-  like: '#548dff',
-  love: '#f55064',
+  base: 'var(--ifm-color-animated-base)',
+  like: 'var(--ifm-color-animated-like)',
+  love: 'var(--ifm-color-animated-love)',
   white: 'var(--ifm-color-white)',
   black: 'var(--ifm-color-black)',
-  text: '#8a8a8a',
-  angry: '#d5234c',
+  text: 'var(--ifm-color-text-muted)',
+  angry: 'var(--ifm-color-animated-angry)',
 };
 
 // Keyframe animations

@@ -1,3 +1,4 @@
+/** eslint-disable @docusaurus/no-html-links */
 import React from 'react';
 
 import '../../css/custom.css';
@@ -21,7 +22,7 @@ const CustomLinkCard = (props) => {
         alignItems: 'center',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
-        boxShadow: `${isMouseHovered ? 'rgba(0, 0, 0, 0.05) 0px 19px 43px' : 'none'}`,
+        boxShadow: `${isMouseHovered ? 'var(--ifm-color-shadow-light) 0px 19px 43px' : 'none'}`,
         transform: `${isMouseHovered ? 'translate3d(0px, -1px, 0px)' : 'none'}`,
         wordBreak: 'break-word',
       }}

@@ -55,13 +55,13 @@ export default function WebsiteMeta() {
       <link
         rel='mask-icon'
         href='/assets/website/favicons/safari-pinned-tab.svg'
-        color='#AA39BC'
+        color='var(--ifm-color-theme-purple)'
       />
 
       {/* Browser UI chrome */}
       <meta
         name='theme-color'
-        content='#AA39BC'
+        content='var(--ifm-color-theme-purple)'
         media='(prefers-color-scheme: dark)'
       />
       <meta
@@ -69,7 +69,10 @@ export default function WebsiteMeta() {
         content='var(--ifm-color-white)'
         media='(prefers-color-scheme: light)'
       />
-      <meta name='msapplication-TileColor' content='#AA39BC' />
+      <meta
+        name='msapplication-TileColor'
+        content='var(--ifm-color-theme-purple)'
+      />
     </Head>
   );
 }

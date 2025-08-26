@@ -82,26 +82,25 @@ export default function BlogLayout(props) {
 
       {toc ? (
         <BlogItem className='blog-section'>
-          <TOC className=''></TOC>
-          <main
+          <BlogMain
             className='mainItem'
             itemScope
             itemType='http://schema.org/Blog'
           >
             {children}
-          </main>
+          </BlogMain>
           <TOC className=''>{toc}</TOC>
         </BlogItem>
       ) : (
         <div className='container blog-section'>
           <BlogSidebar sidebar={sidebar} />
-          <main
+          <BlogMain
             className='mainItem'
             itemScope
             itemType='http://schema.org/Blog'
           >
             {children}
-          </main>
+          </BlogMain>
         </div>
       )}
     </Layout>
@@ -109,18 +108,27 @@ export default function BlogLayout(props) {
 }
 
 const BlogItem = styled.div`
-  max-width: 100vw !important;
+  width: calc(100% - 68px);
+  max-width: 1356px !important;
+  margin: 0 auto !important;
 
   @media (min-width: 1200px) {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 85vw !important;
-    min-width: 85vw !important;
-    margin: 0 auto;
-    & main {
-      margin: 0 auto;
-    }
+    gap: clamp(64px, 6vw, 128px);
+  }
+`;
+
+const BlogMain = styled.main`
+  margin: 0 auto;
+
+  @media (min-width: 1200px) {
+    width: 75%;
+  }
+
+  @media (min-width: 820px) {
+    margin: 0 24px;
   }
 `;
 
@@ -128,7 +136,7 @@ const TOC = styled.div`
   display: none;
 
   @media (min-width: 1200px) {
-    width: 250px;
+    max-width: 250px;
     display: block;
     margin-top: 100px;
   }

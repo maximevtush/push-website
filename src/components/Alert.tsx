@@ -56,7 +56,7 @@ export const Alert = () => {
           <CancelIcon>
             <AiOutlineClose
               size='1.25rem'
-              color='#7f7b80'
+              color='var(--ifm-color-icon-close)'
               className='icon'
               onClick={hideAlertHandler}
               title={t('notifications.alert.close-button-title')}
@@ -72,12 +72,12 @@ export const Alert = () => {
 const AlertContainer = styled(ItemH)`
   background: linear-gradient(
     90deg,
-    rgba(18, 19, 21, 0.5) -2.55%,
-    rgba(42, 42, 57, 0.5) 32.62%,
-    rgba(142, 49, 122, 0.5) 68.34%,
-    rgba(18, 19, 21, 0.5) 102.97%
+    var(--ifm-color-grad-start-dark) -2.55%,
+    var(--ifm-color-grad-mid-purple) 32.62%,
+    var(--ifm-color-grad-end-pink) 68.34%,
+    var(--ifm-color-grad-start-dark) 102.97%
   );
-  background-color: black;
+  background-color: var(--ifm-color-black);
   padding: 1rem 0;
   width: 100%;
   display: flex;

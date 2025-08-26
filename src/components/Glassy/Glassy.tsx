@@ -713,7 +713,8 @@ const Container = styled.div`
   //   bottom: 1px;
   //   right: 1px;
   //   border-radius: inherit;
-  //   background: ${(props) => (props.hideEffect ? 'transparent' : '#0d0d0f')};
+  //   background: ${(props) =>
+    props.hideEffect ? 'transparent' : 'var(--ifm-color-card-dark)'};
   //   z-index: -8; /* Glowwy comes as -9 */
   // }
 
@@ -748,9 +749,9 @@ const GlowwyBorder = styled.div`
   height: 0px;
   border-radius: 50%;
   box-shadow:
-    0 0 49px 19px rgb(202, 55, 237),
-    0 0 80px 40px #ca37ed,
-    0 0 100px 50px rgb(202, 55, 237);
+    0 0 49px 19px var(--ifm-color-glow-primary),
+    0 0 80px 40px var(--ifm-color-glow-secondary),
+    0 0 100px 50px var(--ifm-color-glow-primary);
   position: absolute;
   z-index: -9;
   display: none;
@@ -833,7 +834,7 @@ const H2Text = styled(H2)`
 
   background: ${(props) =>
     props.theme === 'hue' &&
-    'linear-gradient(270deg, #D162EC 4.53%, #D162EC 63.29%, #EAB7F6 99.72%)'};
+    'linear-gradient(270deg, var(--ifm-color-gradient-hue-start) 4.53%, var(--ifm-color-gradient-hue-start) 63.29%, var(--ifm-color-gradient-hue-end) 99.72%)'};
   -webkit-background-clip: ${(props) => props.theme === 'hue' && 'text'};
   -webkit-text-fill-color: ${(props) => props.theme === 'hue' && 'transparent'};
 `;

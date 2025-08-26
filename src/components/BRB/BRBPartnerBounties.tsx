@@ -126,7 +126,7 @@ export const PartnerBounties = ({
               {item.ended ? (
                 <BountyButton
                   disabled
-                  borderColor={'#53536C'}
+                  borderColor={'var(--ifm-color-brb-disabled)'}
                   className='buttonId'
                 >
                   <ViewBountyText>CLOSED</ViewBountyText>
@@ -204,7 +204,7 @@ const Header = styled.h3`
 `;
 
 const PartnerLine = styled.div`
-  background: #1b1b25;
+  background: var(--ifm-color-brb-background);
   width: 100%;
   height: 120px;
   margin: 0 auto;
@@ -276,7 +276,9 @@ const BountyButton = styled.div`
   border: 1px solid
     ${(props) => props.borderColor || 'var(--ifm-color-pink-secondary)'};
   background: ${(props) =>
-    props.disabled ? '#53536C' : 'var(--ifm-color-pink-secondary)'};
+    props.disabled
+      ? 'var(--ifm-color-brb-disabled)'
+      : 'var(--ifm-color-pink-secondary)'};
   border-radius: 8px;
   cursor: pointer;
 `;

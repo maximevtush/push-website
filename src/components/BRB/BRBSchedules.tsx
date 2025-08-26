@@ -163,7 +163,7 @@ const Schedules = ({
                             color={
                               schedule.hasEnded
                                 ? 'var(--ifm-color-white)'
-                                : '#b0ffc3'
+                                : 'var(--ifm-color-brb-success)'
                             }
                           >
                             {schedule?.place}
@@ -173,7 +173,7 @@ const Schedules = ({
                         <DateContainer
                           color={
                             schedule.hasEnded
-                              ? '#494968'
+                              ? 'var(--ifm-color-brb-border)'
                               : 'var(--ifm-color-white)'
                           }
                           onClick={() => checkDateStatus(schedule?.date)}

@@ -198,9 +198,9 @@ const GlowwyBorder = styled.div`
   height: 0px;
   border-radius: 50%;
   box-shadow:
-    0 0 49px 19px rgb(202, 55, 237),
-    0 0 80px 40px #ca37ed,
-    0 0 100px 50px rgb(202, 55, 237);
+    0 0 49px 19px var(--ifm-color-glow-primary),
+    0 0 80px 40px var(--ifm-color-glow-secondary),
+    0 0 100px 50px var(--ifm-color-glow-primary);
   // box-shadow:
   // 0 0 59px 29px rgb(202, 55, 237),
   // 0 0 100px 60px #CA37ED,

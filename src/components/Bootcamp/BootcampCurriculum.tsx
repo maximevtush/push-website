@@ -42,10 +42,10 @@ const BootcampCurriculum = () => {
 
         <ItemH gap='24px' justifyContent='flex-start' alignItems='center'>
           <ItemH gap='8px' flex='0' alignItems='center'>
-            <BsClock color='#94979F' size={14} />
+            <BsClock color='var(--ifm-color-icon-bootcamp)' size={14} />
 
             <H3
-              color='#94979F'
+              color='var(--ifm-color-icon-bootcamp)'
               fontSize='16px'
               fontFamily='Glancyr, sans-serif'
               fontWeight='400'
@@ -56,10 +56,10 @@ const BootcampCurriculum = () => {
           </ItemH>
 
           <ItemH gap='8px' flex='0' alignItems='center'>
-            <BsCalendar color='#94979F' size={14} />
+            <BsCalendar color='var(--ifm-color-icon-bootcamp)' size={14} />
 
             <H3
-              color='#94979F'
+              color='var(--ifm-color-icon-bootcamp)'
               fontSize='16px'
               fontFamily='Glancyr, sans-serif'
               fontWeight='400'

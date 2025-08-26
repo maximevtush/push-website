@@ -40,6 +40,7 @@ import {
 import GLOBALS, { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
+import { useCountdown } from '@site/src/hooks/useCountDown';
 
 import { Grid } from './Grid';
 import './styles.css';
@@ -63,6 +64,13 @@ export default function DocsHub(): JSX.Element {
   // Internationalization
   const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
+
+  // TODO: add correct testnet launch date
+  const targetDate = '2025-09-16T12:00:00';
+  const { timeLeft, isExpired } = useCountdown(targetDate);
+  const tweetUrl =
+    'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent('[ Your shoutout here ] #pushchainsecret');
 
   const { colorMode, setColorMode } = useColorMode();
 
@@ -321,6 +329,7 @@ export default function DocsHub(): JSX.Element {
     </Layout>
   );
 }
+
 
 const DocsHeroSection = styled(Section)`
   padding: 0px;
@@ -585,6 +594,7 @@ const GridSection = styled(ItemV)`
     grid-template-columns: repeat(2, 1fr);
   }
 
+
   @media ${device.mobileL} {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -613,6 +623,7 @@ const TechnicalGridWrapper = styled(Link)`
 
   svg {
     color: var(--ifm-header-caret-color);
+
   }
 
   &:hover {

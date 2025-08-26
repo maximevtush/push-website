@@ -1296,7 +1296,7 @@ function TermsOfServicePage() {
                   <Span
                     fontWeight='600'
                     color='var(--ifm-color-white)'
-                    background='#e20880'
+                    background='var(--ifm-color-tos-highlight)'
                     padding='0px 8px'
                   >
                     A
@@ -1433,7 +1433,7 @@ function TermsOfServicePage() {
                   <Span
                     fontWeight='600'
                     color='var(--ifm-color-white)'
-                    background='#e20880'
+                    background='var(--ifm-color-tos-highlight)'
                     padding='0px 8px'
                   >
                     B
