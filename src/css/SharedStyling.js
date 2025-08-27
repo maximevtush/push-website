@@ -404,7 +404,7 @@ export const Span = styled.span`
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) =>
     props.fontSize || GLOBALS.ADJUSTMENTS.FONT.NORMAL_TEXT.DESKTOP};
-  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans'};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '0px'};
   padding: ${(props) => props.padding || '0px'};

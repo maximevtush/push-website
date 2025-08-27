@@ -343,6 +343,7 @@ const NavigationMenuHeader = styled.div`
     color: var(--ifm-color-primary-text);
     padding: 0px 4px 0px 12px;
     border-left: 1px solid var(--ifm-header-caret-color);
+    font-family: DM Sans !important;
 
     &:hover {
       // color: var(--ifm-navbar-text-color);
