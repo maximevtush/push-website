@@ -115,10 +115,10 @@ const config = {
             from: '/bootcamp',
             to: 'https://comms.push.org/bootcamp',
           },
-          {
-            from: '/chain',
-            to: '/',
-          },
+          // {
+          //   from: '/chain',
+          //   to: '/',
+          // },
           {
             from: '/chain/knowledge',
             to: '/knowledge',
