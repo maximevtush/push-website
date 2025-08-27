@@ -43,7 +43,7 @@ const config = {
   projectName: 'push-chain-website', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
-  onBrokenLinks: process.env.GITHUB_ACTIONS ? 'warn' : 'throw',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
   // Internationalization configuration
@@ -115,10 +115,6 @@ const config = {
             from: '/bootcamp',
             to: 'https://comms.push.org/bootcamp',
           },
-          // {
-          //   from: '/chain',
-          //   to: '/',
-          // },
           {
             from: '/chain/knowledge',
             to: '/knowledge',
