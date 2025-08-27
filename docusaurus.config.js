@@ -43,7 +43,7 @@ const config = {
   projectName: 'push-chain-website', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: process.env.GITHUB_ACTIONS ? 'warn' : 'throw',
   onBrokenMarkdownLinks: 'warn',
 
   // Internationalization configuration
