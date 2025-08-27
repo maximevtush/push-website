@@ -17,7 +17,7 @@ export const Grid = () => {
           bg={item.bgColor}
           bgImage={item.gridBG}
           href={item.href}
-          target='_blank'
+          target={item.target || '_blank'}
           rel='noopener noreferrer'
           alt={item.title}
         >

@@ -15,6 +15,7 @@ import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
 import BlogSidebar from '@theme/BlogSidebar';
 import Layout from '@theme/Layout';
 import styled from 'styled-components';
+import Footer from '../../segments/Footer';
 
 export default function BlogLayout(props) {
   const { sidebar, toc, children } = props;
@@ -103,6 +104,8 @@ export default function BlogLayout(props) {
           </BlogMain>
         </div>
       )}
+
+      <Footer />
     </Layout>
   );
 }

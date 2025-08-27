@@ -203,13 +203,15 @@ export const ToolingItems = [
   },
   {
     title: 'Faucet',
-    href: '/docs/chain/setup/tooling/faucet',
+    href: 'http://faucet.push.org',
+    target: '_blank',
     content:
       'A drip of testnet $PC to play with, deploy your smart contracts, and test your app.',
   },
   {
     title: 'Chain Explorer',
-    href: '/docs/chain/setup/tooling/block-explorer/',
+    href: 'https://donut.push.network',
+    target: '_blank',
     content:
       'Explore Push Chain transactions, blocks, and accounts in real time.',
   },
@@ -235,6 +237,7 @@ export const GridTopItems = [
     bgColor: '#dd6fff',
     title: 'What is Push Chain?',
     href: '/docs/chain/',
+    target: '_self',
     description:
       'Push Chain provides a unified toolkit to build truly universal apps.',
     image: require(`@site/static/assets/website/docshub/WhitePushLogo.png`)
@@ -250,6 +253,7 @@ export const GridTopItems = [
     bgColor: '#4277F7',
     title: `Let's build!`,
     href: '/docs/chain/build/',
+    target: '_self',
     description:
       'Everything you need with Push Chain SDK to create your universal app.',
     link: null,
@@ -264,6 +268,7 @@ export const GridTopItems = [
   {
     bgColor: '#4277F7',
     title: 'UI Kit',
+    target: '_self',
     href: '/docs/chain/ui-kit/',
     description: 'Integrate any React based app in less than 5 minutes.',
     image: require(`@site/static/assets/website/docshub/UIKit.png`).default,

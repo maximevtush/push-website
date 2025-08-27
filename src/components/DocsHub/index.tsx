@@ -46,10 +46,15 @@ import { Grid } from './Grid';
 import './styles.css';
 
 export const TechnicalGrid = ({ item }) => {
-  const { title, content, href } = item;
+  const { title, content, href, target } = item;
 
   return (
-    <TechnicalGridWrapper href={href} target='_blank' rel='noopener noreferrer'>
+    // all internal links should be opened in same tabs
+    <TechnicalGridWrapper
+      href={href}
+      target={target || '_self'}
+      rel='noopener noreferrer'
+    >
       <LinkTo>
         <H2>{title}</H2>
         <BsArrowUpRight className='svg' />
@@ -199,7 +204,7 @@ export default function DocsHub(): JSX.Element {
 
             <FaqLink
               href='/docs/chain/quickstart/'
-              target='_blank'
+              target='_self'
               title='Explore Push Chain Quickstart'
             >
               <p>Explore Quickstart</p>
@@ -243,7 +248,7 @@ export default function DocsHub(): JSX.Element {
 
             <FaqLink
               href='/docs/chain/setup/tooling/'
-              target='_blank'
+              target='_self'
               title='Explore Tooling'
             >
               <p>Explore Tooling</p>
@@ -272,7 +277,7 @@ export default function DocsHub(): JSX.Element {
 
             <FaqLink
               href='/docs/chain/tutorials'
-              target='_blank'
+              target='_self'
               title='Explore Tutorials'
             >
               <p>Explore Tutorials</p>
@@ -310,26 +315,27 @@ export default function DocsHub(): JSX.Element {
               Explore the full docs to get started.
             </Span>
 
-            <Button
+            <A
               margin='24px 0 0 0'
               background='#D548EC'
               fontSize='14px'
               fontWeight='600'
               lineHeight='normal'
               padding='13px'
+              href='/docs/chain'
+              target='_self'
             >
               Explore Docs
-            </Button>
+            </A>
           </ItemV>
         </Content>
       </Section>
 
       {/* TODO: Implement Footer */}
-      {/* <Footer showPattern={false} /> */}
+      <Footer />
     </Layout>
   );
 }
-
 
 const DocsHeroSection = styled(Section)`
   padding: 0px;
@@ -594,7 +600,6 @@ const GridSection = styled(ItemV)`
     grid-template-columns: repeat(2, 1fr);
   }
 
-
   @media ${device.mobileL} {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -623,7 +628,6 @@ const TechnicalGridWrapper = styled(Link)`
 
   svg {
     color: var(--ifm-header-caret-color);
-
   }
 
   &:hover {

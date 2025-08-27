@@ -140,7 +140,6 @@ export default function Root({ children }) {
 
           {shouldRenderFooter && (
             <>
-              {/* <Footer /> */}
               {/* CookieComponent has its own hydration handling */}
               <CookieComponent />
             </>
