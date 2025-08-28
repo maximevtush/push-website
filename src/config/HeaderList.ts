@@ -53,6 +53,13 @@ export const HeaderList = {
       href: 'https://discord.com/invite/pushchain',
       target: '_blank',
     },
+    {
+      text: 'header.developers.link6.text',
+      subtext: 'header.developers.link6.subtext',
+      title: 'header.developers.link6.title',
+      href: '/docs/chain/ui-kit/examples/',
+      target: '_self',
+    },
   ],
   community: [
     {
