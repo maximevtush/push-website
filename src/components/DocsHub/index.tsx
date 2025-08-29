@@ -44,6 +44,9 @@ import { useCountdown } from '@site/src/hooks/useCountDown';
 
 import { Grid } from './Grid';
 import './styles.css';
+import ContentBlocks from '../ContentBlocks/ContentBlocks';
+import { KBRootResourcesList } from '@site/src/config/KBRootResourcesList';
+import { DocsResourcesList } from '@site/src/config/DocsResourcesList';
 
 export const TechnicalGrid = ({ item }) => {
   const { title, content, href, target } = item;
@@ -186,7 +189,7 @@ export default function DocsHub(): JSX.Element {
       {/* Grid Section */}
       <Section>
         <Content maxWidth={`1326px`}>
-          <Grid />
+          <ContentBlocks item={DocsResourcesList} />
         </Content>
       </Section>
 
