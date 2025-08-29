@@ -81,7 +81,6 @@
 
 .playgroundEditor pre {
   border-radius: 0px;
-  /* background-color: var(--ifm-pre-background) !important; */
   background-color: var(--ifm-navbar-search-bg) !important;
   font-family: 'Fira Code' !important;
 }
@@ -94,7 +93,8 @@
 .playgroundPreview:global(.previewNodeJS) pre {
   /* virtual ide no border radius */
   border-radius: 0px;
-  background-color: var(--ifm-navbar-search-bg) !important;
+  background-color: var(--ifm-playground-header-terminalbg) !important;
+  /*background-color: var(--ifm-navbar-search-bg) !important;*/
   padding: 24px 16px !important;
   display: flex;
   flex-direction: column;

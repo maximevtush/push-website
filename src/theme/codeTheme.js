@@ -31,7 +31,7 @@ const lightCodeTheme = {
     {
       types: ['comment', 'plain-text'],
       style: {
-        color: '#AAAAB0',
+        color: '#6B6B6B',
       },
     },
     {
@@ -75,7 +75,7 @@ const darkCodeTheme = {
     {
       types: ['comment', 'plain-text'],
       style: {
-        color: '#44444E',
+        color: '#404041',
       },
     },
     {

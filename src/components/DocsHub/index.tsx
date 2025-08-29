@@ -558,7 +558,7 @@ const PopularQuickiesCard = styled(ItemV)`
 const PopularQuickiesHeader = styled.div`
   align-items: center;
   font-size: 20px;
-  background: var(--ifm-navbar-search-bg);
+  background: var(--ifm-playground-header-terminalbg);
   justify-content: flex-start;
   padding: 10px 20px 14px 80px;
   margin-bottom: -8px;
@@ -661,6 +661,6 @@ const PopularQuickiesCodeBlock = styled(CodeBlock)`
   border-bottom-right-radius: 24px;
   overflow: hidden;
   width: inherit;
-  background: var(--ifm-navbar-search-bg) !important;
+  background: var(--ifm-playground-header-terminalbg) !important;
   flex: 1;
 `;
