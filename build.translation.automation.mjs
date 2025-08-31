@@ -721,6 +721,88 @@ async function translateContent(
 }
 
 /**
+ * Translate content using alternate model (for final retry attempts)
+ */
+async function translateContentWithAlternateModel(
+  sourceContent,
+  targetLanguage,
+  languageName,
+  correctionPrompt = null
+) {
+  // Check rate limit before making API call
+  const waitTime = waitForRateLimit();
+  if (waitTime > 0) {
+    console.log(
+      chalk.yellow(
+        `⏳ Rate limit: waiting ${Math.ceil(
+          waitTime / 1000
+        )}s before translating to ${languageName}...`
+      )
+    );
+    await new Promise((resolve) => setTimeout(resolve, waitTime));
+  }
+
+  // Record this API call
+  recordApiCall();
+
+  // Get available models and start with the second one (alternate model)
+  const config = getAIConfig();
+  const availableModels = config.availableModels;
+  
+  if (availableModels.length < 2) {
+    // If no alternate model available, fall back to regular translation
+    console.log(
+      chalk.yellow(
+        `⚠️ No alternate model available for ${languageName}, using primary model...`
+      )
+    );
+    return await translateContent(sourceContent, targetLanguage, languageName, correctionPrompt);
+  }
+
+  // Try alternate models (starting from index 1, then 0 as fallback)
+  const modelOrder = [1, 0]; // Start with second model, then fallback to first
+  
+  for (let i = 0; i < modelOrder.length; i++) {
+    const modelIndex = modelOrder[i];
+    
+    try {
+      const currentConfig = getAIConfig(modelIndex);
+      
+      console.log(
+        chalk.magenta(
+          `🔄 Using alternate model ${currentConfig.model} for ${languageName}...`
+        )
+      );
+
+      return await attemptTranslation(
+        currentConfig,
+        sourceContent,
+        targetLanguage,
+        languageName,
+        correctionPrompt
+      );
+    } catch (error) {
+      const isLastAttempt = i === modelOrder.length - 1;
+
+      if (isLastAttempt) {
+        console.error(
+          chalk.red(`❌ All alternate models failed for ${targetLanguage}:`),
+          error.message
+        );
+        throw error;
+      } else {
+        console.warn(
+          chalk.yellow(
+            `⚠️ Alternate model ${getAIConfig(modelIndex).model} failed for ${languageName}: ${error.message}`
+          )
+        );
+        // Continue to next model
+      }
+    }
+  }
+}
+
+/**
  * Translate content with less sensitive validation and automatic correction
  */
 async function translateContentWithValidation(
@@ -1065,6 +1147,991 @@ async function showVerificationSamples(sourceContent, languages) {
       chalk.yellow('⚠️  Could not load verification samples:'),
       error.message
     );
+  }
+}
+
+/**
+ * Detect language in text using simple heuristics
+ */
+function detectLanguage(text, expectedLanguage) {
+  if (!text || typeof text !== 'string') return 'unknown';
+
+  // Remove HTML tags, punctuation, numbers, and common symbols for analysis
+  const cleanText = text
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/[.,!?;:()[\]{}"'`\-_+=@#$%^&*|\\~/]/g, ' ')
+    .replace(/\d+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
+  if (!cleanText) return 'unknown';
+
+  // Language detection patterns with improved Japanese detection
+  const languagePatterns = {
+    ko: /[\uac00-\ud7af]/, // Korean
+    ar: /[\u0600-\u06ff]/, // Arabic
+    hi: /[\u0900-\u097f]/, // Hindi/Devanagari
+    ru: /[\u0400-\u04ff]/, // Cyrillic
+    th: /[\u0e00-\u0e7f]/, // Thai
+  };
+
+  // Check for non-CJK languages first
+  for (const [lang, pattern] of Object.entries(languagePatterns)) {
+    if (pattern.test(cleanText)) {
+      return lang;
+    }
+  }
+
+  // Special handling for Japanese vs Chinese (CJK characters)
+  const hasHiragana = /[\u3040-\u309f]/.test(cleanText);
+  const hasKatakana = /[\u30a0-\u30ff]/.test(cleanText);
+  const hasKanji = /[\u4e00-\u9fff]/.test(cleanText);
+
+  // If we have Japanese kana, it's definitely Japanese
+  if (hasHiragana || hasKatakana) {
+    return 'ja';
+  }
+
+  // If we only have Kanji and we're expecting Japanese, assume it's Japanese
+  if (hasKanji && expectedLanguage === 'ja') {
+    return 'ja';
+  }
+
+  // If we only have Kanji and we're expecting Chinese, assume it's Chinese
+  if (hasKanji && expectedLanguage === 'zh-CN') {
+    return 'zh-CN';
+  }
+
+  // If we have Kanji but no expected language context, default to Chinese
+  if (hasKanji) {
+    return 'zh-CN';
+  }
+
+  // For Latin-based languages, use word patterns and common words
+  const words = cleanText.split(/\s+/).filter((word) => word.length > 2);
+
+  // Common words for different languages
+  const commonWords = {
+    es: [
+      'que',
+      'con',
+      'para',
+      'por',
+      'una',
+      'del',
+      'las',
+      'los',
+      'como',
+      'más',
+      'pero',
+      'sus',
+      'ser',
+      'está',
+      'son',
+      'desde',
+      'hasta',
+      'donde',
+      'cuando',
+      'muy',
+      'bien',
+      'también',
+      'solo',
+      'todo',
+      'cada',
+      'otro',
+      'puede',
+      'hacer',
+      'tiempo',
+      'año',
+      'día',
+      'vida',
+      'mundo',
+      'casa',
+      'trabajo',
+      'parte',
+      'lugar',
+      'forma',
+      'manera',
+      'ejemplo',
+      'información',
+      'sistema',
+      'servicio',
+      'producto',
+      'empresa',
+      'proyecto',
+      'desarrollo',
+      'proceso',
+      'resultado',
+      'problema',
+      'solución',
+    ],
+    fr: [
+      'que',
+      'avec',
+      'pour',
+      'par',
+      'une',
+      'des',
+      'les',
+      'comme',
+      'plus',
+      'mais',
+      'ses',
+      'être',
+      'est',
+      'sont',
+      'depuis',
+      'jusqu',
+      'très',
+      'bien',
+      'aussi',
+      'seulement',
+      'tout',
+      'chaque',
+      'autre',
+      'peut',
+      'faire',
+      'temps',
+      'année',
+      'jour',
+      'vie',
+      'monde',
+      'maison',
+      'travail',
+      'partie',
+      'lieu',
+      'forme',
+      'manière',
+      'exemple',
+      'information',
+      'système',
+      'service',
+      'produit',
+      'entreprise',
+      'projet',
+      'développement',
+      'processus',
+      'résultat',
+      'problème',
+      'solution',
+    ],
+    de: [
+      'dass',
+      'mit',
+      'für',
+      'von',
+      'eine',
+      'der',
+      'die',
+      'wie',
+      'mehr',
+      'aber',
+      'sein',
+      'ist',
+      'sind',
+      'seit',
+      'bis',
+      'sehr',
+      'gut',
+      'auch',
+      'nur',
+      'alle',
+      'jede',
+      'andere',
+      'kann',
+      'machen',
+      'zeit',
+      'jahr',
+      'tag',
+      'leben',
+      'welt',
+      'haus',
+      'arbeit',
+      'teil',
+      'ort',
+      'form',
+      'weise',
+      'beispiel',
+      'information',
+      'system',
+      'service',
+      'produkt',
+      'unternehmen',
+      'projekt',
+      'entwicklung',
+      'prozess',
+      'ergebnis',
+      'problem',
+      'lösung',
+    ],
+    pt: [
+      'que',
+      'com',
+      'para',
+      'por',
+      'uma',
+      'das',
+      'los',
+      'como',
+      'mais',
+      'mas',
+      'seus',
+      'ser',
+      'está',
+      'são',
+      'desde',
+      'até',
+      'muito',
+      'bem',
+      'também',
+      'apenas',
+      'todo',
+      'cada',
+      'outro',
+      'pode',
+      'fazer',
+      'tempo',
+      'ano',
+      'dia',
+      'vida',
+      'mundo',
+      'casa',
+      'trabalho',
+      'parte',
+      'lugar',
+      'forma',
+      'maneira',
+      'exemplo',
+      'informação',
+      'sistema',
+      'serviço',
+      'produto',
+      'empresa',
+      'projeto',
+      'desenvolvimento',
+      'processo',
+      'resultado',
+      'problema',
+      'solução',
+    ],
+    id: [
+      'yang',
+      'dengan',
+      'untuk',
+      'dari',
+      'ini',
+      'itu',
+      'dan',
+      'atau',
+      'pada',
+      'dalam',
+      'akan',
+      'adalah',
+      'ada',
+      'tidak',
+      'juga',
+      'dapat',
+      'bisa',
+      'hanya',
+      'semua',
+      'setiap',
+      'lain',
+      'buat',
+      'waktu',
+      'tahun',
+      'hari',
+      'hidup',
+      'dunia',
+      'rumah',
+      'kerja',
+      'bagian',
+      'tempat',
+      'bentuk',
+      'cara',
+      'contoh',
+      'informasi',
+      'sistem',
+      'layanan',
+      'produk',
+      'perusahaan',
+      'proyek',
+      'pengembangan',
+      'proses',
+      'hasil',
+      'masalah',
+      'solusi',
+    ],
+    vi: [
+      'mà',
+      'với',
+      'cho',
+      'từ',
+      'một',
+      'các',
+      'như',
+      'thêm',
+      'nhưng',
+      'của',
+      'là',
+      'có',
+      'không',
+      'cũng',
+      'được',
+      'chỉ',
+      'tất',
+      'mỗi',
+      'khác',
+      'làm',
+      'thời',
+      'năm',
+      'ngày',
+      'cuộc',
+      'thế',
+      'nhà',
+      'việc',
+      'phần',
+      'nơi',
+      'hình',
+      'cách',
+      'ví',
+      'thông',
+      'hệ',
+      'dịch',
+      'sản',
+      'công',
+      'dự',
+      'phát',
+      'quá',
+      'kết',
+      'vấn',
+      'giải',
+    ],
+    tr: [
+      'ile',
+      'için',
+      'bir',
+      'olan',
+      'daha',
+      'ama',
+      'onun',
+      'olan',
+      'var',
+      'yok',
+      'da',
+      'de',
+      'bu',
+      'şu',
+      'her',
+      'başka',
+      'yapmak',
+      'zaman',
+      'yıl',
+      'gün',
+      'hayat',
+      'dünya',
+      'ev',
+      'iş',
+      'kısım',
+      'yer',
+      'şekil',
+      'yol',
+      'örnek',
+      'bilgi',
+      'sistem',
+      'hizmet',
+      'ürün',
+      'şirket',
+      'proje',
+      'geliştirme',
+      'süreç',
+      'sonuç',
+      'sorun',
+      'çözüm',
+    ],
+  };
+
+  // Count matches for expected language
+  const expectedWords = commonWords[expectedLanguage] || [];
+  const matches = words.filter((word) => expectedWords.includes(word)).length;
+  const matchRatio = words.length > 0 ? matches / words.length : 0;
+
+  // If we have a good match ratio (>10%) for expected language, consider it correct
+  if (matchRatio > 0.1) {
+    return expectedLanguage;
+  }
+
+  // Check for English words (common English words)
+  const englishWords = [
+    'the',
+    'and',
+    'for',
+    'are',
+    'but',
+    'not',
+    'you',
+    'all',
+    'can',
+    'had',
+    'her',
+    'was',
+    'one',
+    'our',
+    'out',
+    'day',
+    'get',
+    'has',
+    'him',
+    'his',
+    'how',
+    'man',
+    'new',
+    'now',
+    'old',
+    'see',
+    'two',
+    'way',
+    'who',
+    'boy',
+    'did',
+    'its',
+    'let',
+    'put',
+    'say',
+    'she',
+    'too',
+    'use',
+    'with',
+    'have',
+    'from',
+    'they',
+    'know',
+    'want',
+    'been',
+    'good',
+    'much',
+    'some',
+    'time',
+    'very',
+    'when',
+    'come',
+    'here',
+    'just',
+    'like',
+    'long',
+    'make',
+    'many',
+    'over',
+    'such',
+    'take',
+    'than',
+    'them',
+    'well',
+    'were',
+    'what',
+    'your',
+    'work',
+    'life',
+    'only',
+    'think',
+    'also',
+    'back',
+    'after',
+    'first',
+    'well',
+    'year',
+    'work',
+    'such',
+    'make',
+    'even',
+    'most',
+    'give',
+    'many',
+    'right',
+    'seem',
+    'small',
+    'those',
+    'under',
+    'while',
+  ];
+  const englishMatches = words.filter((word) =>
+    englishWords.includes(word)
+  ).length;
+  const englishRatio = words.length > 0 ? englishMatches / words.length : 0;
+
+  if (englishRatio > 0.15) {
+    return 'en';
+  }
+
+  // If no clear pattern, return unknown
+  return 'unknown';
+}
+
+/**
+ * Extract HTML tags from text
+ */
+function extractHtmlTags(text) {
+  if (!text || typeof text !== 'string') return [];
+  const tagRegex = /<[^>]+>/g;
+  const matches = text.match(tagRegex) || [];
+  return [...new Set(matches)]; // Remove duplicates
+}
+
+/**
+ * Check if translation contains only target language or English
+ */
+function validateLanguagePurity(translation, languageCode, languageName) {
+  const issues = [];
+
+  function checkValue(value, keyPath) {
+    if (typeof value === 'string' && value.trim()) {
+      const detectedLang = detectLanguage(value, languageCode);
+      const wordCount = value.trim().split(/\s+/).length;
+
+      // Check for wrong language (not target, English, or unknown)
+      if (
+        detectedLang !== languageCode &&
+        detectedLang !== 'en' &&
+        detectedLang !== 'unknown'
+      ) {
+        issues.push({
+          key: keyPath,
+          value: value,
+          detectedLanguage: detectedLang,
+          issue: 'wrong_language',
+        });
+      }
+      
+      // Check for English-only translations that should be in target language
+      // If no target language is detected AND it's English AND more than 4 words, it's likely untranslated
+      else if (
+        detectedLang === 'en' &&
+        wordCount > 4 &&
+        languageCode !== 'en' // Don't flag English translations when target is English
+      ) {
+        // Double-check: ensure no target language characters are present
+        const hasTargetLanguage = detectLanguage(value, languageCode) === languageCode;
+        
+        if (!hasTargetLanguage) {
+          issues.push({
+            key: keyPath,
+            value: value,
+            detectedLanguage: 'en',
+            issue: 'untranslated_english',
+          });
+        }
+      }
+    } else if (typeof value === 'object' && value !== null) {
+      for (const [key, subValue] of Object.entries(value)) {
+        checkValue(subValue, keyPath ? `${keyPath}.${key}` : key);
+      }
+    }
+  }
+
+  checkValue(translation, '');
+  return issues;
+}
+
+/**
+ * Check if HTML tags were added that weren't in the original English
+ */
+function validateHtmlTags(
+  translation,
+  englishTranslation,
+  languageCode,
+  languageName
+) {
+  const issues = [];
+
+  function checkValue(value, englishValue, keyPath) {
+    if (typeof value === 'string' && typeof englishValue === 'string') {
+      const translatedTags = extractHtmlTags(value);
+      const englishTags = extractHtmlTags(englishValue);
+
+      // Check for extra tags in translation
+      const extraTags = translatedTags.filter(
+        (tag) => !englishTags.includes(tag)
+      );
+
+      if (extraTags.length > 0) {
+        issues.push({
+          key: keyPath,
+          value: value,
+          englishValue: englishValue,
+          extraTags: extraTags,
+          issue: 'extra_html_tags',
+        });
+      }
+    } else if (
+      typeof value === 'object' &&
+      value !== null &&
+      typeof englishValue === 'object' &&
+      englishValue !== null
+    ) {
+      for (const [key, subValue] of Object.entries(value)) {
+        if (englishValue.hasOwnProperty(key)) {
+          checkValue(
+            subValue,
+            englishValue[key],
+            keyPath ? `${keyPath}.${key}` : key
+          );
+        }
+      }
+    }
+  }
+
+  checkValue(translation, englishTranslation, '');
+  return issues;
+}
+
+/**
+ * Validate translation quality and retry if issues found
+ */
+async function validateAndRetryTranslations(supportedLanguages) {
+  try {
+    // Load the English reference translation.json
+    const enTranslationPath = path.join(LOCALES_DIR, 'en', 'translation.json');
+    let enTranslation;
+
+    try {
+      const enContent = await fs.readFile(enTranslationPath, 'utf8');
+      enTranslation = JSON.parse(enContent);
+    } catch (error) {
+      console.log(
+        chalk.yellow(
+          '⚠️  English translation.json not found, skipping validation'
+        )
+      );
+      return;
+    }
+
+    console.log(
+      chalk.gray(`📋 Validating translations against English reference`)
+    );
+
+    // Check each supported language
+    for (const languageCode of supportedLanguages) {
+      if (languageCode === 'en') continue; // Skip English itself
+
+      const languageName = SUPPORTED_LANGUAGES[languageCode];
+      const langTranslationPath = path.join(
+        LOCALES_DIR,
+        languageCode,
+        'translation.json'
+      );
+
+      console.log(
+        chalk.blue(`\n🔍 Validating ${languageName} (${languageCode})...`)
+      );
+
+      let langTranslation = {};
+      try {
+        const langContent = await fs.readFile(langTranslationPath, 'utf8');
+        langTranslation = JSON.parse(langContent);
+      } catch (error) {
+        console.log(
+          chalk.yellow(
+            `⚠️  ${languageCode}/translation.json not found, skipping validation`
+          )
+        );
+        continue;
+      }
+
+      // Check language purity
+      const languageIssues = validateLanguagePurity(
+        langTranslation,
+        languageCode,
+        languageName
+      );
+
+      // Check HTML tag integrity
+      const htmlIssues = validateHtmlTags(
+        langTranslation,
+        enTranslation,
+        languageCode,
+        languageName
+      );
+
+      const totalIssues = languageIssues.length + htmlIssues.length;
+
+      if (totalIssues === 0) {
+        console.log(
+          chalk.green(`✅ ${languageName}: No validation issues found`)
+        );
+        continue;
+      }
+
+      console.log(
+        chalk.yellow(
+          `⚠️  ${languageName}: Found ${totalIssues} validation issues`
+        )
+      );
+
+      // Report language purity issues
+      if (languageIssues.length > 0) {
+        console.log(
+          chalk.red(`   🌐 Language purity issues: ${languageIssues.length}`)
+        );
+        languageIssues.slice(0, 3).forEach((issue) => {
+          if (issue.issue === 'untranslated_english') {
+            console.log(
+              chalk.red(
+                `      • ${issue.key}: Untranslated English text (${issue.value.trim().split(/\s+/).length} words)`
+              )
+            );
+          } else {
+            console.log(
+              chalk.red(
+                `      • ${issue.key}: Contains ${issue.detectedLanguage} text`
+              )
+            );
+          }
+        });
+        if (languageIssues.length > 3) {
+          console.log(
+            chalk.red(`      ... and ${languageIssues.length - 3} more`)
+          );
+        }
+      }
+
+      // Report HTML tag issues
+      if (htmlIssues.length > 0) {
+        console.log(chalk.red(`   🏷️  HTML tag issues: ${htmlIssues.length}`));
+        htmlIssues.slice(0, 3).forEach((issue) => {
+          console.log(
+            chalk.red(
+              `      • ${issue.key}: Added tags ${issue.extraTags.join(', ')}`
+            )
+          );
+        });
+        if (htmlIssues.length > 3) {
+          console.log(chalk.red(`      ... and ${htmlIssues.length - 3} more`));
+        }
+      }
+
+      // Collect problematic keys for retranslation
+      const problematicKeys = [
+        ...languageIssues.map((issue) => issue.key),
+        ...htmlIssues.map((issue) => issue.key),
+      ];
+
+      // Retranslation loop with sanity check
+      let retryAttempts = 0;
+      const maxRetries = 3; // Maximum number of retranslation attempts
+      let currentProblematicKeys = [...problematicKeys];
+      
+      while (currentProblematicKeys.length > 0 && retryAttempts < maxRetries) {
+        retryAttempts++;
+        
+        // Check if using local AI - if so, process keys one by one
+        const isLocalAI = process.env.AI_PROVIDER === 'local';
+        const isLastAttempt = retryAttempts === maxRetries;
+        
+        // On final attempt, try to use alternate model if available
+        let useAlternateModel = false;
+        if (isLastAttempt) {
+          const config = getAIConfig();
+          if (config.availableModels.length > 1) {
+            useAlternateModel = true;
+            console.log(chalk.magenta(`🔄 ${languageName}: Final attempt using alternate model...`));
+          }
+        }
+        
+        if (isLocalAI) {
+          const attemptLabel = useAlternateModel ? 
+            `${currentProblematicKeys.length} problematic keys, retranslating with alternate model... (Final Attempt)` :
+            `${currentProblematicKeys.length} problematic keys, retranslating one by one... (Attempt ${retryAttempts}/${maxRetries})`;
+          
+          console.log(chalk.blue(`🔄 ${languageName}: ${attemptLabel}`));
+          
+          let successCount = 0;
+          let failCount = 0;
+          let updatedTranslation = { ...langTranslation }; // Start with existing translation
+          
+          // Translate each problematic key individually
+          for (let i = 0; i < currentProblematicKeys.length; i++) {
+            const keyPath = currentProblematicKeys[i];
+            const keyProgress = `[${i + 1}/${currentProblematicKeys.length}]`;
+            
+            console.log(chalk.gray(`   ${keyProgress} 🔄 ${keyPath}`));
+            
+            try {
+              // Get the English value for this specific key
+              const englishValue = getValueByPath(enTranslation, keyPath);
+              
+              // Create a minimal object with just this one key
+              const singleKeyObject = {};
+              setValueByPath(singleKeyObject, keyPath, englishValue);
+              
+              // For final attempt with alternate model, use translateContentWithAlternateModel
+              let translatedSingle;
+              if (useAlternateModel) {
+                translatedSingle = await translateContentWithAlternateModel(singleKeyObject, languageCode, languageName);
+              } else {
+                translatedSingle = await translateContent(singleKeyObject, languageCode);
+              }
+              
+              if (translatedSingle) {
+                // Extract the translated value and set it in the updated translation
+                const translatedValue = getValueByPath(translatedSingle, keyPath);
+                setValueByPath(updatedTranslation, keyPath, translatedValue);
+                
+                console.log(
+                  chalk.green(
+                    `   ${keyProgress} ✅ ${keyPath} → "${translatedValue}"`
+                  )
+                );
+                successCount++;
+              } else {
+                console.log(
+                  chalk.red(`   ${keyProgress} ❌ ${keyPath} - Translation failed`)
+                );
+                failCount++;
+              }
+            } catch (error) {
+              console.log(
+                chalk.red(`   ${keyProgress} ❌ ${keyPath} - ${error.message}`)
+              );
+              failCount++;
+            }
+          }
+          
+          // Save the updated translation if we had any successes
+          if (successCount > 0) {
+            await fs.writeFile(
+              langTranslationPath,
+              JSON.stringify(updatedTranslation, null, 2),
+              'utf8'
+            );
+            // Update langTranslation for next validation
+            langTranslation = updatedTranslation;
+          }
+          
+          // Show summary
+          console.log(
+            chalk.cyan(
+              `📊 ${languageName}: Retranslation summary - ${successCount} success, ${failCount} failed`
+            )
+          );
+          
+          if (successCount > 0) {
+            console.log(chalk.green(`✅ ${languageName}: Retranslated and updated ${successCount} keys`));
+          }
+        } else {
+          // For non-local AI (Windsurf/Anthropic), use batch processing
+          const attemptLabel = useAlternateModel ? 
+            `Retranslating ${currentProblematicKeys.length} problematic keys with alternate model... (Final Attempt)` :
+            `Retranslating ${currentProblematicKeys.length} problematic keys... (Attempt ${retryAttempts}/${maxRetries})`;
+          
+          console.log(chalk.blue(`🔄 ${languageName}: ${attemptLabel}`));
+          
+          // Create object with only problematic keys for retranslation
+          const keysToRetranslate = {};
+          for (const keyPath of currentProblematicKeys) {
+            const englishValue = getValueByPath(enTranslation, keyPath);
+            if (englishValue !== undefined) {
+              setValueByPath(keysToRetranslate, keyPath, englishValue);
+            }
+          }
+          
+          if (Object.keys(keysToRetranslate).length > 0) {
+            try {
+              // For final attempt with alternate model, use translateContentWithAlternateModel
+              let retranslatedContent;
+              if (useAlternateModel) {
+                retranslatedContent = await translateContentWithAlternateModel(keysToRetranslate, languageCode, languageName);
+              } else {
+                retranslatedContent = await translateContent(keysToRetranslate, languageCode);
+              }
+              
+              if (retranslatedContent) {
+                // Merge retranslated content back into the main translation
+                const updatedTranslation = deepMerge(langTranslation, retranslatedContent);
+                
+                // Save the updated translation
+                await fs.writeFile(
+                  langTranslationPath,
+                  JSON.stringify(updatedTranslation, null, 2),
+                  'utf8'
+                );
+                
+                // Update langTranslation for next validation
+                langTranslation = updatedTranslation;
+                
+                console.log(chalk.green(`✅ ${languageName}: Retranslated and updated ${currentProblematicKeys.length} keys`));
+              } else {
+                console.log(chalk.red(`❌ ${languageName}: Failed to retranslate problematic keys`));
+                break; // Exit retry loop if translation completely failed
+              }
+            } catch (error) {
+              console.log(chalk.red(`❌ ${languageName}: Error during retranslation - ${error.message}`));
+              break; // Exit retry loop on error
+            }
+          }
+        }
+        
+        // Post-retranslation sanity check
+        if (retryAttempts < maxRetries) {
+          console.log(chalk.blue(`🔍 ${languageName}: Performing post-retranslation sanity check...`));
+          
+          // Re-validate the updated translation
+          const postLanguageIssues = validateLanguagePurity(
+            langTranslation,
+            languageCode,
+            languageName
+          );
+          
+          const postHtmlIssues = validateHtmlTags(
+            langTranslation,
+            enTranslation,
+            languageCode,
+            languageName
+          );
+          
+          const postTotalIssues = postLanguageIssues.length + postHtmlIssues.length;
+          
+          if (postTotalIssues === 0) {
+            console.log(chalk.green(`✅ ${languageName}: Sanity check passed - all issues resolved`));
+            break; // Exit retry loop - all issues resolved
+          } else {
+            console.log(chalk.yellow(`⚠️  ${languageName}: Sanity check found ${postTotalIssues} remaining issues`));
+            
+            // Update problematic keys for next retry
+            currentProblematicKeys = [
+              ...postLanguageIssues.map((issue) => issue.key),
+              ...postHtmlIssues.map((issue) => issue.key),
+            ];
+            
+            // Remove duplicates
+            currentProblematicKeys = [...new Set(currentProblematicKeys)];
+            
+            if (retryAttempts < maxRetries) {
+              console.log(chalk.yellow(`🔄 ${languageName}: Will retry ${currentProblematicKeys.length} remaining problematic keys...`));
+            } else {
+              console.log(chalk.red(`❌ ${languageName}: Maximum retries reached. ${currentProblematicKeys.length} issues remain unresolved.`));
+              
+              // Show remaining issues for debugging
+              if (postLanguageIssues.length > 0) {
+                console.log(chalk.red(`   🌐 Remaining language issues: ${postLanguageIssues.length}`));
+                postLanguageIssues.slice(0, 2).forEach((issue) => {
+                  console.log(chalk.red(`      • ${issue.key}: Contains ${issue.detectedLanguage} text`));
+                });
+              }
+              
+              if (postHtmlIssues.length > 0) {
+                console.log(chalk.red(`   🏷️  Remaining HTML issues: ${postHtmlIssues.length}`));
+                postHtmlIssues.slice(0, 2).forEach((issue) => {
+                  console.log(chalk.red(`      • ${issue.key}: Added tags ${issue.extraTags.join(', ')}`));
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error(chalk.red('❌ Validation process failed:'), error.message);
+    throw error;
   }
 }
 
@@ -2014,9 +3081,13 @@ async function automateTranslations(targetLanguages = null) {
     // Step 12: Cleanup temp directory
     // Files will be overwritten as needed - no cleanup required
 
-    // Step 13: Compare with en translation.json and retry missing keys
+    // Step 13: Validate translation quality and retry problematic translations
+    console.log(chalk.blue('\n🔍 Step 13: Validating translation quality...'));
+    await validateAndRetryTranslations(languagesToProcess);
+
+    // Step 14: Compare with en translation.json and retry missing keys
     console.log(
-      chalk.blue('\n📋 Step 13: Checking for missing keys and retrying...')
+      chalk.blue('\n📋 Step 14: Checking for missing keys and retrying...')
     );
     await retryMissingKeys(languagesToProcess);
 
