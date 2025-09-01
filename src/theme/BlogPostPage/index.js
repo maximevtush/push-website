@@ -13,7 +13,6 @@ import {
   BlogPostProvider,
   useBlogPost,
 } from '@docusaurus/theme-common/internal';
-import GLOBALS from '@site/src/config/globals';
 import BlogLayout from '@theme/BlogLayout';
 import BlogPostItem from '@theme/BlogPostItem';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';
@@ -22,6 +21,7 @@ import clsx from 'clsx';
 import styled from 'styled-components';
 import FooterItem from './FooterItem';
 import MorePosts from './MorePosts';
+import { MultiContent } from '@site/src/css/SharedStyling';
 
 function BlogPostPageContent({ allPosts, post, children }) {
   const { metadata, toc } = useBlogPost();
@@ -34,23 +34,25 @@ function BlogPostPageContent({ allPosts, post, children }) {
   } = frontMatter;
 
   return (
-    <BlogLayout
-      toc={
-        !hideTableOfContents && toc.length > 0 ? (
-          <TOC
-            toc={toc}
-            minHeadingLevel={tocMinHeadingLevel}
-            maxHeadingLevel={tocMaxHeadingLevel}
-          />
-        ) : undefined
-      }
-    >
-      <BlogItem>
+    <BlogLayout>
+      <MultiContent flexDirection='row' gap='clamp(64px, 8vw, 128px)'>
         <BlogPostItem>{children}</BlogPostItem>
-
+        <TOCWrapper className=''>
+          {!hideTableOfContents && toc.length > 0 ? (
+            <TOC
+              toc={toc}
+              minHeadingLevel={tocMinHeadingLevel}
+              maxHeadingLevel={tocMaxHeadingLevel}
+            />
+          ) : undefined}
+        </TOCWrapper>
+      </MultiContent>
+      <StyledMultiContent>
         <FooterItem />
+      </StyledMultiContent>
+      <StyledMultiContent>
         <MorePosts allPosts={allPosts} post={post} />
-      </BlogItem>
+      </StyledMultiContent>
     </BlogLayout>
   );
 }
@@ -140,7 +142,22 @@ const BlogItem = styled.div`
 
   @media (max-width: 820px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
+  }
+`;
+
+const StyledMultiContent = styled(MultiContent)`
+  @media (min-width: 1200px) {
+    width: 75%;
+  }
+`;
+
+const TOCWrapper = styled.div`
+  display: none;
+
+  @media (min-width: 1200px) {
+    max-width: 250px;
+    display: block;
+    margin-top: 100px;
   }
 `;

@@ -121,7 +121,6 @@ const ListItem = styled.div`
 
   @media (max-width: 1200px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
     margin: 10px auto 0 auto;
   }

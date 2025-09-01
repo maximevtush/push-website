@@ -1246,15 +1246,23 @@ a:hover {
   /* margin-top: 23px !important; */
 }
 
+.PushDocs
+  .docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
+  max-width: 100% !important;
+}
+
 .navbar--fixed-top {
   background-color: transparent;
   margin: 26px auto 0 auto !important;
   width: calc(100% - 54px);
-  max-width: 1378px;
+  max-width: 1696px;
   /*width: 86%;*/
   height: 92px;
   border: 0px;
   box-shadow: none;
+  /* position: fixed;
+  left: 50%;
+  transform: translate(-50%); */
   /* top: 26px !important; */
 }
 
@@ -1319,7 +1327,7 @@ a:hover {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 525px) {
   .navbar--fixed-top {
     width: 100%;
   }

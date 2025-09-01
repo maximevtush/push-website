@@ -69,7 +69,9 @@ const FooterItem = () => {
       >
         <ModalItem>
           <ModalDiv>
-            <ModalTopic>{t('components.blog.footer-item.share-modal-title')}</ModalTopic>
+            <ModalTopic>
+              {t('components.blog.footer-item.share-modal-title')}
+            </ModalTopic>
             <BsX
               color=''
               size={28}
@@ -203,7 +205,9 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsTwitter size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>{t('components.blog.footer-item.social-twitter')}</KPIMetric>
+          <KPIMetric>
+            {t('components.blog.footer-item.social-twitter')}
+          </KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -214,7 +218,9 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <FaDiscord size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>{t('components.blog.footer-item.social-discord')}</KPIMetric>
+          <KPIMetric>
+            {t('components.blog.footer-item.social-discord')}
+          </KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -225,7 +231,9 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsYoutube size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>{t('components.blog.footer-item.social-youtube')}</KPIMetric>
+          <KPIMetric>
+            {t('components.blog.footer-item.social-youtube')}
+          </KPIMetric>
         </BannerItem>
 
         <BannerItem
@@ -238,7 +246,9 @@ const FooterItem = () => {
           {/* <KPIFigure> */}
           <BsLinkedin size={32} />
           {/* </KPIFigure> */}
-          <KPIMetric>{t('components.blog.footer-item.social-linkedin')}</KPIMetric>
+          <KPIMetric>
+            {t('components.blog.footer-item.social-linkedin')}
+          </KPIMetric>
         </BannerItem>
       </KPIBanner>
     </div>
@@ -296,7 +306,7 @@ const KPIBanner = styled.div`
     sans-serif;
   font-style: normal;
   margin-top: 30px;
-  margin-bottom: 100px;
+  // margin-bottom: 100px;
 
   & .kpiItem {
     display: flex;

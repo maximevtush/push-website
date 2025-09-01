@@ -93,7 +93,7 @@ const MorePosts = ({ allPosts, post }) => {
         {filteredArray?.slice(0, 4).map((item) => (
           <>
             {item !== null && (
-              <div>
+              <GridItemPost>
                 <Image src={item?.Preview?.assets?.image} />
 
                 <TextView>
@@ -109,7 +109,7 @@ const MorePosts = ({ allPosts, post }) => {
                 >
                   {t('components.blog.more-posts.read-more')}
                 </Link>
-              </div>
+              </GridItemPost>
             )}
           </>
         ))}
@@ -147,9 +147,8 @@ const MoreButton = styled(Button)`
 `;
 
 const GridItem = styled.div`
-  width: 800px !important;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 33px;
   box-sizing: border-box;
   margin: ${(props) =>
@@ -167,6 +166,8 @@ const GridItem = styled.div`
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
+
+const GridItemPost = styled.div``;
 
 const TextView = styled.div`
   margin-top: 20px;

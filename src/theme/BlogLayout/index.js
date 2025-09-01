@@ -8,17 +8,18 @@ import Head from '@docusaurus/Head';
 import { useLocation } from '@docusaurus/router';
 import React from 'react';
 
+// Internal Components
+import { Content, Section } from '@site/src/css/SharedStyling';
+
 // External Components
 import { useTranslation } from 'react-i18next';
 
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
-import BlogSidebar from '@theme/BlogSidebar';
 import Layout from '@theme/Layout';
-import styled from 'styled-components';
-import Footer from '../../segments/Footer';
+import Footer from '@site/src/segments/Footer';
 
 export default function BlogLayout(props) {
-  const { sidebar, toc, children } = props;
+  const { children } = props;
 
   // Internationalization
   const { t } = useTranslation();
@@ -81,66 +82,11 @@ export default function BlogLayout(props) {
         </>
       )}
 
-      {toc ? (
-        <BlogItem className='blog-section'>
-          <BlogMain
-            className='mainItem'
-            itemScope
-            itemType='http://schema.org/Blog'
-          >
-            {children}
-          </BlogMain>
-          <TOC className=''>{toc}</TOC>
-        </BlogItem>
-      ) : (
-        <div className='container blog-section'>
-          <BlogSidebar sidebar={sidebar} />
-          <BlogMain
-            className='mainItem'
-            itemScope
-            itemType='http://schema.org/Blog'
-          >
-            {children}
-          </BlogMain>
-        </div>
-      )}
+      <Section>
+        <Content className='skeletonextrasmall blog'>{children}</Content>
+      </Section>
 
       <Footer />
     </Layout>
   );
 }
-
-const BlogItem = styled.div`
-  width: calc(100% - 68px);
-  max-width: 1356px !important;
-  margin: 0 auto !important;
-
-  @media (min-width: 1200px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: clamp(64px, 6vw, 128px);
-  }
-`;
-
-const BlogMain = styled.main`
-  margin: 0 auto;
-
-  @media (min-width: 1200px) {
-    width: 75%;
-  }
-
-  @media (min-width: 820px) {
-    margin: 0 24px;
-  }
-`;
-
-const TOC = styled.div`
-  display: none;
-
-  @media (min-width: 1200px) {
-    max-width: 250px;
-    display: block;
-    margin-top: 100px;
-  }
-`;

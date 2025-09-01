@@ -136,6 +136,34 @@ export const Content = styled.div`
       props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.DESKTOP};
   }
 
+  &.skeletonextrasmall {
+    margin: ${(props) =>
+      props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.DESKTOP};
+  }
+
+  &.blog {
+    max-width: ${(props) =>
+      props.maxWidth ||
+      `${GLOBALS.NAVBAR.BLOG.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
+    @media (min-width: 1200px) {
+      overflow: unset;
+    }
+  }
+
+  &.docs {
+    max-width: ${(props) =>
+      props.maxWidth ||
+      `${GLOBALS.NAVBAR.DOCS.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
+
+    .row {
+      margin: unset;
+    }
+
+    @media (min-width: 996px) {
+      overflow: unset;
+    }
+  }
+
   @media ${device.laptop} {
     max-width: ${(props) =>
       props.maxWidth ||
@@ -155,6 +183,11 @@ export const Content = styled.div`
     &.skeletonsmall {
       margin: ${(props) =>
         props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.TABLET};
+    }
+
+    &.skeletonextrasmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.TABLET};
     }
   }
 
@@ -178,17 +211,23 @@ export const Content = styled.div`
       margin: ${(props) =>
         props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.MOBILE};
     }
+
+    &.skeletonextrasmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.MOBILE};
+    }
   }
 `;
 
 export const MultiContent = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.flexDirection || 'column'};
+  gap: ${(props) => props.gap || 'unset'};
   position: ${(props) => props.position || 'relative'};
 
   flex: ${(props) => props.flex || '1'};
   align-self: ${(props) => props.alignSelf || 'stretch'};
-  width: inherit;
+  width: ${(props) => props.width || 'inherit'};
   max-width: inherit;
 
   justify-content: ${(props) => props.justifyContent || 'center'};

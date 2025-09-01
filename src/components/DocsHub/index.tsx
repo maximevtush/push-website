@@ -28,7 +28,6 @@ import {
 } from '@site/src/css/SharedStyling';
 import CodeBlock from '@theme/CodeBlock';
 import Layout from '@theme/Layout';
-import Footer from '../../segments/Footer';
 
 // Internal Configs
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -333,9 +332,6 @@ export default function DocsHub(): JSX.Element {
           </ItemV>
         </Content>
       </Section>
-
-      {/* TODO: Implement Footer */}
-      <Footer />
     </Layout>
   );
 }
