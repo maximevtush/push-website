@@ -6,8 +6,8 @@
  */
 
 .cardContainer {
-  --ifm-link-color: var(--ifm-color-emphasis-800);
-  --ifm-link-hover-color: var(--ifm-color-emphasis-700);
+  --ifm-link-color: var(--ifm-color-title-text-color);
+  --ifm-link-hover-color: var(--ifm-color-primary);
   --ifm-link-hover-decoration: none;
   box-shadow: none;
   border: var(--ifm-playground-button-border);
