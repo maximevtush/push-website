@@ -660,7 +660,8 @@ export const P = styled.p`
   color: ${(props) => props.color || 'inherit)'};
   background: ${(props) => props.background || 'transparent'};
   font-weight: ${(props) => props.fontWeight || 300};
-  font-size: ${(props) => props.fontSize || 'inherit'};
+  font-size: ${(props) =>
+    props.fontSize || GLOBALS.ADJUSTMENTS.FONT.NORMAL_TEXT.DESKTOP};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '20px 0px'};
   padding: ${(props) => props.padding || '0px'};
