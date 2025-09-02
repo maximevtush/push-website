@@ -115,6 +115,7 @@
   --ifm-blockquote-color: #2d2D2D;
   --ifm-blockquote-border-color: #424258;
   --ifm-pagination-border: #ccc;
+  --ifm-like-border-color: #bac4d6;
 
 
   /* Base Colors */
@@ -492,8 +493,7 @@
   --ifm-blockquote-color: #757D8D;
   --ifm-blockquote-border-color:  #757D8D;
   --ifm-pagination-border: #202124;
-
-
+  --ifm-like-border-color: #C4CBD5;
 
   /* Base Colors */
   --ifm-color-white: #ffffff;

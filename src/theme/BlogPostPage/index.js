@@ -100,52 +100,6 @@ export default function BlogPostPage(props) {
   );
 }
 
-const BlogItem = styled.div`
-  width: 100% !important;
-  margin: 0 auto;
-
-  & article .markdown {
-    * {
-      font-size: 1.15rem;
-    }
-
-    h1 {
-      font-size: 2.65rem;
-      font-weight: 700;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    h4 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    h5 {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    h6 {
-      font-size: 1rem;
-      font-weight: 700;
-    }
-  }
-
-  @media (max-width: 820px) {
-    width: 100% !important;
-    box-sizing: border-box;
-  }
-`;
-
 const StyledMultiContent = styled(MultiContent)`
   @media (min-width: 1200px) {
     width: 75%;

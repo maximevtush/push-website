@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, H2, Image } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import BlogPostItemHeaderInfo from '@theme/BlogPostItem/Header/Info';
-import { BsTwitter } from 'react-icons/bs';
+import { BsTwitterX } from 'react-icons/bs';
 
 // Internal Configs
 import GLOBALS, { device } from '@site/src/config/globals';
@@ -64,10 +64,10 @@ const MorePosts = ({ allPosts, post }) => {
 
         <MoreButton
           title='Developer Docs'
-          background='#D53A94'
+          background='var(--ifm-color-custom-pink)'
           radius='12px'
           padding='14px 20px'
-          size='16px'
+          size='1rem'
           weight='500'
           spacing='-0.03em'
           lineHeight='26px'
@@ -79,14 +79,13 @@ const MorePosts = ({ allPosts, post }) => {
             window.open(`https://x.com/PushChain`, '_blank');
           }}
         >
-          <BsTwitter
+          <BsTwitterX
             size={23}
             color='var(--ifm-color-white)'
             style={{ marginRight: '10px' }}
           />
-          {t('components.blog.more-posts.follow-button')}
+          {t('components.blog.more-posts.follow-button')} @PushChain
         </MoreButton>
-        {/* </Anchor> */}
       </MoreRow>
 
       <GridItem marginTop={false}>

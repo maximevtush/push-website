@@ -103,7 +103,7 @@ function Footer() {
                   justifyContent={isMobile ? 'center' : 'flex-start'}
                   padding='0px 0px'
                 >
-                  <Image
+                  <LogoImage
                     src={
                       require(
                         `@site/static/assets/website/footer/PushLogoOnly.png`
@@ -133,7 +133,7 @@ function Footer() {
                       justifyContent={isMobile ? 'center' : 'flex-start'}
                       padding='0px 0px'
                     >
-                      <Image
+                      <LogoImage
                         src={
                           require(
                             `@site/static/assets/website/footer/PushLogoOnly.png`
@@ -370,6 +370,10 @@ const FooterColumn = styled.div`
   @media ${device.mobileL} {
     width: 100%;
   }
+`;
+
+const LogoImage = styled(Image)`
+  border-radius: 0px !important;
 `;
 
 const EmailSection = styled(Section)``;

@@ -51,6 +51,7 @@ export default function BlogPostItem({ children, className, list }) {
         {isBlogPostPage && <BlogPostItemHeader />}
 
         <BlogPostItemContent>{children}</BlogPostItemContent>
+
         {!isBlogPostPage && <BlogPostItemHeader />}
         {!isBlogPostPage && (
           <TextSpan>{children?.type?.frontMatter?.text}</TextSpan>
