@@ -14,11 +14,11 @@ import { useTweetMetrics } from '@site/src/api/GetTwitterMetrics';
 import { H2, ItemH } from '@site/src/css/SharedStyling';
 import { formatTwitterCount } from '@site/src/utils/FormatTwitterCount';
 
-const LikeAndRetweetItem = ({ post, text }) => {
+const LikeAndRetweetItem = ({ twitterId, text }) => {
   const isMobile = useMediaQuery(device.tablet);
 
-  const twitterId = post?.metadata?.twitterId;
-  const { data: twitterData } = useTweetMetrics(twitterId);
+  const twitterID = twitterId;
+  const { data: twitterData } = useTweetMetrics(twitterID);
 
   if (!twitterData) return null;
 
@@ -78,7 +78,6 @@ const LikeAndRetweetItem = ({ post, text }) => {
 const ResponsiveH2 = styled(H2)``;
 
 const ShareRow = styled.div`
-  margin: 50px 0 0px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -17,7 +17,7 @@ const FooterItem = ({ post }) => {
   return (
     <div>
       <LikeAndRetweetItem
-        post={post}
+        twitterId={post?.metadata?.twitterId}
         text='If it’s worth reading, it’s worth sharing. Like and retweet.'
       />
 
