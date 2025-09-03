@@ -14,13 +14,11 @@ import { useTweetMetrics } from '@site/src/api/GetTwitterMetrics';
 import { H2, ItemH } from '@site/src/css/SharedStyling';
 import { formatTwitterCount } from '@site/src/utils/FormatTwitterCount';
 
-const LikeAndRetweetItem = ({ post }) => {
+const LikeAndRetweetItem = ({ post, text }) => {
   const isMobile = useMediaQuery(device.tablet);
 
   const twitterId = post?.metadata?.twitterId;
   const { data: twitterData } = useTweetMetrics(twitterId);
-
-  console.log('new new', post, twitterData);
 
   if (!twitterData) return null;
 
@@ -33,10 +31,15 @@ const LikeAndRetweetItem = ({ post }) => {
         lineHeight='110%'
         color='#00000'
       >
-        If it’s worth reading, it’s worth sharing. Like and retweet.
+        {text}
       </ResponsiveH2>
 
-      <ItemH justifyContent='flex-end' gap='8px'>
+      <ItemH
+        justifyContent='flex-end'
+        flexWrap='nowrap'
+        gap='8px'
+        margin={isMobile && '20px 0 0 0'}
+      >
         <LikeButton
           title='Developer Docs'
           self={isMobile ? 'stretch' : 'self'}
@@ -80,7 +83,7 @@ const ShareRow = styled.div`
   justify-content: space-between;
   align-items: center;
   @media ${device.tablet} {
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 52px;
     align-items: center;
   }
@@ -116,7 +119,7 @@ const RetweetButton = styled(Link)`
 
   @media ${device.mobileL} {
     width: 100%;
-    margin: 20px;
+    justify-content: center;
   }
 `;
 
@@ -143,7 +146,7 @@ const LikeButton = styled(Link)`
 
   @media ${device.mobileL} {
     width: 100%;
-    margin: 20px;
+    justify-content: center;
   }
 `;
 

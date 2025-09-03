@@ -16,7 +16,10 @@ const FooterItem = ({ post }) => {
 
   return (
     <div>
-      <LikeAndRetweetItem post={post} />
+      <LikeAndRetweetItem
+        post={post}
+        text='If it’s worth reading, it’s worth sharing. Like and retweet.'
+      />
 
       <AboutSection>
         <AboutTitle>{t('components.blog.footer-item.about-title')}</AboutTitle>
