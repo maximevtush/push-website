@@ -2,16 +2,27 @@
 // @ts-nocheck
 //
 import React from 'react';
+
 import styled from 'styled-components';
+import Link from '@docusaurus/Link';
+import { BsHeart, BsTwitterX } from 'react-icons/bs';
 
 import { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import { H2, ItemH } from '@site/src/css/SharedStyling';
-import { BsHeart, BsTwitterX } from 'react-icons/bs';
-import Link from '@docusaurus/Link';
+import { useTweetMetrics } from '@site/src/api/GetTwitterMetrics';
 
-const LikeAndReTweetItem = () => {
+import { H2, ItemH } from '@site/src/css/SharedStyling';
+import { formatTwitterCount } from '@site/src/utils/FormatTwitterCount';
+
+const LikeAndRetweetItem = ({ post }) => {
   const isMobile = useMediaQuery(device.tablet);
+
+  const twitterId = post?.metadata?.twitterId;
+  const { data: twitterData } = useTweetMetrics(twitterId);
+
+  console.log('new new', post, twitterData);
+
+  if (!twitterData) return null;
 
   return (
     <ShareRow>
@@ -26,23 +37,36 @@ const LikeAndReTweetItem = () => {
       </ResponsiveH2>
 
       <ItemH justifyContent='flex-end' gap='8px'>
-        <LikeButton title='Developer Docs' self={isMobile ? 'stretch' : 'self'}>
+        <LikeButton
+          title='Developer Docs'
+          self={isMobile ? 'stretch' : 'self'}
+          href={`https://x.com/PushChain/status/${twitterId}`}
+          target='_blank'
+          rel='noopener noreferrer'
+          title='Like this post'
+        >
           <BsHeart
             size={22}
             color='var(--ifm-color-primary-text)'
             style={{ marginRight: '10px' }}
           />
-          1.7k
+          {formatTwitterCount(twitterData?.like_count) || ''}
         </LikeButton>
 
-        <ShareButton title='Developer Docs'>
+        <RetweetButton
+          title='Developer Docs'
+          href={`https://twitter.com/intent/retweet?tweet_id=${twitterId}`}
+          target='_blank'
+          rel='noopener noreferrer'
+          title='Retweet this post'
+        >
           <BsTwitterX
             size={22}
             color='var(--ifm-color-white)'
             style={{ marginRight: '10px' }}
           />
           Retweet
-        </ShareButton>
+        </RetweetButton>
       </ItemH>
     </ShareRow>
   );
@@ -69,7 +93,7 @@ const ShareRow = styled.div`
   }
 `;
 
-const ShareButton = styled(Link)`
+const RetweetButton = styled(Link)`
   background: var(--ifm-color-custom-pink);
   border-radius: 16px;
   padding: 14px 20px;
@@ -83,6 +107,12 @@ const ShareButton = styled(Link)`
   border: none;
   color: var(--ifm-color-white);
   align-self: ${(props) => props.self};
+
+  &:hover {
+    color: var(--ifm-color-white);
+    opacity: 0.8;
+    cursor: pointer;
+  }
 
   @media ${device.mobileL} {
     width: 100%;
@@ -105,10 +135,16 @@ const LikeButton = styled(Link)`
   color: var(--ifm-color-primary-text);
   align-self: ${(props) => props.self};
 
+  &:hover {
+    color: var(--ifm-color-primary-text);
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
   @media ${device.mobileL} {
     width: 100%;
     margin: 20px;
   }
 `;
 
-export default LikeAndReTweetItem;
+export default LikeAndRetweetItem;

@@ -48,7 +48,7 @@ function BlogPostPageContent({ allPosts, post, children }) {
         </TOCWrapper>
       </MultiContent>
       <StyledMultiContent>
-        <FooterItem />
+        <FooterItem post={post} />
       </StyledMultiContent>
       <StyledMultiContent>
         <MorePosts allPosts={allPosts} post={post} />

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
@@ -10,14 +9,14 @@ import { FaDiscord } from 'react-icons/fa';
 // Internal Configs
 import { device } from '@site/src/config/globals';
 import Link from '@docusaurus/Link';
-import LikeAndReTweetItem from './LikeAndRetweetItem';
+import LikeAndRetweetItem from './LikeAndRetweetItem';
 
-const FooterItem = () => {
+const FooterItem = ({ post }) => {
   const { t } = useTranslation();
 
   return (
     <div>
-      <LikeAndReTweetItem />
+      <LikeAndRetweetItem post={post} />
 
       <AboutSection>
         <AboutTitle>{t('components.blog.footer-item.about-title')}</AboutTitle>
