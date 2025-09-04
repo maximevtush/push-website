@@ -270,8 +270,8 @@ export default function NavbarContent() {
                 className='menuContent'
                 expanded={mobileMenuMap[0]}
               >
-                {HeaderList.developers &&
-                  HeaderList.developers.map((item, index) => (
+                {HeaderList.explore &&
+                  HeaderList.explore.map((item, index) => (
                     <HeaderSpace item={item} index={index} />
                   ))}
               </NavigationMenuContent>
