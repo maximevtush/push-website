@@ -525,7 +525,7 @@ interface IUEAFactory {
 Create `contracts/UniversalAirdrop.sol` - the main airdrop contract that matches our Merkle proof generator:
 
 ```solidity
-/// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -637,9 +637,12 @@ contract UniversalAirdrop is Ownable, ReentrancyGuard {
 
         // Mark as claimed and transfer tokens
         claimed[claimId] = true;
-        require(token.transfer(caller, amount), "Token transfer failed");
+        require(
+            token.transfer(recipientAddress, amount),
+            "Token transfer failed"
+        );
 
-        emit Claimed(caller, chainNamespace, chainId, amount);
+        emit Claimed(recipientAddress, chainNamespace, chainId, amount);
     }
 
     /**
