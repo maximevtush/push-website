@@ -125,6 +125,13 @@
    The .PushDocs .theme-doc-sidebar-container rules were also handled.
    The .docsWrapper_... .theme-back-to-top-button was merged with the other .theme-back-to-top-button rule.
 */
+
+@media (max-width: 997px) {
+  .docItemCol_VOVn {
+    max-width: 100% !important;
+  }
+}
+
 .PushDocs
   .docRoot_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-styles-module,
 .PushDocs .docRoot_UBD9 {
