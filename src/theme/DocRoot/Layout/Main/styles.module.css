@@ -13,10 +13,6 @@
     max-width: calc(100% - var(--doc-sidebar-hidden-width));
   }
 
-  .docItemCol_VOVn {
-      max-width: 100% !important;
-  }
-
   /*.docItemWrapperEnhanced {
     max-width: calc(
       var(--ifm-container-width) + var(--doc-sidebar-width)

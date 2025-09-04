@@ -8,17 +8,10 @@ text: "We’ve been building the foundation for a new era of universal apps.Now,
 tags: [Push Chain, Donut, Closed Beta, Early Access, Shared App Experience, Shared State Blockchain, Universal Smart Contracts, Testnet]
 twitterId: '1909632568103747670'
 ---
-import LikeAndRetweetItem from '@site/src/theme/BlogPostPage/LikeAndRetweetItem';
-
 
 ![Donut Testnet Closed Beta is Now Live](./cover-image.webp)
 
 <!--truncate-->
-
-<LikeAndRetweetItem
-  twitterId='1909632568103747670'
-  text='Hooked? Like and retweet to spread the word'
-/>
 
 ## Donut Testnet Closed Beta is Now Live!
 

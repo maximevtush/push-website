@@ -25,7 +25,6 @@ const LikeAndRetweetItem = ({ twitterId, text }) => {
   return (
     <ShareRow>
       <ResponsiveH2
-        size={isMobile ? '1rem' : '1.25rem'}
         weight='500'
         spacing='-0.02em'
         lineHeight='110%'
@@ -75,17 +74,18 @@ const LikeAndRetweetItem = ({ twitterId, text }) => {
   );
 };
 
-const ResponsiveH2 = styled(H2)``;
+const ResponsiveH2 = styled(H2)`
+  font-size: 1.25rem;
+
+  @media ${device.mobileL} {
+    font-size: 1.25rem;
+  }
+`;
 
 const ShareRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media ${device.tablet} {
-    flex-direction: column;
-    margin-top: 52px;
-    align-items: center;
-  }
 
   @media ${device.mobileL} {
     display: flex;
