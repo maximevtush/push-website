@@ -21,12 +21,14 @@ export default function BlogPostItemContent({ children, className }) {
       className={clsx('markdown', className)}
       itemProp='articleBody'
     >
-      <LikeSection>
-        <LikeAndRetweetItem
-          twitterId={metadata?.frontMatter?.twitterId}
-          text='Hooked? Like and retweet to spread the word'
-        />
-      </LikeSection>
+      {isBlogPostPage && (
+        <LikeSection>
+          <LikeAndRetweetItem
+            twitterId={metadata?.frontMatter?.twitterId}
+            text='Hooked? Like and retweet to spread the word'
+          />
+        </LikeSection>
+      )}
 
       <MDXContent>{children}</MDXContent>
     </div>
