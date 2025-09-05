@@ -127,7 +127,7 @@
 */
 
 @media (min-width: 997px) {
-  .docItemCol_VOVn {
+  PushDocs .docItemCol_VOVn {
     max-width: 100% !important;
   }
 }

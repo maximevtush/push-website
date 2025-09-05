@@ -13,9 +13,9 @@
     max-width: calc(100% - var(--doc-sidebar-hidden-width));
   }
 
-  /*.docItemWrapperEnhanced {
+  .docItemWrapperEnhanced {
     max-width: calc(
       var(--ifm-container-width) + var(--doc-sidebar-width)
     ) !important;
-  }*/
+  }
 }

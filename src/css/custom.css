@@ -1253,8 +1253,13 @@ a:hover {
   max-width: 100% !important;
 }
 
+/*for deploy preview*/
+.PushDocs .docItemCol_VOVn {
+  max-width: 100% !important;
+}
+
 @media (min-width: 997px) {
-  .docItemCol_VOVn {
+  .PushDocs .docItemCol_VOVn {
     max-width: 100% !important;
   }
 }
