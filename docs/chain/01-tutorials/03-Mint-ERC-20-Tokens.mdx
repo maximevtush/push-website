@@ -1,6 +1,6 @@
 ---
 id: docs-chain-tutorials-mint-erc-20-tokens
-title: Mint Universal ERC-20 Tokens
+title: Mint Universal ERC-20 Tokens (via Push-Swap)
 hide_title: false
 slug: ./tutorial-mint-erc-20-tokens
 displayed_sidebar: pushChainSidebar
@@ -8,7 +8,7 @@ sidebar_position: 3
 ---
 
 <head>
-  <title>Mint Universal ERC-20 Tokens | Tutorials | Push Chain Docs</title>
+  <title>Mint Universal ERC-20 Tokens (via Push-Swap) | Tutorials | Push Chain Docs</title>
 </head>
 
 import Tabs from '@theme/Tabs';
@@ -22,21 +22,21 @@ import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
 
 <!-- Content Start -->
 
-Welcome to this developer-focused tutorial on building a truly universal ERC-20 token on Push Chain. We’ll walk through:
+This tutorial shows how to let users on any chain mint a universal ERC-20 called `$AIRDROP` by leveraging Push Universal Transactions plus a Uniswap v3 pool on Push Chain. Users “mint” by swapping `$WPUSH` (Wrapped Push Token) to `$AIRDROP` through the `$AIRDROP/$WPUSH` pool; the universal wallet abstracts cross-chain execution.
 
-1. Deploying a standard ERC-20 token to Push Chain’s testnet with Hardhat
-2. Spinning up a minimal Vite + React + TypeScript frontend using `@pushchain/ui-kit`
-3. Fetching ERC-20 token balance from Push Chain
-4. Minting tokens from Push Chain or Sepolia with Universal Transaction
+What you’ll do:
 
-If you’ve shipped ERC-20s before, you’ll recognize the pieces—but this setup makes cross-chain-style interactions seamless. Let’s dive in 🤿.
+1. Deploy a standard ERC-20 `$AIRDROP` token on Push Chain
+2. Create a `$AIRDROP/$WPUSH` pool and add liquidity
+3. Test a swap programmatically
+4. Build a minimal UI that performs a universal “mint” via SwapRouter
 
 ## Tutorial Overview
 
 This tutorial is divided into two main parts:
 
 ### Part 1: Smart Contract Development & Deployment
-We'll deploy a standard ERC-20 token (`MyToken`) to Push Chain's testnet using Hardhat. This includes:
+We'll deploy a standard ERC-20 token (`$AIRDROP`) to Push Chain's testnet using Hardhat. This includes:
 - Setting up the development environment
 - Writing and compiling the smart contract
 - Deploying to Push Chain testnet
@@ -57,43 +57,52 @@ We'll create a React application using `@pushchain/ui-kit` to interact with our 
 First, let’s set up a new Hardhat project.
 
 ```bash
-mkdir myToken
-cd myToken
+# Create the project directory
+mkdir airdrop-token
+cd airdrop-token
+
+# Initialize a new Node.js project
 npm init -y
-```
 
-Install Hardhat and required dependencies:
+# Install Hardhat and its toolbox
+npm install --save-dev hardhat@2.26.3 @nomicfoundation/hardhat-toolbox@6.1.0
 
-```bash
-npm install --save-dev \
-  hardhat \
-  @nomicfoundation/hardhat-toolbox \
-  @nomicfoundation/hardhat-verify \
-  dotenv \
-  @openzeppelin/contracts
-```
-
-### 1.2. Creating a new Hardhat project
-
-Initialize a new Hardhat project:
-
-```bash
+# Initialize Hardhat (select the options "Hardhat 2" then "Create a TypeScript project")
 npx hardhat init
 ```
 
-Select `Create a JavaScript project` and press Enter.
+This will create a basic Hardhat project structure with TypeScript support, including:
+- `hardhat.config.ts` - Hardhat configuration file
+- `contracts/` - Directory for Solidity contracts
+- `scripts/` - Directory for deployment scripts
+- `test/` - Directory for tests
 
-### 1.3. Configuring Hardhat
+Install required dependencies:
 
-Configure Hardhat to use Push Chain by editing the `hardhat.config.js` file:
+```bash
+# Install dotenv for environment variable management
+npm install dotenv
 
-```javaScript
-require('@nomicfoundation/hardhat-toolbox');
-require('@nomicfoundation/hardhat-verify');
-require('dotenv').config();
+# Install OpenZeppelin contracts library
+npm install @openzeppelin/contracts
+```
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+- `dotenv`: Allows us to load environment variables from a .env file, keeping sensitive information like private keys secure
+- `@openzeppelin/contracts`: Provides battle-tested smart contract implementations including ERC-20
+
+### 1.2. Configuring Hardhat (`hardhat.config.ts`)
+
+Update your `hardhat.config.ts` to include network configurations and compiler settings:
+
+```typescript
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
+import { config as dotenvConfig } from 'dotenv';
+
+// Load environment variables
+dotenvConfig();
+
+const config: HardhatUserConfig = {
   solidity: {
     version: '0.8.22',
     settings: {
@@ -101,39 +110,17 @@ module.exports = {
         enabled: true,
         runs: 200,
       },
+      viaIR: true,
     },
   },
   networks: {
-    push_testnet: {
+    pushDonut: {
       url: 'https://evm.rpc-testnet-donut-node1.push.org/',
+      accounts: process.env.PRIVATE_KEY
+        ? [process.env.PRIVATE_KEY.startsWith('0x') ? process.env.PRIVATE_KEY : `0x${process.env.PRIVATE_KEY}`]
+        : [],
       chainId: 42101,
-      accounts: [process.env.PRIVATE_KEY],
     },
-    push_testnet_alt: {
-      url: 'https://evm.rpc-testnet-donut-node2.push.org/',
-      chainId: 42101,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-  etherscan: {
-    apiKey: {
-      // Blockscout doesn't require an actual API key, any non-empty string will work
-      push_testnet: 'blockscout',
-    },
-    customChains: [
-      {
-        network: 'push_testnet',
-        chainId: 42101,
-        urls: {
-          apiURL: 'https://donut.push.network/api/v2/verifyContract',
-          browserURL: 'https://donut.push.network/',
-        },
-      },
-    ],
-  },
-  sourcify: {
-    // Disable sourcify for manual verification
-    enabled: false,
   },
   paths: {
     sources: './contracts',
@@ -141,44 +128,34 @@ module.exports = {
     cache: './cache',
     artifacts: './artifacts',
   },
-  mocha: {
-    timeout: 40000,
-  },
 };
+
+export default config;
 ```
 
-### 1.4. Writing the ERC-20 Contract
+**Key configuration details:**
 
-Create a new file `contracts/MyToken.sol` with the following content:
+- **Solidity Compiler**: Version 0.8.22 with optimization enabled (200 runs) and viaIR enabled for better gas efficiency
+- **Networks**:
+  - `pushDonut`: Push Chain Donut Testnet with environment-based private key
+- **Paths**: Standard Hardhat directory structure
+
+### 1.4. Create the Airdrop Token Contract
+
+Create a new file `contracts/AirdropToken.sol` with the following content:
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-/**
- * @title MyToken
- * @dev A simple ERC20 token for demonstration on PUSH CHAIN
- */
-contract MyToken is ERC20 {
-    constructor() ERC20("MyToken", "MT") {
-        _mint(msg.sender, 1000 * 10 ** 18);
+contract AirdropToken is ERC20 {
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        _mint(msg.sender, 1_000_000 * 10 ** decimals());
     }
 
-    /**
-     * @dev Returns the number of decimals used to get its user representation.
-     */
-    function decimals() public view virtual override returns (uint8) {
-        return 18;
-    }
-
-    /**
-     * @dev Allows anyone to mint new tokens
-     * @param to The address that will receive the minted tokens.
-     * @param amount The amount of tokens to mint.
-     */
-    function mint(address to, uint256 amount) public {
+    function mint(address to, uint256 amount) external {
         _mint(to, amount);
     }
 }
@@ -192,7 +169,7 @@ Compile the contract with:
 npx hardhat compile
 ```
 
-### 1.6. Deploying the Contract to Push Chain
+### 1.6. Deploying the Airdrop Token Contract to Push Chain
 
 Create a `.env` file in the root directory and add your private key that you will use to deploy the contract to Push Chain.  If you need `PC` tokens to deploy the contract, you can get them from the [Push Chain Faucet](https://faucet.push.org/).
 
@@ -202,47 +179,702 @@ Add the following to the `.env` file:
 PRIVATE_KEY=your_private_key
 ```
 
-Then create a deployment script at scripts/deploy.js:
+Then create a deployment script at scripts/deploy.ts that will also write the deployed address to a file called `deployed-addresses.json` for later use:
 
-```javascript
-const hre = require('hardhat');
+```typescript
+import { config } from 'dotenv';
+import { ethers } from 'hardhat';
+import hre from 'hardhat';
+import { writeFileSync } from 'fs';
+import { AirdropToken__factory, AirdropToken } from '../typechain-types';
+
+// Load environment variables
+config();
 
 async function main() {
-  console.log('Deploying MyToken to PUSH Chain...');
+  console.log('🚀 Starting deployment...');
 
-  const myToken = await hre.ethers.deployContract('MyToken');
-  await myToken.waitForDeployment();
+  // Debug: Check environment and network
+  console.log('🔍 Checking environment...');
+  console.log('📝 PRIVATE_KEY exists:', !!process.env.PRIVATE_KEY);
 
-  const address = await myToken.getAddress();
-  console.log(`MyToken deployed to: ${address}`);
+  // Get the deployer account
+  const signers = await ethers.getSigners();
+  console.log('👥 Number of signers:', signers.length);
+
+  console.log('Current network:', hre.network.name);
+
+  if (signers.length === 0) {
+    console.log('❌ Current network:', hre.network.name);
+    console.log('❌ Network config:', hre.network.config);
+    throw new Error('No accounts available. Please check your PRIVATE_KEY in .env file and network configuration.');
+  }
+
+  const [deployer] = signers;
+  console.log('📝 Deploying contracts with account:', deployer.address);
+  console.log('💰 Account balance:', ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
+
+  // Deploy AirdropToken (ERC20)
+  console.log('\n📄 Deploying AirdropToken...');
+  const tokenFactory = new AirdropToken__factory(deployer);
+  const token: AirdropToken = await tokenFactory.deploy('AirdropToken', 'AIRDROP');
+  await token.waitForDeployment();
+  const tokenAddress = await token.getAddress();
+  console.log('✅ AirdropToken deployed to:', tokenAddress);
+
+  // Write deployed address to file for setup-pool.ts to use
+  const deployedData = {
+    AIRDROP_ADDR: tokenAddress,
+    network: hre.network.name,
+  };
+  writeFileSync('./deployed-addresses.json', JSON.stringify(deployedData, null, 2));
+  console.log('📝 Deployed address saved to: ./deployed-addresses.json');
+
+  // Read token details
+  const [name, symbol, decimals] = await Promise.all([token.name(), token.symbol(), token.decimals()]);
+
+  const [totalSupply, deployerBalance] = await Promise.all([token.totalSupply(), token.balanceOf(deployer.address)]);
+
+  console.log(`🔎 Token: ${name} (${symbol}), Decimals: ${decimals}`);
+  console.log(`🏦 Total supply: ${ethers.formatEther(totalSupply)} ${symbol}`);
+  console.log(`👤 Deployer balance: ${ethers.formatEther(deployerBalance)} ${symbol}`);
+
+  console.log('\n🎉 Deployment completed successfully!');
+  console.log('\n📋 Summary:');
+  console.log(`   Token Contract: ${tokenAddress}`);
+  console.log(`   Token Name: ${name}`);
+  console.log(`   Token Symbol: ${symbol}`);
+  console.log(`   Total Supply: ${ethers.formatEther(totalSupply)} ${symbol}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
+// Handle errors
 main().catch((error) => {
-  console.error(error);
+  console.error('❌ Deployment failed:', error);
   process.exitCode = 1;
 });
 ```
 
-Now, deploy the contract to Push Chain:
+
+Now, deploy the Airdrop Token Contract to Push Chain:
 
 ```bash
-npx hardhat run scripts/deploy.js --network push_testnet
+npx hardhat run scripts/deploy.js --network pushDonut
 ```
 
-After the deployment is complete, you will see the contract address in the terminal.
+Example output:
 
 ```bash
-Deploying MyToken to PUSH Chain...
-MyToken deployed to: 0x0B86e252B035027028C0d4D3B136d80Da4C98Ec1
+🚀 Starting deployment...
+🔍 Checking environment...
+📝 PRIVATE_KEY exists: true
+👥 Number of signers: 1
+Current network: pushDonut
+📝 Deploying contracts with account: 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
+💰 Account balance: 9876.865290171749999941
+
+📄 Deploying AirdropToken...
+✅ AirdropToken deployed to: 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+📝 Deployed address saved to: ./deployed-addresses.json
+🔎 Token: AirdropToken (AIRDROP), Decimals: 18
+🏦 Total supply: 1000000.0 AIRDROP
+👤 Deployer balance: 1000000.0 AIRDROP
+
+🎉 Deployment completed successfully!
+
+📋 Summary:
+   Token Contract: 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+   Token Name: AirdropToken
+   Token Symbol: AIRDROP
+   Total Supply: 1000000.0 AIRDROP
 ```
 
-## Part 2: Building the Frontend UI
+## Part 2: Minting `$WPUSH` tokens
+
+WPUSH is the wrapped version of the native Push Chain gas token ($PC). To mint WPUSH tokens, you deposit $PC into the WPUSH contract. This section provides a Node.js script to mint WPUSH tokens programmatically.
+
+Create `scripts/mint-wpush.ts` to deposit `$PC` into the WPUSH contract and mint WPUSH tokens:
+
+```typescript
+import { ethers } from 'ethers';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+// Contract addresses
+const CONTRACTS = {
+  wpush: '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818',
+} as const;
+
+// WPUSH ABI
+const WPUSH_ABI = [
+  'function balanceOf(address) view returns (uint256)',
+  'function deposit() payable',
+  'function transfer(address,uint256) returns (bool)',
+] as const;
+
+const PUSH_RPC_URL = 'https://evm.rpc-testnet-donut-node1.push.org/';
+const PRIVATE_KEY: string | undefined = process.env.PRIVATE_KEY;
+
+// Configuration - modify these values as needed
+const AMOUNT_TO_MINT = '1'; // Amount of WPUSH to mint
+
+// Types
+interface MintResult {
+  targetAddress: string;
+  amount: string;
+  depositTx: string;
+  transferTx: string;
+}
+
+// Helper functions
+function getSigner(): ethers.Wallet {
+  if (!PRIVATE_KEY) {
+    throw new Error('PRIVATE_KEY is not configured');
+  }
+  const provider = new ethers.JsonRpcProvider(PUSH_RPC_URL);
+  return new ethers.Wallet(PRIVATE_KEY, provider);
+}
+
+function getWpushContract(): ethers.Contract {
+  const signer = getSigner();
+  return new ethers.Contract(CONTRACTS.wpush, WPUSH_ABI, signer);
+}
+
+// Main minting function
+async function mintWpushToAddress(targetAddress: string, amount: string): Promise<MintResult> {
+  // Validate inputs
+  if (!ethers.isAddress(targetAddress)) {
+    throw new Error(`Invalid Ethereum address: ${targetAddress}`);
+  }
+
+  const amountWei = ethers.parseUnits(amount.toString(), 18);
+  const signer = getSigner();
+  const wpushContract = getWpushContract();
+
+  // Check balance
+  const signerBalance = await signer.provider!.getBalance(signer.address);
+  if (signerBalance < amountWei) {
+    throw new Error(
+      `Insufficient PUSH balance. Required: ${ethers.formatUnits(amountWei)}, Available: ${ethers.formatUnits(
+        signerBalance
+      )}`
+    );
+  }
+
+  // Deposit PUSH to get WPUSH
+  const depositTx = await wpushContract.deposit({ value: amountWei });
+  await depositTx.wait();
+
+  // Transfer WPUSH to target address
+  const transferTx = await wpushContract.transfer(targetAddress, amountWei);
+  await transferTx.wait();
+
+  return {
+    targetAddress,
+    amount,
+    depositTx: depositTx.hash,
+    transferTx: transferTx.hash,
+  };
+}
+
+// Main function
+async function main(): Promise<void> {
+  const TARGET_ADDRESS = getSigner().address;
+  console.log(`🚀 Minting ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}\n`);
+
+  try {
+    const result = await mintWpushToAddress(TARGET_ADDRESS, AMOUNT_TO_MINT);
+    console.log(`✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`);
+    console.log(`📋 Deposit TX: ${result.depositTx}`);
+    console.log(`📋 Transfer TX: ${result.transferTx}`);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('❌ Error:', errorMessage);
+    process.exit(1);
+  }
+}
+
+main().catch((error) => {
+  console.error('Unhandled error:', error);
+  process.exit(1);
+});
+
+```
+
+Run:
+
+```bash
+npx ts-node scripts/mint-wpush.ts
+```
+
+Example output:
+
+```bash
+🚀 Minting 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
+
+✅ Successfully minted 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
+📋 Deposit TX: 0xea1bbf63b5e0b53421134a7fc3ae5b68b7a453fc5ae6f7b7310c483400179298
+📋 Transfer TX: 0x1aee0fe1f6ffe5b3cf4cab857f43e9187af9421994df98e25efc3ebe5b02ba4e
+```
+
+## Part 3: Create `$AIRDROP/$WPUSH` Pool and Add Liquidity
+
+Create `scripts/create-pool.ts` to create and initialize the pool and add liquidity via PositionManager.
+
+```bash
+npm install ethers bignumber.js
+```
+
+```typescript
+import { config } from 'dotenv';
+import { ethers, JsonRpcProvider, Contract, Wallet, parseUnits } from 'ethers';
+import { readFileSync } from 'fs';
+import BN from 'bignumber.js';
+
+config();
+
+// --- Constants (update if different) ---
+const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
+const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
+const POSITION_MANAGER = '0xf90F08fD301190Cd34CC9eFc5A76351e95051670';
+// Use the deployed WPUSH used by other scripts in this repo
+const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
+
+// Read deployed AIRDROP address from file
+let AIRDROP: string;
+try {
+  const deployedData = JSON.parse(readFileSync('./deployed-addresses.json', 'utf8'));
+  AIRDROP = deployedData.AIRDROP_ADDR;
+  console.log('📝 Using AIRDROP address from deployed-addresses.json:', AIRDROP);
+} catch (error) {
+  console.error('❌ Could not read deployed-addresses.json. Please run deploy.ts first.');
+  process.exit(1);
+}
+
+// --- Minimal ABIs ---
+const ABI = {
+  factory: [
+    'function getPool(address,address,uint24) view returns (address)',
+    'function createPool(address,address,uint24) returns (address)',
+    'event PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)',
+  ],
+  pool: [
+    'function initialize(uint160 sqrtPriceX96)',
+    'function fee() view returns (uint24)',
+    'function token0() view returns (address)',
+    'function token1() view returns (address)',
+    'function slot0() view returns (uint160 sqrtPriceX96, int24 tick, uint16, uint16, uint16, uint8, bool)',
+  ],
+  erc20: [
+    'function symbol() view returns (string)',
+    'function decimals() view returns (uint8)',
+    'function balanceOf(address) view returns (uint256)',
+    'function allowance(address,address) view returns (uint256)',
+    'function approve(address,uint256) returns (bool)',
+  ],
+  wpush: [
+    'function deposit() payable',
+    'function balanceOf(address) view returns (uint256)',
+    'function decimals() view returns (uint8)',
+    'function symbol() view returns (string)',
+  ],
+  positionManager: [
+    'function mint((address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint256 amount0Desired, uint256 amount1Desired, uint256 amount0Min, uint256 amount1Min, address recipient, uint256 deadline)) returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)',
+  ],
+} as const;
+
+// --- Types ---
+interface MintParams {
+  token0: string;
+  token1: string;
+  fee: number;
+  tickLower: number;
+  tickUpper: number;
+  amount0Desired: bigint;
+  amount1Desired: bigint;
+  amount0Min: bigint;
+  amount1Min: bigint;
+  recipient: string;
+  deadline: number;
+}
+
+// Precise sqrtPriceX96 calculator matching Uniswap encodePriceSqrt
+function sqrtPriceX96FromHumanRatio(
+  priceRatio: number | string,
+  token0Decimals: number,
+  token1Decimals: number
+): bigint {
+  BN.config({ EXPONENTIAL_AT: 999999, DECIMAL_PLACES: 40 });
+  const ratio = new BN(priceRatio.toString());
+  const baseUnitRatio = ratio.multipliedBy(new BN(10).pow(token1Decimals)).dividedBy(new BN(10).pow(token0Decimals));
+  const sqrtPriceTimesQ96 = baseUnitRatio
+    .sqrt()
+    .multipliedBy(new BN(2).pow(96))
+    .integerValue(BN.ROUND_FLOOR)
+    .toString();
+  return BigInt(sqrtPriceTimesQ96);
+}
+
+function sortTokens(a: string, b: string): [string, string] {
+  return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
+}
+
+async function safeApprove(token: Contract, spender: string, amount: bigint, owner: string): Promise<void> {
+  const current = await token.allowance(owner, spender);
+  if (current >= amount) return;
+  const tx = await token.approve(spender, ethers.MaxUint256);
+  await tx.wait();
+}
+
+async function main(): Promise<void> {
+  if (!process.env.PRIVATE_KEY) throw new Error('PRIVATE_KEY missing');
+  if (!AIRDROP) throw new Error('AIRDROP address not found. Please run deploy.ts first.');
+
+  const provider = new JsonRpcProvider(RPC);
+  const wallet = new Wallet(process.env.PRIVATE_KEY!, provider);
+
+  const factory = new Contract(FACTORY, ABI.factory, wallet);
+  const positionManager = new Contract(POSITION_MANAGER, ABI.positionManager, wallet);
+
+  const air = new Contract(AIRDROP!, ABI.erc20, wallet);
+  const wpush = new Contract(WPUSH, ABI.wpush, wallet);
+
+  // 1) Ensure WPUSH balance (wrap 5 $PC)
+  const wrapAmount = parseUnits('5', 18);
+  const bal = await wpush.balanceOf(wallet.address);
+  if (bal < wrapAmount) {
+    console.log('Depositing $PC to get WPUSH...');
+    const needed = wrapAmount - bal;
+    const tx = await wpush.deposit({ value: needed });
+    await tx.wait();
+  }
+
+  // 2) Create or fetch pool: AIRDROP/WPUSH @ 0.3%
+  const fee: number = 3000;
+  const [token0, token1]: [string, string] = sortTokens(AIRDROP!, WPUSH);
+
+  let pool: string = await factory.getPool(token0, token1, fee);
+  if (pool === ethers.ZeroAddress) {
+    console.log('Creating pool...');
+    const tx = await factory.createPool(token0, token1, fee);
+    const receipt = await tx.wait();
+
+    // ethers v6 does not populate `events`; parse logs manually
+    let poolAddr: string | undefined;
+    for (const log of receipt.logs) {
+      if ((log as any).address?.toLowerCase() !== FACTORY.toLowerCase()) continue;
+      try {
+        const parsed = (factory as any).interface.parseLog({
+          data: (log as any).data,
+          topics: [...(log as any).topics],
+        });
+        if (parsed?.name === 'PoolCreated') {
+          poolAddr = parsed.args.pool as string;
+          break;
+        }
+      } catch {}
+    }
+
+    // Fallback: query factory for pool address after tx mined
+    pool = poolAddr ?? (await factory.getPool(token0, token1, fee));
+    if (!pool || pool === ethers.ZeroAddress) throw new Error('Pool not created');
+    console.log('Pool:', pool);
+
+    // Initialize with a target price. Example: 1 AIRDROP = 0.001 PC
+    // Convert to token1/token0 ratio depending on sort order
+    const token0Contract = new Contract(token0, ABI.erc20, wallet);
+    const token1Contract = new Contract(token1, ABI.erc20, wallet);
+
+    const dec0: number = await token0Contract.decimals();
+    const dec1: number = await token1Contract.decimals();
+
+    const inputSymbol0: string = await air.symbol();
+    const inputSymbol1: string = await wpush.symbol();
+
+    const sortedSymbol0: string = await token0Contract.symbol();
+    const sortedSymbol1: string = await token1Contract.symbol();
+
+    const humanRatio: number = 0.001; // 1 AIRDROP = 0.001 PC
+    const actualRatio: number =
+      inputSymbol0 === sortedSymbol1 && inputSymbol1 === sortedSymbol0 ? 1 / humanRatio : humanRatio;
+
+    const sqrtP = sqrtPriceX96FromHumanRatio(actualRatio, dec0, dec1);
+    const poolCtr = new Contract(pool, ABI.pool, wallet);
+    await (await poolCtr.initialize(sqrtP)).wait();
+    console.log('Pool initialized');
+  } else {
+    console.log('Pool exists:', pool);
+  }
+
+  // 3) Add liquidity (wide range)
+  const poolCtr = new Contract(pool, ABI.pool, wallet);
+  const poolFee: number = Number(await poolCtr.fee());
+
+  const t0: string = await poolCtr.token0();
+  const t1: string = await poolCtr.token1();
+
+  const tok0 = new Contract(t0, ABI.erc20, wallet);
+  const tok1 = new Contract(t1, ABI.erc20, wallet);
+  const dec0: number = await tok0.decimals();
+  const dec1: number = await tok1.decimals();
+
+  // Desired amounts in human units (example: 1 AIRDROP and 4 WPUSH)
+  const amt0 = '1'; // AIRDROP amount
+  const amt1 = '4'; // WPUSH amount
+
+  const a0 = parseUnits(amt0, dec0);
+  const a1 = parseUnits(amt1, dec1);
+
+  await safeApprove(tok0, POSITION_MANAGER, a0, wallet.address);
+  await safeApprove(tok1, POSITION_MANAGER, a1, wallet.address);
+
+  const poolFeeNum: number = Number(poolFee);
+  const tickSpacing: number = poolFeeNum === 500 ? 10 : poolFeeNum === 3000 ? 60 : 200;
+  const MIN_TICK = -887272;
+  const MAX_TICK = 887272;
+  const tickLower: number = Math.ceil(MIN_TICK / tickSpacing) * tickSpacing;
+  const tickUpper: number = Math.floor(MAX_TICK / tickSpacing) * tickSpacing;
+
+  const params: MintParams = {
+    token0: t0,
+    token1: t1,
+    fee: poolFee,
+    tickLower,
+    tickUpper,
+    amount0Desired: a0,
+    amount1Desired: a1,
+    amount0Min: 0n,
+    amount1Min: 0n,
+    recipient: wallet.address,
+    deadline: Math.floor(Date.now() / 1000) + 600,
+  };
+
+  const mintTx = await positionManager.mint(params);
+  const rc = await mintTx.wait();
+  console.log('Liquidity added. Tx:', rc?.hash);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
+Run:
+
+```bash
+npx ts-node scripts/create-pool.ts
+```
+
+Example output:
+
+```bash
+📝 Using AIRDROP address from deployed-addresses.json: 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+Creating pool...
+Pool: 0xEB1EA5EC91ad8917Ce33e73224087164CE573833
+Pool initialized
+Liquidity added. Tx: 0x944d81a58c4fb12a4eb72a7bcffd3b121a248334bcf3972a5614a91826ffc407
+```
+
+## Part 4: Programmatic Swap (WPUSH → `$AIRDROP`)
+
+Create `scripts/swap-airdrop.ts` to swap WPUSH to `$AIRDROP`:
+
+```typescript
+import { config as loadEnv } from 'dotenv';
+import { ethers } from 'ethers';
+import { readFileSync } from 'fs';
+
+loadEnv();
+
+// --- Constants ---
+const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
+const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
+const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
+// Read deployed AIRDROP address from file
+let AIRDROP: string;
+try {
+  const deployedData = JSON.parse(readFileSync('./deployed-addresses.json', 'utf8'));
+  AIRDROP = deployedData.AIRDROP_ADDR;
+  console.log('📝 Using AIRDROP address from deployed-addresses.json:', AIRDROP);
+} catch (error) {
+  console.error('❌ Could not read deployed-addresses.json. Please run deploy.ts first.');
+  process.exit(1);
+}
+// Use existing WPUSH deployment
+const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
+// Human amount to swap (WPUSH units)
+const AMOUNT_IN_HUMAN = '1';
+
+// v6/v5 compatibility shims (prefer v6; fallback to v5 if present in workspace)
+const EthersCompat = {
+  parseUnits: ((ethers as any).parseUnits ?? (ethers as any).utils?.parseUnits).bind(ethers),
+  formatUnits: ((ethers as any).formatUnits ?? (ethers as any).utils?.formatUnits).bind(ethers),
+  ZeroAddress: (ethers as any).ZeroAddress ?? (ethers as any).constants?.AddressZero,
+  MaxUint256: (ethers as any).MaxUint256 ?? (ethers as any).constants?.MaxUint256,
+  JsonRpcProvider: (ethers as any).JsonRpcProvider ?? (ethers as any).providers?.JsonRpcProvider,
+};
+
+// --- Minimal ABIs ---
+const ABI = {
+  erc20: [
+    'function symbol() view returns (string)',
+    'function decimals() view returns (uint8)',
+    'function balanceOf(address) view returns (uint256)',
+    'function allowance(address,address) view returns (uint256)',
+    'function approve(address,uint256) returns (bool)',
+  ],
+  pool: ['function fee() view returns (uint24)'],
+  swapRouter: [
+    'function exactInputSingle((address tokenIn, address tokenOut, uint24 fee, address recipient, uint256 deadline, uint256 amountIn, uint256 amountOutMinimum, uint160 sqrtPriceLimitX96)) payable returns (uint256 amountOut)',
+  ],
+  factory: ['function getPool(address,address,uint24) view returns (address)'],
+} as const;
+
+async function safeApprove(token: any, spender: string, amount: bigint, owner: string): Promise<void> {
+  const current = await token.allowance(owner, spender);
+  if (current >= amount) return;
+  const tx = await token.approve(spender, EthersCompat.MaxUint256);
+  await tx.wait();
+}
+
+function sortTokens(a: string, b: string): [string, string] {
+  return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
+}
+
+async function findPool(factory: any, tokenA: string, tokenB: string): Promise<{ address: string; fee: number }> {
+  const fees = [3000, 500, 10000];
+  const [t0, t1] = sortTokens(tokenA, tokenB);
+  for (const fee of fees) {
+    const addr: string = await factory.getPool(t0, t1, fee);
+    if (addr && addr !== EthersCompat.ZeroAddress) return { address: addr, fee };
+  }
+  throw new Error('No pool found for given token pair on common fee tiers');
+}
+
+async function main(): Promise<void> {
+  if (!process.env.PRIVATE_KEY) throw new Error('PRIVATE_KEY missing');
+
+  if (!AIRDROP || AIRDROP === EthersCompat.ZeroAddress) {
+    throw new Error('Set AIRDROP address constant to your deployed token');
+  }
+
+  const provider = new EthersCompat.JsonRpcProvider(RPC);
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+
+  const tokenInAddress = WPUSH;
+  const tokenOutAddress = AIRDROP;
+
+  const tokenIn = new ethers.Contract(tokenInAddress, ABI.erc20, wallet);
+  const tokenOut = new ethers.Contract(tokenOutAddress, ABI.erc20, wallet);
+  const factory = new ethers.Contract(FACTORY, ABI.factory, wallet);
+
+  // Locate pool and fee automatically
+  const { address: poolAddress, fee } = await findPool(factory, tokenInAddress, tokenOutAddress);
+  const pool = new ethers.Contract(poolAddress, ABI.pool, wallet);
+  const router = new ethers.Contract(SWAP_ROUTER, ABI.swapRouter, wallet);
+
+  const [decIn, decOut, symIn, symOut] = await Promise.all([
+    tokenIn.decimals(),
+    tokenOut.decimals(),
+    tokenIn.symbol(),
+    tokenOut.symbol(),
+  ]);
+
+  const amountIn: bigint = EthersCompat.parseUnits(AMOUNT_IN_HUMAN, decIn);
+
+  const [balInBefore, balOutBefore] = await Promise.all([
+    tokenIn.balanceOf(wallet.address),
+    tokenOut.balanceOf(wallet.address),
+  ]);
+
+  console.log('🔄 PERFORMING SWAP');
+  console.log('='.repeat(50));
+  console.log('Pool       :', poolAddress);
+  console.log('Token In   :', symIn, tokenInAddress);
+  console.log('Token Out  :', symOut, tokenOutAddress);
+  console.log('Amount In  :', AMOUNT_IN_HUMAN, symIn);
+  console.log('Balances BEFORE:');
+  console.log(`  ${symIn}  :`, EthersCompat.formatUnits(balInBefore, decIn), symIn);
+  console.log(`  ${symOut} :`, EthersCompat.formatUnits(balOutBefore, decOut), symOut);
+
+  // Approve router to spend tokenIn if needed (ethers v6: use target or getAddress)
+  const routerAddr: string =
+    (router as any).target ?? (router as any).address ?? (await (router as any).getAddress?.());
+  await safeApprove(tokenIn, routerAddr, amountIn, wallet.address);
+
+  const params = {
+    tokenIn: tokenInAddress,
+    tokenOut: tokenOutAddress,
+    fee, // from located pool
+    recipient: wallet.address,
+    deadline: Math.floor(Date.now() / 1000) + 600,
+    amountIn,
+    amountOutMinimum: 0n, // for simplicity; set slippage protections as needed
+    sqrtPriceLimitX96: 0n,
+  };
+
+  console.log('Executing swap...');
+  const tx = await router.exactInputSingle(params);
+  const rc = await tx.wait();
+  console.log('Tx Hash    :', rc?.hash ?? rc?.transactionHash);
+
+  const [balInAfter, balOutAfter] = await Promise.all([
+    tokenIn.balanceOf(wallet.address),
+    tokenOut.balanceOf(wallet.address),
+  ]);
+
+  const spentIn = balInBefore > balInAfter ? balInBefore - balInAfter : 0n;
+  const recvOut = balOutAfter > balOutBefore ? balOutAfter - balOutBefore : 0n;
+
+  console.log('📊 Results');
+  console.log('Balances AFTER:');
+  console.log(`  ${symIn}  :`, EthersCompat.formatUnits(balInAfter, decIn), symIn);
+  console.log(`  ${symOut} :`, EthersCompat.formatUnits(balOutAfter, decOut), symOut);
+  console.log('Spent In   :', EthersCompat.formatUnits(spentIn, decIn), symIn);
+  console.log('Received Out:', EthersCompat.formatUnits(recvOut, decOut), symOut);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
+Run:
+
+```bash
+npx ts-node scripts/swap-airdrop.ts
+```
+
+Example output:
+
+```bash
+📝 Using AIRDROP address from deployed-addresses.json: 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+🔄 PERFORMING SWAP
+==================================================
+Pool       : 0xEB1EA5EC91ad8917Ce33e73224087164CE573833
+Token In   : WPUSH 0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818
+Token Out  : AIRDROP 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+Amount In  : 1 WPUSH
+Balances BEFORE:
+  WPUSH  : 6.783933974515507624 WPUSH
+  AIRDROP : 999996.000000000000000008 AIRDROP
+Executing swap...
+Tx Hash    : 0xb8d880dea2cd90b6ad43875bd3b9b1d92f214ef23ef43e12400491bfee68ebb5
+📊 Results
+Balances AFTER:
+  WPUSH  : 5.783933974515507624 WPUSH
+  AIRDROP : 999999.98401598401598401 AIRDROP
+Spent In   : 1.0 WPUSH
+Received Out: 3.984015984015984002 AIRDROP
+```
+
+## Part 4: Building the Frontend UI
 
 > **Note:** To learn more about how to integrate Push Universal Wallet, please refer to the [Integrate Push Universal Wallet](/docs/chain/04-ui-kit/01-Integrate-Push-Universal-Wallet.mdx) page.
 
-### 2.1. Setting up Vite + React + TypeScript frontend
+### 4.1. Setting up Vite + React + TypeScript frontend
 
 Create a new directory for the frontend and install the necessary dependencies:
 
@@ -252,7 +884,7 @@ cd my-react-ts-app
 npm install
 ```
 
-### 2.2. Installing `@pushchain/ui-kit`
+### 4.2. Installing `@pushchain/ui-kit`
 
 Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll use to interact with the Push Chain network:
 
@@ -260,7 +892,7 @@ Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll us
 npm install @pushchain/ui-kit ethers
 ```
 
-### 2.3. Setting up the Push Chain Wallet
+### 4.3. Setting up the Push Chain Wallet
 
 To use the Push Universal Wallet in your application, you need to wrap your app with the `PushUniversalWalletProvider` component. This provider makes the wallet functionality available throughout your application.
 
@@ -289,7 +921,7 @@ createRoot(document.getElementById('root')!).render(
 
 The `PushUniversalWalletProvider` component requires a `config` prop that specifies the network configuration. In this example, we're using the Push Chain testnet.
 
-### 2.4. Creating the Application Component
+### 4.4. Creating the Application Component
 
 Open the `App.tsx` and add the necessary imports:
 
@@ -318,7 +950,7 @@ The `usePushWalletContext` hook provides the connection status and the Push Univ
 
 Now, on the `App` component, we'll use `ethers` to fetch the ERC-20 token balance from our deployed contract on Push Chain. We'll need:
 
-1. **Contract ABI**: This comes from the `artifacts/contracts/MyToken.sol/MyToken.json` file that was generated when we compiled our contract with Hardhat
+1. **Contract ABI**: This comes from the `artifacts/contracts/AirdropToken.sol/AirdropToken.json` file that was generated when we compiled our contract with Hardhat
 2. **Contract Address**: This is the address we received after deploying our contract to Push Chain (e.g., `0x0B86e252B035027028C0d4D3B136d80Da4C98Ec1`)
 
 Add the following code to fetch the ERC-20 token balance from Push Chain:
@@ -602,13 +1234,13 @@ export default App;
 
 ## Conclusion
 
-Congratulations! 🎉 You've successfully built a universal ERC-20 token system on Push Chain that demonstrates the power of cross-chain interactions. Here's what we accomplished:
+Congratulations! 🎉 You've successfully built a universal ERC-20 token system on Push Chain that enables seamless cross-chain token swaps. Now you can use these tokens for airdrop swaps on Push Swap, allowing users to exchange their airdropped tokens across different blockchain networks through Push Chain's universal infrastructure.
 
 ### Next Steps
 
-- [Intro to Push Chain](/docs/chain/)
+- **Airdrop Swap on Push Swap**: Learn how to [implement token swaps](/docs/chain/01-tutorials/07-Push-Swap.mdx) using your newly minted tokens
+- [Universal Airdrop Tutorial](/docs/chain/01-tutorials/06-Universal-Airdrop.mdx): Combine this with airdrop functionality for cross-chain token distribution
 - [Push Universal Wallet Integration](/docs/chain/04-ui-kit/01-Integrate-Push-Universal-Wallet.mdx)
-- [Configure Hardhat](/docs/chain/02-setup/02-smart-contract-environment/03-Configure-Hardhat.mdx)
 - [Push Chain Explorer](https://donut.push.network/)
 
-Happy building! 🚀
+Ready to swap those tokens? 🚀
