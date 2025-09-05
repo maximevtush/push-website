@@ -1300,15 +1300,11 @@ a:hover {
   font-family: var(--ifm-font-family-homepage) !important;
 }
 
-.mainWrapper_eExm {
-  min-width: 100% !important;
-}
-
-@media (min-width: 997px) {
+/* @media (min-width: 997px) {
   html body .docItemCol_VOVn {
     max-width: 100% !important
   }
-}
+} */
 
 .sidebar_njMd .sidebarLogo_isFc img {
   display: none !important;
