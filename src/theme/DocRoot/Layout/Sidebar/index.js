@@ -1,13 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import clsx from 'clsx';
+import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
+import { useLocation } from '@docusaurus/router';
 import {
   prefersReducedMotion,
   ThemeClassNames,
 } from '@docusaurus/theme-common';
-import { useDocsSidebar } from '@docusaurus/theme-common/internal';
-import { useLocation } from '@docusaurus/router';
-import DocSidebar from '@theme/DocSidebar';
 import ExpandButton from '@theme/DocRoot/Layout/Sidebar/ExpandButton';
+import DocSidebar from '@theme/DocSidebar';
+import clsx from 'clsx';
+import React, { useCallback, useState } from 'react';
 import styles from './styles.module.css';
 // Reset sidebar state when sidebar changes
 // Use React key to unmount/remount the children

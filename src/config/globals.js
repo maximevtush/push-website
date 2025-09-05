@@ -211,7 +211,7 @@ const GLOBALS = {
     },
     DOCS: {
       MAX_WIDTH: 1600,
-    }
+    },
   },
 
   STRUCTURE: {

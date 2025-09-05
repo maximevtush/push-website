@@ -10,7 +10,7 @@ import { translate } from '@docusaurus/Translate';
 import {
   // findFirstCategoryLink,
   useDocById,
-} from '@docusaurus/theme-common/internal';
+} from '@docusaurus/plugin-content-docs/client';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './styles.module.css';

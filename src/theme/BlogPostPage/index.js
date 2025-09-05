@@ -12,7 +12,7 @@ import {
 import {
   BlogPostProvider,
   useBlogPost,
-} from '@docusaurus/theme-common/internal';
+} from '@docusaurus/plugin-content-blog/client';
 import BlogLayout from '@theme/BlogLayout';
 import BlogPostItem from '@theme/BlogPostItem';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';

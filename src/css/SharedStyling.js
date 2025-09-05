@@ -145,22 +145,23 @@ export const Content = styled.div`
     max-width: ${(props) =>
       props.maxWidth ||
       `${GLOBALS.NAVBAR.BLOG.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
-    @media (min-width: 1200px) {
-      overflow: unset;
-    }
+
+    overflow: visible;
   }
 
   &.docs {
     max-width: ${(props) =>
       props.maxWidth ||
       `${GLOBALS.NAVBAR.DOCS.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
+    overflow: visible;
 
     .row {
       margin: unset;
     }
 
-    @media (min-width: 996px) {
-      overflow: unset;
+    &.clip {
+      overflow: clip;
+      width: 100%;
     }
   }
 

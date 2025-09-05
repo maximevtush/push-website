@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import './highlight-styles.css';
 
 // Set to true to enable debug logging
-const DEBUG = true;
+const DEBUG = false;
 
 // Debug logger that only logs when DEBUG is true
 function debug(...args) {

@@ -8,6 +8,9 @@ import {
 import { translate } from '@docusaurus/Translate';
 import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import styles from './styles.module.css';
+// Internal Components
+import { Content, Section } from '@site/src/css/SharedStyling';
+
 function NavbarBackdrop(props) {
   return (
     <div
@@ -45,9 +48,13 @@ export default function NavbarLayout({ children }) {
         }
       )}
     >
-      {children}
-      <NavbarBackdrop onClick={mobileSidebar.toggle} />
-      <NavbarMobileSidebar />
+      <Section>
+        <Content className='docs vertfluid'>
+          {children}
+          <NavbarBackdrop onClick={mobileSidebar.toggle} />
+          <NavbarMobileSidebar />
+        </Content>
+      </Section>
     </nav>
   );
 }

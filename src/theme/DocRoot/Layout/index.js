@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useDocsSidebar } from '@docusaurus/theme-common/internal';
-import BackToTopButton from '@theme/BackToTopButton';
-import DocRootLayoutSidebar from '@theme/DocRoot/Layout/Sidebar';
-import DocRootLayoutMain from '@theme/DocRoot/Layout/Main';
-import styles from './styles.module.css';
+import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import Footer from '@site/src/segments/Footer';
+import BackToTopButton from '@theme/BackToTopButton';
+import DocRootLayoutMain from '@theme/DocRoot/Layout/Main';
+import DocRootLayoutSidebar from '@theme/DocRoot/Layout/Sidebar';
+import React, { useState } from 'react';
+import styles from './styles.module.css';
 
 // Internal Components
 import { Content, Section } from '@site/src/css/SharedStyling';
@@ -17,7 +17,7 @@ export default function DocRootLayout({ children }) {
       <div className={styles.docsWrapper}>
         <BackToTopButton />
         <Section>
-          <Content className='skeletonextrasmall docs' flexDirection='row'>
+          <Content className='skeletonextrasmall docs clip' flexDirection='row'>
             {sidebar && (
               <DocRootLayoutSidebar
                 sidebar={sidebar.items}

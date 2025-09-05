@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useBlogPost } from '@docusaurus/theme-common/internal';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 import styled from 'styled-components';
 
 // Internal Configs

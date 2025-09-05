@@ -112,11 +112,10 @@
   --ifm-surface-alert-danger-subtle: #ffecec;
   --ifm-stroke-alert-danger-subtle: #f11f1f;
   --ifm-border-alert-danger-subtle: #ff4e4e;
-  --ifm-blockquote-color: #2d2D2D;
+  --ifm-blockquote-color: #2d2d2d;
   --ifm-blockquote-border-color: #424258;
   --ifm-pagination-border: #ccc;
   --ifm-like-border-color: #bac4d6;
-
 
   /* Base Colors */
   --ifm-color-white: #ffffff;
@@ -176,13 +175,13 @@
   --ifm-color-warning: #f5f1ff;
 
   /* Special Colors */
-  --ifm-color-blue: #1B43C8;
+  --ifm-color-blue: #1b43c8;
   --ifm-color-icon-close: #7f7b80;
-  --ifm-color-icon-bootcamp: #94979F;
+  --ifm-color-icon-bootcamp: #94979f;
 
   /* System Colors */
   --ifm-color-transparent: transparent;
-  --ifm-color-red: #FF2070;
+  --ifm-color-red: #ff2070;
   --ifm-color-yellow: #f9b732;
   --ifm-color-orange: #fc6394;
   --ifm-color-cyan: #5adaea;
@@ -196,11 +195,11 @@
   --ifm-color-backdrop-blur-heavy: blur(60px);
   --ifm-color-overlay-black-50: rgba(0, 0, 0, 0.5);
   --ifm-color-overlay-black-65: rgba(18, 18, 24, 0.65);
-  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.30);
+  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.3);
   --ifm-color-overlay-white-20: rgba(255, 255, 255, 0.2);
   --ifm-color-overlay-white-70: rgba(255, 255, 255, 0.7);
   --ifm-color-overlay-pink-50: rgba(230, 77, 233, 0.5);
-  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.10);
+  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.1);
   --ifm-color-shadow-light: rgba(0, 0, 0, 0.05);
 
   /* Brand Gradient Colors */
@@ -234,11 +233,11 @@
 
   /* Component-Specific Colors */
   --ifm-color-brb-background: #1b1b25;
-  --ifm-color-brb-disabled: #53536C;
+  --ifm-color-brb-disabled: #53536c;
   --ifm-color-brb-border: #494968;
   --ifm-color-brb-success: #b0ffc3;
-  --ifm-color-discord-blue: #6F8BEE;
-  --ifm-color-twitter-blue: #63BFF3;
+  --ifm-color-discord-blue: #6f8bee;
+  --ifm-color-twitter-blue: #63bff3;
   --ifm-color-breadcrumb-hover: #cf59e2;
 
   /* Feature Colors */
@@ -282,8 +281,8 @@
   --ifm-color-glow-primary: rgb(202, 55, 237);
   --ifm-color-glow-secondary: #ca37ed;
   --ifm-color-card-dark: #101010;
-  --ifm-color-gradient-hue-start: #D162EC;
-  --ifm-color-gradient-hue-end: #EAB7F6;
+  --ifm-color-gradient-hue-start: #d162ec;
+  --ifm-color-gradient-hue-end: #eab7f6;
 
   /* Mailing Signup Colors */
   --ifm-color-signup-button-bg: #000;
@@ -293,44 +292,48 @@
   --ifm-color-signup-text: #ffffff;
 
   /* Token Faucet Colors */
-  --ifm-color-token-highlight: #F0A5FC;
-  --ifm-color-twitter-blue-btn: #25AAF5;
-  --ifm-color-discord-channel: #F878DC;
-  --ifm-color-discord-blue: #3C63C6;
+  --ifm-color-token-highlight: #f0a5fc;
+  --ifm-color-twitter-blue-btn: #25aaf5;
+  --ifm-color-discord-channel: #f878dc;
+  --ifm-color-discord-blue: #3c63c6;
 
   /* QnA Colors */
   --ifm-color-qna-discord: #5865f2;
 
   /* SEO/Meta Colors */
-  --ifm-color-theme-purple: #AA39BC;
+  --ifm-color-theme-purple: #aa39bc;
 
   /* SVG Fill Colors */
   --ifm-color-svg-gray: #808080;
 
   /* Home Features Gradient Colors */
-  --ifm-color-features-gradient: linear-gradient(90deg, #B1B1B9 0%, #635D65 100%);
+  --ifm-color-features-gradient: linear-gradient(
+    90deg,
+    #b1b1b9 0%,
+    #635d65 100%
+  );
 
   /* Push Logo Gradient Colors */
-  --ifm-color-logo-gradient-start: #FF94A6;
-  --ifm-color-logo-gradient-17: #EA6AC0;
-  --ifm-color-logo-gradient-33: #DA4AD5;
-  --ifm-color-logo-gradient-42: #D53EDD;
-  --ifm-color-logo-gradient-53: #CB3EDD;
-  --ifm-color-logo-gradient-72: #B341E0;
-  --ifm-color-logo-gradient-95: #8B45E4;
-  --ifm-color-logo-gradient-end: #8247E5;
+  --ifm-color-logo-gradient-start: #ff94a6;
+  --ifm-color-logo-gradient-17: #ea6ac0;
+  --ifm-color-logo-gradient-33: #da4ad5;
+  --ifm-color-logo-gradient-42: #d53edd;
+  --ifm-color-logo-gradient-53: #cb3edd;
+  --ifm-color-logo-gradient-72: #b341e0;
+  --ifm-color-logo-gradient-95: #8b45e4;
+  --ifm-color-logo-gradient-end: #8247e5;
 
   /* City Background Colors */
-  --ifm-color-city-teal: #299EC2;
-  --ifm-color-city-green: #16837C;
+  --ifm-color-city-teal: #299ec2;
+  --ifm-color-city-green: #16837c;
   --ifm-color-city-blue: #194395;
-  --ifm-color-city-purple: #7A3DA9;
-  --ifm-color-city-coral: #E26059;
-  --ifm-color-city-forest: #2E7D5C;
+  --ifm-color-city-purple: #7a3da9;
+  --ifm-color-city-coral: #e26059;
+  --ifm-color-city-forest: #2e7d5c;
 
   /* Knowledge Base Colors */
   --ifm-color-kb-dark: #101010;
-  --ifm-color-kb-blue: #4277F7;
+  --ifm-color-kb-blue: #4277f7;
 
   /* Footer Colors */
   --ifm-color-footer-bg: #121315;
@@ -348,13 +351,13 @@
   --ifm-color-tos-highlight: #e20880;
 
   /* Home Component Colors */
-  --ifm-color-home-subtitle: #DDD8D8;
+  --ifm-color-home-subtitle: #ddd8d8;
   --ifm-color-home-gradient-end: #aa48ec;
 
   /* Knowledge Component Colors */
-  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.10);
-  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.40);
-  --ifm-color-knowledge-placeholder: #494E54;
+  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.4);
+  --ifm-color-knowledge-placeholder: #494e54;
   --ifm-color-knowledge-button-border: rgba(41, 33, 33, 0.3);
   --ifm-color-knowledge-media-pink: #f2c2fe;
 
@@ -381,8 +384,8 @@
   --ifm-color-tweet-end-message: #888;
 
   /* Footer Additional Colors */
-  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.10);
-  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.4);
   --ifm-color-footer-mailing-button-border: rgba(30, 23, 23, 0.3);
   --ifm-color-footer-anchor-secondary: #94a3b6;
 
@@ -490,10 +493,10 @@
   --ifm-surface-alert-danger-subtle: #670000;
   --ifm-stroke-alert-danger-subtle: #ff4e4e;
   --ifm-border-alert-danger-subtle: #ffb1b1;
-  --ifm-blockquote-color: #757D8D;
-  --ifm-blockquote-border-color:  #757D8D;
+  --ifm-blockquote-color: #757d8d;
+  --ifm-blockquote-border-color: #757d8d;
   --ifm-pagination-border: #202124;
-  --ifm-like-border-color: #C4CBD5;
+  --ifm-like-border-color: #c4cbd5;
 
   /* Base Colors */
   --ifm-color-white: #ffffff;
@@ -553,13 +556,13 @@
   --ifm-color-warning: #f5f1ff;
 
   /* Special Colors */
-  --ifm-color-blue: #1B43C8;
+  --ifm-color-blue: #1b43c8;
   --ifm-color-icon-close: #7f7b80;
-  --ifm-color-icon-bootcamp: #94979F;
+  --ifm-color-icon-bootcamp: #94979f;
 
   /* System Colors */
   --ifm-color-transparent: transparent;
-  --ifm-color-red: #FF2070;
+  --ifm-color-red: #ff2070;
   --ifm-color-yellow: #f9b732;
   --ifm-color-orange: #fc6394;
   --ifm-color-cyan: #5adaea;
@@ -573,11 +576,11 @@
   --ifm-color-backdrop-blur-heavy: blur(60px);
   --ifm-color-overlay-black-50: rgba(0, 0, 0, 0.5);
   --ifm-color-overlay-black-65: rgba(18, 18, 24, 0.65);
-  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.30);
+  --ifm-color-overlay-white-30: rgba(255, 255, 255, 0.3);
   --ifm-color-overlay-white-20: rgba(255, 255, 255, 0.2);
   --ifm-color-overlay-white-70: rgba(255, 255, 255, 0.7);
   --ifm-color-overlay-pink-50: rgba(230, 77, 233, 0.5);
-  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.10);
+  --ifm-color-overlay-black-10: rgba(0, 0, 0, 0.1);
   --ifm-color-shadow-light: rgba(0, 0, 0, 0.05);
 
   /* Brand Gradient Colors */
@@ -611,11 +614,11 @@
 
   /* Component-Specific Colors */
   --ifm-color-brb-background: #1b1b25;
-  --ifm-color-brb-disabled: #53536C;
+  --ifm-color-brb-disabled: #53536c;
   --ifm-color-brb-border: #494968;
   --ifm-color-brb-success: #b0ffc3;
-  --ifm-color-discord-blue: #6F8BEE;
-  --ifm-color-twitter-blue: #63BFF3;
+  --ifm-color-discord-blue: #6f8bee;
+  --ifm-color-twitter-blue: #63bff3;
   --ifm-color-breadcrumb-hover: #cf59e2;
 
   /* Feature Colors */
@@ -659,8 +662,8 @@
   --ifm-color-glow-primary: rgb(202, 55, 237);
   --ifm-color-glow-secondary: #ca37ed;
   --ifm-color-card-dark: #101010;
-  --ifm-color-gradient-hue-start: #D162EC;
-  --ifm-color-gradient-hue-end: #EAB7F6;
+  --ifm-color-gradient-hue-start: #d162ec;
+  --ifm-color-gradient-hue-end: #eab7f6;
 
   /* Mailing Signup Colors */
   --ifm-color-signup-button-bg: #000;
@@ -670,44 +673,48 @@
   --ifm-color-signup-text: #ffffff;
 
   /* Token Faucet Colors */
-  --ifm-color-token-highlight: #F0A5FC;
-  --ifm-color-twitter-blue-btn: #25AAF5;
-  --ifm-color-discord-channel: #F878DC;
-  --ifm-color-discord-blue: #3C63C6;
+  --ifm-color-token-highlight: #f0a5fc;
+  --ifm-color-twitter-blue-btn: #25aaf5;
+  --ifm-color-discord-channel: #f878dc;
+  --ifm-color-discord-blue: #3c63c6;
 
   /* QnA Colors */
   --ifm-color-qna-discord: #5865f2;
 
   /* SEO/Meta Colors */
-  --ifm-color-theme-purple: #AA39BC;
+  --ifm-color-theme-purple: #aa39bc;
 
   /* SVG Fill Colors */
   --ifm-color-svg-gray: #808080;
 
   /* Home Features Gradient Colors */
-  --ifm-color-features-gradient: linear-gradient(90deg, #B1B1B9 0%, #635D65 100%);
+  --ifm-color-features-gradient: linear-gradient(
+    90deg,
+    #b1b1b9 0%,
+    #635d65 100%
+  );
 
   /* Push Logo Gradient Colors */
-  --ifm-color-logo-gradient-start: #FF94A6;
-  --ifm-color-logo-gradient-17: #EA6AC0;
-  --ifm-color-logo-gradient-33: #DA4AD5;
-  --ifm-color-logo-gradient-42: #D53EDD;
-  --ifm-color-logo-gradient-53: #CB3EDD;
-  --ifm-color-logo-gradient-72: #B341E0;
-  --ifm-color-logo-gradient-95: #8B45E4;
-  --ifm-color-logo-gradient-end: #8247E5;
+  --ifm-color-logo-gradient-start: #ff94a6;
+  --ifm-color-logo-gradient-17: #ea6ac0;
+  --ifm-color-logo-gradient-33: #da4ad5;
+  --ifm-color-logo-gradient-42: #d53edd;
+  --ifm-color-logo-gradient-53: #cb3edd;
+  --ifm-color-logo-gradient-72: #b341e0;
+  --ifm-color-logo-gradient-95: #8b45e4;
+  --ifm-color-logo-gradient-end: #8247e5;
 
   /* City Background Colors */
-  --ifm-color-city-teal: #299EC2;
-  --ifm-color-city-green: #16837C;
+  --ifm-color-city-teal: #299ec2;
+  --ifm-color-city-green: #16837c;
   --ifm-color-city-blue: #194395;
-  --ifm-color-city-purple: #7A3DA9;
-  --ifm-color-city-coral: #E26059;
-  --ifm-color-city-forest: #2E7D5C;
+  --ifm-color-city-purple: #7a3da9;
+  --ifm-color-city-coral: #e26059;
+  --ifm-color-city-forest: #2e7d5c;
 
   /* Knowledge Base Colors */
   --ifm-color-kb-dark: #101010;
-  --ifm-color-kb-blue: #4277F7;
+  --ifm-color-kb-blue: #4277f7;
 
   /* Footer Colors */
   --ifm-color-footer-bg: #121315;
@@ -725,13 +732,13 @@
   --ifm-color-tos-highlight: #e20880;
 
   /* Home Component Colors */
-  --ifm-color-home-subtitle: #DDD8D8;
+  --ifm-color-home-subtitle: #ddd8d8;
   --ifm-color-home-gradient-end: #aa48ec;
 
   /* Knowledge Component Colors */
-  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.10);
-  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.40);
-  --ifm-color-knowledge-placeholder: #494E54;
+  --ifm-color-knowledge-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-knowledge-border: rgba(112, 90, 208, 0.4);
+  --ifm-color-knowledge-placeholder: #494e54;
   --ifm-color-knowledge-button-border: rgba(41, 33, 33, 0.3);
   --ifm-color-knowledge-media-pink: #f2c2fe;
 
@@ -758,15 +765,14 @@
   --ifm-color-tweet-end-message: #888;
 
   /* Footer Additional Colors */
-  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.10);
-  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.40);
+  --ifm-color-footer-mailing-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-footer-mailing-border: rgba(112, 90, 208, 0.4);
   --ifm-color-footer-mailing-button-border: rgba(30, 23, 23, 0.3);
   --ifm-color-footer-anchor-secondary: #94a3b6;
 
   /* Tag Colors */
   --ifm-color-tag-border: #bac4d6;
   --ifm-color-tag-hover: #d53a94;
-
 }
 
 /* update docs/blogs dark mode color */
@@ -1053,6 +1059,7 @@ html[data-theme='light'] .alert.alert--fn-args summary::before {
 .theme-admonition.alert--danger svg {
   fill: var(--ifm-stroke-alert-danger-subtle);
 }
+
 .theme-admonition.alert--success {
   border-radius: 12px;
   border-left: 5px solid var(--ifm-border-alert-success-subtle);
@@ -1215,6 +1222,7 @@ article ol ol,
 article ol ul {
   margin: var(--ifm-list-margin);
 }
+
 /* ----- */
 /* OVERRIDES */
 /* ----- */
@@ -1240,8 +1248,6 @@ a:hover {
   display: none !important;
 }
 
-
-
 .PushDocs
   .docRoot_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-styles-module,
 .PushDocs .docRoot_UBD9 {
@@ -1266,17 +1272,20 @@ a:hover {
 
 .navbar--fixed-top {
   background-color: transparent;
-  margin: 26px auto 0 auto !important;
-  width: calc(100% - 54px);
-  max-width: 1696px;
+  margin: 16px auto 0 auto !important;
   /*width: 86%;*/
   height: 92px;
   border: 0px;
   box-shadow: none;
+  padding: 0;
   /* position: fixed;
   left: 50%;
   transform: translate(-50%); */
   /* top: 26px !important; */
+}
+
+.navbar__inner {
+  height: 76px;
 }
 
 .navbar__link {
@@ -1285,6 +1294,7 @@ a:hover {
   padding: 4px 3px;
   font-family: var(--ifm-font-family-homepage) !important;
 }
+
 .navbar__link:hover {
   color: var(--ifm-color-navbar-hover) !important;
 }
@@ -1314,6 +1324,12 @@ a:hover {
   font-family: var(--ifm-font-family-homepage) !important;
 }
 
+/* @media (min-width: 997px) {
+  html body .docItemCol_VOVn {
+    max-width: 100% !important;
+  }
+} */
+
 .sidebar_njMd .sidebarLogo_isFc img {
   display: none !important;
 }
@@ -1331,12 +1347,6 @@ a:hover {
   .navbarSearchContainer_src-theme-Navbar-Search-styles-module {
     padding: 0px !important;
     right: 40px !important;
-  }
-}
-
-@media (max-width: 1024px) {
-  .navbar--fixed-top {
-    width: calc(100% - 32px);
   }
 }
 
@@ -1628,7 +1638,8 @@ table {
   border: 1px solid transparent;
   border-radius: var(--ifm-global-radius);
   width: 100%;
-  table-layout: auto; /* Allow columns to size based on content */
+  table-layout: auto;
+  /* Allow columns to size based on content */
 }
 
 /* Header row styling */
@@ -1651,7 +1662,8 @@ table {
   padding: 0.75rem;
   border: none;
   border-right: none;
-  word-break: break-word; /* Ensures text wraps properly */
+  word-break: break-word;
+  /* Ensures text wraps properly */
 }
 
 /* Align header text to the left */
@@ -2016,6 +2028,7 @@ li {
 .markdown button {
   font-weight: 600;
 }
+
 .markdown > h1,
 .markdown > header > h1,
 .markdown > h2,
@@ -2090,6 +2103,7 @@ ul.tabs.liveplaytab li {
     flex-direction: column;
     margin: 0px auto;
   }
+
   .guide_list {
     justify-content: center;
     display: grid;
@@ -2185,6 +2199,7 @@ ul.tabs.liveplaytab li {
     flex-direction: column;
     margin: 0px auto;
   }
+
   .guide_list {
     justify-content: center;
     display: grid;
@@ -2192,12 +2207,15 @@ ul.tabs.liveplaytab li {
     width: 100%;
     gap: 32px;
   }
+
   .hero__title {
     font-size: 40px;
   }
+
   .hero__subtitle {
     font-size: 18px;
   }
+
   .container {
     padding: 1rem 0rem 2rem !important;
   }
@@ -2211,6 +2229,7 @@ ul.tabs.liveplaytab li {
     flex-direction: column;
     margin: 0px auto;
   }
+
   .guide_list {
     justify-content: center;
     display: grid;
@@ -2226,6 +2245,7 @@ ul.tabs.liveplaytab li {
 #shadow-root section.svelte-baitaa.fixed {
   z-index: 999999999;
 }
+
 /* ------------------ */
 /* OVERRIDE HACK FOR CHAT BLOCKNATIVE MODAL */
 /* ------------------ */
@@ -2253,6 +2273,7 @@ li.theme-doc-sidebar-item-link.theme-doc-sidebar-item-link-level-2.menu__list-it
   a {
   margin-right: 0px;
 }
+
 /* ------------------ */
 /* DOCUSAURUS SIDEBAR OVERRIDE ENDS */
 /* ------------------ */
@@ -2392,6 +2413,7 @@ sup strong {
 sup strong {
   background: var(--ifm-color-update-indicator);
 }
+
 /* ------------------ */
 /* DOCUSAURUS ROADMAP OVERRIDE ENDS */
 /* ------------------ */
@@ -2439,6 +2461,7 @@ article .markdown > ol > li > code {
   font-size: 1em;
   color: var(--ifm-color-primary);
 }
+
 /* ----- */
 /* Markdown CSS Overrides Ends*/
 /* ----- */
@@ -2466,7 +2489,6 @@ article .markdown > ol > li > code {
 .pagination-nav__link {
   border: 1px solid var(--ifm-pagination-border);
 }
-
 
 .pagination-nav__link--prev .pagination-nav__label::before {
   content: '';
