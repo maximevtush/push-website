@@ -49,7 +49,7 @@ export default function NavbarLayout({ children }) {
       )}
     >
       <Section>
-        <Content className='skeletonextrasmall docs'>
+        <Content className='docs vertfluid'>
           {children}
           <NavbarBackdrop onClick={mobileSidebar.toggle} />
           <NavbarMobileSidebar />
