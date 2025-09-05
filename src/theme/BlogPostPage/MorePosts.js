@@ -10,7 +10,7 @@ import BlogPostItemHeaderInfo from '@theme/BlogPostItem/Header/Info';
 import { BsTwitterX } from 'react-icons/bs';
 
 // Internal Configs
-import GLOBALS, { device } from '@site/src/config/globals';
+import { device } from '@site/src/config/globals';
 
 const MorePosts = ({ allPosts, post }) => {
   const { t } = useTranslation();
@@ -155,9 +155,7 @@ const GridItem = styled.div`
 
   @media (max-width: 820px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
-    margin: 10px auto 0 auto;
     gap: 30px;
   }
 
