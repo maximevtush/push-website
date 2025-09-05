@@ -15,8 +15,8 @@ import { Content, Section } from '@site/src/css/SharedStyling';
 import { useTranslation } from 'react-i18next';
 
 import SchemaMarkup from '@site/src/components/SEO/SchemaMarkup';
-import Layout from '@theme/Layout';
 import Footer from '@site/src/segments/Footer';
+import Layout from '@theme/Layout';
 
 export default function BlogLayout(props) {
   const { children } = props;
@@ -83,7 +83,7 @@ export default function BlogLayout(props) {
       )}
 
       <Section>
-        <Content className='skeletonextrasmall blog'>{children}</Content>
+        <Content className='skeletonextrasmall blog clip'>{children}</Content>
       </Section>
 
       <Footer />

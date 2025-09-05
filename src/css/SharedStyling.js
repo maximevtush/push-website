@@ -146,25 +146,22 @@ export const Content = styled.div`
       props.maxWidth ||
       `${GLOBALS.NAVBAR.BLOG.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
 
-    overflow: clip;
-
-    @media ${device.laptop} {
-      overflow: hidden;
-    }
+    overflow: visible;
   }
 
   &.docs {
     max-width: ${(props) =>
       props.maxWidth ||
       `${GLOBALS.NAVBAR.DOCS.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
-    overflow: clip;
+    overflow: visible;
 
     .row {
       margin: unset;
     }
 
-    @media ${device.laptop} {
-      overflow: hidden;
+    &.clip {
+      overflow: clip;
+      width: 100%;
     }
   }
 
