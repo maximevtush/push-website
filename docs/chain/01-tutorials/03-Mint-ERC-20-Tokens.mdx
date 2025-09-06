@@ -34,20 +34,22 @@ What you’ll do:
 
 ## Tutorial Overview
 
-This tutorial is divided into two main parts:
+This tutorial is divided into five main parts:
 
-### Part 1: Smart Contract Development & Deployment
-We'll deploy a standard ERC-20 token (`$AIRDROP`) to Push Chain's testnet using Hardhat. This includes:
-- Setting up the development environment
-- Writing and compiling the smart contract
-- Deploying to Push Chain testnet
+### Part 1: Deploy ERC-20 Token to Push Chain
+Set up Hardhat, write and deploy an `$AIRDROP` ERC-20 token contract to Push Chain testnet.
 
-### Part 2: Building the Frontend UI
-We'll create a React application using `@pushchain/ui-kit` to interact with our deployed contract. This includes:
-- Setting up a Vite + React + TypeScript frontend
-- Integrating Push Chain wallet functionality
-- Calling the `balanceOf` function from the contract on Push Chain
-- Implementing cross-chain transaction capabilities
+### Part 2: Mint $WPUSH Tokens
+Create a script to mint WPUSH tokens (wrapped Push Chain tokens) needed for liquidity pools.
+
+### Part 3: Create Liquidity Pool
+Set up a Uniswap V3 `$AIRDROP/$WPUSH` pool and add initial liquidity for token swapping.
+
+### Part 4: Test Token Swaps
+Build a script to programmatically swap WPUSH for `$AIRDROP` tokens through the pool.
+
+### Part 5: Build Frontend UI
+Create a React app with Push Chain wallet integration to enable users to mint tokens via swaps.
 
 ## Part 1: Deploying a standard ERC-20 token to Push Chain’s testnet with Hardhat
 
