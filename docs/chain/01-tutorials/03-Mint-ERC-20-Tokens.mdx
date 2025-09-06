@@ -74,13 +74,7 @@ npm install --save-dev hardhat@2.26.3 @nomicfoundation/hardhat-toolbox@6.1.0
 npx hardhat init
 ```
 
-This will create a basic Hardhat project structure with TypeScript support, including:
-- `hardhat.config.ts` - Hardhat configuration file
-- `contracts/` - Directory for Solidity contracts
-- `scripts/` - Directory for deployment scripts
-- `test/` - Directory for tests
-
-Install required dependencies:
+Now, install required dependencies:
 
 ```bash
 # Install dotenv for environment variable management
@@ -179,10 +173,10 @@ Create a `.env` file in the root directory and add your private key that you wil
 Add the following to the `.env` file:
 
 ```bash
-PRIVATE_KEY=your_private_key
+PRIVATE_KEY=0xyour_private_key
 ```
 
-Then create a deployment script at scripts/deploy.ts that will also write the deployed address to a file called `deployed-addresses.json` for later use:
+Then create a deployment script at `scripts/deploy.ts` that will also write the deployed address to a file called `deployed-addresses.json` for later use:
 
 ```typescript
 import { config } from 'dotenv';
@@ -293,9 +287,9 @@ Current network: pushDonut
 
 ## Part 2: Minting `$WPUSH` tokens
 
-WPUSH is the wrapped version of the native Push Chain gas token ($PC). To mint WPUSH tokens, you deposit $PC into the WPUSH contract. This section provides a Node.js script to mint WPUSH tokens programmatically.
+`WPUSH` is the wrapped version of the native Push Chain gas token (`$PC`). To mint `WPUSH` tokens, you deposit `$PC` into the `WPUSH` contract. This section provides a Node.js script to mint `WPUSH` tokens programmatically.
 
-Create `scripts/mint-wpush.ts` to deposit `$PC` into the WPUSH contract and mint WPUSH tokens:
+Create `scripts/mint-wpush.ts` to deposit `$PC` into the `WPUSH` contract and mint `WPUSH` tokens:
 
 ```typescript
 import { ethers } from 'ethers';
@@ -326,7 +320,6 @@ interface MintResult {
   targetAddress: string;
   amount: string;
   depositTx: string;
-  transferTx: string;
 }
 
 // Helper functions
@@ -368,15 +361,10 @@ async function mintWpushToAddress(targetAddress: string, amount: string): Promis
   const depositTx = await wpushContract.deposit({ value: amountWei });
   await depositTx.wait();
 
-  // Transfer WPUSH to target address
-  const transferTx = await wpushContract.transfer(targetAddress, amountWei);
-  await transferTx.wait();
-
   return {
     targetAddress,
     amount,
     depositTx: depositTx.hash,
-    transferTx: transferTx.hash,
   };
 }
 
@@ -389,7 +377,6 @@ async function main(): Promise<void> {
     const result = await mintWpushToAddress(TARGET_ADDRESS, AMOUNT_TO_MINT);
     console.log(`✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`);
     console.log(`📋 Deposit TX: ${result.depositTx}`);
-    console.log(`📋 Transfer TX: ${result.transferTx}`);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('❌ Error:', errorMessage);
@@ -401,7 +388,6 @@ main().catch((error) => {
   console.error('Unhandled error:', error);
   process.exit(1);
 });
-
 ```
 
 Run:
@@ -416,8 +402,7 @@ Example output:
 🚀 Minting 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
 
 ✅ Successfully minted 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
-📋 Deposit TX: 0xea1bbf63b5e0b53421134a7fc3ae5b68b7a453fc5ae6f7b7310c483400179298
-📋 Transfer TX: 0x1aee0fe1f6ffe5b3cf4cab857f43e9187af9421994df98e25efc3ebe5b02ba4e
+📋 Deposit TX: 0xd8a62e24f9157950d46b5d99b94b693e09064147078fe7cace95093de4da8e3a
 ```
 
 ## Part 3: Create `$AIRDROP/$WPUSH` Pool and Add Liquidity
@@ -621,12 +606,32 @@ async function main(): Promise<void> {
   const dec0: number = await tok0.decimals();
   const dec1: number = await tok1.decimals();
 
-  // Desired amounts in human units (example: 1 AIRDROP and 4 WPUSH)
-  const amt0 = '1'; // AIRDROP amount
-  const amt1 = '4'; // WPUSH amount
+  // Target: deposit exactly 1 WPUSH and the equivalent AIRDROP by current price
+  // Get current sqrtPriceX96 and derive base-unit ratio: amount1_base / amount0_base
+  const slot0 = await poolCtr.slot0();
+  const sqrtPriceX96BN = new BN(slot0[0].toString());
+  const ratioBase = sqrtPriceX96BN.multipliedBy(sqrtPriceX96BN).dividedBy(new BN(2).pow(192)); // token1_base per token0_base
 
-  const a0 = parseUnits(amt0, dec0);
-  const a1 = parseUnits(amt1, dec1);
+  // Compute base-unit amounts for exactly 1 WPUSH
+  const isWPUSH0 = t0.toLowerCase() === WPUSH.toLowerCase();
+  const oneWPUSHBase = new BN(10).pow(isWPUSH0 ? dec0 : dec1);
+
+  let a0: bigint; // amount0Desired (base units of token0)
+  let a1: bigint; // amount1Desired (base units of token1)
+
+  if (isWPUSH0) {
+    // token0 is WPUSH: amount0 = 1 WPUSH, amount1 = ratioBase * amount0
+    const amount0Base = oneWPUSHBase;
+    const amount1Base = ratioBase.multipliedBy(amount0Base).integerValue(BN.ROUND_FLOOR);
+    a0 = BigInt(amount0Base.toFixed(0));
+    a1 = BigInt(amount1Base.toFixed(0));
+  } else {
+    // token1 is WPUSH: amount1 = 1 WPUSH, amount0 = amount1 / ratioBase
+    const amount1Base = oneWPUSHBase;
+    const amount0Base = amount1Base.dividedBy(ratioBase).integerValue(BN.ROUND_FLOOR);
+    a0 = BigInt(amount0Base.toFixed(0));
+    a1 = BigInt(amount1Base.toFixed(0));
+  }
 
   await safeApprove(tok0, POSITION_MANAGER, a0, wallet.address);
   await safeApprove(tok1, POSITION_MANAGER, a1, wallet.address);
@@ -679,9 +684,9 @@ Pool initialized
 Liquidity added. Tx: 0x944d81a58c4fb12a4eb72a7bcffd3b121a248334bcf3972a5614a91826ffc407
 ```
 
-## Part 4: Programmatic Swap (WPUSH → `$AIRDROP`)
+## Part 4: Programmatic Swap (`$WPUSH` → `$AIRDROP`)
 
-Create `scripts/swap-airdrop.ts` to swap WPUSH to `$AIRDROP`:
+Create `scripts/swap-airdrop.ts` to swap `$WPUSH` to `$AIRDROP`:
 
 ```typescript
 import { config as loadEnv } from 'dotenv';
@@ -853,31 +858,31 @@ npx ts-node scripts/swap-airdrop.ts
 Example output:
 
 ```bash
-📝 Using AIRDROP address from deployed-addresses.json: 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+📝 Using AIRDROP address from deployed-addresses.json: 0x283E86104750B03Ed527Fa049193052778326122
 🔄 PERFORMING SWAP
 ==================================================
-Pool       : 0xEB1EA5EC91ad8917Ce33e73224087164CE573833
+Pool       : 0xf60F15211FaE940CD5a93d00359838AdD8e4cC54
 Token In   : WPUSH 0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818
-Token Out  : AIRDROP 0x64C91bcb3E45c29BBd75CBC344f2F495c37aDD47
+Token Out  : AIRDROP 0x283E86104750B03Ed527Fa049193052778326122
 Amount In  : 1 WPUSH
 Balances BEFORE:
-  WPUSH  : 6.783933974515507624 WPUSH
-  AIRDROP : 999996.000000000000000008 AIRDROP
+  WPUSH  : 6.778933973512498589 WPUSH
+  AIRDROP : 999000.000000000000000001 AIRDROP
 Executing swap...
-Tx Hash    : 0xb8d880dea2cd90b6ad43875bd3b9b1d92f214ef23ef43e12400491bfee68ebb5
+Tx Hash    : 0x697c47985a1ada0e4ec6219a1a347a9d5702321dbf16be9973303507077e9880
 📊 Results
 Balances AFTER:
-  WPUSH  : 5.783933974515507624 WPUSH
-  AIRDROP : 999999.98401598401598401 AIRDROP
+  WPUSH  : 5.778933973512498589 WPUSH
+  AIRDROP : 999499.248873309964946982 AIRDROP
 Spent In   : 1.0 WPUSH
-Received Out: 3.984015984015984002 AIRDROP
+Received Out: 499.248873309964946981 AIRDROP
 ```
 
-## Part 4: Building the Frontend UI
+## Part 5: Building the Frontend UI
 
 > **Note:** To learn more about how to integrate Push Universal Wallet, please refer to the [Integrate Push Universal Wallet](/docs/chain/04-ui-kit/01-Integrate-Push-Universal-Wallet.mdx) page.
 
-### 4.1. Setting up Vite + React + TypeScript frontend
+### 5.1. Setting up Vite + React + TypeScript frontend
 
 Create a new directory for the frontend and install the necessary dependencies:
 
@@ -887,7 +892,7 @@ cd my-react-ts-app
 npm install
 ```
 
-### 4.2. Installing `@pushchain/ui-kit`
+### 5.2. Installing `@pushchain/ui-kit`
 
 Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll use to interact with the Push Chain network:
 
@@ -895,7 +900,7 @@ Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll us
 npm install @pushchain/ui-kit ethers
 ```
 
-### 4.3. Setting up the Push Chain Wallet
+### 5.3. Setting up the Push Chain Wallet
 
 To use the Push Universal Wallet in your application, you need to wrap your app with the `PushUniversalWalletProvider` component. This provider makes the wallet functionality available throughout your application.
 
@@ -924,7 +929,7 @@ createRoot(document.getElementById('root')!).render(
 
 The `PushUniversalWalletProvider` component requires a `config` prop that specifies the network configuration. In this example, we're using the Push Chain testnet.
 
-### 4.4. Creating the Application Component
+### 5.4. Creating the Application Component
 
 Open the `App.tsx` and add the necessary imports:
 
