@@ -5,7 +5,7 @@ hide_title: false
 slug: ./integrate-push-universal-wallet
 displayed_sidebar: pushChainSidebar
 sidebar_position: 1
-image: "/assets/docs/previews/docs_chain_ui_components--integrate_push_universal_wallet.png"
+image: '/assets/docs/previews/docs_chain_ui_components--integrate_push_universal_wallet.png'
 ---
 
 import Tabs from '@theme/Tabs';
@@ -256,7 +256,7 @@ function App() {
   };
 
   function WalletUI() {
-    const [txnHash, setTxnHash] = useState<string | null>(null);
+    const [txnHash, setTxnHash] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { connectionStatus } = usePushWalletContext();
@@ -268,7 +268,7 @@ function App() {
         try {
           const res = await pushChainClient.universal.sendTransaction({
             to: '0xFaE3594C68EDFc2A61b7527164BDAe80bC302108',
-            value: PushChain.utils.helpers.parseUnits('1', 18), // 1 PC
+            value: PushChain.utils.helpers.parseUnits('0.01', 18), // 0.01 PC
           });
           setTxnHash(res.hash);
         } catch (err) {
@@ -328,8 +328,10 @@ function App() {
 <br />
 <br />
 
-:::info note
-You can quickly scaffold a new Push Chain dapp with **UI-Kit** already configured using our CLI:
+:::info
+
+You can quickly scaffold a new Push Chain dapp with **UI-Kit** already configured using our CLI.
+
 :::
 
 ```bash

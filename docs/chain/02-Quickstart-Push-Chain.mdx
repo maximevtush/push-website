@@ -5,7 +5,7 @@ hide_title: false
 slug: ./quickstart
 displayed_sidebar: pushChainSidebar
 sidebar_position: 2
-image: "/assets/docs/previews/docs_chain--quickstart.png"
+image: '/assets/docs/previews/docs_chain--quickstart.png'
 ---
 
 <head>
@@ -182,7 +182,7 @@ const txHash = await pushChainClient.universal.sendTransaction({
 console.log('Transaction sent:', txHash);
 ```
 
-## Inspect your Accounts
+## Inspect Accounts
 
 ```typescript
 // ONCE PUSH CHAIN CLIENT IS INITIALIZED
@@ -208,13 +208,15 @@ console.log('Else it will be the same as pushChainClient.universal.account');
 console.log('Origin address:', originAccount.address);
 ```
 
-## Create Universal Dapp
+## Scaffold a Universal Dapp (Alternative)
 
-A CLI tool to scaffold Push Chain applications with your choice of framework and tooling.
+**Don’t want to wire Core SDK manually?** Use our CLI to scaffold a full-stack dApp (Core + UI Kit, with React boilerplate).
 
 ```bash
 npx create-universal-dapp my-app
 ```
+
+> This is ideal if you’re building a frontend dApp right away. If you only need Core SDK (backend, scripts, integrations), follow the Quickstart steps above.
 
 ## Next Steps
 
