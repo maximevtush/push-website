@@ -313,7 +313,7 @@ const PUSH_RPC_URL = 'https://evm.rpc-testnet-donut-node1.push.org/';
 const PRIVATE_KEY: string | undefined = process.env.PRIVATE_KEY;
 
 // Configuration - modify these values as needed
-const AMOUNT_TO_MINT = '1'; // Amount of WPUSH to mint
+const AMOUNT_TO_MINT = '5'; // Amount of WPUSH to mint
 
 // Types
 interface MintResult {
@@ -377,6 +377,12 @@ async function main(): Promise<void> {
     const result = await mintWpushToAddress(TARGET_ADDRESS, AMOUNT_TO_MINT);
     console.log(`✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`);
     console.log(`📋 Deposit TX: ${result.depositTx}`);
+
+    // Check final WPUSH balance
+    const wpushContract = getWpushContract();
+    const finalBalance = await wpushContract.balanceOf(TARGET_ADDRESS);
+    const formattedBalance = ethers.formatUnits(finalBalance, 18);
+    console.log(`💰 Final WPUSH balance: ${formattedBalance} WPUSH`);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('❌ Error:', errorMessage);
