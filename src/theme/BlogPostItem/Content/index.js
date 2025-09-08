@@ -18,34 +18,47 @@ export default function BlogPostItemContent({ children, className }) {
     useState(false);
   const contentRef = useRef(null);
 
+  const injectSocialButtons = () => {
+    const firstImage = contentRef.current?.querySelector('p > img');
+    if (!firstImage) return false;
+
+    const socialContainer = createSocialContainer();
+    const insertionPoint = firstImage.parentNode.nextSibling;
+
+    firstImage.parentNode.parentNode.insertBefore(
+      socialContainer,
+      insertionPoint
+    );
+    renderSocialButtons(socialContainer);
+
+    return true;
+  };
+
+  const createSocialContainer = () => {
+    const container = document.createElement('div');
+    return container;
+  };
+
+  const renderSocialButtons = (container) => {
+    const { createRoot } = require('react-dom/client');
+    const queryClient = new QueryClient();
+    const root = createRoot(container);
+
+    root.render(
+      <QueryClientProvider client={queryClient}>
+        <LikeAndRetweetItem twitterId={metadata?.frontMatter?.twitterId} />
+      </QueryClientProvider>
+    );
+  };
+
   useEffect(() => {
-    if (!isBlogPostPage || hasInjectedSocialButtons || !contentRef.current)
+    if (!isBlogPostPage || hasInjectedSocialButtons || !contentRef.current) {
       return;
+    }
 
-    // Wait for content to render
     const timer = setTimeout(() => {
-      const firstImage = contentRef.current?.querySelector('p > img');
-
-      if (firstImage && !hasInjectedSocialButtons) {
-        // Create social buttons container
-        const socialContainer = document.createElement('div');
-
-        // Insert after the first image's parent paragraph
-        firstImage.parentNode.parentNode.insertBefore(
-          socialContainer,
-          firstImage.parentNode.nextSibling
-        );
-
-        // Render the component with QueryClientProvider
-        const { createRoot } = require('react-dom/client');
-        const queryClient = new QueryClient();
-        const root = createRoot(socialContainer);
-        root.render(
-          <QueryClientProvider client={queryClient}>
-            <LikeAndRetweetItem twitterId={metadata?.frontMatter?.twitterId} />
-          </QueryClientProvider>
-        );
-
+      const success = injectSocialButtons();
+      if (success) {
         setHasInjectedSocialButtons(true);
       }
     }, 100);
