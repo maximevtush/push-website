@@ -943,7 +943,13 @@ html[data-theme='light'] .alert.alert--fn-args summary::before {
 .alert.alert--minimal-api-table {
   padding: 8px 8px 8px 8px !important;
   margin: 10px auto;
-  border: 1px solid var(--ifm-border-color) !important;
+  border: 1px solid var(--ifm-color-primary) !important;
+  background: var(--ifm-color-primary-unified-inverse);
+}
+
+.alert.alert--minimal-api-table > summary {
+  font-size: 0.75rem !important;
+  line-height: unset !important;
 }
 
 .alert.alert--minimal-api-table:last-child {
