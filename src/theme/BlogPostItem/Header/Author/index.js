@@ -22,11 +22,24 @@ export default function BlogPostItemHeaderAuthor({ author, index }) {
   const { name, title, url, imageURL, email } = author;
   const link = url || (email && `mailto:${email}`) || undefined;
 
+  // Handle image URL construction for different environments
+  const getImageSrc = () => {
+    if (!imageURL) return '';
+
+    // If imageURL already starts with '/', use it as-is (for local development)
+    if (imageURL.startsWith('/')) {
+      return imageURL;
+    }
+
+    // If imageURL doesn't start with '/', prepend baseURL (for preview deployments)
+    return baseURL + '/' + imageURL;
+  };
+
   return (
     <AvatarDiv>
       {imageURL && (
         <MaybeLink href={link} className='avatar__photo-link'>
-          <Img src={baseURL + imageURL} alt={name} itemProp='image' />
+          <Img src={getImageSrc()} alt={name} itemProp='image' />
         </MaybeLink>
       )}
 
