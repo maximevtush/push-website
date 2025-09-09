@@ -1,11 +1,11 @@
 ---
 id: docs-chain-tutorials-scaffoldeth2
-title: "Setup Scaffold-ETH for Push"
+title: 'Setup Scaffold-ETH for Push'
 hide_title: false
 slug: ./tutorial-scaffoldeth2
 displayed_sidebar: pushChainSidebar
 sidebar_position: 5
-image: "/assets/docs/previews/docs_chain_tutorials_scaffoldeth2--setup_scaffold-eth_for_push.png"
+image: '/assets/docs/previews/docs_chain_tutorials_scaffoldeth2--setup_scaffold-eth_for_push.png'
 ---
 
 <head>
@@ -41,7 +41,7 @@ When prompted by the `create-eth` wizard, **select the Hardhat option** for your
 Open **`packages/nextjs/scaffold.config.ts`** and add a custom chain entry for **Push Chain Donut Testnet**, then include it in `targetNetworks` so the app knows about it.
 
 ```ts title="packages/nextjs/scaffold.config.ts"
-import * as chains from "viem/chains";
+import * as chains from 'viem/chains';
 
 export type BaseConfig = {
   targetNetworks: readonly chains.Chain[];
@@ -54,20 +54,34 @@ export type BaseConfig = {
 
 export type ScaffoldConfig = BaseConfig;
 
-export const DEFAULT_ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY ?? "REPLACE_ME";
+export const DEFAULT_ALCHEMY_API_KEY =
+  process.env.NEXT_PUBLIC_ALCHEMY_KEY ?? 'REPLACE_ME';
 
 // highlight-start
 // Push Chain Donut Testnet
 export const pushDonutChain: chains.Chain = {
   id: 42101,
-  name: "Push Chain Donut Testnet",
-  nativeCurrency: { name: "Push", symbol: "PC", decimals: 18 },
+  name: 'Push Chain Donut Testnet',
+  nativeCurrency: { name: 'Push', symbol: 'PC', decimals: 18 },
   rpcUrls: {
-    default: { http: ["https://evm.rpc-testnet-donut-node1.push.org/", "https://evm.rpc-testnet-donut-node2.push.org/"] },
-    public:  { http: ["https://evm.rpc-testnet-donut-node1.push.org/", "https://evm.rpc-testnet-donut-node2.push.org/"] },
+    default: {
+      http: [
+        'https://evm.rpc-testnet-donut-node1.push.org/',
+        'https://evm.rpc-testnet-donut-node2.push.org/',
+      ],
+    },
+    public: {
+      http: [
+        'https://evm.rpc-testnet-donut-node1.push.org/',
+        'https://evm.rpc-testnet-donut-node2.push.org/',
+      ],
+    },
   },
   blockExplorers: {
-    default: { name: "Push Donut Explorer", url: "https://evm-explorer-testnet.push.org" },
+    default: {
+      name: 'Push Donut Explorer',
+      url: 'https://evm-explorer-testnet.push.org',
+    },
   },
 };
 // highlight-end
@@ -79,7 +93,9 @@ const scaffoldConfig = {
   pollingInterval: 30000,
   alchemyApiKey: DEFAULT_ALCHEMY_API_KEY,
   rpcOverrides: {},
-  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ?? "YOUR_WALLETCONNECT_ID",
+  walletConnectProjectId:
+    process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ??
+    'YOUR_WALLETCONNECT_ID',
   onlyLocalBurnerWallet: true,
 } as const satisfies ScaffoldConfig;
 
@@ -93,30 +109,33 @@ export default scaffoldConfig;
 Edit **`packages/hardhat/hardhat.config.ts`** to add a Push Chain Donut Testnet network.
 
 ```ts title="packages/hardhat/hardhat.config.ts"
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 dotenv.config();
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-ethers";
-import "@nomicfoundation/hardhat-chai-matchers";
-import "@typechain/hardhat";
-import "hardhat-gas-reporter";
-import "solidity-coverage";
-import "@nomicfoundation/hardhat-verify";
-import "hardhat-deploy";
-import "hardhat-deploy-ethers";
-import { task } from "hardhat/config";
-import generateTsAbis from "./scripts/generateTsAbis";
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-ethers';
+import '@nomicfoundation/hardhat-chai-matchers';
+import '@typechain/hardhat';
+import 'hardhat-gas-reporter';
+import 'solidity-coverage';
+import '@nomicfoundation/hardhat-verify';
+import 'hardhat-deploy';
+import 'hardhat-deploy-ethers';
+import { task } from 'hardhat/config';
+import generateTsAbis from './scripts/generateTsAbis';
 
-const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
+const providerApiKey =
+  process.env.ALCHEMY_API_KEY || 'oKxs-03sij-U_N0iOlrSsZFr29-IqbuF';
 const deployerPrivateKey =
-  process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-const etherscanApiKey = process.env.ETHERSCAN_V2_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
+  process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY ??
+  '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+const etherscanApiKey =
+  process.env.ETHERSCAN_V2_API_KEY || 'DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW';
 
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.20",
+        version: '0.8.20',
         settings: {
           optimizer: {
             enabled: true,
@@ -126,7 +145,7 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: 'localhost',
   namedAccounts: {
     deployer: {
       default: 0,
@@ -136,17 +155,17 @@ const config: HardhatUserConfig = {
     hardhat: {
       forking: {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
-        enabled: process.env.MAINNET_FORKING_ENABLED === "true",
+        enabled: process.env.MAINNET_FORKING_ENABLED === 'true',
       },
     },
-     // highlight-start
-     // Push Chain Donut Testnet
+    // highlight-start
+    // Push Chain Donut Testnet
     pushDonut: {
-      url: "https://evm.rpc-testnet-donut-node1.push.org/",
+      url: 'https://evm.rpc-testnet-donut-node1.push.org/',
       chainId: 42101,
       accounts: [deployerPrivateKey],
     },
-     // highlight-end
+    // highlight-end
   },
   etherscan: {
     apiKey: etherscanApiKey,
@@ -161,7 +180,7 @@ const config: HardhatUserConfig = {
   },
 };
 
-task("deploy").setAction(async (args, hre, runSuper) => {
+task('deploy').setAction(async (args, hre, runSuper) => {
   await runSuper(args);
   await generateTsAbis(hre);
 });
@@ -265,29 +284,33 @@ contract SimpleGovernance {
 Add **`packages/hardhat/deploy/00_deploy_your_contract.ts`**:
 
 ```ts title="packages/hardhat/deploy/00_deploy_your_contract.ts"
-import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { DeployFunction } from "hardhat-deploy/types";
-import { Contract } from "ethers";
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import { DeployFunction } from 'hardhat-deploy/types';
+import { Contract } from 'ethers';
 
-const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-
+const deployYourContract: DeployFunction = async function (
+  hre: HardhatRuntimeEnvironment
+) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("SimpleGovernance", {
+  await deploy('SimpleGovernance', {
     from: deployer,
     args: [],
     log: true,
     autoMine: true,
   });
 
-  const yourContract = await hre.ethers.getContract<Contract>("SimpleGovernance", deployer);
-  console.log("👋 Initial proposal count:", await yourContract.proposalCount());
+  const yourContract = await hre.ethers.getContract<Contract>(
+    'SimpleGovernance',
+    deployer
+  );
+  console.log('👋 Initial proposal count:', await yourContract.proposalCount());
 };
 
 export default deployYourContract;
 
-deployYourContract.tags = ["SimpleGovernance"];
+deployYourContract.tags = ['SimpleGovernance'];
 ```
 
 ### 2.3. Deploy to Push Chain Donut
@@ -317,7 +340,7 @@ You’ve configured **Scaffold‑ETH 2** to recognize **Push Chain Donut Testne
 ### Next Steps
 
 - **Explore universal transactions and cross‑chain UX** - Learn about [Universal Transactions](/docs/chain/build/send-universal-transaction) and [Universal Message Signing](/docs/chain/build/sign-universal-message) for seamless cross-chain interactions
-- **Build a Universal Payment Gateway** - Create a payment system that accepts transactions from any chain using our [Universal Gateway Payment tutorial](/docs/chain/tutorials/tutorial-universal-payment-gateway)
+- **Build a Universal Payment Gateway** - Create a payment system that accepts transactions from any chain using our [Universal Gateway Payment tutorial](/docs/chain/tutorials/payments-and-defi/tutorial-universal-payment-gateway)
 - **Integrate Push Universal Wallet** - Add wallet abstraction to your app with our [UI Kit integration guide](/docs/chain/ui-kit/integrate-push-universal-wallet)
 
 For more about the framework used here, see the official Scaffold‑ETH 2 docs: `https://docs.scaffoldeth.io/`.

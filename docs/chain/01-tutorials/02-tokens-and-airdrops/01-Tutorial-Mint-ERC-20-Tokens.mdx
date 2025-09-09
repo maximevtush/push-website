@@ -1,15 +1,15 @@
 ---
 id: docs-chain-tutorials-mint-erc-20-tokens
-title: Mint Universal ERC-20 Tokens (via Push-Swap)
+title: Mint Universal ERC-20 Tokens
 hide_title: false
 slug: ./tutorial-mint-erc-20-tokens
 displayed_sidebar: pushChainSidebar
 sidebar_position: 3
-image: "/assets/docs/previews/docs_chain_tutorials_mint_erc_20_tokens--mint_universal_erc-20_tokens_(via_push-swap).png"
+image: '/assets/docs/previews/docs_chain_tutorials_mint_erc_20_tokens--mint_universal_erc-20_tokens_(via_push-swap).png'
 ---
 
 <head>
-  <title>Mint Universal ERC-20 Tokens (via Push-Swap) | Tutorials | Push Chain Docs</title>
+  <title>Mint Universal ERC-20 Tokens | Tutorials | Push Chain Docs</title>
 </head>
 
 import Tabs from '@theme/Tabs';
@@ -37,18 +37,23 @@ What you’ll do:
 This tutorial is divided into five main parts:
 
 ### Part 1: Deploy ERC-20 Token to Push Chain
+
 Set up Hardhat, write and deploy an `$AIRDROP` ERC-20 token contract to Push Chain testnet.
 
 ### Part 2: Mint $WPUSH Tokens
+
 Create a script to mint `$WPUSH` tokens (wrapped Push Chain tokens) needed for liquidity pools.
 
 ### Part 3: Create Liquidity Pool
+
 Set up a Uniswap V3 `$AIRDROP/$WPUSH` pool and add initial liquidity for token swapping.
 
 ### Part 4: Test Token Swaps
+
 Build a script to programmatically swap `$WPUSH` for `$AIRDROP` tokens through the pool.
 
 ### Part 5: Build Frontend UI
+
 Create a React app with Push Chain wallet integration to enable users to mint tokens by depositing `$PC` tokens.
 
 ## Part 1: Deploying a standard ERC-20 token to Push Chain’s testnet with Hardhat
@@ -114,7 +119,11 @@ const config: HardhatUserConfig = {
     pushDonut: {
       url: 'https://evm.rpc-testnet-donut-node1.push.org/',
       accounts: process.env.PRIVATE_KEY
-        ? [process.env.PRIVATE_KEY.startsWith('0x') ? process.env.PRIVATE_KEY : `0x${process.env.PRIVATE_KEY}`]
+        ? [
+            process.env.PRIVATE_KEY.startsWith('0x')
+              ? process.env.PRIVATE_KEY
+              : `0x${process.env.PRIVATE_KEY}`,
+          ]
         : [],
       chainId: 42101,
     },
@@ -168,7 +177,7 @@ npx hardhat compile
 
 ### 1.6. Deploying the Airdrop Token Contract to Push Chain
 
-Create a `.env` file in the root directory and add your private key that you will use to deploy the contract to Push Chain.  If you need `$PC` tokens to deploy the contract, you can get them from the [Push Chain Faucet](https://faucet.push.org/).
+Create a `.env` file in the root directory and add your private key that you will use to deploy the contract to Push Chain. If you need `$PC` tokens to deploy the contract, you can get them from the [Push Chain Faucet](https://faucet.push.org/).
 
 Add the following to the `.env` file:
 
@@ -204,17 +213,25 @@ async function main() {
   if (signers.length === 0) {
     console.log('❌ Current network:', hre.network.name);
     console.log('❌ Network config:', hre.network.config);
-    throw new Error('No accounts available. Please check your PRIVATE_KEY in .env file and network configuration.');
+    throw new Error(
+      'No accounts available. Please check your PRIVATE_KEY in .env file and network configuration.'
+    );
   }
 
   const [deployer] = signers;
   console.log('📝 Deploying contracts with account:', deployer.address);
-  console.log('💰 Account balance:', ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
+  console.log(
+    '💰 Account balance:',
+    ethers.formatEther(await ethers.provider.getBalance(deployer.address))
+  );
 
   // Deploy AirdropToken (ERC20)
   console.log('\n📄 Deploying AirdropToken...');
   const tokenFactory = new AirdropToken__factory(deployer);
-  const token: AirdropToken = await tokenFactory.deploy('AirdropToken', 'AIRDROP');
+  const token: AirdropToken = await tokenFactory.deploy(
+    'AirdropToken',
+    'AIRDROP'
+  );
   await token.waitForDeployment();
   const tokenAddress = await token.getAddress();
   console.log('✅ AirdropToken deployed to:', tokenAddress);
@@ -224,17 +241,29 @@ async function main() {
     AIRDROP_ADDR: tokenAddress,
     network: hre.network.name,
   };
-  writeFileSync('./deployed-addresses.json', JSON.stringify(deployedData, null, 2));
+  writeFileSync(
+    './deployed-addresses.json',
+    JSON.stringify(deployedData, null, 2)
+  );
   console.log('📝 Deployed address saved to: ./deployed-addresses.json');
 
   // Read token details
-  const [name, symbol, decimals] = await Promise.all([token.name(), token.symbol(), token.decimals()]);
+  const [name, symbol, decimals] = await Promise.all([
+    token.name(),
+    token.symbol(),
+    token.decimals(),
+  ]);
 
-  const [totalSupply, deployerBalance] = await Promise.all([token.totalSupply(), token.balanceOf(deployer.address)]);
+  const [totalSupply, deployerBalance] = await Promise.all([
+    token.totalSupply(),
+    token.balanceOf(deployer.address),
+  ]);
 
   console.log(`🔎 Token: ${name} (${symbol}), Decimals: ${decimals}`);
   console.log(`🏦 Total supply: ${ethers.formatEther(totalSupply)} ${symbol}`);
-  console.log(`👤 Deployer balance: ${ethers.formatEther(deployerBalance)} ${symbol}`);
+  console.log(
+    `👤 Deployer balance: ${ethers.formatEther(deployerBalance)} ${symbol}`
+  );
 
   console.log('\n🎉 Deployment completed successfully!');
   console.log('\n📋 Summary:');
@@ -250,7 +279,6 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 ```
-
 
 Now, deploy the Airdrop Token Contract to Push Chain:
 
@@ -337,7 +365,10 @@ function getWpushContract(): ethers.Contract {
 }
 
 // Main minting function
-async function mintWpushToAddress(targetAddress: string, amount: string): Promise<MintResult> {
+async function mintWpushToAddress(
+  targetAddress: string,
+  amount: string
+): Promise<MintResult> {
   // Validate inputs
   if (!ethers.isAddress(targetAddress)) {
     throw new Error(`Invalid Ethereum address: ${targetAddress}`);
@@ -375,7 +406,9 @@ async function main(): Promise<void> {
 
   try {
     const result = await mintWpushToAddress(TARGET_ADDRESS, AMOUNT_TO_MINT);
-    console.log(`✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`);
+    console.log(
+      `✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`
+    );
     console.log(`📋 Deposit TX: ${result.depositTx}`);
 
     // Check final WPUSH balance
@@ -437,11 +470,18 @@ const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
 // Read deployed AIRDROP address from file
 let AIRDROP: string;
 try {
-  const deployedData = JSON.parse(readFileSync('./deployed-addresses.json', 'utf8'));
+  const deployedData = JSON.parse(
+    readFileSync('./deployed-addresses.json', 'utf8')
+  );
   AIRDROP = deployedData.AIRDROP_ADDR;
-  console.log('📝 Using AIRDROP address from deployed-addresses.json:', AIRDROP);
+  console.log(
+    '📝 Using AIRDROP address from deployed-addresses.json:',
+    AIRDROP
+  );
 } catch (error) {
-  console.error('❌ Could not read deployed-addresses.json. Please run deploy.ts first.');
+  console.error(
+    '❌ Could not read deployed-addresses.json. Please run deploy.ts first.'
+  );
   process.exit(1);
 }
 
@@ -500,7 +540,9 @@ function sqrtPriceX96FromHumanRatio(
 ): bigint {
   BN.config({ EXPONENTIAL_AT: 999999, DECIMAL_PLACES: 40 });
   const ratio = new BN(priceRatio.toString());
-  const baseUnitRatio = ratio.multipliedBy(new BN(10).pow(token1Decimals)).dividedBy(new BN(10).pow(token0Decimals));
+  const baseUnitRatio = ratio
+    .multipliedBy(new BN(10).pow(token1Decimals))
+    .dividedBy(new BN(10).pow(token0Decimals));
   const sqrtPriceTimesQ96 = baseUnitRatio
     .sqrt()
     .multipliedBy(new BN(2).pow(96))
@@ -513,7 +555,12 @@ function sortTokens(a: string, b: string): [string, string] {
   return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
 }
 
-async function safeApprove(token: Contract, spender: string, amount: bigint, owner: string): Promise<void> {
+async function safeApprove(
+  token: Contract,
+  spender: string,
+  amount: bigint,
+  owner: string
+): Promise<void> {
   const current = await token.allowance(owner, spender);
   if (current >= amount) return;
   const tx = await token.approve(spender, ethers.MaxUint256);
@@ -522,13 +569,18 @@ async function safeApprove(token: Contract, spender: string, amount: bigint, own
 
 async function main(): Promise<void> {
   if (!process.env.PRIVATE_KEY) throw new Error('PRIVATE_KEY missing');
-  if (!AIRDROP) throw new Error('AIRDROP address not found. Please run deploy.ts first.');
+  if (!AIRDROP)
+    throw new Error('AIRDROP address not found. Please run deploy.ts first.');
 
   const provider = new JsonRpcProvider(RPC);
   const wallet = new Wallet(process.env.PRIVATE_KEY!, provider);
 
   const factory = new Contract(FACTORY, ABI.factory, wallet);
-  const positionManager = new Contract(POSITION_MANAGER, ABI.positionManager, wallet);
+  const positionManager = new Contract(
+    POSITION_MANAGER,
+    ABI.positionManager,
+    wallet
+  );
 
   const air = new Contract(AIRDROP!, ABI.erc20, wallet);
   const wpush = new Contract(WPUSH, ABI.wpush, wallet);
@@ -556,7 +608,8 @@ async function main(): Promise<void> {
     // ethers v6 does not populate `events`; parse logs manually
     let poolAddr: string | undefined;
     for (const log of receipt.logs) {
-      if ((log as any).address?.toLowerCase() !== FACTORY.toLowerCase()) continue;
+      if ((log as any).address?.toLowerCase() !== FACTORY.toLowerCase())
+        continue;
       try {
         const parsed = (factory as any).interface.parseLog({
           data: (log as any).data,
@@ -571,7 +624,8 @@ async function main(): Promise<void> {
 
     // Fallback: query factory for pool address after tx mined
     pool = poolAddr ?? (await factory.getPool(token0, token1, fee));
-    if (!pool || pool === ethers.ZeroAddress) throw new Error('Pool not created');
+    if (!pool || pool === ethers.ZeroAddress)
+      throw new Error('Pool not created');
     console.log('Pool:', pool);
 
     // Initialize with a target price. Example: 1 AIRDROP = 0.001 PC
@@ -590,7 +644,9 @@ async function main(): Promise<void> {
 
     const humanRatio: number = 0.001; // 1 AIRDROP = 0.001 PC
     const actualRatio: number =
-      inputSymbol0 === sortedSymbol1 && inputSymbol1 === sortedSymbol0 ? 1 / humanRatio : humanRatio;
+      inputSymbol0 === sortedSymbol1 && inputSymbol1 === sortedSymbol0
+        ? 1 / humanRatio
+        : humanRatio;
 
     const sqrtP = sqrtPriceX96FromHumanRatio(actualRatio, dec0, dec1);
     const poolCtr = new Contract(pool, ABI.pool, wallet);
@@ -608,7 +664,10 @@ async function main(): Promise<void> {
     writeFileSync(path, JSON.stringify(data, null, 2));
     console.log('📝 Updated deployed-addresses.json with POOL_ADDR:', pool);
   } catch (error) {
-    console.error('❌ Failed to update deployed-addresses.json with POOL_ADDR', error);
+    console.error(
+      '❌ Failed to update deployed-addresses.json with POOL_ADDR',
+      error
+    );
   }
 
   // 3) Add liquidity (wide range)
@@ -627,7 +686,9 @@ async function main(): Promise<void> {
   // Get current sqrtPriceX96 and derive base-unit ratio: amount1_base / amount0_base
   const slot0 = await poolCtr.slot0();
   const sqrtPriceX96BN = new BN(slot0[0].toString());
-  const ratioBase = sqrtPriceX96BN.multipliedBy(sqrtPriceX96BN).dividedBy(new BN(2).pow(192)); // token1_base per token0_base
+  const ratioBase = sqrtPriceX96BN
+    .multipliedBy(sqrtPriceX96BN)
+    .dividedBy(new BN(2).pow(192)); // token1_base per token0_base
 
   // Compute base-unit amounts for exactly 1 WPUSH
   const isWPUSH0 = t0.toLowerCase() === WPUSH.toLowerCase();
@@ -639,13 +700,17 @@ async function main(): Promise<void> {
   if (isWPUSH0) {
     // token0 is WPUSH: amount0 = 1 WPUSH, amount1 = ratioBase * amount0
     const amount0Base = oneWPUSHBase;
-    const amount1Base = ratioBase.multipliedBy(amount0Base).integerValue(BN.ROUND_FLOOR);
+    const amount1Base = ratioBase
+      .multipliedBy(amount0Base)
+      .integerValue(BN.ROUND_FLOOR);
     a0 = BigInt(amount0Base.toFixed(0));
     a1 = BigInt(amount1Base.toFixed(0));
   } else {
     // token1 is WPUSH: amount1 = 1 WPUSH, amount0 = amount1 / ratioBase
     const amount1Base = oneWPUSHBase;
-    const amount0Base = amount1Base.dividedBy(ratioBase).integerValue(BN.ROUND_FLOOR);
+    const amount0Base = amount1Base
+      .dividedBy(ratioBase)
+      .integerValue(BN.ROUND_FLOOR);
     a0 = BigInt(amount0Base.toFixed(0));
     a1 = BigInt(amount1Base.toFixed(0));
   }
@@ -654,7 +719,8 @@ async function main(): Promise<void> {
   await safeApprove(tok1, POSITION_MANAGER, a1, wallet.address);
 
   const poolFeeNum: number = Number(poolFee);
-  const tickSpacing: number = poolFeeNum === 500 ? 10 : poolFeeNum === 3000 ? 60 : 200;
+  const tickSpacing: number =
+    poolFeeNum === 500 ? 10 : poolFeeNum === 3000 ? 60 : 200;
   const MIN_TICK = -887272;
   const MAX_TICK = 887272;
   const tickLower: number = Math.ceil(MIN_TICK / tickSpacing) * tickSpacing;
@@ -719,11 +785,18 @@ const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
 // Read deployed AIRDROP address from file
 let AIRDROP: string;
 try {
-  const deployedData = JSON.parse(readFileSync('./deployed-addresses.json', 'utf8'));
+  const deployedData = JSON.parse(
+    readFileSync('./deployed-addresses.json', 'utf8')
+  );
   AIRDROP = deployedData.AIRDROP_ADDR;
-  console.log('📝 Using AIRDROP address from deployed-addresses.json:', AIRDROP);
+  console.log(
+    '📝 Using AIRDROP address from deployed-addresses.json:',
+    AIRDROP
+  );
 } catch (error) {
-  console.error('❌ Could not read deployed-addresses.json. Please run deploy.ts first.');
+  console.error(
+    '❌ Could not read deployed-addresses.json. Please run deploy.ts first.'
+  );
   process.exit(1);
 }
 // Use existing WPUSH deployment
@@ -733,11 +806,19 @@ const AMOUNT_IN_HUMAN = '1';
 
 // v6/v5 compatibility shims (prefer v6; fallback to v5 if present in workspace)
 const EthersCompat = {
-  parseUnits: ((ethers as any).parseUnits ?? (ethers as any).utils?.parseUnits).bind(ethers),
-  formatUnits: ((ethers as any).formatUnits ?? (ethers as any).utils?.formatUnits).bind(ethers),
-  ZeroAddress: (ethers as any).ZeroAddress ?? (ethers as any).constants?.AddressZero,
-  MaxUint256: (ethers as any).MaxUint256 ?? (ethers as any).constants?.MaxUint256,
-  JsonRpcProvider: (ethers as any).JsonRpcProvider ?? (ethers as any).providers?.JsonRpcProvider,
+  parseUnits: (
+    (ethers as any).parseUnits ?? (ethers as any).utils?.parseUnits
+  ).bind(ethers),
+  formatUnits: (
+    (ethers as any).formatUnits ?? (ethers as any).utils?.formatUnits
+  ).bind(ethers),
+  ZeroAddress:
+    (ethers as any).ZeroAddress ?? (ethers as any).constants?.AddressZero,
+  MaxUint256:
+    (ethers as any).MaxUint256 ?? (ethers as any).constants?.MaxUint256,
+  JsonRpcProvider:
+    (ethers as any).JsonRpcProvider ??
+    (ethers as any).providers?.JsonRpcProvider,
 };
 
 // --- Minimal ABIs ---
@@ -756,7 +837,12 @@ const ABI = {
   factory: ['function getPool(address,address,uint24) view returns (address)'],
 } as const;
 
-async function safeApprove(token: any, spender: string, amount: bigint, owner: string): Promise<void> {
+async function safeApprove(
+  token: any,
+  spender: string,
+  amount: bigint,
+  owner: string
+): Promise<void> {
   const current = await token.allowance(owner, spender);
   if (current >= amount) return;
   const tx = await token.approve(spender, EthersCompat.MaxUint256);
@@ -767,12 +853,17 @@ function sortTokens(a: string, b: string): [string, string] {
   return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
 }
 
-async function findPool(factory: any, tokenA: string, tokenB: string): Promise<{ address: string; fee: number }> {
+async function findPool(
+  factory: any,
+  tokenA: string,
+  tokenB: string
+): Promise<{ address: string; fee: number }> {
   const fees = [3000, 500, 10000];
   const [t0, t1] = sortTokens(tokenA, tokenB);
   for (const fee of fees) {
     const addr: string = await factory.getPool(t0, t1, fee);
-    if (addr && addr !== EthersCompat.ZeroAddress) return { address: addr, fee };
+    if (addr && addr !== EthersCompat.ZeroAddress)
+      return { address: addr, fee };
   }
   throw new Error('No pool found for given token pair on common fee tiers');
 }
@@ -795,7 +886,11 @@ async function main(): Promise<void> {
   const factory = new ethers.Contract(FACTORY, ABI.factory, wallet);
 
   // Locate pool and fee automatically
-  const { address: poolAddress, fee } = await findPool(factory, tokenInAddress, tokenOutAddress);
+  const { address: poolAddress, fee } = await findPool(
+    factory,
+    tokenInAddress,
+    tokenOutAddress
+  );
   const pool = new ethers.Contract(poolAddress, ABI.pool, wallet);
   const router = new ethers.Contract(SWAP_ROUTER, ABI.swapRouter, wallet);
 
@@ -820,12 +915,22 @@ async function main(): Promise<void> {
   console.log('Token Out  :', symOut, tokenOutAddress);
   console.log('Amount In  :', AMOUNT_IN_HUMAN, symIn);
   console.log('Balances BEFORE:');
-  console.log(`  ${symIn}  :`, EthersCompat.formatUnits(balInBefore, decIn), symIn);
-  console.log(`  ${symOut} :`, EthersCompat.formatUnits(balOutBefore, decOut), symOut);
+  console.log(
+    `  ${symIn}  :`,
+    EthersCompat.formatUnits(balInBefore, decIn),
+    symIn
+  );
+  console.log(
+    `  ${symOut} :`,
+    EthersCompat.formatUnits(balOutBefore, decOut),
+    symOut
+  );
 
   // Approve router to spend tokenIn if needed (ethers v6: use target or getAddress)
   const routerAddr: string =
-    (router as any).target ?? (router as any).address ?? (await (router as any).getAddress?.());
+    (router as any).target ??
+    (router as any).address ??
+    (await (router as any).getAddress?.());
   await safeApprove(tokenIn, routerAddr, amountIn, wallet.address);
 
   const params = {
@@ -854,10 +959,22 @@ async function main(): Promise<void> {
 
   console.log('📊 Results');
   console.log('Balances AFTER:');
-  console.log(`  ${symIn}  :`, EthersCompat.formatUnits(balInAfter, decIn), symIn);
-  console.log(`  ${symOut} :`, EthersCompat.formatUnits(balOutAfter, decOut), symOut);
+  console.log(
+    `  ${symIn}  :`,
+    EthersCompat.formatUnits(balInAfter, decIn),
+    symIn
+  );
+  console.log(
+    `  ${symOut} :`,
+    EthersCompat.formatUnits(balOutAfter, decOut),
+    symOut
+  );
   console.log('Spent In   :', EthersCompat.formatUnits(spentIn, decIn), symIn);
-  console.log('Received Out:', EthersCompat.formatUnits(recvOut, decOut), symOut);
+  console.log(
+    'Received Out:',
+    EthersCompat.formatUnits(recvOut, decOut),
+    symOut
+  );
 }
 
 main().catch((e) => {
@@ -941,7 +1058,6 @@ createRoot(document.getElementById('root')!).render(
     </PushUniversalWalletProvider>
   </StrictMode>
 );
-
 ```
 
 The `PushUniversalWalletProvider` component requires a `config` prop that specifies the network configuration. In this example, we're using the Push Chain testnet.
@@ -958,7 +1074,12 @@ Open `App.tsx` and replace it with the following mint-based implementation. This
 import { useState } from 'react';
 import './App.css';
 import { ethers } from 'ethers';
-import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI } from '@pushchain/ui-kit';
+import {
+  PushUniversalAccountButton,
+  usePushWalletContext,
+  usePushChainClient,
+  PushUI,
+} from '@pushchain/ui-kit';
 
 // Contract
 const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
@@ -966,7 +1087,11 @@ const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
 function App() {
   type PushChainClientMinimal = {
     universal: {
-      sendTransaction: (args: { to: string; data?: string; value?: bigint }) => Promise<{ hash?: string | undefined }>;
+      sendTransaction: (args: {
+        to: string;
+        data?: string;
+        value?: bigint;
+      }) => Promise<{ hash?: string | undefined }>;
     };
     explorer?: { getTransactionUrl?: (hash: string) => string };
   };
@@ -1010,7 +1135,8 @@ function App() {
     }
   }
 
-  const isConnected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
+  const isConnected =
+    connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
   // —
 
   return (
@@ -1021,17 +1147,32 @@ function App() {
       {isConnected && (
         <div style={{ marginTop: 16 }}>
           {/* Mint WPUSH Section */}
-          <div style={{ marginBottom: 16, padding: 12, border: '1px solid #eee', borderRadius: 8 }}>
+          <div
+            style={{
+              marginBottom: 16,
+              padding: 12,
+              border: '1px solid #eee',
+              borderRadius: 8,
+            }}
+          >
             <div style={{ fontWeight: 600, marginBottom: 8 }}>Mint WPUSH</div>
-            <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 6 }}>Amount (PC)</div>
+            <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 6 }}>
+              Amount (PC)
+            </div>
             <input
-              type="number"
-              min="0"
-              step="any"
+              type='number'
+              min='0'
+              step='any'
               value={mintAmount}
               onChange={(e) => setMintAmount(e.target.value)}
-              placeholder="0.0 PC"
-              style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ccc', boxSizing: 'border-box' }}
+              placeholder='0.0 PC'
+              style={{
+                width: '100%',
+                padding: 10,
+                borderRadius: 8,
+                border: '1px solid #ccc',
+                boxSizing: 'border-box',
+              }}
             />
             <div style={{ marginTop: 8 }}>
               <button
@@ -1045,7 +1186,10 @@ function App() {
                   border: '1px solid',
                   borderRadius: 10,
                   padding: '8px 14px',
-                  cursor: !isConnected || isMintLoading || !mintAmount ? 'not-allowed' : 'pointer',
+                  cursor:
+                    !isConnected || isMintLoading || !mintAmount
+                      ? 'not-allowed'
+                      : 'pointer',
                 }}
               >
                 {isMintLoading ? 'Minting...' : 'Mint WPUSH'}
@@ -1053,17 +1197,27 @@ function App() {
             </div>
             {mintTxnHash && (
               <div style={{ marginTop: 8 }}>
-                <div style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}>Mint Txn: {mintTxnHash}</div>
+                <div
+                  style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
+                >
+                  Mint Txn: {mintTxnHash}
+                </div>
                 <a
-                  href={pushChainClient?.explorer?.getTransactionUrl?.(mintTxnHash) || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={
+                    pushChainClient?.explorer?.getTransactionUrl?.(
+                      mintTxnHash
+                    ) || '#'
+                  }
+                  target='_blank'
+                  rel='noopener noreferrer'
                 >
                   View in Explorer
                 </a>
               </div>
             )}
-            {mintError && <div style={{ marginTop: 8, color: 'crimson' }}>{mintError}</div>}
+            {mintError && (
+              <div style={{ marginTop: 8, color: 'crimson' }}>{mintError}</div>
+            )}
           </div>
         </div>
       )}
@@ -1081,8 +1235,9 @@ Congratulations! 🎉 You've successfully built a universal ERC-20 token system 
 ### Next Steps
 
 {/* TODO: Update this URL to correct one */}
-- [Universal Airdrop Tutorial](/docs/chain/01-tutorials/06-Universal-Airdrop.mdx): Combine this with airdrop functionality for cross-chain token distribution
-- [Push Universal Wallet Integration](/docs/chain/04-ui-kit/01-Integrate-Push-Universal-Wallet.mdx)
+
+- [Universal Airdrop Tutorial](/docs/chain/tutorials/tokens-and-airdrops/tutorial-universal-airdrop/): Combine this with airdrop functionality for cross-chain token distribution
+- [Push Universal Wallet Integration](/docs/chain/ui-kit/integrate-push-universal-wallet/)
 - [Push Chain Explorer](https://donut.push.network/)
 
 Ready to swap those tokens? 🚀

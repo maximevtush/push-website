@@ -220,13 +220,13 @@ export const ToolingItems = [
 export const TutorialDocumentationItems = [
   {
     title: 'Simple Counter App',
-    href: '/docs/chain/tutorials/tutorial-simple-counter/',
+    href: '/docs/chain/tutorials/basics/tutorial-simple-counter/',
     content:
       'The process of building a simple smart contract like a counter is exactly similar to any other EVM Chain.',
   },
   {
     title: 'Universal Counter App',
-    href: '/docs/chain/tutorials/tutorial-universal-counter/',
+    href: '/docs/chain/tutorials/basics/tutorial-universal-counter/',
     content:
       'GM vs GM is a simple example to show how to create a Universal App on Push...',
   },

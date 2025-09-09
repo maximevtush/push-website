@@ -1,11 +1,11 @@
 ---
 id: docs-chain-tutorials-universal-airdrop
-title: "Build a Universal Airdrop: Proofs, Contract, and Claim UI"
+title: 'Build a Claimable Universal Airdrop'
 hide_title: false
 slug: ./tutorial-universal-airdrop
 displayed_sidebar: pushChainSidebar
 sidebar_position: 6
-image: "/assets/docs/previews/docs_chain_tutorials_universal_airdrop--build_a_universal_airdrop:_proofs,_contract,_and_claim_ui.png"
+image: '/assets/docs/previews/docs_chain_tutorials_universal_airdrop--build_a_universal_airdrop:_proofs,_contract,_and_claim_ui.png'
 ---
 
 <head>
@@ -49,6 +49,7 @@ npm i -D @types/node
 ```
 
 The dependencies you'll need:
+
 - `merkletreejs`: Core library for building Merkle trees with cryptographic hashing
 - `viem`: Ethereum library providing `keccak256` hashing and ABI encoding utilities
 - `bs58`: Base58 encoding/decoding library for Solana addresses
@@ -98,7 +99,10 @@ function generateLeaf(entry: AirdropEntry): `0x${string}` {
     recipientAddressHex = addressBytes;
   } else {
     const raw = Buffer.from(bs58.decode(recipient));
-    const hashed = Buffer.from(keccak256(`0x${raw.toString('hex')}`).slice(2), 'hex');
+    const hashed = Buffer.from(
+      keccak256(`0x${raw.toString('hex')}`).slice(2),
+      'hex'
+    );
     const last20 = hashed.slice(-20);
     recipientAddressHex = last20.toString('hex');
   }
@@ -159,23 +163,31 @@ function printSummary(treeData: TreeData): void {
   console.log(`👥 Total Recipients: ${entries.length}`);
 
   // Calculate totals per chain namespace
-  const chainStats = entries.reduce((acc, entry) => {
-    const key = `${entry.chainNamespace}:${entry.chainId}`;
-    if (!acc[key]) {
-      acc[key] = { count: 0, totalAmount: BigInt(0) };
-    }
-    acc[key].count += 1;
-    acc[key].totalAmount += BigInt(entry.amount);
-    return acc;
-  }, {} as Record<string, { count: number; totalAmount: bigint }>);
+  const chainStats = entries.reduce(
+    (acc, entry) => {
+      const key = `${entry.chainNamespace}:${entry.chainId}`;
+      if (!acc[key]) {
+        acc[key] = { count: 0, totalAmount: BigInt(0) };
+      }
+      acc[key].count += 1;
+      acc[key].totalAmount += BigInt(entry.amount);
+      return acc;
+    },
+    {} as Record<string, { count: number; totalAmount: bigint }>
+  );
 
   console.log('\n📊 Per-Chain Breakdown:');
   Object.entries(chainStats).forEach(([chain, stats]) => {
-    console.log(`  ${chain}: ${stats.count} recipients, ${stats.totalAmount.toString()} tokens`);
+    console.log(
+      `  ${chain}: ${stats.count} recipients, ${stats.totalAmount.toString()} tokens`
+    );
   });
 
   // Calculate total amount
-  const totalAmount = entries.reduce((sum, entry) => sum + BigInt(entry.amount), BigInt(0));
+  const totalAmount = entries.reduce(
+    (sum, entry) => sum + BigInt(entry.amount),
+    BigInt(0)
+  );
   console.log(`\n💰 Total Airdrop Amount: ${totalAmount.toString()} tokens`);
 }
 
@@ -211,14 +223,19 @@ async function main() {
   }
 
   // Read airdrop entries
-  const entries: AirdropEntry[] = JSON.parse(fs.readFileSync(airdropPath, 'utf8'));
+  const entries: AirdropEntry[] = JSON.parse(
+    fs.readFileSync(airdropPath, 'utf8')
+  );
 
   // Validate entries
   for (const entry of entries) {
-    const isHex = entry.recipient.startsWith('0x') && entry.recipient.length === 42;
+    const isHex =
+      entry.recipient.startsWith('0x') && entry.recipient.length === 42;
     const isBase58 = !entry.recipient.startsWith('0x');
     if (!isHex && !isBase58) {
-      throw new Error(`Invalid recipient: ${entry.recipient} (must be 0x-address or base58)`);
+      throw new Error(
+        `Invalid recipient: ${entry.recipient} (must be 0x-address or base58)`
+      );
     }
     if (!entry.chainNamespace || !entry.chainId) {
       throw new Error(`Missing chain info for ${entry.recipient}`);
@@ -290,12 +307,12 @@ Create `merkle-proof-generator/data/airdrop.json` with your recipient list:
     "amount": "750000000000000000"
   }
 ]
-
 ```
 
 #### Understanding the airdrop.json structure
 
 Each entry in the array represents a recipient with:
+
 - `recipient`: Wallet address (format varies by blockchain)
 - `chainNamespace`: Blockchain type ("eip155", "solana", "push", etc.)
 - `chainId`: Specific chain identifier within that namespace
@@ -309,6 +326,7 @@ npx tsx index.ts
 ```
 
 Example output:
+
 ```
 🔨 Building Merkle tree for 3 recipients...
 ✅ Merkle tree built successfully!
@@ -327,6 +345,7 @@ Example output:
 ```
 
 The generator will:
+
 1. Read and validate each entry in `airdrop.json`
 2. Generate cryptographic leaves using `keccak256(abi.encodePacked(...))`
 3. Build a sorted Merkle tree from all leaves
@@ -402,6 +421,7 @@ npx hardhat init
 ```
 
 This will create a basic Hardhat project structure with TypeScript support, including:
+
 - `hardhat.config.ts` - Hardhat configuration file
 - `contracts/` - Directory for Solidity contracts
 - `scripts/` - Directory for deployment scripts
@@ -449,7 +469,11 @@ const config: HardhatUserConfig = {
     pushDonut: {
       url: 'https://evm.rpc-testnet-donut-node1.push.org/',
       accounts: process.env.PRIVATE_KEY
-        ? [process.env.PRIVATE_KEY.startsWith('0x') ? process.env.PRIVATE_KEY : `0x${process.env.PRIVATE_KEY}`]
+        ? [
+            process.env.PRIVATE_KEY.startsWith('0x')
+              ? process.env.PRIVATE_KEY
+              : `0x${process.env.PRIVATE_KEY}`,
+          ]
         : [],
       chainId: 42101,
     },
@@ -718,12 +742,17 @@ async function main() {
   if (signers.length === 0) {
     console.log('❌ Current network:', hre.network.name);
     console.log('❌ Network config:', hre.network.config);
-    throw new Error('No accounts available. Please check your PRIVATE_KEY in .env file and network configuration.');
+    throw new Error(
+      'No accounts available. Please check your PRIVATE_KEY in .env file and network configuration.'
+    );
   }
 
   const [deployer] = signers;
   console.log('📝 Deploying contracts with account:', deployer.address);
-  console.log('💰 Account balance:', ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
+  console.log(
+    '💰 Account balance:',
+    ethers.formatEther(await ethers.provider.getBalance(deployer.address))
+  );
 
   // Deploy TestToken
   console.log('\n📄 Deploying TestToken...');
@@ -735,15 +764,23 @@ async function main() {
 
   // Read airdrop entries and generate Merkle tree
   console.log('\n🌳 Generating Merkle tree...');
-  const airdropPath = path.join(__dirname, '../../merkle-proof-generator/data/airdrop.json');
-  const airdropEntries: AirdropEntry[] = JSON.parse(fs.readFileSync(airdropPath, 'utf8'));
+  const airdropPath = path.join(
+    __dirname,
+    '../../merkle-proof-generator/data/airdrop.json'
+  );
+  const airdropEntries: AirdropEntry[] = JSON.parse(
+    fs.readFileSync(airdropPath, 'utf8')
+  );
   const treeData = buildMerkleTree(airdropEntries);
   console.log('📁 Merkle root:', treeData.merkleRoot);
 
   // Deploy UniversalAirdrop
   console.log('\n🎯 Deploying UniversalAirdrop...');
   const UniversalAirdrop = await ethers.getContractFactory('UniversalAirdrop');
-  const airdrop = await UniversalAirdrop.deploy(tokenAddress, treeData.merkleRoot);
+  const airdrop = await UniversalAirdrop.deploy(
+    tokenAddress,
+    treeData.merkleRoot
+  );
   await airdrop.waitForDeployment();
   const airdropAddress = await airdrop.getAddress();
   console.log('✅ UniversalAirdrop deployed to:', airdropAddress);
@@ -753,7 +790,9 @@ async function main() {
     return sum + BigInt(entry.amount);
   }, 0n);
 
-  console.log(`\n💸 Total airdrop amount: ${ethers.formatEther(totalAmount)} TEST tokens`);
+  console.log(
+    `\n💸 Total airdrop amount: ${ethers.formatEther(totalAmount)} TEST tokens`
+  );
 
   // Transfer tokens to airdrop contract
   console.log('🔄 Transferring tokens to airdrop contract...');
@@ -764,8 +803,12 @@ async function main() {
   // Verify balances
   const airdropBalance = await token.balanceOf(airdropAddress);
   const deployerBalance = await token.balanceOf(deployer.address);
-  console.log(`🏦 Airdrop contract balance: ${ethers.formatEther(airdropBalance)} TEST`);
-  console.log(`👤 Deployer balance: ${ethers.formatEther(deployerBalance)} TEST`);
+  console.log(
+    `🏦 Airdrop contract balance: ${ethers.formatEther(airdropBalance)} TEST`
+  );
+  console.log(
+    `👤 Deployer balance: ${ethers.formatEther(deployerBalance)} TEST`
+  );
 
   // Save deployment info
   const deploymentInfo = {
@@ -785,7 +828,10 @@ async function main() {
     deployedAt: new Date().toISOString(),
   };
 
-  const deploymentPath = path.join(__dirname, '../../merkle-proof-generator/data/deployment.json');
+  const deploymentPath = path.join(
+    __dirname,
+    '../../merkle-proof-generator/data/deployment.json'
+  );
   fs.writeFileSync(deploymentPath, JSON.stringify(deploymentInfo, null, 2));
   console.log(`\n💾 Deployment info saved to: ${deploymentPath}`);
 
@@ -796,7 +842,10 @@ async function main() {
     merkleRoot: treeData.merkleRoot,
   };
 
-  const addressesPath = path.join(__dirname, '../../merkle-proof-generator/data/addresses.json');
+  const addressesPath = path.join(
+    __dirname,
+    '../../merkle-proof-generator/data/addresses.json'
+  );
   fs.mkdirSync(path.dirname(addressesPath), { recursive: true });
   fs.writeFileSync(addressesPath, JSON.stringify(addresses, null, 2));
   console.log(`📄 Contract addresses saved for frontend: ${addressesPath}`);
@@ -812,7 +861,9 @@ async function main() {
   console.log('\n🚀 Next steps:');
   console.log('   1. For local testing: npx hardhat node');
   console.log('   2. Start frontend: npm run dev');
-  console.log('   3. Copy tree.json and addresses.json to public/ for frontend access');
+  console.log(
+    '   3. Copy tree.json and addresses.json to public/ for frontend access'
+  );
   console.log('   4. Visit http://localhost:5173 to claim tokens');
 }
 
@@ -914,6 +965,7 @@ Current network: pushDonut
 ```
 
 After successful deployment, you'll have:
+
 - ✅ **TestToken contract** deployed and funded
 - ✅ **UniversalAirdrop contract** deployed with Merkle root
 - ✅ **Airdrop contract funded** with tokens for distribution
@@ -988,7 +1040,12 @@ Copy `merkle-proof-generator/data/tree.json` and `merkle-proof-generator/data/ad
 ```tsx
 import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
-import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI } from '@pushchain/ui-kit';
+import {
+  PushUniversalAccountButton,
+  usePushWalletContext,
+  usePushChainClient,
+  PushUI,
+} from '@pushchain/ui-kit';
 import { PushChain } from '@pushchain/core';
 
 // Universal Airdrop Contract ABI - Standard format for PushChain encoding
@@ -1010,18 +1067,26 @@ const AIRDROP_ABI = [
 // Chain options for the UI (now used only for display names)
 const CHAIN_OPTIONS = [
   { namespace: 'eip155', id: '11155111', name: 'Ethereum Sepolia' },
-  { namespace: 'solana', id: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1', name: 'Solana Devnet' },
+  {
+    namespace: 'solana',
+    id: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
+    name: 'Solana Devnet',
+  },
   { namespace: 'eip155', id: '42101', name: 'Push Chain Testnet' },
 ];
 
 // Helper function to get chain name from namespace and id
 const getChainName = (namespace: string, id: string): string => {
-  const chain = CHAIN_OPTIONS.find((chain) => chain.namespace === namespace && chain.id === id);
+  const chain = CHAIN_OPTIONS.find(
+    (chain) => chain.namespace === namespace && chain.id === id
+  );
   return chain ? chain.name : `${namespace}:${id}`;
 };
 
 // Normalize origin.chain (e.g., 'eip155:42101') to our app's namespace/id scheme
-const normalizeChainFromOrigin = (originChain: string): { namespace: string; id: string; name: string } => {
+const normalizeChainFromOrigin = (
+  originChain: string
+): { namespace: string; id: string; name: string } => {
   const [ns, chainId] = String(originChain).split(':');
 
   // No special mapping; tree.json uses 'eip155' with id '42101'
@@ -1040,7 +1105,11 @@ function WalletUI() {
   const [hasClaimed, setHasClaimed] = useState(false);
   const [claimAmount, setClaimAmount] = useState('');
   const [proof, setProof] = useState<string[]>([]);
-  const [detectedChain, setDetectedChain] = useState<{ namespace: string; id: string; name: string } | null>(null);
+  const [detectedChain, setDetectedChain] = useState<{
+    namespace: string;
+    id: string;
+    name: string;
+  } | null>(null);
   const [treeData, setTreeData] = useState<any>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -1077,7 +1146,10 @@ function WalletUI() {
 
   // Detect chain when connection status changes
   useEffect(() => {
-    if (connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && pushChainClient) {
+    if (
+      connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED &&
+      pushChainClient
+    ) {
       // Try to get the origin chain from the Push client
       try {
         console.log('Detecting origin chain from Push client...');
@@ -1161,7 +1233,10 @@ function WalletUI() {
         console.log('Using origin address for lookup:', currentLookupAddress);
       } else {
         currentLookupAddress = pushChainClient.universal.account;
-        console.log('Origin not available, using UEA address for lookup:', currentLookupAddress);
+        console.log(
+          'Origin not available, using UEA address for lookup:',
+          currentLookupAddress
+        );
       }
 
       if (!currentLookupAddress) {
@@ -1173,14 +1248,17 @@ function WalletUI() {
       console.log('Detected chain:', detectedChain);
 
       if (!detectedChain) {
-        setError('Could not detect your origin chain. Please try reconnecting your wallet.');
+        setError(
+          'Could not detect your origin chain. Please try reconnecting your wallet.'
+        );
         return;
       }
 
       // Find the user's entry based on their address and detected chain
       const userEntry = treeData.entries.find(
         (entry: any) =>
-          entry.recipient.toLowerCase() === currentLookupAddress.toLowerCase() &&
+          entry.recipient.toLowerCase() ===
+            currentLookupAddress.toLowerCase() &&
           entry.chainNamespace === detectedChain.namespace &&
           entry.chainId === detectedChain.id
       );
@@ -1214,7 +1292,16 @@ function WalletUI() {
     } finally {
       setIsLoadingProof(false);
     }
-  }, [treeData, pushChainClient, detectedChain, setError, setSuccess, setProof, setClaimAmount, setIsLoadingProof]);
+  }, [
+    treeData,
+    pushChainClient,
+    detectedChain,
+    setError,
+    setSuccess,
+    setProof,
+    setClaimAmount,
+    setIsLoadingProof,
+  ]);
 
   // Check claim status and auto-load proof when detected chain changes
   useEffect(() => {
@@ -1229,7 +1316,15 @@ function WalletUI() {
       // Auto-load proof when wallet is connected, chain is detected, and tree data is loaded
       loadUserProof();
     }
-  }, [detectedChain, connectionStatus, pushChainClient, contractAddresses, treeData, checkClaimStatus, loadUserProof]);
+  }, [
+    detectedChain,
+    connectionStatus,
+    pushChainClient,
+    contractAddresses,
+    treeData,
+    checkClaimStatus,
+    loadUserProof,
+  ]);
 
   // Early return if contract addresses aren't loaded yet
   if (!contractAddresses) {
@@ -1272,7 +1367,9 @@ function WalletUI() {
       const receipt = await tx.wait();
       console.log('receipt', receipt);
 
-      setSuccess(`Tokens claimed successfully from ${detectedChain.name}! Transaction: ${tx.hash}`);
+      setSuccess(
+        `Tokens claimed successfully from ${detectedChain.name}! Transaction: ${tx.hash}`
+      );
       setHasClaimed(true);
 
       // TODO: Update balance using pushChainClient
@@ -1293,7 +1390,9 @@ function WalletUI() {
         fontFamily: 'system-ui, sans-serif',
       }}
     >
-      <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>Universal Airdrop</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>
+        Universal Airdrop
+      </h1>
       <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
         Claim tokens using Push Chain's Universal External Accounts
       </p>
@@ -1305,15 +1404,22 @@ function WalletUI() {
       {connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED ? (
         <div>
           <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>Connected Account</p>
+            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>
+              Connected Account
+            </p>
             <p style={{ fontFamily: 'monospace', fontSize: '14px' }}>
-              {pushChainClient?.universal?.account?.slice(0, 8)}...{pushChainClient?.universal?.account?.slice(-6)}
+              {pushChainClient?.universal?.account?.slice(0, 8)}...
+              {pushChainClient?.universal?.account?.slice(-6)}
             </p>
           </div>
 
           <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>Origin Chain</p>
-            <p style={{ fontWeight: 'bold' }}>{detectedChain ? detectedChain.name : 'Detecting...'}</p>
+            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>
+              Origin Chain
+            </p>
+            <p style={{ fontWeight: 'bold' }}>
+              {detectedChain ? detectedChain.name : 'Detecting...'}
+            </p>
           </div>
 
           {hasClaimed ? (
@@ -1371,11 +1477,28 @@ function WalletUI() {
                       border: '2px solid #646cff',
                     }}
                   >
-                    <p style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>
+                    <p
+                      style={{
+                        margin: '0 0 4px 0',
+                        fontSize: '12px',
+                        color: '#666',
+                        fontWeight: 'bold',
+                      }}
+                    >
                       CLAIM AMOUNT
                     </p>
-                    <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#646cff' }}>
-                      {claimAmount} <span style={{ fontSize: '16px', color: '#666' }}>TOKENS</span>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        color: '#646cff',
+                      }}
+                    >
+                      {claimAmount}{' '}
+                      <span style={{ fontSize: '16px', color: '#666' }}>
+                        TOKENS
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -1383,23 +1506,47 @@ function WalletUI() {
 
               <button
                 onClick={claimTokens}
-                disabled={isClaiming || isLoadingProof || !claimAmount || proof.length === 0}
+                disabled={
+                  isClaiming ||
+                  isLoadingProof ||
+                  !claimAmount ||
+                  proof.length === 0
+                }
                 style={{
                   width: '100%',
                   padding: '16px',
                   fontSize: '18px',
                   fontWeight: 'bold',
                   backgroundColor:
-                    isClaiming || isLoadingProof || !claimAmount || proof.length === 0 ? '#ccc' : '#646cff',
+                    isClaiming ||
+                    isLoadingProof ||
+                    !claimAmount ||
+                    proof.length === 0
+                      ? '#ccc'
+                      : '#646cff',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   cursor:
-                    isClaiming || isLoadingProof || !claimAmount || proof.length === 0 ? 'not-allowed' : 'pointer',
+                    isClaiming ||
+                    isLoadingProof ||
+                    !claimAmount ||
+                    proof.length === 0
+                      ? 'not-allowed'
+                      : 'pointer',
                   transition: 'all 0.2s ease',
-                  transform: isClaiming || isLoadingProof || !claimAmount || proof.length === 0 ? 'none' : 'scale(1)',
+                  transform:
+                    isClaiming ||
+                    isLoadingProof ||
+                    !claimAmount ||
+                    proof.length === 0
+                      ? 'none'
+                      : 'scale(1)',
                   boxShadow:
-                    isClaiming || isLoadingProof || !claimAmount || proof.length === 0
+                    isClaiming ||
+                    isLoadingProof ||
+                    !claimAmount ||
+                    proof.length === 0
                       ? 'none'
                       : '0 4px 12px rgba(100, 108, 255, 0.3)',
                 }}
@@ -1407,8 +1554,8 @@ function WalletUI() {
                 {isLoadingProof
                   ? '⏳ Loading Your Proof...'
                   : isClaiming
-                  ? '⏳ Claiming Tokens...'
-                  : `🚀 Claim ${claimAmount || '0'} Tokens`}
+                    ? '⏳ Claiming Tokens...'
+                    : `🚀 Claim ${claimAmount || '0'} Tokens`}
               </button>
             </div>
           )}
@@ -1445,9 +1592,24 @@ function WalletUI() {
         </div>
       )}
 
-      <div style={{ marginTop: '30px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
-        <p style={{ fontSize: '14px', color: '#666', margin: 0, textAlign: 'center' }}>
-          Connect your wallet and your airdrop details will be loaded automatically
+      <div
+        style={{
+          marginTop: '30px',
+          padding: '16px',
+          backgroundColor: '#f8f9fa',
+          borderRadius: '8px',
+        }}
+      >
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#666',
+            margin: 0,
+            textAlign: 'center',
+          }}
+        >
+          Connect your wallet and your airdrop details will be loaded
+          automatically
         </p>
       </div>
     </div>
@@ -1460,4 +1622,3 @@ export default WalletUI;
 ## Conclusion
 
 You generated **Merkle proofs** from an airdrop list, deployed a **Universal Merkle‑verified airdrop contract** to **Push Chain Donut Testnet**, and added a **claim UI**. With this universal airdrop system, users from different chains can claim their tokens seamlessly using Push Chain's Universal External Accounts (UEA) system.
-
