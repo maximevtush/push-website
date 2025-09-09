@@ -50,6 +50,12 @@ function loadClientSideLibraryBS58() {
     : {}; // Return an empty object or appropriate placeholder for SSR.
 }
 
+function loadClientSideLibraryOpenZepplinMerkleTree(constantName) {
+  return typeof window !== 'undefined'
+    ? require('@openzeppelin/merkle-tree')[constantName]
+    : {}; // Return an empty object or appropriate placeholder for SSR.
+}
+
 function loadClientSideLibraryPushProtocolRestAPI(constantName) {
   return typeof window !== 'undefined'
     ? require('@pushprotocol/restapi')[constantName]
@@ -137,6 +143,8 @@ const ReactLiveScope = {
   bytesToHex: loadClientSideLibraryViemUtils('bytesToHex'),
 
   bs58: loadClientSideLibraryBS58(),
+  StandardMerkleTree:
+    loadClientSideLibraryOpenZepplinMerkleTree('StandardMerkleTree'),
 
   PushAPI: loadClientSideLibraryPushProtocolRestAPI('PushAPI'),
   // CONSTANTS: loadClientSideLibraryPushProtocolRestAPI('CONSTANTS'),

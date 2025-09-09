@@ -223,6 +223,7 @@ function App() {
         sepolia,
         hexToBytes,
         bs58,
+        StandardMerkleTree,
         bytesToHex,
         createWalletClient,
         createPublicClient,
