@@ -1061,15 +1061,16 @@ createRoot(document.getElementById('root')!).render(
 
 The `PushUniversalWalletProvider` component requires a `config` prop that specifies the network configuration. In this example, we're using the Push Chain testnet.
 
-### 5.4. Add `deployed-addresses.json` to `public/`
+### 5.4. Set constants for addresses
 
-Place the deployed addresses file in your frontend's `public` folder so the app can read your `$AIRDROP` at runtime:
+Define your constants in code instead of fetching a JSON file:
 
-```json
-{
-  "AIRDROP_ADDR": "0xYourAirdropTokenAddress",
-  "POOL_ADDR": "0xOptionalPrecreatedPoolAddress"
-}
+```ts
+const ADDRESSES = {
+  AIRDROP_ADDR: '0x283E86104750B03Ed527Fa049193052778326122',
+  POOL_ADDR: '0xf60F15211FaE940CD5a93d00359838AdD8e4cC54',
+  network: 'pushDonut',
+} as const;
 ```
 
 ### 5.5. Creating the Application Component
@@ -1098,7 +1099,12 @@ function PushSwapExample() {
   const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
   const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
   const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
-  // Airdrop token address will be loaded from /public/deployed-addresses.json at runtime
+  // Airdrop token address via constants (no JSON fetch)
+  const ADDRESSES = {
+    AIRDROP_ADDR: '0x283E86104750B03Ed527Fa049193052778326122',
+    POOL_ADDR: '0xf60F15211FaE940CD5a93d00359838AdD8e4cC54',
+    network: 'pushDonut',
+  } as const;
 
   // Minimal ABIs
   const ERC20_ABI = [
@@ -1130,7 +1136,7 @@ function PushSwapExample() {
     const [isPoolLoading, setIsPoolLoading] = useState(false);
     const [swapTransactionHash, setSwapTransactionHash] = useState(null);
     const [error, setError] = useState(null);
-    const [airdropTokenAddress, setAirdropTokenAddress] = useState(null);
+    const [airdropTokenAddress, setAirdropTokenAddress] = useState(ADDRESSES.AIRDROP_ADDR);
     const [configError, setConfigError] = useState(null);
     // Mint WPUSH state
     const [mintAmount, setMintAmount] = useState('');
@@ -1303,21 +1309,11 @@ function PushSwapExample() {
       mintRow: { display: 'grid', gridTemplateColumns: '1fr auto', gap: 8 },
     };
 
-    // Load Airdrop address from /public/deployed-addresses.json
+    // Initialize from constants
     useEffect(() => {
-      (async () => {
-        try {
-          setConfigError(null);
-          const res = await fetch('/deployed-addresses.json');
-          const json = await res.json();
-          const addr = json?.AIRDROP_ADDR;
-          setAirdropTokenAddress(addr && addr.startsWith('0x') ? addr : null);
-          const paddr = json?.POOL_ADDR;
-          setPoolAddress(paddr && paddr.startsWith('0x') ? paddr : null);
-        } catch {
-          setConfigError('Failed to load deployed-addresses.json');
-        }
-      })();
+      setAirdropTokenAddress(ADDRESSES.AIRDROP_ADDR);
+      setPoolAddress(ADDRESSES.POOL_ADDR);
+      setConfigError(null);
     }, []);
 
     useEffect(() => {
