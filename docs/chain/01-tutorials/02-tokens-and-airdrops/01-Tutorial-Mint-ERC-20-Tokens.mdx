@@ -446,13 +446,15 @@ Example output:
 
 ## Part 3: Create `$AIRDROP/$WPUSH` Pool and Add Liquidity
 
-Create `scripts/create-pool.ts` to create and initialize the pool and add liquidity via PositionManager.
+For this part, we'll use the `ethers` library to interact with the Push Chain network. Install `ethers` by running:
 
 ```bash
 npm install ethers
 ```
 
-<NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/send-universal-transaction"}}>
+Then create `scripts/create-pool.ts` to create and initialize the pool and add liquidity via PositionManager:
+
+<NodeJSVirtualIDE>
 
 {`
   import { ethers } from 'ethers';
@@ -823,256 +825,11 @@ Pool initialized
 Liquidity added. Tx: 0x944d81a58c4fb12a4eb72a7bcffd3b121a248334bcf3972a5614a91826ffc407
 ```
 
-## Part 4: Programmatic Swap (`$WPUSH` → `$AIRDROP`)
-
-Create `scripts/swap-airdrop.ts` to swap `$WPUSH` to `$AIRDROP`:
-
-```typescript
-import { config as loadEnv } from 'dotenv';
-import { ethers } from 'ethers';
-import { readFileSync } from 'fs';
-
-loadEnv();
-
-// --- Constants ---
-const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
-const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
-const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
-// Read deployed AIRDROP address from file
-let AIRDROP: string;
-try {
-  const deployedData = JSON.parse(
-    readFileSync('./deployed-addresses.json', 'utf8')
-  );
-  AIRDROP = deployedData.AIRDROP_ADDR;
-  console.log(
-    '📝 Using AIRDROP address from deployed-addresses.json:',
-    AIRDROP
-  );
-} catch (error) {
-  console.error(
-    '❌ Could not read deployed-addresses.json. Please run deploy.ts first.'
-  );
-  process.exit(1);
-}
-// Use existing WPUSH deployment
-const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
-// Human amount to swap (WPUSH units)
-const AMOUNT_IN_HUMAN = '1';
-
-// v6/v5 compatibility shims (prefer v6; fallback to v5 if present in workspace)
-const EthersCompat = {
-  parseUnits: (
-    (ethers as any).parseUnits ?? (ethers as any).utils?.parseUnits
-  ).bind(ethers),
-  formatUnits: (
-    (ethers as any).formatUnits ?? (ethers as any).utils?.formatUnits
-  ).bind(ethers),
-  ZeroAddress:
-    (ethers as any).ZeroAddress ?? (ethers as any).constants?.AddressZero,
-  MaxUint256:
-    (ethers as any).MaxUint256 ?? (ethers as any).constants?.MaxUint256,
-  JsonRpcProvider:
-    (ethers as any).JsonRpcProvider ??
-    (ethers as any).providers?.JsonRpcProvider,
-};
-
-// --- Minimal ABIs ---
-const ABI = {
-  erc20: [
-    'function symbol() view returns (string)',
-    'function decimals() view returns (uint8)',
-    'function balanceOf(address) view returns (uint256)',
-    'function allowance(address,address) view returns (uint256)',
-    'function approve(address,uint256) returns (bool)',
-  ],
-  pool: ['function fee() view returns (uint24)'],
-  swapRouter: [
-    'function exactInputSingle((address tokenIn, address tokenOut, uint24 fee, address recipient, uint256 deadline, uint256 amountIn, uint256 amountOutMinimum, uint160 sqrtPriceLimitX96)) payable returns (uint256 amountOut)',
-  ],
-  factory: ['function getPool(address,address,uint24) view returns (address)'],
-} as const;
-
-async function safeApprove(
-  token: any,
-  spender: string,
-  amount: bigint,
-  owner: string
-): Promise<void> {
-  const current = await token.allowance(owner, spender);
-  if (current >= amount) return;
-  const tx = await token.approve(spender, EthersCompat.MaxUint256);
-  await tx.wait();
-}
-
-function sortTokens(a: string, b: string): [string, string] {
-  return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
-}
-
-async function findPool(
-  factory: any,
-  tokenA: string,
-  tokenB: string
-): Promise<{ address: string; fee: number }> {
-  const fees = [3000, 500, 10000];
-  const [t0, t1] = sortTokens(tokenA, tokenB);
-  for (const fee of fees) {
-    const addr: string = await factory.getPool(t0, t1, fee);
-    if (addr && addr !== EthersCompat.ZeroAddress)
-      return { address: addr, fee };
-  }
-  throw new Error('No pool found for given token pair on common fee tiers');
-}
-
-async function main(): Promise<void> {
-  if (!process.env.PRIVATE_KEY) throw new Error('PRIVATE_KEY missing');
-
-  if (!AIRDROP || AIRDROP === EthersCompat.ZeroAddress) {
-    throw new Error('Set AIRDROP address constant to your deployed token');
-  }
-
-  const provider = new EthersCompat.JsonRpcProvider(RPC);
-  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
-
-  const tokenInAddress = WPUSH;
-  const tokenOutAddress = AIRDROP;
-
-  const tokenIn = new ethers.Contract(tokenInAddress, ABI.erc20, wallet);
-  const tokenOut = new ethers.Contract(tokenOutAddress, ABI.erc20, wallet);
-  const factory = new ethers.Contract(FACTORY, ABI.factory, wallet);
-
-  // Locate pool and fee automatically
-  const { address: poolAddress, fee } = await findPool(
-    factory,
-    tokenInAddress,
-    tokenOutAddress
-  );
-  const pool = new ethers.Contract(poolAddress, ABI.pool, wallet);
-  const router = new ethers.Contract(SWAP_ROUTER, ABI.swapRouter, wallet);
-
-  const [decIn, decOut, symIn, symOut] = await Promise.all([
-    tokenIn.decimals(),
-    tokenOut.decimals(),
-    tokenIn.symbol(),
-    tokenOut.symbol(),
-  ]);
-
-  const amountIn: bigint = EthersCompat.parseUnits(AMOUNT_IN_HUMAN, decIn);
-
-  const [balInBefore, balOutBefore] = await Promise.all([
-    tokenIn.balanceOf(wallet.address),
-    tokenOut.balanceOf(wallet.address),
-  ]);
-
-  console.log('🔄 PERFORMING SWAP');
-  console.log('='.repeat(50));
-  console.log('Pool       :', poolAddress);
-  console.log('Token In   :', symIn, tokenInAddress);
-  console.log('Token Out  :', symOut, tokenOutAddress);
-  console.log('Amount In  :', AMOUNT_IN_HUMAN, symIn);
-  console.log('Balances BEFORE:');
-  console.log(
-    `  ${symIn}  :`,
-    EthersCompat.formatUnits(balInBefore, decIn),
-    symIn
-  );
-  console.log(
-    `  ${symOut} :`,
-    EthersCompat.formatUnits(balOutBefore, decOut),
-    symOut
-  );
-
-  // Approve router to spend tokenIn if needed (ethers v6: use target or getAddress)
-  const routerAddr: string =
-    (router as any).target ??
-    (router as any).address ??
-    (await (router as any).getAddress?.());
-  await safeApprove(tokenIn, routerAddr, amountIn, wallet.address);
-
-  const params = {
-    tokenIn: tokenInAddress,
-    tokenOut: tokenOutAddress,
-    fee, // from located pool
-    recipient: wallet.address,
-    deadline: Math.floor(Date.now() / 1000) + 600,
-    amountIn,
-    amountOutMinimum: 0n, // for simplicity; set slippage protections as needed
-    sqrtPriceLimitX96: 0n,
-  };
-
-  console.log('Executing swap...');
-  const tx = await router.exactInputSingle(params);
-  const rc = await tx.wait();
-  console.log('Tx Hash    :', rc?.hash ?? rc?.transactionHash);
-
-  const [balInAfter, balOutAfter] = await Promise.all([
-    tokenIn.balanceOf(wallet.address),
-    tokenOut.balanceOf(wallet.address),
-  ]);
-
-  const spentIn = balInBefore > balInAfter ? balInBefore - balInAfter : 0n;
-  const recvOut = balOutAfter > balOutBefore ? balOutAfter - balOutBefore : 0n;
-
-  console.log('📊 Results');
-  console.log('Balances AFTER:');
-  console.log(
-    `  ${symIn}  :`,
-    EthersCompat.formatUnits(balInAfter, decIn),
-    symIn
-  );
-  console.log(
-    `  ${symOut} :`,
-    EthersCompat.formatUnits(balOutAfter, decOut),
-    symOut
-  );
-  console.log('Spent In   :', EthersCompat.formatUnits(spentIn, decIn), symIn);
-  console.log(
-    'Received Out:',
-    EthersCompat.formatUnits(recvOut, decOut),
-    symOut
-  );
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
-```
-
-Run:
-
-```bash
-npx ts-node scripts/swap-airdrop.ts
-```
-
-Example output:
-
-```bash
-📝 Using AIRDROP address from deployed-addresses.json: 0x283E86104750B03Ed527Fa049193052778326122
-🔄 PERFORMING SWAP
-==================================================
-Pool       : 0xf60F15211FaE940CD5a93d00359838AdD8e4cC54
-Token In   : WPUSH 0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818
-Token Out  : AIRDROP 0x283E86104750B03Ed527Fa049193052778326122
-Amount In  : 1 WPUSH
-Balances BEFORE:
-  WPUSH  : 6.778933973512498589 WPUSH
-  AIRDROP : 999000.000000000000000001 AIRDROP
-Executing swap...
-Tx Hash    : 0x697c47985a1ada0e4ec6219a1a347a9d5702321dbf16be9973303507077e9880
-📊 Results
-Balances AFTER:
-  WPUSH  : 5.778933973512498589 WPUSH
-  AIRDROP : 999499.248873309964946982 AIRDROP
-Spent In   : 1.0 WPUSH
-Received Out: 499.248873309964946981 AIRDROP
-```
-
-## Part 5: Building the Frontend UI
+## Part 4: Building the Frontend UI
 
 > **Note:** To learn more about how to integrate Push Universal Wallet, please refer to the [Integrate Push Universal Wallet](/docs/chain/04-ui-kit/01-Integrate-Push-Universal-Wallet.mdx) page.
 
-### 5.1. Setting up Vite + React + TypeScript frontend
+### 4.1. Setting up Vite + React + TypeScript frontend
 
 Create a new directory for the frontend and install the necessary dependencies:
 
@@ -1082,7 +839,7 @@ cd my-react-ts-app
 npm install
 ```
 
-### 5.2. Installing `@pushchain/ui-kit`
+### 4.2. Installing `@pushchain/ui-kit`
 
 Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll use to interact with the Push Chain network:
 
@@ -1090,7 +847,7 @@ Install `@pushchain/ui-kit` in the frontend directory and `ethers` that we'll us
 npm install @pushchain/ui-kit ethers
 ```
 
-### 5.3. Setting up the Push Chain Wallet
+### 4.3. Setting up the Push Chain Wallet
 
 To use the Push Universal Wallet in your application, you need to wrap your app with the `PushUniversalWalletProvider` component. This provider makes the wallet functionality available throughout your application.
 
@@ -1118,7 +875,7 @@ createRoot(document.getElementById('root')!).render(
 
 The `PushUniversalWalletProvider` component requires a `config` prop that specifies the network configuration. In this example, we're using the Push Chain testnet.
 
-### 5.4. Set constants for addresses
+### 4.4. Set constants for addresses
 
 Define your constants in code instead of fetching a JSON file:
 
@@ -1130,7 +887,7 @@ const ADDRESSES = {
 } as const;
 ```
 
-### 5.5. Creating the Application Component
+### 4.5. Creating the Application Component
 
 Open `App.tsx` and replace it with the following implementation. This app:
 
@@ -1140,6 +897,7 @@ Open `App.tsx` and replace it with the following implementation. This app:
 - Displays balances and transaction hashes with explorer links
 
 ```jsx live
+// customPropMinimized='true'
 import { useEffect, useMemo, useState } from 'react';
 import { ethers } from 'ethers';
 import {
