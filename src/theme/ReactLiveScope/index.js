@@ -86,18 +86,6 @@ function loadClientSideReactIconsBS(iconName) {
     : () => null;
 }
 
-function loadClientSideLibraryMerkleTree(constantName) {
-  return typeof window !== 'undefined'
-    ? require('merkletreejs')[constantName]
-    : Promise.resolve({}); // Return an empty object or appropriate placeholder for SSR.
-}
-
-function loadClientSideLibraryBigNumber(constantName) {
-  return typeof window !== 'undefined'
-    ? require('bignumber.js')[constantName]
-    : Promise.resolve({}); // Return an empty object or appropriate placeholder for SSR.
-}
-
 // For @pushprotocol/UIWeb components, we will dynamically load them in the BrowserOnly component.
 function createBrowserOnlyLibComponentUIWeb(componentExportName) {
   return function LibComponentBrowserOnly(props) {
@@ -198,8 +186,6 @@ const ReactLiveScope = {
   PushUI: loadClientSideLibraryPushChainUIKit('PushUI'),
   PushChain: loadClientSideLibraryPushChainCore('PushChain'),
   BsBoxArrowUpRight: loadClientSideReactIconsBS('BsBoxArrowUpRight'),
-  MerkleTree: loadClientSideLibraryMerkleTree('MerkleTree'),
-  BigNumber: loadClientSideLibraryBigNumber('BigNumber'),
 };
 
 export default ReactLiveScope;
