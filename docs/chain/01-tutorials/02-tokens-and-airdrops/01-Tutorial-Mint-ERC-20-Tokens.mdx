@@ -458,351 +458,351 @@ npm install ethers
   import { ethers } from 'ethers';
   import \* as readline from 'node:readline/promises';
 
-  // --- Constants (update if different) ---
-  const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
-  const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
-  const POSITION_MANAGER = '0xf90F08fD301190Cd34CC9eFc5A76351e95051670';
-  // Use the deployed WPUSH used by other scripts in this repo
-  const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
-  const AIRDROP = '0x59cf8bF716157ec7f7d7d37f8Bcb0EeacE826c7B';
+    // --- Constants (update if different) ---
+    const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
+    const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
+    const POSITION_MANAGER = '0xf90F08fD301190Cd34CC9eFc5A76351e95051670';
+    // Use the deployed WPUSH used by other scripts in this repo
+    const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
+    const AIRDROP = '0x59cf8bF716157ec7f7d7d37f8Bcb0EeacE826c7B';
 
-  // Enable User Input
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+    // Enable User Input
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
 
-  // Using in-file constant for AIRDROP address
-  console.log('📝 Using AIRDROP address:', AIRDROP);
+    // Using in-file constant for AIRDROP address
+    console.log('📝 Using AIRDROP address:', AIRDROP);
 
-  // --- Minimal ABIs ---
-  const ABI = {
-    factory: [
-      'function getPool(address,address,uint24) view returns (address)',
-      'function createPool(address,address,uint24) returns (address)',
-      'event PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)',
-    ],
-    pool: [
-      'function initialize(uint160 sqrtPriceX96)',
-      'function fee() view returns (uint24)',
-      'function token0() view returns (address)',
-      'function token1() view returns (address)',
-      'function slot0() view returns (uint160 sqrtPriceX96, int24 tick, uint16, uint16, uint16, uint8, bool)',
-    ],
-    erc20: [
-      'function symbol() view returns (string)',
-      'function decimals() view returns (uint8)',
-      'function balanceOf(address) view returns (uint256)',
-      'function allowance(address,address) view returns (uint256)',
-      'function approve(address,uint256) returns (bool)',
-    ],
-    wpush: [
-      'function deposit() payable',
-      'function balanceOf(address) view returns (uint256)',
-      'function decimals() view returns (uint8)',
-      'function symbol() view returns (string)',
-    ],
-    positionManager: [
-      'function mint((address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint256 amount0Desired, uint256 amount1Desired, uint256 amount0Min, uint256 amount1Min, address recipient, uint256 deadline)) returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)',
-    ],
-  };
+    // --- Minimal ABIs ---
+    const ABI = {
+      factory: [
+        'function getPool(address,address,uint24) view returns (address)',
+        'function createPool(address,address,uint24) returns (address)',
+        'event PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)',
+      ],
+      pool: [
+        'function initialize(uint160 sqrtPriceX96)',
+        'function fee() view returns (uint24)',
+        'function token0() view returns (address)',
+        'function token1() view returns (address)',
+        'function slot0() view returns (uint160 sqrtPriceX96, int24 tick, uint16, uint16, uint16, uint8, bool)',
+      ],
+      erc20: [
+        'function symbol() view returns (string)',
+        'function decimals() view returns (uint8)',
+        'function balanceOf(address) view returns (uint256)',
+        'function allowance(address,address) view returns (uint256)',
+        'function approve(address,uint256) returns (bool)',
+      ],
+      wpush: [
+        'function deposit() payable',
+        'function balanceOf(address) view returns (uint256)',
+        'function decimals() view returns (uint8)',
+        'function symbol() view returns (string)',
+      ],
+      positionManager: [
+        'function mint((address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint256 amount0Desired, uint256 amount1Desired, uint256 amount0Min, uint256 amount1Min, address recipient, uint256 deadline)) returns (uint256 tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)',
+      ],
+    };
 
-  
+    
 
-  // Integer helpers using bigint
-  function pow10(exponent) {
-    let result = 1n;
-    for (let i = 0; i < exponent; i++) result *= 10n;
-    return result;
-  }
-
-  function sqrtRatioFloor(numerator, denominator) {
-    if (denominator <= 0n) throw new Error('Denominator must be positive');
-    // Find integer p = floor( sqrt(numerator / denominator) )
-    // by searching p such that p^2 * denominator <= numerator
-    let low = 0n;
-    let high = 1n;
-    while (high * high * denominator <= numerator) {
-      high <<= 1n;
+    // Integer helpers using bigint
+    function pow10(exponent) {
+      let result = 1n;
+      for (let i = 0; i < exponent; i++) result *= 10n;
+      return result;
     }
-    while (low + 1n < high) {
-      const mid = (low + high) >> 1n;
-      if (mid * mid * denominator <= numerator) {
-        low = mid;
-      } else {
-        high = mid;
+
+    function sqrtRatioFloor(numerator, denominator) {
+      if (denominator <= 0n) throw new Error('Denominator must be positive');
+      // Find integer p = floor( sqrt(numerator / denominator) )
+      // by searching p such that p^2 * denominator <= numerator
+      let low = 0n;
+      let high = 1n;
+      while (high * high * denominator <= numerator) {
+        high <<= 1n;
       }
+      while (low + 1n < high) {
+        const mid = (low + high) >> 1n;
+        if (mid * mid * denominator <= numerator) {
+          low = mid;
+        } else {
+          high = mid;
+        }
+      }
+      return low;
     }
-    return low;
-  }
 
-  // Precise sqrtPriceX96 calculator matching Uniswap encodePriceSqrt (no floating point)
-  function sqrtPriceX96FromHumanRatio(
-    priceRatio,
-    token0Decimals,
-    token1Decimals
-  ) {
-    const s = priceRatio.toString();
-    const SCALE = 36; // high precision scale for decimal parsing
-    const ratioScaled = ethers.parseUnits(s, SCALE);
-    const Q192 = 1n << 192n;
-    const numerator = ratioScaled * pow10(token1Decimals) * Q192;
-    const denominator = pow10(token0Decimals) * pow10(SCALE);
-    return sqrtRatioFloor(numerator, denominator);
-  }
+    // Precise sqrtPriceX96 calculator matching Uniswap encodePriceSqrt (no floating point)
+    function sqrtPriceX96FromHumanRatio(
+      priceRatio,
+      token0Decimals,
+      token1Decimals
+    ) {
+      const s = priceRatio.toString();
+      const SCALE = 36; // high precision scale for decimal parsing
+      const ratioScaled = ethers.parseUnits(s, SCALE);
+      const Q192 = 1n << 192n;
+      const numerator = ratioScaled * pow10(token1Decimals) * Q192;
+      const denominator = pow10(token0Decimals) * pow10(SCALE);
+      return sqrtRatioFloor(numerator, denominator);
+    }
 
-  function sortTokens(a, b) {
-    return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
-  }
+    function sortTokens(a, b) {
+      return a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
+    }
 
-  async function safeApprove(token, spender, amount, owner) {
-    const current = await token.allowance(owner, spender);
-    if (current >= amount) return;
-    const tx = await token.approve(spender, ethers.MaxUint256);
-    await tx.wait();
-  }
-
-  async function main() {
-    if (!AIRDROP) throw new Error('AIRDROP address not found. Please run deploy.ts first.');
-
-    const provider = new ethers.JsonRpcProvider(RPC);
-    const ephemeral = ethers.Wallet.createRandom();
-    const wallet = ephemeral.connect(provider);
-
-    console.log('🔑 Ephemeral wallet address:', wallet.address);
-    await rl.question(':::prompt:::Please send funds to: ' + wallet.address + ' on Push Testnet Donut to continue.');
-
-    const factory = new ethers.Contract(FACTORY, ABI.factory, wallet);
-    const positionManager = new ethers.Contract(POSITION_MANAGER, ABI.positionManager, wallet);
-
-    const air = new ethers.Contract(AIRDROP, ABI.erc20, wallet);
-    const wpush = new ethers.Contract(WPUSH, ABI.wpush, wallet);
-
-    // 1) Ensure WPUSH balance (wrap 5 $PC)
-    const wrapAmount = ethers.parseUnits('5', 18);
-    const bal = await wpush.balanceOf(wallet.address);
-    const nativeBefore = await provider.getBalance(wallet.address);
-    console.log('💰 Native PC balance:', ethers.formatUnits(nativeBefore, 18));
-    console.log('💧 WPUSH balance:', ethers.formatUnits(bal, 18));
-    if (bal < wrapAmount) {
-      const needed = wrapAmount - bal;
-      let nativeBal = nativeBefore;
-      while (nativeBal < needed) {
-        console.log(
-          '⏳ Insufficient native PC. Needed:',
-          ethers.formatUnits(needed, 18),
-          'PC; Have:',
-          ethers.formatUnits(nativeBal, 18)
-        );
-        await rl.question(':::prompt:::Please send more native PC (for wrapping) and press Enter to retry.');
-        nativeBal = await provider.getBalance(wallet.address);
-        console.log('💰 Native PC balance:', ethers.formatUnits(nativeBal, 18));
-      }
-      console.log('Depositing native PC to get WPUSH...');
-      const tx = await wpush.deposit({ value: needed });
+    async function safeApprove(token, spender, amount, owner) {
+      const current = await token.allowance(owner, spender);
+      if (current >= amount) return;
+      const tx = await token.approve(spender, ethers.MaxUint256);
       await tx.wait();
     }
 
-    // 2) Create or fetch pool: AIRDROP/WPUSH @ 0.3%
-    const fee = 3000;
-    const [token0, token1] = sortTokens(AIRDROP, WPUSH);
+    async function main() {
+      if (!AIRDROP) throw new Error('AIRDROP address not found. Please run deploy.ts first.');
 
-    let pool = await factory.getPool(token0, token1, fee);
-    if (pool === ethers.ZeroAddress) {
-      console.log('Creating pool...');
-      const tx = await factory.createPool(token0, token1, fee);
-      const receipt = await tx.wait();
+      const provider = new ethers.JsonRpcProvider(RPC);
+      const ephemeral = ethers.Wallet.createRandom();
+      const wallet = ephemeral.connect(provider);
 
-      // ethers v6 does not populate 'events'; parse logs manually
-      let poolAddr;
-      for (const log of receipt.logs) {
-        if (log.address?.toLowerCase() !== FACTORY.toLowerCase()) continue;
-        try {
-          const parsed = factory.interface.parseLog({
-            data: log.data,
-            topics: [...log.topics],
-          });
-          if (parsed?.name === 'PoolCreated') {
-            poolAddr = parsed.args.pool;
-            break;
-          }
-        } catch {}
+      console.log('🔑 Ephemeral wallet address:', wallet.address);
+      await rl.question(':::prompt:::Please send funds to: ' + wallet.address + ' on Push Testnet Donut to continue.');
+
+      const factory = new ethers.Contract(FACTORY, ABI.factory, wallet);
+      const positionManager = new ethers.Contract(POSITION_MANAGER, ABI.positionManager, wallet);
+
+      const air = new ethers.Contract(AIRDROP, ABI.erc20, wallet);
+      const wpush = new ethers.Contract(WPUSH, ABI.wpush, wallet);
+
+      // 1) Ensure WPUSH balance (wrap 5 $PC)
+      const wrapAmount = ethers.parseUnits('5', 18);
+      const bal = await wpush.balanceOf(wallet.address);
+      const nativeBefore = await provider.getBalance(wallet.address);
+      console.log('💰 Native PC balance:', ethers.formatUnits(nativeBefore, 18));
+      console.log('💧 WPUSH balance:', ethers.formatUnits(bal, 18));
+      if (bal < wrapAmount) {
+        const needed = wrapAmount - bal;
+        let nativeBal = nativeBefore;
+        while (nativeBal < needed) {
+          console.log(
+            '⏳ Insufficient native PC. Needed:',
+            ethers.formatUnits(needed, 18),
+            'PC; Have:',
+            ethers.formatUnits(nativeBal, 18)
+          );
+          await rl.question(':::prompt:::Please send more native PC (for wrapping) and press Enter to retry.');
+          nativeBal = await provider.getBalance(wallet.address);
+          console.log('💰 Native PC balance:', ethers.formatUnits(nativeBal, 18));
+        }
+        console.log('Depositing native PC to get WPUSH...');
+        const tx = await wpush.deposit({ value: needed });
+        await tx.wait();
       }
 
-      // Fallback: query factory for pool address after tx mined
-      pool = poolAddr ?? (await factory.getPool(token0, token1, fee));
-      if (!pool || pool === ethers.ZeroAddress) throw new Error('Pool not created');
-      console.log('Pool:', pool);
+      // 2) Create or fetch pool: AIRDROP/WPUSH @ 0.3%
+      const fee = 3000;
+      const [token0, token1] = sortTokens(AIRDROP, WPUSH);
 
-      // Initialize with a target price. Example: 1 AIRDROP = 0.001 PC
-      // Convert to token1/token0 ratio depending on sort order
-      const token0Contract = new ethers.Contract(token0, ABI.erc20, wallet);
-      const token1Contract = new ethers.Contract(token1, ABI.erc20, wallet);
+      let pool = await factory.getPool(token0, token1, fee);
+      if (pool === ethers.ZeroAddress) {
+        console.log('Creating pool...');
+        const tx = await factory.createPool(token0, token1, fee);
+        const receipt = await tx.wait();
 
-      const dec0 = await token0Contract.decimals();
-      const dec1 = await token1Contract.decimals();
+        // ethers v6 does not populate 'events'; parse logs manually
+        let poolAddr;
+        for (const log of receipt.logs) {
+          if (log.address?.toLowerCase() !== FACTORY.toLowerCase()) continue;
+          try {
+            const parsed = factory.interface.parseLog({
+              data: log.data,
+              topics: [...log.topics],
+            });
+            if (parsed?.name === 'PoolCreated') {
+              poolAddr = parsed.args.pool;
+              break;
+            }
+          } catch {}
+        }
 
-      const inputSymbol0 = await air.symbol();
-      const inputSymbol1 = await wpush.symbol();
+        // Fallback: query factory for pool address after tx mined
+        pool = poolAddr ?? (await factory.getPool(token0, token1, fee));
+        if (!pool || pool === ethers.ZeroAddress) throw new Error('Pool not created');
+        console.log('Pool:', pool);
 
-      const sortedSymbol0 = await token0Contract.symbol();
-      const sortedSymbol1 = await token1Contract.symbol();
+        // Initialize with a target price. Example: 1 AIRDROP = 0.001 PC
+        // Convert to token1/token0 ratio depending on sort order
+        const token0Contract = new ethers.Contract(token0, ABI.erc20, wallet);
+        const token1Contract = new ethers.Contract(token1, ABI.erc20, wallet);
 
-      const humanRatio = 0.001; // 1 AIRDROP = 0.001 PC
-      const actualRatio =
-        inputSymbol0 === sortedSymbol1 && inputSymbol1 === sortedSymbol0 ? 1 / humanRatio : humanRatio;
+        const dec0 = await token0Contract.decimals();
+        const dec1 = await token1Contract.decimals();
 
-      const sqrtP = sqrtPriceX96FromHumanRatio(actualRatio, dec0, dec1);
+        const inputSymbol0 = await air.symbol();
+        const inputSymbol1 = await wpush.symbol();
+
+        const sortedSymbol0 = await token0Contract.symbol();
+        const sortedSymbol1 = await token1Contract.symbol();
+
+        const humanRatio = 0.001; // 1 AIRDROP = 0.001 PC
+        const actualRatio =
+          inputSymbol0 === sortedSymbol1 && inputSymbol1 === sortedSymbol0 ? 1 / humanRatio : humanRatio;
+
+        const sqrtP = sqrtPriceX96FromHumanRatio(actualRatio, dec0, dec1);
+        const poolCtr = new ethers.Contract(pool, ABI.pool, wallet);
+        await (await poolCtr.initialize(sqrtP)).wait();
+        console.log('Pool initialized');
+      } else {
+        console.log('Pool exists:', pool);
+      }
+
+      // Skipping persistence of pool address to file; using in-file constants only
+
+      // 3) Add liquidity (wide range)
       const poolCtr = new ethers.Contract(pool, ABI.pool, wallet);
-      await (await poolCtr.initialize(sqrtP)).wait();
-      console.log('Pool initialized');
-    } else {
-      console.log('Pool exists:', pool);
-    }
+      const poolFee = Number(await poolCtr.fee());
 
-    // Skipping persistence of pool address to file; using in-file constants only
+      const t0 = await poolCtr.token0();
+      const t1 = await poolCtr.token1();
 
-    // 3) Add liquidity (wide range)
-    const poolCtr = new ethers.Contract(pool, ABI.pool, wallet);
-    const poolFee = Number(await poolCtr.fee());
+      const tok0 = new ethers.Contract(t0, ABI.erc20, wallet);
+      const tok1 = new ethers.Contract(t1, ABI.erc20, wallet);
+      const dec0 = await tok0.decimals();
+      const dec1 = await tok1.decimals();
 
-    const t0 = await poolCtr.token0();
-    const t1 = await poolCtr.token1();
+      // Target: deposit exactly 1 WPUSH and the equivalent AIRDROP by current price
+      // Get current sqrtPriceX96 and derive base-unit ratio in integer math
+      const slot0 = await poolCtr.slot0();
+      const sqrtPriceX96 = slot0[0];
+      const Q192 = 1n << 192n;
+      const ratioNumerator = sqrtPriceX96 * sqrtPriceX96; // token1_base per token0_base numerator; denominator = Q192
 
-    const tok0 = new ethers.Contract(t0, ABI.erc20, wallet);
-    const tok1 = new ethers.Contract(t1, ABI.erc20, wallet);
-    const dec0 = await tok0.decimals();
-    const dec1 = await tok1.decimals();
+      // Compute base-unit amounts for exactly 1 WPUSH
+      const isWPUSH0 = t0.toLowerCase() === WPUSH.toLowerCase();
+      const oneWPUSHBase = pow10(isWPUSH0 ? dec0 : dec1);
 
-    // Target: deposit exactly 1 WPUSH and the equivalent AIRDROP by current price
-    // Get current sqrtPriceX96 and derive base-unit ratio in integer math
-    const slot0 = await poolCtr.slot0();
-    const sqrtPriceX96 = slot0[0];
-    const Q192 = 1n << 192n;
-    const ratioNumerator = sqrtPriceX96 * sqrtPriceX96; // token1_base per token0_base numerator; denominator = Q192
+      let a0; // amount0Desired (base units of token0)
+      let a1; // amount1Desired (base units of token1)
 
-    // Compute base-unit amounts for exactly 1 WPUSH
-    const isWPUSH0 = t0.toLowerCase() === WPUSH.toLowerCase();
-    const oneWPUSHBase = pow10(isWPUSH0 ? dec0 : dec1);
-
-    let a0; // amount0Desired (base units of token0)
-    let a1; // amount1Desired (base units of token1)
-
-    if (isWPUSH0) {
-      // token0 is WPUSH: amount0 = 1 WPUSH, amount1 = floor(amount0 * ratioNumerator / Q192)
-      const amount0Base = oneWPUSHBase;
-      const amount1Base = (amount0Base * ratioNumerator) / Q192;
-      a0 = amount0Base;
-      a1 = amount1Base;
-    } else {
-      // token1 is WPUSH: amount1 = 1 WPUSH, amount0 = floor(amount1 * Q192 / ratioNumerator)
-      const amount1Base = oneWPUSHBase;
-      const amount0Base = (amount1Base * Q192) / ratioNumerator;
-      a0 = amount0Base;
-      a1 = amount1Base;
-    }
-
-    // Ensure sufficient token balances for mint
-    const [bal0Before, bal1Before] = await Promise.all([tok0.balanceOf(wallet.address), tok1.balanceOf(wallet.address)]);
-    const sym0 = await tok0.symbol();
-    const sym1 = await tok1.symbol();
-
-    const need0 = bal0Before >= a0 ? 0n : a0 - bal0Before;
-    const need1 = bal1Before >= a1 ? 0n : a1 - bal1Before;
-
-    if (need0 > 0n || need1 > 0n) {
-      console.log('🔎 Token balances before mint:');
-      console.log('   ', sym0, ethers.formatUnits(bal0Before, dec0), '/', ethers.formatUnits(a0, dec0), 'required');
-      console.log('   ', sym1, ethers.formatUnits(bal1Before, dec1), '/', ethers.formatUnits(a1, dec1), 'required');
-    }
-
-    // Auto-wrap for any missing WPUSH; otherwise prompt user to fund
-    if (need0 > 0n) {
-      if (t0.toLowerCase() === WPUSH.toLowerCase()) {
-        let nativeBal = await provider.getBalance(wallet.address);
-        while (nativeBal < need0) {
-          console.log('⏳ Need more native PC to wrap into WPUSH. Missing:', ethers.formatUnits(need0 - nativeBal, 18));
-          await rl.question(':::prompt:::Send more native PC and press Enter to retry.');
-          nativeBal = await provider.getBalance(wallet.address);
-        }
-        console.log('Wrapping', ethers.formatUnits(need0, 18), 'PC into WPUSH...');
-        await (await wpush.deposit({ value: need0 })).wait();
+      if (isWPUSH0) {
+        // token0 is WPUSH: amount0 = 1 WPUSH, amount1 = floor(amount0 * ratioNumerator / Q192)
+        const amount0Base = oneWPUSHBase;
+        const amount1Base = (amount0Base * ratioNumerator) / Q192;
+        a0 = amount0Base;
+        a1 = amount1Base;
       } else {
-        await rl.question(
-          ':::prompt:::Please send ' +
-            ethers.formatUnits(need0, dec0) +
-            ' ' +
-            sym0 +
-            ' to ' +
-            wallet.address +
-            ' and press Enter.'
-        );
+        // token1 is WPUSH: amount1 = 1 WPUSH, amount0 = floor(amount1 * Q192 / ratioNumerator)
+        const amount1Base = oneWPUSHBase;
+        const amount0Base = (amount1Base * Q192) / ratioNumerator;
+        a0 = amount0Base;
+        a1 = amount1Base;
       }
-    }
-    if (need1 > 0n) {
-      if (t1.toLowerCase() === WPUSH.toLowerCase()) {
-        let nativeBal = await provider.getBalance(wallet.address);
-        while (nativeBal < need1) {
-          console.log('⏳ Need more native PC to wrap into WPUSH. Missing:', ethers.formatUnits(need1 - nativeBal, 18));
-          await rl.question(':::prompt:::Send more native PC and press Enter to retry.');
-          nativeBal = await provider.getBalance(wallet.address);
+
+      // Ensure sufficient token balances for mint
+      const [bal0Before, bal1Before] = await Promise.all([tok0.balanceOf(wallet.address), tok1.balanceOf(wallet.address)]);
+      const sym0 = await tok0.symbol();
+      const sym1 = await tok1.symbol();
+
+      const need0 = bal0Before >= a0 ? 0n : a0 - bal0Before;
+      const need1 = bal1Before >= a1 ? 0n : a1 - bal1Before;
+
+      if (need0 > 0n || need1 > 0n) {
+        console.log('🔎 Token balances before mint:');
+        console.log('   ', sym0, ethers.formatUnits(bal0Before, dec0), '/', ethers.formatUnits(a0, dec0), 'required');
+        console.log('   ', sym1, ethers.formatUnits(bal1Before, dec1), '/', ethers.formatUnits(a1, dec1), 'required');
+      }
+
+      // Auto-wrap for any missing WPUSH; otherwise prompt user to fund
+      if (need0 > 0n) {
+        if (t0.toLowerCase() === WPUSH.toLowerCase()) {
+          let nativeBal = await provider.getBalance(wallet.address);
+          while (nativeBal < need0) {
+            console.log('⏳ Need more native PC to wrap into WPUSH. Missing:', ethers.formatUnits(need0 - nativeBal, 18));
+            await rl.question(':::prompt:::Send more native PC and press Enter to retry.');
+            nativeBal = await provider.getBalance(wallet.address);
+          }
+          console.log('Wrapping', ethers.formatUnits(need0, 18), 'PC into WPUSH...');
+          await (await wpush.deposit({ value: need0 })).wait();
+        } else {
+          await rl.question(
+            ':::prompt:::Please send ' +
+              ethers.formatUnits(need0, dec0) +
+              ' ' +
+              sym0 +
+              ' to ' +
+              wallet.address +
+              ' and press Enter.'
+          );
         }
-        console.log('Wrapping', ethers.formatUnits(need1, 18), 'PC into WPUSH...');
-        await (await wpush.deposit({ value: need1 })).wait();
-      } else {
-        await rl.question(
-          ':::prompt:::Please send ' +
-            ethers.formatUnits(need1, dec1) +
-            ' ' +
-            sym1 +
-            ' to ' +
-            wallet.address +
-            ' and press Enter.'
-        );
       }
+      if (need1 > 0n) {
+        if (t1.toLowerCase() === WPUSH.toLowerCase()) {
+          let nativeBal = await provider.getBalance(wallet.address);
+          while (nativeBal < need1) {
+            console.log('⏳ Need more native PC to wrap into WPUSH. Missing:', ethers.formatUnits(need1 - nativeBal, 18));
+            await rl.question(':::prompt:::Send more native PC and press Enter to retry.');
+            nativeBal = await provider.getBalance(wallet.address);
+          }
+          console.log('Wrapping', ethers.formatUnits(need1, 18), 'PC into WPUSH...');
+          await (await wpush.deposit({ value: need1 })).wait();
+        } else {
+          await rl.question(
+            ':::prompt:::Please send ' +
+              ethers.formatUnits(need1, dec1) +
+              ' ' +
+              sym1 +
+              ' to ' +
+              wallet.address +
+              ' and press Enter.'
+          );
+        }
+      }
+
+      // Re-read balances and log
+      const [bal0After, bal1After] = await Promise.all([tok0.balanceOf(wallet.address), tok1.balanceOf(wallet.address)]);
+      console.log('✅ Token balances ready:');
+      console.log('   ', sym0, ethers.formatUnits(bal0After, dec0));
+      console.log('   ', sym1, ethers.formatUnits(bal1After, dec1));
+
+      await safeApprove(tok0, POSITION_MANAGER, a0, wallet.address);
+      await safeApprove(tok1, POSITION_MANAGER, a1, wallet.address);
+
+      const poolFeeNum = Number(poolFee);
+      const tickSpacing = poolFeeNum === 500 ? 10 : poolFeeNum === 3000 ? 60 : 200;
+      const MIN_TICK = -887272;
+      const MAX_TICK = 887272;
+      const tickLower = Math.ceil(MIN_TICK / tickSpacing) * tickSpacing;
+      const tickUpper = Math.floor(MAX_TICK / tickSpacing) * tickSpacing;
+
+      const params = {
+        token0: t0,
+        token1: t1,
+        fee: poolFee,
+        tickLower,
+        tickUpper,
+        amount0Desired: a0,
+        amount1Desired: a1,
+        amount0Min: 0n,
+        amount1Min: 0n,
+        recipient: wallet.address,
+        deadline: Math.floor(Date.now() / 1000) + 600,
+      };
+
+      const mintTx = await positionManager.mint(params);
+      const rc = await mintTx.wait();
+      console.log('Liquidity added. Tx:', rc?.hash);
+
+      rl.close();
     }
 
-    // Re-read balances and log
-    const [bal0After, bal1After] = await Promise.all([tok0.balanceOf(wallet.address), tok1.balanceOf(wallet.address)]);
-    console.log('✅ Token balances ready:');
-    console.log('   ', sym0, ethers.formatUnits(bal0After, dec0));
-    console.log('   ', sym1, ethers.formatUnits(bal1After, dec1));
-
-    await safeApprove(tok0, POSITION_MANAGER, a0, wallet.address);
-    await safeApprove(tok1, POSITION_MANAGER, a1, wallet.address);
-
-    const poolFeeNum = Number(poolFee);
-    const tickSpacing = poolFeeNum === 500 ? 10 : poolFeeNum === 3000 ? 60 : 200;
-    const MIN_TICK = -887272;
-    const MAX_TICK = 887272;
-    const tickLower = Math.ceil(MIN_TICK / tickSpacing) * tickSpacing;
-    const tickUpper = Math.floor(MAX_TICK / tickSpacing) * tickSpacing;
-
-    const params = {
-      token0: t0,
-      token1: t1,
-      fee: poolFee,
-      tickLower,
-      tickUpper,
-      amount0Desired: a0,
-      amount1Desired: a1,
-      amount0Min: 0n,
-      amount1Min: 0n,
-      recipient: wallet.address,
-      deadline: Math.floor(Date.now() / 1000) + 600,
-    };
-
-    const mintTx = await positionManager.mint(params);
-    const rc = await mintTx.wait();
-    console.log('Liquidity added. Tx:', rc?.hash);
-
-    rl.close();
-  }
-
-  main().catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+    main().catch((e) => {
+      console.error(e);
+      process.exit(1);
+    });
 `}
 
 </NodeJSVirtualIDE>
