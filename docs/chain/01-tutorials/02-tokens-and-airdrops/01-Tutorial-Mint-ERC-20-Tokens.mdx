@@ -1081,7 +1081,7 @@ Open `App.tsx` and replace it with the following implementation. This app:
 - Swaps between `$WPUSH` and `$AIRDROP` using the Uniswap v3 router
 - Displays balances and transaction hashes with explorer links
 
-```tsx
+```jsx live
 import { useEffect, useMemo, useState } from 'react';
 import { ethers } from 'ethers';
 import {
@@ -1089,505 +1089,620 @@ import {
   usePushWalletContext,
   usePushChainClient,
   PushUI,
+  PushUniversalWalletProvider,
 } from '@pushchain/ui-kit';
 
-// Network + Contracts (copied from backend script)
-const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
-const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
-const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
-const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
-// Airdrop token address will be loaded from /public/deployed-addresses.json at runtime
+function PushSwapExample() {
+  // Network + Contracts (copied from backend script)
+  const RPC = 'https://evm.rpc-testnet-donut-node1.push.org/';
+  const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
+  const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
+  const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
+  // Airdrop token address will be loaded from /public/deployed-addresses.json at runtime
 
-// Minimal ABIs
-const ERC20_ABI = [
-  'function symbol() view returns (string)',
-  'function decimals() view returns (uint8)',
-  'function balanceOf(address) view returns (uint256)',
-  'function allowance(address,address) view returns (uint256)',
-  'function approve(address,uint256) returns (bool)',
-];
-const FACTORY_ABI = ['function getPool(address,address,uint24) view returns (address)'];
-const ROUTER_ABI = [
-  'function exactInputSingle((address tokenIn, address tokenOut, uint24 fee, address recipient, uint256 deadline, uint256 amountIn, uint256 amountOutMinimum, uint160 sqrtPriceLimitX96)) payable returns (uint256 amountOut)',
-];
-const POOL_ABI = ['function fee() view returns (uint24)'];
+  // Minimal ABIs
+  const ERC20_ABI = [
+    'function symbol() view returns (string)',
+    'function decimals() view returns (uint8)',
+    'function balanceOf(address) view returns (uint256)',
+    'function allowance(address,address) view returns (uint256)',
+    'function approve(address,uint256) returns (bool)',
+  ];
+  const FACTORY_ABI = ['function getPool(address,address,uint24) view returns (address)'];
+  const ROUTER_ABI = [
+    'function exactInputSingle((address tokenIn, address tokenOut, uint24 fee, address recipient, uint256 deadline, uint256 amountIn, uint256 amountOutMinimum, uint160 sqrtPriceLimitX96)) payable returns (uint256 amountOut)',
+  ];
+  const POOL_ABI = ['function fee() view returns (uint24)'];
 
-type SwapDirection = 'AIRDROP_TO_WPUSH' | 'WPUSH_TO_AIRDROP';
+  const provider = new ethers.JsonRpcProvider(RPC);
 
-const provider = new ethers.JsonRpcProvider(RPC);
-
-function App() {
-  const { connectionStatus, universalAccount } = usePushWalletContext() as unknown as {
-    connectionStatus: string;
-    universalAccount: { address: string } | null;
-  };
-  const { pushChainClient } = usePushChainClient();
-
-  const [swapDirection, setSwapDirection] = useState<SwapDirection>('WPUSH_TO_AIRDROP');
-  const [amount, setAmount] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPoolLoading, setIsPoolLoading] = useState(false);
-  const [txnHash, setTxnHash] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [airdropAddr, setAirdropAddr] = useState<string | null>(null);
-  const [configError, setConfigError] = useState<string | null>(null);
-  // Mint WPUSH state
-  const [mintAmount, setMintAmount] = useState('');
-  const [isMintLoading, setIsMintLoading] = useState(false);
-  const [mintTxnHash, setMintTxnHash] = useState<string | null>(null);
-  const [mintError, setMintError] = useState<string | null>(null);
-
-  const tokenIn = useMemo(
-    () => (airdropAddr ? (swapDirection === 'AIRDROP_TO_WPUSH' ? airdropAddr : WPUSH) : null),
-    [swapDirection, airdropAddr]
-  );
-  const tokenOut = useMemo(
-    () => (airdropAddr ? (swapDirection === 'AIRDROP_TO_WPUSH' ? WPUSH : airdropAddr) : null),
-    [swapDirection, airdropAddr]
-  );
-
-  const connectedAddress = universalAccount?.address ?? null;
-
-  const [decIn, setDecIn] = useState<number>(18);
-  const [decOut, setDecOut] = useState<number>(18);
-  const [symIn, setSymIn] = useState<string>('');
-  const [symOut, setSymOut] = useState<string>('');
-  const [poolFee, setPoolFee] = useState<number | null>(null);
-  const [poolAddr, setPoolAddr] = useState<string | null>(null);
-  const [balAirdrop, setBalAirdrop] = useState<string>('0');
-  const [balWpush, setBalWpush] = useState<string>('0');
-
-  // Pretty print large decimal strings to at most 4 decimals
-  const formatBalance4 = (value: string) => {
-    if (!value) return '0';
-    const [whole, frac = ''] = String(value).split('.');
-    const wholePretty = Number(whole || '0').toLocaleString();
-    const trimmed = frac.slice(0, 4).replace(/0+$/, '');
-    return trimmed ? `${wholePretty}.${trimmed}` : wholePretty;
+  const walletConfig = {
+    network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
   };
 
-  // Inline theme + reusable styles
-  const colors = {
-    text: '#111827',
-    muted: '#6b7280',
-    primary: '#3b82f6',
-    primary700: '#2563eb',
-    border: '#e5e7eb',
-    danger: '#ef4444',
-  } as const;
+  function Component() {
+    const { connectionStatus, universalAccount } = usePushWalletContext();
+    const { pushChainClient } = usePushChainClient();
 
-  const styles = {
-    page: {
-      position: 'fixed',
-      inset: 0,
-      display: 'grid',
-      placeItems: 'center',
-      padding: '2rem',
-      background: '#ffffff',
-    },
-    container: {
-      maxWidth: 560,
-      margin: '0 auto',
-      padding: '1rem',
-      textAlign: 'left' as const,
-      color: colors.text,
-      fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif',
-      lineHeight: 1.5,
-    },
-    title: { fontSize: '1.6rem', fontWeight: 700, margin: '0 0 0.5rem 0' },
-    stackMd: { display: 'grid', gap: 12 },
-    stackSm: { display: 'grid', gap: 8 },
-    label: { fontSize: 12, color: colors.muted },
-    input: {
-      width: '100%',
-      padding: '10px 12px',
-      boxSizing: 'border-box' as const,
-      borderRadius: 10,
-      border: `1px solid ${colors.border}`,
-      background: '#ffffff',
-      color: colors.text,
-      outline: 'none',
-    },
-    button: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '10px 16px',
-      borderRadius: 10,
-      border: `1px solid ${colors.border}`,
-      background: '#ffffff',
-      color: colors.text,
-      cursor: 'pointer',
-      transition: 'all 120ms ease-out',
-    },
-    radioRow: { display: 'flex', gap: 12 },
-    segmented: {
-      display: 'inline-flex',
-      gap: 0,
-      borderRadius: 10,
-      border: `1px solid ${colors.border}`,
-      overflow: 'hidden',
-      background: '#f9fafb',
-    },
-    segmentBtn: {
-      padding: '8px 14px',
-      border: 'none',
+    const [swapDirection, setSwapDirection] = useState('WPUSH_TO_AIRDROP');
+    const [swapAmount, setSwapAmount] = useState('');
+    const [isSwapLoading, setIsSwapLoading] = useState(false);
+    const [isPoolLoading, setIsPoolLoading] = useState(false);
+    const [swapTransactionHash, setSwapTransactionHash] = useState(null);
+    const [error, setError] = useState(null);
+    const [airdropTokenAddress, setAirdropTokenAddress] = useState(null);
+    const [configError, setConfigError] = useState(null);
+    // Mint WPUSH state
+    const [mintAmount, setMintAmount] = useState('');
+    const [isMintLoading, setIsMintLoading] = useState(false);
+    const [mintTxnHash, setMintTxnHash] = useState(null);
+    const [mintError, setMintError] = useState(null);
+
+    const inputTokenAddress = useMemo(
+      () => (airdropTokenAddress ? (swapDirection === 'AIRDROP_TO_WPUSH' ? airdropTokenAddress : WPUSH) : null),
+      [swapDirection, airdropTokenAddress]
+    );
+    const outputTokenAddress = useMemo(
+      () => (airdropTokenAddress ? (swapDirection === 'AIRDROP_TO_WPUSH' ? WPUSH : airdropTokenAddress) : null),
+      [swapDirection, airdropTokenAddress]
+    );
+
+    const connectedAddress = universalAccount?.address ?? null;
+
+    const [inputTokenDecimals, setInputTokenDecimals] = useState(18);
+    const [outputTokenDecimals, setOutputTokenDecimals] = useState(18);
+    const [inputTokenSymbol, setInputTokenSymbol] = useState('');
+    const [outputTokenSymbol, setOutputTokenSymbol] = useState('');
+    const [poolFee, setPoolFee] = useState(null);
+    const [poolAddress, setPoolAddress] = useState(null);
+    const [balanceAirdrop, setBalanceAirdrop] = useState('0');
+    const [balanceWPUSH, setBalanceWPUSH] = useState('0');
+    const [balanceAirdropRaw, setBalanceAirdropRaw] = useState(0n);
+    const [balanceWPUSHRaw, setBalanceWPUSHRaw] = useState(0n);
+
+    // Pretty print large decimal strings to at most 4 decimals
+    const formatBalance4 = (value) => {
+      if (!value) return '0';
+      const [whole, frac = ''] = String(value).split('.');
+      const wholePretty = Number(whole || '0').toLocaleString();
+      const trimmed = frac.slice(0, 4).replace(/0+$/, '');
+      return trimmed ? `${wholePretty}.${trimmed}` : wholePretty;
+    };
+
+    // Inline theme + reusable styles (light, neutral, readable)
+    const colors = {
       background: 'transparent',
-      color: colors.muted,
-      fontSize: 13,
-      fontWeight: 600,
-      cursor: 'pointer',
-    },
-    muted: { fontSize: 12, color: colors.muted },
-    hashBox: { marginTop: 8, wordBreak: 'break-all' as const },
-    error: { color: colors.danger },
-    mintBox: { border: `1px solid ${colors.border}`, borderRadius: 12, padding: 12, background: 'transparent' },
-  } as const;
+      surface: '#ffffff',
+      surfaceMuted: '#f3f4f6',
+      text: '#0f172a', // slate-900
+      muted: '#6b7280', // gray-500
+      primary: '#a855f7', // violet-500
+      primary700: '#7c3aed', // violet-600
+      border: '#e5e7eb', // gray-200
+      danger: '#dc2626',
+    };
 
-  // Load Airdrop address from /public/deployed-addresses.json
-  useEffect(() => {
-    (async () => {
-      try {
-        setConfigError(null);
-        const res = await fetch('/deployed-addresses.json');
-        const json: { AIRDROP_ADDR?: string; POOL_ADDR?: string } = await res.json();
-        const addr = json?.AIRDROP_ADDR;
-        setAirdropAddr(addr && addr.startsWith('0x') ? addr : null);
-        const paddr = json?.POOL_ADDR;
-        setPoolAddr(paddr && paddr.startsWith('0x') ? paddr : null);
-      } catch {
-        setConfigError('Failed to load deployed-addresses.json');
-      }
-    })();
-  }, []);
+    const styles = {
+      page: {
+        display: 'grid',
+        placeItems: 'center',
+        padding: '2rem',
+        width: '100%',
+      },
+      container: {
+        width: 460,
+        margin: '0 auto',
+        padding: 0,
+        textAlign: 'left',
+        color: colors.text,
+        fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif',
+        lineHeight: 1.5,
+      },
+      title: { fontSize: '1.6rem', fontWeight: 700, margin: '0 0 1rem 0' },
+      stackMd: { display: 'grid', gap: 12 },
+      stackSm: { display: 'grid', gap: 8 },
+      label: { fontSize: 12, color: colors.muted },
+      input: {
+        width: '100%',
+        padding: '14px 16px',
+        boxSizing: 'border-box',
+        borderRadius: 12,
+        border: `1px solid ${colors.border}`,
+        background: colors.surfaceMuted,
+        color: colors.text,
+        outline: 'none',
+        fontSize: 20,
+      },
+      button: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '12px 16px',
+        borderRadius: 12,
+        border: `1px solid ${colors.border}`,
+        background: colors.surface,
+        color: colors.text,
+        cursor: 'pointer',
+        transition: 'all 120ms ease-out',
+      },
+      primaryBtn: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        padding: '14px 16px',
+        borderRadius: 12,
+        border: 'none',
+        background: colors.primary,
+        color: '#ffffff',
+        fontWeight: 700,
+        cursor: 'pointer',
+      },
+      card: {
+        background: colors.surface,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 16,
+        padding: 12,
+        display: 'grid',
+        gap: 10,
+        boxShadow: '0 4px 16px rgba(15, 23, 42, 0.08)',
+      },
+      tokenRow: {
+        background: colors.surfaceMuted,
+        border: `1px solid ${colors.border}`,
+        borderRadius: 12,
+        padding: 12,
+        display: 'grid',
+        gap: 6,
+      },
+      rowHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        color: colors.muted,
+        fontSize: 12,
+      },
+      tokenTop: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+      tokenBadge: {
+        padding: '6px 10px',
+        background: colors.surface,
+        borderRadius: 10,
+        border: `1px solid ${colors.border}`,
+        fontSize: 12,
+      },
+      tokenInput: {
+        width: '100%',
+        border: 'none',
+        background: 'transparent',
+        color: colors.text,
+        outline: 'none',
+        fontSize: 28,
+      },
+      centerSwitch: { display: 'grid', placeItems: 'center', margin: '-6px 0' },
+      switchBtn: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        border: `1px solid ${colors.border}`,
+        background: colors.surface,
+        color: colors.text,
+        cursor: 'pointer',
+      },
+      radioRow: { display: 'flex', gap: 12 },
+      segmented: { display: 'none' },
+      segmentBtn: { display: 'none' },
+      muted: { fontSize: 12, color: colors.muted },
+      hashBox: { marginTop: 8, wordBreak: 'break-all' },
+      link: {
+        color: colors.primary,
+        textDecoration: 'underline',
+        fontWeight: 600,
+      },
+      error: { color: colors.danger },
+      mintInline: { marginTop: 12, display: 'grid', gap: 8 },
+      mintRow: { display: 'grid', gridTemplateColumns: '1fr auto', gap: 8 },
+    };
 
-  useEffect(() => {
-    let mounted = true;
-    async function readTokenMeta(addr: string) {
-      const c = new ethers.Contract(addr, ERC20_ABI, provider);
-      const [dec, sym] = await Promise.all([c.decimals(), c.symbol()]);
-      return { dec: Number(dec), sym: String(sym) };
-    }
-    async function findPool(a: string, b: string) {
-      const [t0, t1] = a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
-      const factory = new ethers.Contract(FACTORY, FACTORY_ABI, provider);
-      const fees = [3000, 500, 10000];
-      for (const fee of fees) {
-        const addr: string = await factory.getPool(t0, t1, fee);
-        if (addr && addr !== ethers.ZeroAddress) return { addr, fee };
+    // Load Airdrop address from /public/deployed-addresses.json
+    useEffect(() => {
+      (async () => {
+        try {
+          setConfigError(null);
+          const res = await fetch('/deployed-addresses.json');
+          const json = await res.json();
+          const addr = json?.AIRDROP_ADDR;
+          setAirdropTokenAddress(addr && addr.startsWith('0x') ? addr : null);
+          const paddr = json?.POOL_ADDR;
+          setPoolAddress(paddr && paddr.startsWith('0x') ? paddr : null);
+        } catch {
+          setConfigError('Failed to load deployed-addresses.json');
+        }
+      })();
+    }, []);
+
+    useEffect(() => {
+      let mounted = true;
+      async function readTokenMeta(addr) {
+        const c = new ethers.Contract(addr, ERC20_ABI, provider);
+        const [dec, sym] = await Promise.all([c.decimals(), c.symbol()]);
+        return { dec: Number(dec), sym: String(sym) };
       }
-      return { addr: null, fee: null };
-    }
-    (async () => {
+      async function findPool(a, b) {
+        const [t0, t1] = a.toLowerCase() < b.toLowerCase() ? [a, b] : [b, a];
+        const factory = new ethers.Contract(FACTORY, FACTORY_ABI, provider);
+        const fees = [3000, 500, 10000];
+        for (const fee of fees) {
+          const addr = await factory.getPool(t0, t1, fee);
+          if (addr && addr !== ethers.ZeroAddress) return { addr, fee };
+        }
+        return { addr: null, fee: null };
+      }
+      (async () => {
+        try {
+          setError(null);
+          if (!inputTokenAddress || !outputTokenAddress) return;
+          setIsPoolLoading(true);
+          const [metaIn, metaOut] = await Promise.all([
+            readTokenMeta(inputTokenAddress),
+            readTokenMeta(outputTokenAddress),
+          ]);
+          let pool = { addr: null, fee: null };
+          if (poolAddress && poolAddress !== ethers.ZeroAddress) {
+            try {
+              const pc = new ethers.Contract(poolAddress, POOL_ABI, provider);
+              const fee = Number(await pc.fee());
+              pool = { addr: poolAddress, fee };
+            } catch {
+              pool = { addr: poolAddress, fee: null };
+            }
+          } else {
+            pool = await findPool(inputTokenAddress, outputTokenAddress);
+          }
+          if (!mounted) return;
+          setInputTokenDecimals(metaIn.dec);
+          setOutputTokenDecimals(metaOut.dec);
+          setInputTokenSymbol(metaIn.sym);
+          setOutputTokenSymbol(metaOut.sym);
+          setPoolAddress(pool.addr);
+          setPoolFee(pool.fee);
+          setIsPoolLoading(false);
+        } catch (e) {
+          if (!mounted) return;
+          const message = e instanceof Error ? e.message : String(e);
+          setError(message || 'Failed to load token data');
+          setIsPoolLoading(false);
+        }
+      })();
+      return () => {
+        mounted = false;
+      };
+    }, [inputTokenAddress, outputTokenAddress, poolAddress]);
+
+    async function handleSwap() {
       try {
         setError(null);
-        if (!tokenIn || !tokenOut) return;
-        setIsPoolLoading(true);
-        const [metaIn, metaOut] = await Promise.all([readTokenMeta(tokenIn), readTokenMeta(tokenOut)]);
-        let pool: { addr: string | null; fee: number | null } = { addr: null, fee: null };
-        if (poolAddr && poolAddr !== ethers.ZeroAddress) {
-          try {
-            const pc = new ethers.Contract(poolAddr, POOL_ABI, provider);
-            const fee: number = Number(await pc.fee());
-            pool = { addr: poolAddr, fee };
-          } catch {
-            pool = { addr: poolAddr, fee: null };
-          }
-        } else {
-          pool = await findPool(tokenIn, tokenOut);
-        }
-        if (!mounted) return;
-        setDecIn(metaIn.dec);
-        setDecOut(metaOut.dec);
-        setSymIn(metaIn.sym);
-        setSymOut(metaOut.sym);
-        setPoolAddr(pool.addr);
-        setPoolFee(pool.fee);
-        setIsPoolLoading(false);
-      } catch (e: unknown) {
-        if (!mounted) return;
+        setSwapTransactionHash(null);
+        if (!pushChainClient) throw new Error('Wallet not connected');
+        if (!swapAmount) throw new Error('Enter amount');
+        if (!poolFee || !poolAddress) throw new Error('No pool available for this pair');
+        if (!inputTokenAddress || !outputTokenAddress) throw new Error('Tokens not ready');
+
+        const recipient = pushChainClient.universal.account; // Source chain account that is mapped to the execution account
+        console.log('recipient', recipient);
+
+        if (!recipient) throw new Error('Could not resolve connected address');
+
+        const amountIn = ethers.parseUnits(swapAmount, inputTokenDecimals);
+        const balanceIn = inputTokenAddress === airdropTokenAddress ? balanceAirdropRaw : balanceWPUSHRaw;
+        if (balanceIn < amountIn) throw new Error('Insufficient balance');
+
+        // Approve router for tokenIn (use MaxUint to minimize subsequent approvals)
+        const approveIface = new ethers.Interface(ERC20_ABI);
+        const approveData = approveIface.encodeFunctionData('approve', [SWAP_ROUTER, ethers.MaxUint256]);
+        const approveTx = await pushChainClient.universal.sendTransaction({
+          to: inputTokenAddress,
+          data: approveData,
+          value: 0n,
+        });
+        // Optional: wait a moment for sequencing; wallet/provider may not expose wait here
+        console.log('approve tx:', approveTx?.hash);
+
+        // exactInputSingle params
+        const params = {
+          tokenIn: inputTokenAddress,
+          tokenOut: outputTokenAddress,
+          fee: poolFee,
+          recipient,
+          deadline: Math.floor(Date.now() / 1000) + 600,
+          amountIn,
+          amountOutMinimum: 0n,
+          sqrtPriceLimitX96: 0n,
+        };
+
+        const routerIface = new ethers.Interface(ROUTER_ABI);
+        const data = routerIface.encodeFunctionData('exactInputSingle', [params]);
+        const swapTx = await pushChainClient.universal.sendTransaction({
+          to: SWAP_ROUTER,
+          data: data,
+          value: 0n,
+        });
+        setSwapTransactionHash(swapTx?.hash ?? null);
+      } catch (e) {
         const message = e instanceof Error ? e.message : String(e);
-        setError(message || 'Failed to load token data');
-        setIsPoolLoading(false);
+        setError(message || 'Swap failed');
+      } finally {
+        setIsSwapLoading(false);
       }
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, [tokenIn, tokenOut, poolAddr]);
-
-  async function handleSwap() {
-    try {
-      setError(null);
-      setTxnHash(null);
-      if (!pushChainClient) throw new Error('Wallet not connected');
-      if (!amount) throw new Error('Enter amount');
-      if (!poolFee || !poolAddr) throw new Error('No pool available for this pair');
-      if (!tokenIn || !tokenOut) throw new Error('Tokens not ready');
-
-      const recipient = pushChainClient.universal.account; // Source chain account that is mapped to the execution account
-      console.log('recipient', recipient);
-
-      if (!recipient) throw new Error('Could not resolve connected address');
-
-      const amountIn = ethers.parseUnits(amount, decIn);
-
-      // Approve router for tokenIn (use MaxUint to minimize subsequent approvals)
-      const approveIface = new ethers.Interface(ERC20_ABI);
-      const approveData = approveIface.encodeFunctionData('approve', [SWAP_ROUTER, ethers.MaxUint256]);
-      const approveTx = await pushChainClient.universal.sendTransaction({
-        to: tokenIn as `0x${string}`,
-        data: approveData as `0x${string}`,
-        value: 0n,
-      });
-      // Optional: wait a moment for sequencing; wallet/provider may not expose wait here
-      console.log('approve tx:', approveTx?.hash);
-
-      // exactInputSingle params
-      const params = {
-        tokenIn,
-        tokenOut,
-        fee: poolFee,
-        recipient,
-        deadline: Math.floor(Date.now() / 1000) + 600,
-        amountIn,
-        amountOutMinimum: 0n,
-        sqrtPriceLimitX96: 0n,
-      };
-
-      const routerIface = new ethers.Interface(ROUTER_ABI);
-      const data = routerIface.encodeFunctionData('exactInputSingle', [params]);
-      const swapTx = await pushChainClient.universal.sendTransaction({
-        to: SWAP_ROUTER,
-        data: data as `0x${string}`,
-        value: 0n,
-      });
-      setTxnHash(swapTx?.hash ?? null);
-    } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e);
-      setError(message || 'Swap failed');
-    } finally {
-      setIsLoading(false);
     }
-  }
 
-  async function handleMintWpush() {
-    try {
-      setMintError(null);
-      setMintTxnHash(null);
-      if (!pushChainClient) throw new Error('Wallet not connected');
-      if (!mintAmount) throw new Error('Enter amount');
-
-      // We will call WPUSH.deposit() with value in PC (18 decimals)
-      const valueWei = ethers.parseUnits(mintAmount, 18);
-      const wpushIface = new ethers.Interface(['function deposit() payable']);
-      const data = wpushIface.encodeFunctionData('deposit');
-
-      const tx = await pushChainClient.universal.sendTransaction({
-        to: WPUSH,
-        data: data as `0x${string}`,
-        value: valueWei,
-      });
-      setMintTxnHash(tx?.hash ?? null);
-    } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e);
-      setMintError(message || 'Mint failed');
-    } finally {
-      setIsMintLoading(false);
-    }
-  }
-
-  const isConnected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
-  const canSwap = isConnected && !isLoading && !!amount && !!poolFee && !!connectedAddress && !!tokenIn && !!tokenOut;
-
-  // Balances
-  useEffect(() => {
-    let mounted = true;
-    // const addr = connectedAddress;
-    if (!pushChainClient) return;
-    const addr = pushChainClient.universal.account; // Source chain account that is mapped to the execution account
-    if (!addr) {
-      console.log('No connected address');
-      setBalAirdrop('0');
-      setBalWpush('0');
-      return;
-    }
-    (async () => {
+    async function handleMintWpush() {
       try {
-        console.log('Loading balances');
-        if (!airdropAddr) return;
-        console.log('Hello World', addr);
-        console.log('Airdrop address', airdropAddr);
-        const [cAirdrop, cWpush] = [
-          new ethers.Contract(airdropAddr, ERC20_ABI, provider),
-          new ethers.Contract(WPUSH, ERC20_ABI, provider),
-        ];
-        const [rawA, rawW] = await Promise.all([cAirdrop.balanceOf(addr), cWpush.balanceOf(addr)]);
-        console.log('Balances loaded', rawA, rawW);
-        const decA = tokenIn === airdropAddr ? decIn : decOut;
-        const decW = tokenIn === WPUSH ? decIn : decOut;
-        const fA = ethers.formatUnits(rawA, decA);
-        const fW = ethers.formatUnits(rawW, decW);
-        if (!mounted) return;
-        setBalAirdrop(fA);
-        setBalWpush(fW);
-      } catch {
-        // ignore balance load errors
+        setMintError(null);
+        setMintTxnHash(null);
+        if (!pushChainClient) throw new Error('Wallet not connected');
+        if (!mintAmount) throw new Error('Enter amount');
+
+        // We will call WPUSH.deposit() with value in PC (18 decimals)
+        const valueWei = ethers.parseUnits(mintAmount, 18);
+        const wpushIface = new ethers.Interface(['function deposit() payable']);
+        const data = wpushIface.encodeFunctionData('deposit');
+
+        const tx = await pushChainClient.universal.sendTransaction({
+          to: WPUSH,
+          data: data,
+          value: valueWei,
+        });
+        setMintTxnHash(tx?.hash ?? null);
+      } catch (e) {
+        const message = e instanceof Error ? e.message : String(e);
+        setMintError(message || 'Mint failed');
+      } finally {
+        setIsMintLoading(false);
       }
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, [connectionStatus, connectedAddress, tokenIn, decIn, decOut, txnHash, airdropAddr, mintTxnHash, pushChainClient]);
+    }
 
-  return (
-    <div style={styles.page}>
-      <div style={styles.container}>
-        <h2 style={styles.title}>Token Swap</h2>
-        <PushUniversalAccountButton />
+    const isConnected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
+    const parsedInputAmount = useMemo(() => {
+      try {
+        return swapAmount ? ethers.parseUnits(swapAmount, inputTokenDecimals) : null;
+      } catch {
+        return null;
+      }
+    }, [swapAmount, inputTokenDecimals]);
+    const inputTokenBalanceRaw =
+      inputTokenAddress === airdropTokenAddress
+        ? balanceAirdropRaw
+        : inputTokenAddress === WPUSH
+        ? balanceWPUSHRaw
+        : 0n;
+    const hasSufficientBalance =
+      !!swapAmount && parsedInputAmount !== null && inputTokenBalanceRaw >= parsedInputAmount;
+    const canSwap =
+      isConnected &&
+      !isSwapLoading &&
+      !!swapAmount &&
+      !!poolFee &&
+      !!connectedAddress &&
+      !!inputTokenAddress &&
+      !!outputTokenAddress &&
+      hasSufficientBalance;
 
-        {isConnected && (
-          <div style={{ ...styles.stackMd, marginTop: 12 }}>
-            {configError && <div style={styles.error}>{configError}</div>}
-            {/* Mint WPUSH Section (no background) */}
-            <div style={{ ...styles.stackSm, ...styles.mintBox }}>
-              <div style={{ fontWeight: 600 }}>Mint WPUSH</div>
-              <div style={styles.label}>Amount (PC)</div>
-              <input
-                style={styles.input}
-                type="number"
-                min="0"
-                step="any"
-                value={mintAmount}
-                onChange={(e) => setMintAmount(e.target.value)}
-                placeholder="0.0 PC"
-              />
-              <div>
+    // Balances
+    useEffect(() => {
+      let mounted = true;
+      // const addr = connectedAddress;
+      if (!pushChainClient) return;
+      const addr = pushChainClient.universal.account; // Source chain account that is mapped to the execution account
+      if (!addr) {
+        console.log('No connected address');
+        setBalanceAirdrop('0');
+        setBalanceWPUSH('0');
+        return;
+      }
+      (async () => {
+        try {
+          console.log('Loading balances');
+          if (!airdropTokenAddress) return;
+          console.log('Hello World', addr);
+          console.log('Airdrop address', airdropTokenAddress);
+          const [cAirdrop, cWpush] = [
+            new ethers.Contract(airdropTokenAddress, ERC20_ABI, provider),
+            new ethers.Contract(WPUSH, ERC20_ABI, provider),
+          ];
+          const [rawA, rawW] = await Promise.all([cAirdrop.balanceOf(addr), cWpush.balanceOf(addr)]);
+          console.log('Balances loaded', rawA, rawW);
+          setBalanceAirdropRaw(rawA);
+          setBalanceWPUSHRaw(rawW);
+          const airdropDecimals = inputTokenAddress === airdropTokenAddress ? inputTokenDecimals : outputTokenDecimals;
+          const wpushDecimals = inputTokenAddress === WPUSH ? inputTokenDecimals : outputTokenDecimals;
+          const fA = ethers.formatUnits(rawA, airdropDecimals);
+          const fW = ethers.formatUnits(rawW, wpushDecimals);
+          if (!mounted) return;
+          setBalanceAirdrop(fA);
+          setBalanceWPUSH(fW);
+        } catch {
+          // ignore balance load errors
+        }
+      })();
+      return () => {
+        mounted = false;
+      };
+    }, [
+      connectionStatus,
+      connectedAddress,
+      inputTokenAddress,
+      inputTokenDecimals,
+      outputTokenDecimals,
+      swapTransactionHash,
+      airdropTokenAddress,
+      mintTxnHash,
+      pushChainClient,
+    ]);
+
+    return (
+      <div style={styles.page}>
+        <div style={styles.container}>
+          <h2 style={styles.title}>Token Swap</h2>
+          <PushUniversalAccountButton />
+
+          {isConnected && (
+            <div style={{ ...styles.stackMd, marginTop: 12 }}>
+              {configError && <div style={styles.error}>{configError}</div>}
+
+              {/* Swap card */}
+              <div style={styles.card}>
+                {/* Sell row */}
+                <div style={styles.tokenRow}>
+                  <div style={styles.rowHeader}>
+                    <span>Sell</span>
+                    <span>
+                      {formatBalance4(inputTokenAddress === airdropTokenAddress ? balanceAirdrop : balanceWPUSH)}{' '}
+                      {inputTokenSymbol}
+                    </span>
+                  </div>
+                  <div style={styles.tokenTop}>
+                    <input
+                      style={styles.tokenInput}
+                      type="number"
+                      min="0"
+                      step="any"
+                      value={swapAmount}
+                      onChange={(e) => setSwapAmount(e.target.value)}
+                      placeholder="0"
+                    />
+                    <div style={styles.tokenBadge}>{inputTokenSymbol || 'Token'}</div>
+                  </div>
+                  {!hasSufficientBalance && !!swapAmount && inputTokenAddress && (
+                    <div style={{ ...styles.muted, color: colors.danger }}>Insufficient balance</div>
+                  )}
+                </div>
+
+                {/* Direction switch */}
+                <div style={styles.centerSwitch}>
+                  <button
+                    aria-label="Switch direction"
+                    style={styles.switchBtn}
+                    onClick={() =>
+                      setSwapDirection((d) => (d === 'WPUSH_TO_AIRDROP' ? 'AIRDROP_TO_WPUSH' : 'WPUSH_TO_AIRDROP'))
+                    }
+                  >
+                    ↓
+                  </button>
+                </div>
+
+                {/* Buy row */}
+                <div style={styles.tokenRow}>
+                  <div style={styles.rowHeader}>
+                    <span>Buy</span>
+                    <span>
+                      {formatBalance4(outputTokenAddress === airdropTokenAddress ? balanceAirdrop : balanceWPUSH)}{' '}
+                      {outputTokenSymbol}
+                    </span>
+                  </div>
+                  <div style={styles.tokenTop}>
+                    <input style={styles.tokenInput} type="text" readOnly placeholder="0" />
+                    <div style={styles.tokenBadge}>{outputTokenSymbol || 'Token'}</div>
+                  </div>
+                </div>
+
+                {/* Swap button */}
                 <button
                   style={{
-                    ...styles.button,
-                    borderColor: colors.primary,
-                    opacity: !isConnected || isMintLoading || !mintAmount ? 0.5 : 1,
-                    cursor: !isConnected || isMintLoading || !mintAmount ? 'not-allowed' : 'pointer',
+                    ...styles.primaryBtn,
+                    opacity: !canSwap ? 0.5 : 1,
+                    cursor: !canSwap ? 'not-allowed' : 'pointer',
                   }}
-                  disabled={!isConnected || isMintLoading || !mintAmount}
+                  disabled={!canSwap}
                   onClick={() => {
-                    setIsMintLoading(true);
-                    handleMintWpush();
+                    setIsSwapLoading(true);
+                    handleSwap();
                   }}
                 >
-                  {isMintLoading ? 'Minting...' : 'Mint WPUSH'}
+                  {isSwapLoading
+                    ? 'Swapping...'
+                    : `Swap ${inputTokenSymbol || 'Token'} → ${outputTokenSymbol || 'Token'}`}
                 </button>
-              </div>
-              {mintTxnHash && (
-                <div style={styles.hashBox}>
-                  <div>Mint Txn: {mintTxnHash}</div>
-                  <a
-                    href={pushChainClient?.explorer?.getTransactionUrl?.(mintTxnHash) || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View in Explorer
-                  </a>
+
+                <div style={styles.muted}>
+                  {isPoolLoading ? (
+                    <>Checking for pool...</>
+                  ) : poolFee && poolAddress ? null : inputTokenAddress && outputTokenAddress ? (
+                    <>No pool found for this pair on common fee tiers</>
+                  ) : null}
                 </div>
-              )}
-              {mintError && <div style={styles.error}>{mintError}</div>}
-            </div>
 
-            <div style={styles.segmented} role="group" aria-label="Swap direction">
-              <button
-                type="button"
-                aria-pressed={swapDirection === 'WPUSH_TO_AIRDROP'}
-                onClick={() => setSwapDirection('WPUSH_TO_AIRDROP')}
-                style={{
-                  ...styles.segmentBtn,
-                  background: swapDirection === 'WPUSH_TO_AIRDROP' ? colors.primary : 'transparent',
-                  color: swapDirection === 'WPUSH_TO_AIRDROP' ? '#ffffff' : colors.muted,
-                }}
-              >
-                Swap WPush → Airdrop
-              </button>
-              <button
-                type="button"
-                aria-pressed={swapDirection === 'AIRDROP_TO_WPUSH'}
-                onClick={() => setSwapDirection('AIRDROP_TO_WPUSH')}
-                style={{
-                  ...styles.segmentBtn,
-                  borderLeft: `1px solid ${colors.border}`,
-                  background: swapDirection === 'AIRDROP_TO_WPUSH' ? colors.primary : 'transparent',
-                  color: swapDirection === 'AIRDROP_TO_WPUSH' ? '#ffffff' : colors.muted,
-                }}
-              >
-                Swap Airdrop → WPush
-              </button>
-            </div>
-
-            <div style={styles.stackSm}>
-              <div style={{ ...styles.muted, display: 'flex', gap: 10, flexWrap: 'wrap' as const }}>
-                <span>Balances</span>
-                <span>—</span>
-                <span>Airdrop: {formatBalance4(balAirdrop)}</span>
-                <span>|</span>
-                <span>WPush: {formatBalance4(balWpush)}</span>
+                {swapTransactionHash && (
+                  <div style={styles.hashBox}>
+                    <a
+                      style={styles.link}
+                      href={pushChainClient?.explorer?.getTransactionUrl?.(swapTransactionHash) || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View in Explorer
+                    </a>
+                  </div>
+                )}
               </div>
-              <div style={styles.label}>Amount ({symIn || 'Token'})</div>
-              <input
-                style={styles.input}
-                type="number"
-                min="0"
-                step="any"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder={`0.0 ${symIn || ''}`}
-              />
-            </div>
 
-            <div style={styles.muted}>
-              {isPoolLoading ? (
-                <>Checking for pool...</>
-              ) : poolFee && poolAddr ? null : tokenIn && tokenOut ? (
-                <>No pool found for this pair on common fee tiers</>
-              ) : null}
-            </div>
+              {error && <div style={styles.error}>{error}</div>}
 
-            <button
-              style={{
-                ...styles.button,
-                borderColor: colors.primary,
-                opacity: !canSwap ? 0.5 : 1,
-                cursor: !canSwap ? 'not-allowed' : 'pointer',
-              }}
-              disabled={!canSwap}
-              onClick={() => {
-                setIsLoading(true);
-                handleSwap();
-              }}
-            >
-              {isLoading ? 'Swapping...' : `Swap ${symIn || 'Token'} → ${symOut || 'Token'}`}
-            </button>
-
-            {txnHash && (
-              <div style={styles.hashBox}>
-                <div>Txn Hash: {txnHash}</div>
-                <a
-                  href={pushChainClient?.explorer?.getTransactionUrl?.(txnHash) || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View in Explorer
-                </a>
+              {/* Optional: Mint WPUSH (minimal, no card) */}
+              <div style={styles.mintInline}>
+                <div style={{ fontWeight: 600, color: colors.muted }}>Optional: Mint WPUSH</div>
+                <div style={styles.mintRow}>
+                  <input
+                    style={styles.input}
+                    type="number"
+                    min="0"
+                    step="any"
+                    value={mintAmount}
+                    onChange={(e) => setMintAmount(e.target.value)}
+                    placeholder="0.0 PC"
+                  />
+                  <button
+                    style={{
+                      ...styles.button,
+                      borderColor: colors.primary,
+                      opacity: !isConnected || isMintLoading || !mintAmount ? 0.5 : 1,
+                      cursor: !isConnected || isMintLoading || !mintAmount ? 'not-allowed' : 'pointer',
+                    }}
+                    disabled={!isConnected || isMintLoading || !mintAmount}
+                    onClick={() => {
+                      setIsMintLoading(true);
+                      handleMintWpush();
+                    }}
+                  >
+                    {isMintLoading ? 'Minting...' : 'Mint WPUSH'}
+                  </button>
+                </div>
+                {mintTxnHash && (
+                  <div style={styles.hashBox}>
+                    <a
+                      style={styles.link}
+                      href={pushChainClient?.explorer?.getTransactionUrl?.(mintTxnHash) || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View in Explorer
+                    </a>
+                  </div>
+                )}
+                {mintError && <div style={styles.error}>{mintError}</div>}
               </div>
-            )}
-
-            {error && <div style={styles.error}>{error}</div>}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <PushUniversalWalletProvider config={walletConfig}>
+      <Component />
+    </PushUniversalWalletProvider>
   );
 }
-
-export default App;
 ```
 
 ## Conclusion
