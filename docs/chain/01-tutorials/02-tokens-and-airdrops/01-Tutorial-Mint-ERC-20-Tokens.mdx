@@ -877,6 +877,10 @@ The `PushUniversalWalletProvider` component requires a `config` prop that specif
 
 ### 4.4. Set constants for addresses
 
+> **Important:** Copy the addresses you generated earlier into the `ADDRESSES` constant below.
+> - `AIRDROP_ADDR`: from the `deployed-addresses.json` written by `scripts/deploy.ts` (Part 1)
+> - `POOL_ADDR`: the `$AIRDROP/$WPUSH` pool address from Part 3.
+
 Define your constants in code instead of fetching a JSON file:
 
 ```ts
@@ -889,7 +893,7 @@ const ADDRESSES = {
 
 ### 4.5. Creating the Application Component
 
-Open `App.tsx` and replace it with the following implementation. This app:
+Open `App.tsx` and replace it with the following implementation. Before pasting, update the `ADDRESSES` constant with the values copied from your `deployed-addresses.json` (see 4.4). This app:
 
 - Integrates the Push Universal Wallet
 - Lets users deposit `$PC` and mint `$WPUSH` by calling `deposit()` on the `WPUSH` contract
@@ -914,6 +918,7 @@ function PushSwapExample() {
   const FACTORY = '0xF02DA51d1Ef1c593a95f5C97d7BdFc49fbaBbaA5';
   const SWAP_ROUTER = '0x34B10a283c2331Afa2C7a6bb5FB961E01f218fa0';
   const WPUSH = '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818';
+
   // Airdrop token address via constants (no JSON fetch)
   const ADDRESSES = {
     AIRDROP_ADDR: '0x283E86104750B03Ed527Fa049193052778326122',
