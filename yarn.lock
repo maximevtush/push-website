@@ -9789,6 +9789,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bignumber.js@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "bignumber.js@npm:9.3.1"
+  checksum: 10c0/61342ba5fe1c10887f0ecf5be02ff6709271481aff48631f86b4d37d55a99b87ce441cfd54df3d16d10ee07ceab7e272fc0be430c657ffafbbbf7b7d631efb75
+  languageName: node
+  linkType: hard
+
 "binary-extensions@npm:^2.0.0":
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
@@ -10099,6 +10106,13 @@ __metadata:
   version: 1.2.2
   resolution: "buffer-layout@npm:1.2.2"
   checksum: 10c0/d90d1f622f592553555dd290d0e6dd0bababb2566655d0728812b2667af5a23d795929c38c25f5065252024fa29d75ea54eeb6f469d69814f4ebf614c6672acf
+  languageName: node
+  linkType: hard
+
+"buffer-reverse@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "buffer-reverse@npm:1.0.1"
+  checksum: 10c0/72f05072a72dc1ec0574693b8358e6d3882abe8d0a7daa875ed145b360d68ea3b95eb1b5fd435bf1f38a80d85021ecdf670bbb57694926cc1a02ea56cbbf4468
   languageName: node
   linkType: hard
 
@@ -11240,7 +11254,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^4.1.1":
+"crypto-js@npm:^4.1.1, crypto-js@npm:^4.2.0":
   version: 4.2.0
   resolution: "crypto-js@npm:4.2.0"
   checksum: 10c0/8fbdf9d56f47aea0794ab87b0eb9833baf80b01a7c5c1b0edc7faf25f662fb69ab18dc2199e2afcac54670ff0cd9607a9045a3f7a80336cccd18d77a55b9fdf0
@@ -17729,6 +17743,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"merkletreejs@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "merkletreejs@npm:0.5.2"
+  dependencies:
+    buffer-reverse: "npm:^1.0.1"
+    crypto-js: "npm:^4.2.0"
+    treeify: "npm:^1.1.0"
+  checksum: 10c0/c698a7e91965ca73e61077c03d65dd71f798a6ca822135d1f02e28a59f12e5f126f3b2b60c3a2003390c785282c91b6f71ad0e59c9f35346c2203283fc853088
+  languageName: node
+  linkType: hard
+
 "mermaid@npm:>=11.6.0":
   version: 11.11.0
   resolution: "mermaid@npm:11.11.0"
@@ -21016,6 +21041,7 @@ __metadata:
     assert: "npm:^2.0.0"
     axios: "npm:^1.11.0"
     babel-plugin-styled-components: "npm:^2.1.4"
+    bignumber.js: "npm:^9.3.1"
     browserify-zlib: "npm:^0.2.0"
     bs58: "npm:^6.0.0"
     buffer: "npm:^6.0.3"
@@ -21043,6 +21069,7 @@ __metadata:
     lint-staged: "npm:^15.2.2"
     lottie-react: "npm:^2.4.1"
     marked: "npm:^15.0.7"
+    merkletreejs: "npm:^0.5.2"
     os-browserify: "npm:^0.3.0"
     path: "npm:0.12.7"
     pino-pretty: "npm:^13.1.1"
@@ -24187,6 +24214,13 @@ __metadata:
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
   checksum: 10c0/047cb209a6b60c742f05c9d3ace8fa510bff609995c129a37ace03476a9b12db4dbf975e74600830ef0796e18882b2381fb5fb1f6b4f96b832c374de3ab91a11
+  languageName: node
+  linkType: hard
+
+"treeify@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "treeify@npm:1.1.0"
+  checksum: 10c0/2f0dea9e89328b8a42296a3963d341ab19897a05b723d6b0bced6b28701a340d2a7b03241aef807844198e46009aaf3755139274eb082cfce6fdc1935cbd69dd
   languageName: node
   linkType: hard
 
