@@ -815,9 +815,13 @@ function UniversalAirdrop() {
 </TabItem>
 <TabItem value='Deploy ERC-20 Token' label='Deploy ERC-20 Token'>
 
+Here are the steps to deploy the `TestToken` contract on Remix below:
+
 - Set the Solidity compiler version to 0.8.22 in Remix.
 - For Environment, choose Injected Provider (connect your wallet to Push Chain Donut Testnet).
 - When deploying `TestToken`, pass constructor arguments: token name and symbol (e.g., `TestToken` and `TEST`).
+
+> **Note:** If you need `$PC` tokens to deploy the contract, you can get them from the [Push Chain Faucet](https://faucet.push.org/).
 
 <RemixIDE
   examples={{
@@ -833,28 +837,7 @@ function UniversalAirdrop() {
 
 <br />
 
-### Create the TestToken contract (`TestToken.sol`)
-
-Here is the `TestToken.sol` - a simple ERC-20 token for testing our airdrop:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-contract TestToken is ERC20 {
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
-        _mint(msg.sender, 1_000_000 * 10 ** decimals());
-    }
-
-    function mint(address to, uint256 amount) external {
-        _mint(to, amount);
-    }
-}
-```
-
-**Understanding the TestToken contract:**
+### Understanding the `TestToken` contract
 
 - **Inherits from ERC20**: Uses OpenZeppelin's battle-tested ERC20 implementation
 - **Constructor**: Mints 1 million tokens to the deployer upon creation
@@ -864,9 +847,13 @@ contract TestToken is ERC20 {
 </TabItem>
 <TabItem value='Deploy Universal Airdrop' label='Deploy Universal Airdrop'>
 
+Here are the steps to deploy the `UniversalAirdrop` contract on Remix below:
+
 - Set the Solidity compiler version to 0.8.22 in Remix.
 - For Environment, choose Injected Provider (connect your wallet to Push Chain Donut Testnet).
-- When deploying `UniversalAirdrop`, pass constructor arguments: token address deployed in the previous step and merkle root.
+- When deploying `UniversalAirdrop`, pass constructor arguments: **token address deployed in the previous step and merkle root you can get from the next step**.
+
+> **Note:** If you need `$PC` tokens to deploy the contract, you can get them from the [Push Chain Faucet](https://faucet.push.org/).
 
 <RemixIDE
   examples={{
@@ -881,186 +868,14 @@ contract TestToken is ERC20 {
 />
 
 <br />
-### Create the UEAFactory interface for the contracts (`IUEAFactory.sol`)
 
-Here is the `IUEAFactory.sol` - the interface for the UEAFactory contract:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
-
-struct UniversalAccountId {
-    string chainNamespace;
-    string chainId;
-    bytes owner;
-}
-
-interface IUEAFactory {
-    function getOriginForUEA(
-        address addr
-    ) external view returns (UniversalAccountId memory account, bool isUEA);
-}
-```
-
-### Create the UniversalAirdrop contract (`UniversalAirdrop.sol`)
-
-Here is the `UniversalAirdrop.sol` - the main airdrop contract that matches our Merkle proof generator:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
-
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "./interfaces/IUEAFactory.sol";
-
-/**
- * @title Universal Airdrop Contract for Push Chain
- * @dev Airdrop contract that supports claims from multiple origin chains using UEA (Universal External Accounts)
- * @notice This contract binds claims to the caller's origin chain to prevent cross-chain spoofing
- */
-contract UniversalAirdrop is Ownable, ReentrancyGuard {
-    // Push Chain UEAFactory address - hardcoded as per specification
-    address public constant UEA_FACTORY =
-        0x00000000000000000000000000000000000000eA;
-
-    // State variables
-    bytes32 public merkleRoot;
-    mapping(bytes32 => bool) public claimed; // keyed by claimId to prevent double claims per (address, chainNamespace, chainId)
-    IERC20 public immutable token;
-
-    // Push Chain Donut testnet chain ID constant
-    string public constant PUSH_CHAIN_ID = "push-donut";
-
-    // Events
-    event Claimed(
-        address indexed recipient,
-        string chainNamespace,
-        string chainId,
-        uint256 amount
-    );
-    event MerkleRootUpdated(bytes32 newRoot);
-
-    /**
-     * @dev Constructor
-     * @param _token The ERC20 token to be airdropped
-     * @param _merkleRoot The initial Merkle root for the airdrop
-     */
-    constructor(IERC20 _token, bytes32 _merkleRoot) Ownable(msg.sender) {
-        token = _token;
-        merkleRoot = _merkleRoot;
-    }
-
-    /**
-     * @dev Claim tokens using a Merkle proof
-     * @param proof The Merkle proof proving inclusion in the airdrop
-     * @param amount The amount of tokens to claim
-     * @param chainNamespace The origin chain namespace (e.g., "eip155", "solana", "push")
-     * @param chainId The origin chain ID (e.g., "11155111" for Sepolia, "push-donut" for Push)
-     * @notice The claim is bound to the caller's origin chain to prevent cross-chain spoofing
-     */
-    function claim(
-        bytes32[] calldata proof,
-        uint256 amount,
-        string calldata chainNamespace,
-        string calldata chainId
-    ) external nonReentrant {
-        address caller = msg.sender;
-
-        // Get origin chain information from UEAFactory for verification
-        (UniversalAccountId memory account, bool isUEA) = IUEAFactory(
-            UEA_FACTORY
-        ).getOriginForUEA(caller);
-
-        address recipientAddress;
-
-        if (isUEA) {
-            // For UEA accounts, verify the provided chain info matches the origin
-            require(
-                keccak256(abi.encodePacked(chainNamespace)) ==
-                    keccak256(abi.encodePacked(account.chainNamespace)) &&
-                    keccak256(abi.encodePacked(chainId)) ==
-                    keccak256(abi.encodePacked(account.chainId)),
-                "Provided chain info does not match UEA origin"
-            );
-            // Convert owner bytes to address for leaf computation
-            // If owner is 20 bytes (EVM), cast directly; otherwise derive address from keccak256(owner)
-            if (account.owner.length == 20) {
-                recipientAddress = address(bytes20(account.owner));
-            } else {
-                recipientAddress = address(
-                    uint160(uint256(keccak256(account.owner)))
-                );
-            }
-        } else {
-            // For non-UEA accounts (could be native Push Chain or direct connections)
-            // Allow claiming from any chain - the Merkle proof will verify eligibility
-            recipientAddress = caller;
-        }
-
-        // Generate claimId to prevent double claims for the same (address, chainNamespace, chainId) tuple
-        bytes32 claimId = keccak256(
-            abi.encodePacked(recipientAddress, chainNamespace, chainId)
-        );
-        require(!claimed[claimId], "Already claimed for this origin chain");
-
-        // Compute the leaf as per specification: keccak256(abi.encodePacked(recipientOnPush, chainNamespace, chainId, amount))
-        bytes32 leaf = keccak256(
-            abi.encodePacked(recipientAddress, chainNamespace, chainId, amount)
-        );
-
-        // Verify the Merkle proof
-        require(
-            MerkleProof.verify(proof, merkleRoot, leaf),
-            "Invalid Merkle proof"
-        );
-
-        // Mark as claimed and transfer tokens
-        claimed[claimId] = true;
-        require(
-            token.transfer(recipientAddress, amount),
-            "Token transfer failed"
-        );
-
-        emit Claimed(recipientAddress, chainNamespace, chainId, amount);
-    }
-
-    /**
-     * @dev Update the Merkle root (only owner)
-     * @param newRoot The new Merkle root
-     * @notice This allows updating the airdrop with new recipients
-     */
-    function setMerkleRoot(bytes32 newRoot) external onlyOwner {
-        merkleRoot = newRoot;
-        emit MerkleRootUpdated(newRoot);
-    }
-
-    /**
-     * @dev Recover ERC20 tokens (only owner)
-     * @param tokenAddress The address of the token to recover
-     * @param amount The amount to recover
-     * @notice Allows the owner to recover mistakenly sent tokens
-     */
-    function recoverERC20(
-        address tokenAddress,
-        uint256 amount
-    ) external onlyOwner {
-        require(tokenAddress != address(token), "Cannot recover airdrop token");
-        IERC20(tokenAddress).transfer(owner(), amount);
-    }
-}
-```
-
-**Key features of the UniversalAirdrop contract:**
+### Understanding the `UniversalAirdrop` contract
 
 - **Merkle Proof Verification**: Uses OpenZeppelin's `MerkleProof.verify()` to validate inclusion proofs
 - **Universal Support**: Accepts any recipient address format (the proof generation handles the conversion)
 - **Reentrancy Protection**: Uses `ReentrancyGuard` to prevent reentrancy attacks
 - **Claim Tracking**: Maps claim IDs (address + origin chain) to prevent double claims per recipient per origin chain
 - **Owner Controls**: Allows updating the Merkle root for future airdrop rounds
-
 
 </TabItem>
 <TabItem value='Generate Merkle Tree' label='Generate Merkle Tree'>
@@ -1069,176 +884,166 @@ contract UniversalAirdrop is Ownable, ReentrancyGuard {
 
 In this part, we'll create a Merkle proof generator that produces cryptographic proofs for a universal airdrop system. This generator will create a Merkle tree from recipient data and generate proofs that can be verified on-chain.
 
-### 1.1. Set up the Merkle proof generator
-
-Create the project directory and install the required dependencies:
-
-```bash
-mkdir merkle-proof-generator
-cd merkle-proof-generator
-npm init -y
-tsc --init
-npm install bs58 merkletreejs viem
-npm i -D @types/node
-```
-
-The dependencies you'll need:
+The dependencies you'll need for the Merkle proof generator:
 
 - `@openzeppelin/merkle-tree`: Core library for building Merkle trees with cryptographic hashing
 - `viem`: Ethereum library providing `keccak256` hashing and ABI encoding utilities
 - `bs58`: Base58 encoding/decoding library for Solana addresses
 
-<NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/initialize-push-chain-client"}}>
+<NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-airdrop/scripts/merkle-proof-generator.ts"}}>
 
-  {`
-  import { keccak256 } from 'viem';
-import { makeMerkleTree, getProof } from '@openzeppelin/merkle-tree/dist/core.js';
-import bs58 from 'bs58';
+{`
 
-// Hardcoded airdrop data (previously read from data/airdrop.json)
-const AIRDROP_ENTRIES = [
-  {
-    recipient: '0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9',
-    chainNamespace: 'eip155',
-    chainId: '11155111',
-    amount: '10000000000000000000',
-  },
-];
+    //@ts-nocheck
+    import { keccak256 } from 'viem';
+    import { makeMerkleTree, getProof } from '@openzeppelin/merkle-tree/dist/core.js';
+    import bs58 from 'bs58';
 
-/**
- * Generate a leaf hash matching the Solidity contract
- * leaf = keccak256(abi.encodePacked(recipientOnPush, chainNamespace, chainId, amount))
- */
-function generateLeaf(entry) {
-  const { recipient, chainNamespace, chainId, amount } = entry;
+    // Hardcoded airdrop data (previously read from data/airdrop.json)
+    const AIRDROP_ENTRIES = [
+      {
+        recipient: '0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9',
+        chainNamespace: 'eip155',
+        chainId: '11155111',
+        amount: '10000000000000000000',
+      },
+    ];
 
-  // Normalize recipient address:
-  // - If hex 0x address (length 42), parse as 20-byte address
-  // - Else treat as base58 (e.g., Solana), hash bytes and take last 20 bytes
-  let recipientAddressHex;
-  if (recipient.startsWith('0x')) {
-    const addr = recipient.toLowerCase();
-    const addressBytes = addr.slice(2).padStart(40, '0');
-    recipientAddressHex = addressBytes;
-  } else {
-    const raw = Buffer.from(bs58.decode(recipient));
-    const hashed = Buffer.from(keccak256('0x' + raw.toString('hex')).slice(2), 'hex');
-    const last20 = hashed.slice(-20);
-    recipientAddressHex = last20.toString('hex');
-  }
+    /**
+     * Generate a leaf hash matching the Solidity contract
+     * leaf = keccak256(abi.encodePacked(recipientOnPush, chainNamespace, chainId, amount))
+     */
+    function generateLeaf(entry) {
+      const { recipient, chainNamespace, chainId, amount } = entry;
 
-  const namespaceBytes = Buffer.from(chainNamespace, 'utf8');
-  const chainIdBytes = Buffer.from(chainId, 'utf8');
-  const amountBytes = Buffer.alloc(32);
-  amountBytes.writeBigUInt64BE(BigInt(amount), 24);
+      // Normalize recipient address:
+      // - If hex 0x address (length 42), parse as 20-byte address
+      // - Else treat as base58 (e.g., Solana), hash bytes and take last 20 bytes
+      let recipientAddressHex;
+      if (recipient.startsWith('0x')) {
+        const addr = recipient.toLowerCase();
+        const addressBytes = addr.slice(2).padStart(40, '0');
+        recipientAddressHex = addressBytes;
+      } else {
+        const raw = Buffer.from(bs58.decode(recipient));
+        const hashed = Buffer.from(keccak256('0x' + raw.toString('hex')).slice(2), 'hex');
+        const last20 = hashed.slice(-20);
+        recipientAddressHex = last20.toString('hex');
+      }
 
-  const packedBytes = Buffer.concat([
-    Buffer.from(recipientAddressHex, 'hex'),
-    namespaceBytes,
-    chainIdBytes,
-    amountBytes,
-  ]);
+      const namespaceBytes = Buffer.from(chainNamespace, 'utf8');
+      const chainIdBytes = Buffer.from(chainId, 'utf8');
+      const amountBytes = Buffer.alloc(32);
+      amountBytes.writeBigUInt64BE(BigInt(amount), 24);
 
-  return keccak256('0x' + packedBytes.toString('hex'));
-}
+      const packedBytes = Buffer.concat([
+        Buffer.from(recipientAddressHex, 'hex'),
+        namespaceBytes,
+        chainIdBytes,
+        amountBytes,
+      ]);
 
-/**
- * Build Merkle tree from airdrop entries
- */
-function buildMerkleTree(entries) {
-  // Generate leaves
-  const leaves = entries.map((entry) => generateLeaf(entry));
-
-  // Create Merkle tree with sorted node hashing (default)
-  const tree = makeMerkleTree(leaves);
-  const merkleRoot = tree[0];
-
-  // Generate proofs for each entry
-  const entriesWithProofs = entries.map((entry, index) => {
-    const leafIndex = tree.length - 1 - index;
-    const proof = getProof(tree, leafIndex);
-
-    return {
-      ...entry,
-      leaf: leaves[index],
-      proof,
-    };
-  });
-
-  return {
-    merkleRoot,
-    entries: entriesWithProofs,
-  };
-}
-
-/**
- * Print summary of the airdrop data
- */
-function printSummary(treeData) {
-  const { entries, merkleRoot } = treeData;
-
-  console.log('🌳 Universal Airdrop Merkle Tree Summary');
-  console.log('=====================================');
-  console.log('📁 Merkle Root: ' + merkleRoot);
-  console.log('👥 Total Recipients: ' + entries.length);
-
-  // Calculate totals per chain namespace
-  const chainStats = entries.reduce((acc, entry) => {
-    const key = entry.chainNamespace + ':' + entry.chainId;
-    if (!acc[key]) {
-      acc[key] = { count: 0, totalAmount: BigInt(0) };
+      return keccak256('0x' + packedBytes.toString('hex'));
     }
-    acc[key].count += 1;
-    acc[key].totalAmount += BigInt(entry.amount);
-    return acc;
-  }, {});
 
-  console.log('\n📊 Per-Chain Breakdown:');
-  Object.entries(chainStats).forEach(([chain, stats]) => {
-    console.log('  ' + chain + ': ' + stats.count + ' recipients, ' + stats.totalAmount.toString() + ' tokens');
-  });
+    /**
+     * Build Merkle tree from airdrop entries
+     */
+    function buildMerkleTree(entries) {
+      // Generate leaves
+      const leaves = entries.map((entry) => generateLeaf(entry));
 
-  // Calculate total amount
-  const totalAmount = entries.reduce((sum, entry) => sum + BigInt(entry.amount), BigInt(0));
-  console.log('\n💰 Total Airdrop Amount: ' + totalAmount.toString() + ' tokens');
-}
+      // Create Merkle tree with sorted node hashing (default)
+      const tree = makeMerkleTree(leaves);
+      const merkleRoot = tree[0];
 
-// Main execution
-async function main() {
-  // Use hardcoded airdrop entries
-  const entries = AIRDROP_ENTRIES;
+      // Generate proofs for each entry
+      const entriesWithProofs = entries.map((entry, index) => {
+        const leafIndex = tree.length - 1 - index;
+        const proof = getProof(tree, leafIndex);
 
-  // Validate entries
-  for (const entry of entries) {
-    const isHex = entry.recipient.startsWith('0x') && entry.recipient.length === 42;
-    const isBase58 = !entry.recipient.startsWith('0x');
-    if (!isHex && !isBase58) {
-      throw new Error('Invalid recipient: ' + entry.recipient + ' (must be 0x-address or base58)');
+        return {
+          ...entry,
+          leaf: leaves[index],
+          proof,
+        };
+      });
+
+      return {
+        merkleRoot,
+        entries: entriesWithProofs,
+      };
     }
-    if (!entry.chainNamespace || !entry.chainId) {
-      throw new Error('Missing chain info for ' + entry.recipient);
+
+    /**
+     * Print summary of the airdrop data
+     */
+    function printSummary(treeData) {
+      const { entries, merkleRoot } = treeData;
+
+      console.log('🌳 Universal Airdrop Merkle Tree Summary');
+      console.log('=====================================');
+      console.log('📁 Merkle Root: ' + merkleRoot);
+      console.log('👥 Total Recipients: ' + entries.length);
+
+      // Calculate totals per chain namespace
+      const chainStats = entries.reduce((acc, entry) => {
+        const key = entry.chainNamespace + ':' + entry.chainId;
+        if (!acc[key]) {
+          acc[key] = { count: 0, totalAmount: BigInt(0) };
+        }
+        acc[key].count += 1;
+        acc[key].totalAmount += BigInt(entry.amount);
+        return acc;
+      }, {});
+
+      console.log('📊 Per-Chain Breakdown:');
+      Object.entries(chainStats).forEach(([chain, stats]) => {
+        console.log('  ' + chain + ': ' + stats.count + ' recipients, ' + stats.totalAmount.toString() + ' tokens');
+      });
+
+      // Calculate total amount
+      const totalAmount = entries.reduce((sum, entry) => sum + BigInt(entry.amount), BigInt(0));
+      console.log('💰 Total Airdrop Amount: ' + totalAmount.toString() + ' tokens');
     }
-    if (isNaN(parseInt(entry.amount)) || BigInt(entry.amount) <= 0) {
-      throw new Error('Invalid amount for ' + entry.recipient + ': ' + entry.amount);
+
+    // Main execution
+    async function main() {
+      // Use hardcoded airdrop entries
+      const entries = AIRDROP_ENTRIES;
+
+      // Validate entries
+      for (const entry of entries) {
+        const isHex = entry.recipient.startsWith('0x') && entry.recipient.length === 42;
+        const isBase58 = !entry.recipient.startsWith('0x');
+        if (!isHex && !isBase58) {
+          throw new Error('Invalid recipient: ' + entry.recipient + ' (must be 0x-address or base58)');
+        }
+        if (!entry.chainNamespace || !entry.chainId) {
+          throw new Error('Missing chain info for ' + entry.recipient);
+        }
+        if (isNaN(parseInt(entry.amount)) || BigInt(entry.amount) <= 0) {
+          throw new Error('Invalid amount for ' + entry.recipient + ': ' + entry.amount);
+        }
+      }
+
+      console.log('🔨 Building Merkle tree for ' + entries.length + ' recipients...');
+
+      // Build Merkle tree
+      const treeData = buildMerkleTree(entries);
+
+      // Output Merkle tree data to console instead of writing to a file
+      console.log(JSON.stringify(treeData, null, 2));
+      console.log('✅ Merkle tree built successfully!');
+
+      // Print summary
+      printSummary(treeData);
     }
-  }
 
-  console.log('🔨 Building Merkle tree for ' + entries.length + ' recipients...');
+    main().catch(console.error);
 
-  // Build Merkle tree
-  const treeData = buildMerkleTree(entries);
-
-  // Output Merkle tree data to console instead of writing to a file
-  console.log(JSON.stringify(treeData, null, 2));
-  console.log('✅ Merkle tree built successfully!');
-
-  // Print summary
-  printSummary(treeData);
-}
-
-await main().catch(console.error);
-
-  `}
+                                                                                                                                  
+`}
 
 </NodeJSVirtualIDE>
 
@@ -1250,7 +1055,7 @@ Each entry in the array represents a recipient with:
 - `amount`: Token amount in smallest units (as string to avoid precision issues)
 
 
-#### How the Merkle proof works:
+#### How the Merkle proof works
 
 The proof allows anyone to verify that a specific recipient is included in the airdrop without revealing the entire recipient list. The smart contract can verify the proof by:
 
@@ -1262,8 +1067,6 @@ The proof allows anyone to verify that a specific recipient is included in the a
 
 </TabItem>
 </Tabs>
-
-The UI will use this file to interact with the deployed contracts and validate airdrop claims.
 
 ## Conclusion
 
