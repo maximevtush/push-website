@@ -1037,157 +1037,169 @@ Copy `merkle-proof-generator/data/tree.json` and `merkle-proof-generator/data/ad
 
 ### 3.5. Add a minimal Claim component
 
-```tsx
+```jsx live
+// customPropMinimized='true'
 import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
+import { makeMerkleTree, getProof } from '@openzeppelin/merkle-tree/dist/core.js';
+import { keccak256 } from 'viem';
+import bs58 from 'bs58';
 import {
   PushUniversalAccountButton,
   usePushWalletContext,
   usePushChainClient,
   PushUI,
+  PushUniversalWalletProvider,
 } from '@pushchain/ui-kit';
 import { PushChain } from '@pushchain/core';
 
-// Universal Airdrop Contract ABI - Standard format for PushChain encoding
-const AIRDROP_ABI = [
-  {
-    inputs: [
-      { internalType: 'bytes32[]', name: 'proof', type: 'bytes32[]' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { internalType: 'string', name: 'chainNamespace', type: 'string' },
-      { internalType: 'string', name: 'chainId', type: 'string' },
-    ],
-    name: 'claim',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-];
+function UniversalAirdrop() {
+  // Define Wallet Config
+  const walletConfig = {
+    network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
+  };
 
-// Chain options for the UI (now used only for display names)
-const CHAIN_OPTIONS = [
-  { namespace: 'eip155', id: '11155111', name: 'Ethereum Sepolia' },
-  {
-    namespace: 'solana',
-    id: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
-    name: 'Solana Devnet',
-  },
-  { namespace: 'eip155', id: '42101', name: 'Push Chain Testnet' },
-];
+  // Universal Airdrop Contract ABI - Standard format for PushChain encoding
+  const AIRDROP_ABI = [
+    {
+      inputs: [
+        { internalType: 'bytes32[]', name: 'proof', type: 'bytes32[]' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' },
+        { internalType: 'string', name: 'chainNamespace', type: 'string' },
+        { internalType: 'string', name: 'chainId', type: 'string' },
+      ],
+      name: 'claim',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+  ];
 
-// Helper function to get chain name from namespace and id
-const getChainName = (namespace: string, id: string): string => {
-  const chain = CHAIN_OPTIONS.find(
-    (chain) => chain.namespace === namespace && chain.id === id
-  );
-  return chain ? chain.name : `${namespace}:${id}`;
-};
+  // Chain options for the UI (now used only for display names)
+  const CHAIN_OPTIONS = [
+    { namespace: 'eip155', id: '11155111', name: 'Ethereum Sepolia' },
+    { namespace: 'solana', id: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1', name: 'Solana Devnet' },
+    { namespace: 'eip155', id: '42101', name: 'Push Chain Testnet' },
+  ];
 
-// Normalize origin.chain (e.g., 'eip155:42101') to our app's namespace/id scheme
-const normalizeChainFromOrigin = (
-  originChain: string
-): { namespace: string; id: string; name: string } => {
-  const [ns, chainId] = String(originChain).split(':');
+  // Helper function to get chain name from namespace and id
+  const getChainName = (namespace, id) => {
+    const chain = CHAIN_OPTIONS.find((chain) => chain.namespace === namespace && chain.id === id);
+    return chain ? chain.name : `${namespace}:${id}`;
+  };
 
-  // No special mapping; tree.json uses 'eip155' with id '42101'
+  // Normalize origin.chain (e.g., 'eip155:42101') to our app's namespace/id scheme
+  const normalizeChainFromOrigin = (originChain) => {
+    const [ns, chainId] = String(originChain).split(':');
 
-  // Default passthrough (EVM chains, Solana, etc.)
-  return { namespace: ns, id: chainId, name: getChainName(ns, chainId) };
-};
+    // No special mapping; tree.json uses 'eip155' with id '42101'
 
-function WalletUI() {
-  // Contract addresses will be loaded dynamically
-  const [contractAddresses, setContractAddresses] = useState<any>(null);
+    // Default passthrough (EVM chains, Solana, etc.)
+    return { namespace: ns, id: chainId, name: getChainName(ns, chainId) };
+  };
 
-  // All hooks must be called before any conditional returns
-  const [isClaiming, setIsClaiming] = useState(false);
-  const [isLoadingProof, setIsLoadingProof] = useState(false);
-  const [hasClaimed, setHasClaimed] = useState(false);
-  const [claimAmount, setClaimAmount] = useState('');
-  const [proof, setProof] = useState<string[]>([]);
-  const [detectedChain, setDetectedChain] = useState<{
-    namespace: string;
-    id: string;
-    name: string;
-  } | null>(null);
-  const [treeData, setTreeData] = useState<any>(null);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  // ---------- Helpers for Merkle tree and origin address mapping ----------
 
-  // Push Universal Wallet hooks
-  const { connectionStatus } = usePushWalletContext();
-  const { pushChainClient } = usePushChainClient();
+  // Using bs58 package for base58 decoding; custom decoder removed
 
-  // Load contract addresses and tree data on mount
-  useEffect(() => {
-    const loadAddresses = async () => {
-      try {
-        const response = await fetch('./addresses.json');
-        const data = await response.json();
-        setContractAddresses(data);
-      } catch (error) {
-        console.error('Failed to load contract addresses:', error);
+  const deriveRecipientEvmAddress = (recipientRaw) => {
+    try {
+      if (recipientRaw.startsWith('0x')) {
+        return ethers.getAddress(recipientRaw);
       }
-    };
+      const raw = Uint8Array.from(bs58.decode(recipientRaw));
+      const hashed = keccak256(raw);
+      const addressBytes = ethers.dataSlice(hashed, 12);
+      return ethers.getAddress(addressBytes);
+    } catch {
+      throw new Error('Invalid recipient for the selected chain');
+    }
+  };
 
-    const loadTreeData = async () => {
-      try {
-        const response = await fetch('./tree.json');
-        const data = await response.json();
-        setTreeData(data);
-      } catch (error) {
-        console.error('Failed to load tree data:', error);
-      }
-    };
+  const hashLeaf = (evmRecipient, chainNamespace, chainId, amount) => {
+    // Mirror merkle-proof-generator/index.ts manual packed layout
+    const recipientBytes = ethers.getBytes(evmRecipient);
+    const namespaceBytes = ethers.toUtf8Bytes(chainNamespace);
+    const chainIdBytes = ethers.toUtf8Bytes(chainId);
+    const amountHex = ethers.toBeHex(amount);
+    const amountBytes = ethers.getBytes(ethers.zeroPadValue(amountHex, 32));
+    const packed = ethers.concat([recipientBytes, namespaceBytes, chainIdBytes, amountBytes]);
+    return keccak256(packed);
+  };
 
-    loadAddresses();
-    loadTreeData();
-  }, []);
+  // Pair hashing handled by merkletreejs with sortPairs: true
 
-  // Detect chain when connection status changes
-  useEffect(() => {
-    if (
-      connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED &&
-      pushChainClient
-    ) {
-      // Try to get the origin chain from the Push client
-      try {
-        console.log('Detecting origin chain from Push client...');
-        console.log('Universal object:', pushChainClient.universal);
+  // Replaced by merkletreejs usage
 
-        if (pushChainClient.universal?.origin) {
-          const origin = pushChainClient.universal.origin;
-          console.log('Origin from universal.origin:', origin);
+  // Replaced by merkletreejs usage
 
-          const normalized = normalizeChainFromOrigin(String(origin.chain));
-          setDetectedChain(normalized);
-          console.log('Detected chain:', normalized);
-        } else {
-          // Fallback: assume Sepolia if we can't detect
-          console.log('Could not detect origin chain, defaulting to Sepolia');
+  function Component() {
+    // Three-step UI
+    const [currentStep, setCurrentStep] = useState(1);
+
+    // User-provided contract addresses
+    const [contractAddresses, setContractAddresses] = useState(null);
+
+    // All hooks must be called before any conditional returns
+    const [isClaiming, setIsClaiming] = useState(false);
+    const [isLoadingProof, setIsLoadingProof] = useState(false);
+    const [hasClaimed, setHasClaimed] = useState(false);
+    const [claimAmount, setClaimAmount] = useState('');
+    const [proof, setProof] = useState([]);
+    const [detectedChain, setDetectedChain] = useState(null);
+    const [entries, setEntries] = useState([]);
+    const [computedEntries, setComputedEntries] = useState([]);
+    const [merkleRoot, setMerkleRoot] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    // Push Universal Wallet hooks
+    const { connectionStatus } = usePushWalletContext();
+    const { pushChainClient } = usePushChainClient();
+
+    // No external JSON loads; everything is user-provided
+    useEffect(() => {}, []);
+
+    // Detect chain when connection status changes
+    useEffect(() => {
+      if (connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && pushChainClient) {
+        // Try to get the origin chain from the Push client
+        try {
+          console.log('Detecting origin chain from Push client...');
+          console.log('Universal object:', pushChainClient.universal);
+
+          if (pushChainClient.universal?.origin) {
+            const origin = pushChainClient.universal.origin;
+            console.log('Origin from universal.origin:', origin);
+
+            const normalized = normalizeChainFromOrigin(String(origin.chain));
+            setDetectedChain(normalized);
+            console.log('Detected chain:', normalized);
+          } else {
+            // Fallback: assume Sepolia if we can't detect
+            console.log('Could not detect origin chain, defaulting to Sepolia');
+            setDetectedChain({
+              namespace: 'eip155',
+              id: '11155111',
+              name: 'Ethereum Sepolia',
+            });
+          }
+        } catch (err) {
+          console.log('Error detecting chain:', err);
+          // Fallback: assume Sepolia
           setDetectedChain({
             namespace: 'eip155',
             id: '11155111',
             name: 'Ethereum Sepolia',
           });
         }
-      } catch (err) {
-        console.log('Error detecting chain:', err);
-        // Fallback: assume Sepolia
-        setDetectedChain({
-          namespace: 'eip155',
-          id: '11155111',
-          name: 'Ethereum Sepolia',
-        });
+      } else {
+        setDetectedChain(null);
       }
-    } else {
-      setDetectedChain(null);
-    }
-  }, [connectionStatus, pushChainClient]);
+    }, [connectionStatus, pushChainClient]);
 
-  // Check if address has already claimed for the selected chain
-  const checkClaimStatus = useCallback(
-    async (client: any) => {
+    // Check if address has already claimed for the selected chain
+    const checkClaimStatus = useCallback(async () => {
       if (!contractAddresses) return;
 
       try {
@@ -1198,425 +1210,608 @@ function WalletUI() {
       } catch (err) {
         console.error('Error checking claim status:', err);
       }
-    },
-    [contractAddresses]
-  );
+    }, [contractAddresses]);
 
-  // Load user's proof from tree.json based on connected wallet and selected chain
-  const loadUserProof = useCallback(async () => {
-    if (!treeData || !pushChainClient) {
-      setError('Tree data not loaded or wallet not connected');
-      return;
-    }
-
-    setIsLoadingProof(true);
-    setError('');
-    setSuccess('');
-
-    try {
-      // Ensure entries array exists
-      if (!treeData.entries || !Array.isArray(treeData.entries)) {
-        setError('Invalid tree data structure: entries array not found');
+    // Load user's proof from computed entries
+    const loadUserProof = useCallback(async () => {
+      if (!pushChainClient) {
+        setError('Wallet not connected');
         return;
       }
 
-      console.log('treeData', treeData);
-      console.log('pushChainClient.universal', pushChainClient.universal);
+      setIsLoadingProof(true);
+      setError('');
+      setSuccess('');
 
-      // Use the origin address when available (maps executor to original address)
-      // Fallback to the UEA (executor) address if origin is not available
-      let currentLookupAddress: string;
+      try {
+        if (!Array.isArray(computedEntries) || computedEntries.length === 0) {
+          setError('Please generate the Merkle tree in Step 1 first');
+          return;
+        }
 
-      const origin = pushChainClient.universal?.origin;
-      if (origin?.address) {
-        currentLookupAddress = origin.address;
-        console.log('Using origin address for lookup:', currentLookupAddress);
-      } else {
-        currentLookupAddress = pushChainClient.universal.account;
-        console.log(
-          'Origin not available, using UEA address for lookup:',
-          currentLookupAddress
+        console.log('computedEntries', computedEntries);
+        console.log('pushChainClient.universal', pushChainClient.universal);
+
+        let currentLookupAddress;
+        const origin = pushChainClient.universal?.origin;
+        console.log('origin', origin);
+        if (origin?.address) {
+          currentLookupAddress = origin.address;
+          console.log('Using origin address for lookup:', currentLookupAddress);
+        } else {
+          currentLookupAddress = pushChainClient.universal.account;
+          console.log('Origin not available, using UEA address for lookup:', currentLookupAddress);
+        }
+
+        if (!currentLookupAddress) {
+          setError('Unable to determine lookup address from Push Chain client');
+          return;
+        }
+
+        console.log('Using lookup address:', currentLookupAddress);
+        console.log('Detected chain:', detectedChain);
+
+        if (!detectedChain) {
+          setError('Could not detect your origin chain. Please try reconnecting your wallet.');
+          return;
+        }
+
+        const userEntry = computedEntries.find(
+          (entry) =>
+            entry.recipient.toLowerCase() === currentLookupAddress.toLowerCase() &&
+            entry.chainNamespace === detectedChain.namespace &&
+            entry.chainId === detectedChain.id
         );
+
+        console.log('userEntry', userEntry);
+
+        if (userEntry) {
+          setProof(userEntry.proof);
+          setClaimAmount(ethers.formatEther(userEntry.amountWei));
+          setError('');
+          setSuccess(`Found your proof for ${detectedChain.name}!`);
+        } else {
+          setError(
+            `No proof found for address ${currentLookupAddress.slice(0, 6)}...${currentLookupAddress.slice(-4)} on ${
+              detectedChain.name
+            }.`
+          );
+        }
+      } catch (err) {
+        setError('Failed to load proof data');
+        console.error('Error loading proof:', err);
+      } finally {
+        setIsLoadingProof(false);
       }
+    }, [computedEntries, pushChainClient, detectedChain]);
 
-      if (!currentLookupAddress) {
-        setError('Unable to determine lookup address from Push Chain client');
-        return;
+    // Check claim status and auto-load proof when detected chain changes
+    useEffect(() => {
+      if (
+        connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED &&
+        pushChainClient &&
+        contractAddresses &&
+        detectedChain &&
+        computedEntries.length > 0
+      ) {
+        checkClaimStatus();
+        loadUserProof();
       }
+    }, [
+      detectedChain,
+      connectionStatus,
+      pushChainClient,
+      contractAddresses,
+      computedEntries,
+      checkClaimStatus,
+      loadUserProof,
+    ]);
 
-      console.log('Using lookup address:', currentLookupAddress);
-      console.log('Detected chain:', detectedChain);
+    // Step helpers
+    const [newRecipient, setNewRecipient] = useState('');
+    const [newChainNamespace, setNewChainNamespace] = useState('eip155');
+    const [newChainId, setNewChainId] = useState('11155111');
+    const [newAmount, setNewAmount] = useState('');
 
-      if (!detectedChain) {
-        setError(
-          'Could not detect your origin chain. Please try reconnecting your wallet.'
-        );
-        return;
+    const addEntry = () => {
+      setError('');
+      try {
+        if (!newRecipient || !newAmount) {
+          setError('Please enter recipient and amount');
+          return;
+        }
+        // quick validation
+        if (newChainNamespace === 'eip155' && !/^0x[0-9a-fA-F]{40}$/.test(newRecipient)) {
+          setError('Invalid EVM address');
+          return;
+        }
+        if (Number(newAmount) <= 0) {
+          setError('Amount must be greater than 0');
+          return;
+        }
+        setEntries((prev) => [
+          ...prev,
+          {
+            recipient: newRecipient.trim(),
+            chainNamespace: newChainNamespace,
+            chainId: newChainId,
+            amount: newAmount.trim(),
+          },
+        ]);
+        setNewRecipient('');
+        setNewAmount('');
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : 'Failed to add entry';
+        setError(msg);
       }
+    };
 
-      // Find the user's entry based on their address and detected chain
-      const userEntry = treeData.entries.find(
-        (entry: any) =>
-          entry.recipient.toLowerCase() ===
-            currentLookupAddress.toLowerCase() &&
-          entry.chainNamespace === detectedChain.namespace &&
-          entry.chainId === detectedChain.id
-      );
+    const removeEntry = (idx) => {
+      setEntries((prev) => prev.filter((_, i) => i !== idx));
+    };
 
-      console.log('userEntry', userEntry);
-
-      if (userEntry) {
-        setProof(userEntry.proof);
-        setClaimAmount(ethers.formatEther(userEntry.amount));
+    const generateMerkle = () => {
+      try {
         setError('');
-        setSuccess(`Found your proof for ${detectedChain.name}!`);
-      } else {
-        // More detailed error message
-        console.log(
-          'Available entries:',
-          treeData.entries.map((entry: any) => ({
+        setSuccess('');
+        if (entries.length === 0) {
+          setError('Add at least one entry');
+          return;
+        }
+        const leaves = [];
+        const computed = [];
+
+        // build leaves
+        for (const entry of entries) {
+          const derived = deriveRecipientEvmAddress(entry.recipient);
+          const wei = ethers.parseEther(entry.amount);
+          const leaf = hashLeaf(derived, entry.chainNamespace, entry.chainId, wei);
+          leaves.push(leaf);
+          computed.push({
             recipient: entry.recipient,
             chainNamespace: entry.chainNamespace,
             chainId: entry.chainId,
-          }))
-        );
-        setError(
-          `No proof found for address ${currentLookupAddress.slice(0, 6)}...${currentLookupAddress.slice(-4)} on ${
-            detectedChain.name
-          }. This might mean you don't have tokens allocated on this chain, or there's an issue with chain detection.`
-        );
+            amount: entry.amount,
+            amountWei: wei,
+            derivedRecipient: derived,
+            leaf,
+            proof: [],
+          });
+        }
+
+        const tree = makeMerkleTree(leaves);
+        const root = tree[0];
+
+        for (let i = 0; i < computed.length; i++) {
+          const leafTreeIndex = tree.length - 1 - i;
+          computed[i].proof = getProof(tree, leafTreeIndex);
+        }
+
+        setComputedEntries(computed);
+        setMerkleRoot(root);
+        setSuccess('Merkle tree generated');
+        setCurrentStep(2);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : 'Failed to generate Merkle tree';
+        setError(msg);
       }
-    } catch (err) {
-      setError('Failed to load proof data');
-      console.error('Error loading proof:', err);
-    } finally {
-      setIsLoadingProof(false);
-    }
-  }, [
-    treeData,
-    pushChainClient,
-    detectedChain,
-    setError,
-    setSuccess,
-    setProof,
-    setClaimAmount,
-    setIsLoadingProof,
-  ]);
+    };
 
-  // Check claim status and auto-load proof when detected chain changes
-  useEffect(() => {
-    if (
-      connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED &&
-      pushChainClient &&
-      contractAddresses &&
-      detectedChain &&
-      treeData
-    ) {
-      checkClaimStatus(pushChainClient);
-      // Auto-load proof when wallet is connected, chain is detected, and tree data is loaded
-      loadUserProof();
-    }
-  }, [
-    detectedChain,
-    connectionStatus,
-    pushChainClient,
-    contractAddresses,
-    treeData,
-    checkClaimStatus,
-    loadUserProof,
-  ]);
+    // Claim tokens using Push Universal Transaction
+    const claimTokens = async () => {
+      if (!pushChainClient || !contractAddresses || !detectedChain) return;
+      if (!claimAmount) {
+        setError('Please check eligibility to load your claim amount');
+        return;
+      }
 
-  // Early return if contract addresses aren't loaded yet
-  if (!contractAddresses) {
-    return <div>Loading contract addresses...</div>;
-  }
+      setIsClaiming(true);
+      setError('');
+      setSuccess('');
 
-  // Claim tokens using Push Universal Transaction
-  const claimTokens = async () => {
-    if (!pushChainClient || !contractAddresses || !detectedChain) return;
-    if (!claimAmount || proof.length === 0) {
-      setError('Please enter claim amount and proof');
-      return;
-    }
+      try {
+        const amount = ethers.parseEther(claimAmount);
 
-    setIsClaiming(true);
-    setError('');
-    setSuccess('');
+        // Encode the claim function call
+        const claimData = PushChain.utils.helpers.encodeTxData({
+          abi: AIRDROP_ABI,
+          functionName: 'claim',
+          args: [proof, amount, detectedChain.namespace, detectedChain.id],
+        });
 
-    try {
-      const amount = ethers.parseEther(claimAmount);
+        console.log('proof', proof);
+        console.log('amount', amount);
+        console.log('claimData', claimData);
 
-      // Encode the claim function call
-      const claimData = PushChain.utils.helpers.encodeTxData({
-        abi: AIRDROP_ABI,
-        functionName: 'claim',
-        args: [proof, amount, detectedChain.namespace, detectedChain.id],
-      }) as `0x${string}`;
+        // Send universal transaction using Push Chain client
+        const tx = await pushChainClient.universal.sendTransaction({
+          to: contractAddresses.airdropAddress,
+          data: claimData,
+          value: BigInt('0'), // No PC value needed for claim
+        });
+        console.log('tx', tx);
+        const receipt = await tx.wait();
+        console.log('receipt', receipt);
 
-      console.log('proof', proof);
-      console.log('amount', amount);
-      console.log('claimData', claimData);
+        setSuccess(`Tokens claimed successfully from ${detectedChain.name}! Transaction: ${tx.hash}`);
+        setHasClaimed(true);
 
-      // Send universal transaction using Push Chain client
-      const tx = await pushChainClient.universal.sendTransaction({
-        to: contractAddresses.airdropAddress as `0x${string}`,
-        data: claimData,
-        value: BigInt('0'), // No PC value needed for claim
-      });
-      console.log('tx', tx);
-      const receipt = await tx.wait();
-      console.log('receipt', receipt);
+        // TODO: Update balance using pushChainClient
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Claim failed';
+        setError(msg);
+        console.error('Claim error:', err);
+      } finally {
+        setIsClaiming(false);
+      }
+    };
 
-      setSuccess(
-        `Tokens claimed successfully from ${detectedChain.name}! Transaction: ${tx.hash}`
-      );
-      setHasClaimed(true);
+    return (
+      <div
+        style={{
+          maxWidth: '500px',
+          margin: '0 auto',
+          padding: '20px',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>Universal Airdrop</h1>
+        <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
+          Claim tokens using Push Chain's Universal External Accounts
+        </p>
 
-      // TODO: Update balance using pushChainClient
-    } catch (err: any) {
-      setError(err.message || 'Claim failed');
-      console.error('Claim error:', err);
-    } finally {
-      setIsClaiming(false);
-    }
-  };
+        <div style={{ marginBottom: '30px' }}>
+          <PushUniversalAccountButton />
+        </div>
 
-  return (
-    <div
-      style={{
-        maxWidth: '500px',
-        margin: '0 auto',
-        padding: '20px',
-        fontFamily: 'system-ui, sans-serif',
-      }}
-    >
-      <h1 style={{ textAlign: 'center', marginBottom: '10px' }}>
-        Universal Airdrop
-      </h1>
-      <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
-        Claim tokens using Push Chain's Universal External Accounts
-      </p>
-
-      <div style={{ marginBottom: '30px' }}>
-        <PushUniversalAccountButton />
-      </div>
-
-      {connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED ? (
-        <div>
-          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>
-              Connected Account
-            </p>
-            <p style={{ fontFamily: 'monospace', fontSize: '14px' }}>
-              {pushChainClient?.universal?.account?.slice(0, 8)}...
-              {pushChainClient?.universal?.account?.slice(-6)}
-            </p>
-          </div>
-
-          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-            <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>
-              Origin Chain
-            </p>
-            <p style={{ fontWeight: 'bold' }}>
-              {detectedChain ? detectedChain.name : 'Detecting...'}
-            </p>
-          </div>
-
-          {hasClaimed ? (
+        {/* Steps */}
+        <div style={{ marginBottom: '24px', display: 'flex', gap: '8px', justifyContent: 'center' }}>
+          {[1, 2, 3].map((s) => (
             <div
+              key={s}
               style={{
-                padding: '16px',
-                backgroundColor: '#4CAF50',
-                color: 'white',
-                borderRadius: '8px',
-                textAlign: 'center',
+                width: '28px',
+                height: '28px',
+                borderRadius: '50%',
+                backgroundColor: currentStep >= s ? '#646cff' : '#e0e0e0',
+                color: currentStep >= s ? '#fff' : '#555',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '14px',
               }}
             >
-              ✅ Tokens claimed successfully!
+              {s}
             </div>
-          ) : (
-            <div>
-              {isLoadingProof && (
+          ))}
+        </div>
+
+        {/* Step 1: Build Merkle tree */}
+        <div style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '8px', padding: '16px' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '12px' }}>Step 1: Create airdrop entries & generate proof</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <input
+              placeholder="Recipient address (0x... or Solana base58)"
+              value={newRecipient}
+              onChange={(e) => setNewRecipient(e.target.value)}
+              style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+            />
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <select
+                value={newChainNamespace}
+                onChange={(e) => {
+                  const ns = e.target.value;
+                  setNewChainNamespace(ns);
+                  // default chain id based on ns
+                  if (ns === 'solana') setNewChainId('EtWTRABZaYq6iMfeYKouRu166VU2xqa1');
+                  else setNewChainId('11155111');
+                }}
+                style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+              >
+                <option value="eip155">EVM (eip155)</option>
+                <option value="solana">Solana</option>
+              </select>
+              <select
+                value={newChainId}
+                onChange={(e) => setNewChainId(e.target.value)}
+                style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+              >
+                <option value="11155111">Ethereum Sepolia</option>
+                <option value="42101">Push Chain Testnet</option>
+                <option value="EtWTRABZaYq6iMfeYKouRu166VU2xqa1">Solana Devnet</option>
+              </select>
+            </div>
+            <input
+              placeholder="Amount (tokens)"
+              value={newAmount}
+              onChange={(e) => setNewAmount(e.target.value)}
+              style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+            />
+            <button
+              onClick={addEntry}
+              style={{
+                width: '100%',
+                padding: '12px',
+                fontWeight: 'bold',
+                backgroundColor: '#646cff',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+              }}
+            >
+              ➕ Add Entry
+            </button>
+          </div>
+
+          {entries.length > 0 && (
+            <div style={{ marginTop: '12px' }}>
+              {entries.map((e, i) => (
                 <div
+                  key={`${e.recipient}-${i}`}
                   style={{
-                    padding: '12px',
-                    backgroundColor: '#2196F3',
-                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '8px',
+                    border: '1px solid #eee',
                     borderRadius: '6px',
-                    marginBottom: '16px',
-                    textAlign: 'center',
+                    marginBottom: '8px',
+                    fontSize: '12px',
                   }}
                 >
-                  🔍 Loading your airdrop details...
-                </div>
-              )}
-
-              {!isLoadingProof && !claimAmount && (
-                <div
-                  style={{
-                    padding: '16px',
-                    backgroundColor: '#fff3cd',
-                    color: '#856404',
-                    borderRadius: '6px',
-                    marginBottom: '16px',
-                    textAlign: 'center',
-                  }}
-                >
-                  ⚠️ No tokens available to claim on this chain
-                </div>
-              )}
-
-              {claimAmount && (
-                <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-                  <div
-                    style={{
-                      display: 'inline-block',
-                      backgroundColor: '#f0f8ff',
-                      padding: '12px 20px',
-                      borderRadius: '8px',
-                      border: '2px solid #646cff',
-                    }}
-                  >
-                    <p
-                      style={{
-                        margin: '0 0 4px 0',
-                        fontSize: '12px',
-                        color: '#666',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      CLAIM AMOUNT
-                    </p>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        color: '#646cff',
-                      }}
-                    >
-                      {claimAmount}{' '}
-                      <span style={{ fontSize: '16px', color: '#666' }}>
-                        TOKENS
-                      </span>
-                    </p>
+                  <div>
+                    <div style={{ fontFamily: 'monospace' }}>{e.recipient}</div>
+                    <div style={{ color: '#666' }}>
+                      {e.chainNamespace}:{e.chainId} · {e.amount} tokens
+                    </div>
                   </div>
+                  <button
+                    onClick={() => removeEntry(i)}
+                    style={{ background: 'transparent', border: 'none', color: '#c62828', cursor: 'pointer' }}
+                  >
+                    ✖
+                  </button>
                 </div>
-              )}
-
+              ))}
               <button
-                onClick={claimTokens}
-                disabled={
-                  isClaiming ||
-                  isLoadingProof ||
-                  !claimAmount ||
-                  proof.length === 0
-                }
+                onClick={generateMerkle}
                 style={{
                   width: '100%',
-                  padding: '16px',
-                  fontSize: '18px',
+                  padding: '12px',
                   fontWeight: 'bold',
-                  backgroundColor:
-                    isClaiming ||
-                    isLoadingProof ||
-                    !claimAmount ||
-                    proof.length === 0
-                      ? '#ccc'
-                      : '#646cff',
+                  backgroundColor: '#2e7d32',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
-                  cursor:
-                    isClaiming ||
-                    isLoadingProof ||
-                    !claimAmount ||
-                    proof.length === 0
-                      ? 'not-allowed'
-                      : 'pointer',
-                  transition: 'all 0.2s ease',
-                  transform:
-                    isClaiming ||
-                    isLoadingProof ||
-                    !claimAmount ||
-                    proof.length === 0
-                      ? 'none'
-                      : 'scale(1)',
-                  boxShadow:
-                    isClaiming ||
-                    isLoadingProof ||
-                    !claimAmount ||
-                    proof.length === 0
-                      ? 'none'
-                      : '0 4px 12px rgba(100, 108, 255, 0.3)',
+                  cursor: 'pointer',
+                  marginTop: '8px',
                 }}
               >
-                {isLoadingProof
-                  ? '⏳ Loading Your Proof...'
-                  : isClaiming
-                    ? '⏳ Claiming Tokens...'
-                    : `🚀 Claim ${claimAmount || '0'} Tokens`}
+                🌳 Generate Merkle Tree
               </button>
+              {merkleRoot && (
+                <div style={{ marginTop: '10px', fontSize: '12px' }}>
+                  <div style={{ color: '#666' }}>Merkle Root:</div>
+                  <div style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>{merkleRoot}</div>
+                </div>
+              )}
             </div>
           )}
         </div>
-      ) : null}
 
-      {error && (
-        <div
-          style={{
-            padding: '12px',
-            backgroundColor: '#ffebee',
-            color: '#c62828',
-            borderRadius: '6px',
-            marginTop: '20px',
-            textAlign: 'center',
-          }}
-        >
-          {error}
+        {/* Step 2: Contract addresses */}
+        <div style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '8px', padding: '16px' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '12px' }}>Step 2: Enter contract addresses</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <input
+              placeholder="Token contract address (0x...)"
+              value={contractAddresses?.tokenAddress || ''}
+              onChange={(e) =>
+                setContractAddresses({
+                  tokenAddress: e.target.value,
+                  airdropAddress: contractAddresses?.airdropAddress || '',
+                })
+              }
+              style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+            />
+            <input
+              placeholder="Airdrop (Merkle) contract address (0x...)"
+              value={contractAddresses?.airdropAddress || ''}
+              onChange={(e) =>
+                setContractAddresses({
+                  tokenAddress: contractAddresses?.tokenAddress || '',
+                  airdropAddress: e.target.value,
+                })
+              }
+              style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}
+            />
+            <button
+              onClick={() => setCurrentStep(3)}
+              disabled={!merkleRoot || !contractAddresses?.airdropAddress || !contractAddresses?.tokenAddress}
+              style={{
+                width: '100%',
+                padding: '12px',
+                fontWeight: 'bold',
+                backgroundColor:
+                  !merkleRoot || !contractAddresses?.airdropAddress || !contractAddresses?.tokenAddress
+                    ? '#ccc'
+                    : '#646cff',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor:
+                  !merkleRoot || !contractAddresses?.airdropAddress || !contractAddresses?.tokenAddress
+                    ? 'not-allowed'
+                    : 'pointer',
+              }}
+            >
+              Continue to Step 3
+            </button>
+          </div>
         </div>
-      )}
 
-      {success && (
-        <div
-          style={{
-            padding: '12px',
-            backgroundColor: '#e8f5e8',
-            color: '#2e7d32',
-            borderRadius: '6px',
-            marginTop: '20px',
-            textAlign: 'center',
-          }}
-        >
-          {success}
+        {/* Step 3: Eligibility & Claim */}
+        <div style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '8px', padding: '16px' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '12px' }}>Step 3: Check eligibility & claim</h3>
+          {connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED ? (
+            <div>
+              <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>Connected Account</p>
+                <p style={{ fontFamily: 'monospace', fontSize: '14px' }}>
+                  {pushChainClient?.universal?.account?.slice(0, 8)}...{pushChainClient?.universal?.account?.slice(-6)}
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                <p style={{ marginBottom: '5px', fontSize: '14px', color: '#666' }}>Origin Chain</p>
+                <p style={{ fontWeight: 'bold' }}>{detectedChain ? detectedChain.name : 'Detecting...'}</p>
+              </div>
+
+              {hasClaimed ? (
+                <div
+                  style={{
+                    padding: '16px',
+                    backgroundColor: '#4CAF50',
+                    color: 'white',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                  }}
+                >
+                  ✅ Tokens claimed successfully!
+                </div>
+              ) : (
+                <div>
+                  <button
+                    onClick={loadUserProof}
+                    disabled={isLoadingProof || !merkleRoot}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      fontWeight: 'bold',
+                      backgroundColor: isLoadingProof || !merkleRoot ? '#ccc' : '#2196F3',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: isLoadingProof || !merkleRoot ? 'not-allowed' : 'pointer',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    {isLoadingProof ? '⏳ Loading Your Proof...' : '🔍 Check Eligibility'}
+                  </button>
+
+                  {!isLoadingProof && !claimAmount && (
+                    <div
+                      style={{
+                        padding: '16px',
+                        backgroundColor: '#fff3cd',
+                        color: '#856404',
+                        borderRadius: '6px',
+                        marginBottom: '16px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      ⚠️ No tokens available to claim on this chain
+                    </div>
+                  )}
+
+                  {claimAmount && (
+                    <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                      <div
+                        style={{
+                          display: 'inline-block',
+                          backgroundColor: '#f0f8ff',
+                          padding: '12px 20px',
+                          borderRadius: '8px',
+                          border: '2px solid #646cff',
+                        }}
+                      >
+                        <p style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>
+                          CLAIM AMOUNT
+                        </p>
+                        <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#646cff' }}>
+                          {claimAmount} <span style={{ fontSize: '16px', color: '#666' }}>TOKENS</span>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={claimTokens}
+                    disabled={isClaiming || isLoadingProof || !claimAmount}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      fontSize: '18px',
+                      fontWeight: 'bold',
+                      backgroundColor: isClaiming || isLoadingProof || !claimAmount ? '#ccc' : '#646cff',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: isClaiming || isLoadingProof || !claimAmount ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.2s ease',
+                      transform: isClaiming || isLoadingProof || !claimAmount ? 'none' : 'scale(1)',
+                      boxShadow:
+                        isClaiming || isLoadingProof || !claimAmount ? 'none' : '0 4px 12px rgba(100, 108, 255, 0.3)',
+                    }}
+                  >
+                    {isClaiming ? '⏳ Claiming Tokens...' : `🚀 Claim ${claimAmount || '0'} Tokens`}
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div style={{ padding: '12px', background: '#fff3cd', color: '#856404', borderRadius: '6px' }}>
+              Connect your wallet to check eligibility
+            </div>
+          )}
         </div>
-      )}
 
-      <div
-        style={{
-          marginTop: '30px',
-          padding: '16px',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '8px',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '14px',
-            color: '#666',
-            margin: 0,
-            textAlign: 'center',
-          }}
-        >
-          Connect your wallet and your airdrop details will be loaded
-          automatically
-        </p>
+        {error && (
+          <div
+            style={{
+              padding: '12px',
+              backgroundColor: '#ffebee',
+              color: '#c62828',
+              borderRadius: '6px',
+              marginTop: '20px',
+              textAlign: 'center',
+            }}
+          >
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div
+            style={{
+              padding: '12px',
+              backgroundColor: '#e8f5e8',
+              color: '#2e7d32',
+              borderRadius: '6px',
+              marginTop: '20px',
+              textAlign: 'center',
+            }}
+          >
+            {success}
+          </div>
+        )}
+
+        <div style={{ marginTop: '30px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
+          <p style={{ fontSize: '14px', color: '#666', margin: 0, textAlign: 'center' }}>
+            Build your airdrop list, enter contract addresses, then connect and claim
+          </p>
+        </div>
       </div>
-    </div>
+    );
+  }
+  return (
+    <PushUniversalWalletProvider config={walletConfig}>
+      <Component />
+    </PushUniversalWalletProvider>
   );
 }
-
-export default WalletUI;
 ```
 
 ## Conclusion
