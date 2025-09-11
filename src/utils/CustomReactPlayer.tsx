@@ -70,6 +70,8 @@ const CustomReactPlayer: React.FC<CustomReactPlayerProps> = ({
           file: {
             attributes: {
               controlsList: 'nofullscreen',
+              playsInline: true,
+              'webkit-playsinline': 'true',
             },
           },
         }}

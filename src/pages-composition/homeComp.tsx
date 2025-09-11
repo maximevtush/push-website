@@ -105,8 +105,8 @@ export default function HomeComp() {
               backgroundImage: heroHovered ? 'none' : undefined,
             }}
           >
-            {/* Hero Video - plays on hover */}
-            {heroHovered && !isMobile && (
+            {/* Hero Video - plays continuously */}
+            {!isMobile && (
               <HeroVideo
                 url={
                   require(
@@ -115,7 +115,7 @@ export default function HomeComp() {
                       : `@site/static/assets/website/hero/hero-hover-video.webm`
                   ).default
                 }
-                playing={heroHovered}
+                playing={true}
                 loop={true}
                 muted={true}
                 width='100%'
