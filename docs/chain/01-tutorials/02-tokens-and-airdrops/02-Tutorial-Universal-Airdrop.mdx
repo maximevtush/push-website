@@ -32,7 +32,7 @@ The beauty of this system lies in its efficiency and cross-chain compatibility:
 - **No Multi-Chain Token Deployment**: Keep your ERC-20 token on one chain while enabling universal claiming
 - **User Simplicity**: Recipients can claim their tokens using their preferred wallet on their own chain, making the process seamless and familiar
 
-We’ll build the complete flow:
+We'll build the complete flow:
 
 1. Generate Merkle proofs with cross-chain recipient data
 2. Deploy a universal Merkle claim contract to Push Chain
@@ -1040,7 +1040,7 @@ This provider enables wallet connections and user authentication throughout your
 
 ### 3.4. Expose `tree.json` to your app
 
-Copy `merkle-proof-generator/data/tree.json` and `merkle-proof-generator/data/addresses.json` into your web app’s static assets (in our case, `frontend/public/`).
+Copy `merkle-proof-generator/data/tree.json` and `merkle-proof-generator/data/addresses.json` into your web app's static assets (in our case, `frontend/public/`).
 
 ### 3.5. Add a minimal Claim component
 
@@ -1854,206 +1854,87 @@ function UniversalAirdrop() {
 
   <NodeJSVirtualIDE repo={{title: "Open in Github"}}>
   {`
-import { keccak256 } from 'viem';
-import { makeMerkleTree, getProof } from '@openzeppelin/merkle-tree/dist/core.js';
-import * as fs from 'fs';
-import * as path from 'path';
-import bs58 from 'bs58';
+    const { keccak256, getAddress, getBytes, dataSlice, toUtf8Bytes, toBeHex, zeroPadValue, concat } = ethers;
 
-interface AirdropEntry {
-  recipient: string;
-  chainNamespace: 'eip155' | 'solana' | 'push' | string;
-  chainId: string;
-  amount: string;
-}
-
-interface TreeEntry extends AirdropEntry {
-  leaf: `0x${string}`;
-  proof: `0x${string}`[];
-}
-
-interface TreeData {
-  merkleRoot: `0x${string}`;
-  entries: TreeEntry[];
-}
-
-/**
- * Generate a leaf hash matching the Solidity contract
- * leaf = keccak256(abi.encodePacked(recipientOnPush, chainNamespace, chainId, amount))
- */
-function generateLeaf(entry: AirdropEntry): `0x${string}` {
-  const { recipient, chainNamespace, chainId, amount } = entry;
-
-  // Normalize recipient address:
-  // - If hex 0x address (length 42), parse as 20-byte address
-  // - Else treat as base58 (e.g., Solana), hash bytes and take last 20 bytes
-  let recipientAddressHex: string;
-  if (recipient.startsWith('0x')) {
-    const addr = recipient.toLowerCase();
-    const addressBytes = addr.slice(2).padStart(40, '0');
-    recipientAddressHex = addressBytes;
-  } else {
-    const raw = Buffer.from(bs58.decode(recipient));
-    const hashed = Buffer.from(keccak256(`0x${raw.toString('hex')}`).slice(2), 'hex');
-    const last20 = hashed.slice(-20);
-    recipientAddressHex = last20.toString('hex');
-  }
-
-  const namespaceBytes = Buffer.from(chainNamespace, 'utf8');
-  const chainIdBytes = Buffer.from(chainId, 'utf8');
-  const amountBytes = Buffer.alloc(32);
-  amountBytes.writeBigUInt64BE(BigInt(amount), 24);
-
-  const packedBytes = Buffer.concat([
-    Buffer.from(recipientAddressHex, 'hex'),
-    namespaceBytes,
-    chainIdBytes,
-    amountBytes,
-  ]);
-
-  return keccak256(`0x${packedBytes.toString('hex')}`);
-}
-
-/**
- * Build Merkle tree from airdrop entries
- */
-function buildMerkleTree(entries: AirdropEntry[]): TreeData {
-  // Generate leaves
-  const leaves = entries.map((entry) => generateLeaf(entry));
-
-  // Create Merkle tree with sorted node hashing (default)
-  const tree = makeMerkleTree(leaves);
-  const merkleRoot = tree[0] as `0x${string}`;
-
-  // Generate proofs for each entry
-  const entriesWithProofs: TreeEntry[] = entries.map((entry, index) => {
-    const leafIndex = tree.length - 1 - index;
-    const proof = getProof(tree, leafIndex) as `0x${string}`[];
-
-    return {
-      ...entry,
-      leaf: leaves[index],
-      proof,
-    };
-  });
-
-  return {
-    merkleRoot,
-    entries: entriesWithProofs,
-  };
-}
-
-/**
- * Print summary of the airdrop data
- */
-function printSummary(treeData: TreeData): void {
-  const { entries, merkleRoot } = treeData;
-
-  console.log('🌳 Universal Airdrop Merkle Tree Summary');
-  console.log('=====================================');
-  console.log(`📁 Merkle Root: ${merkleRoot}`);
-  console.log(`👥 Total Recipients: ${entries.length}`);
-
-  // Calculate totals per chain namespace
-  const chainStats = entries.reduce((acc, entry) => {
-    const key = `${entry.chainNamespace}:${entry.chainId}`;
-    if (!acc[key]) {
-      acc[key] = { count: 0, totalAmount: BigInt(0) };
+    function toEvmAddress(recipient) {
+      if (recipient.startsWith('0x')) {
+        return getAddress(recipient);
+      }
+      const rawBytes = Uint8Array.from(bs58.decode(recipient));
+      const hashed = keccak256(rawBytes);
+      const addrBytes = dataSlice(hashed, 12);
+      return getAddress(addrBytes);
     }
-    acc[key].count += 1;
-    acc[key].totalAmount += BigInt(entry.amount);
-    return acc;
-  }, {} as Record<string, { count: number; totalAmount: bigint }>);
 
-  console.log('\n📊 Per-Chain Breakdown:');
-  Object.entries(chainStats).forEach(([chain, stats]) => {
-    console.log(`  ${chain}: ${stats.count} recipients, ${stats.totalAmount.toString()} tokens`);
-  });
+    function generateLeaf(entry) {
+      const { recipient, chainNamespace, chainId, amount } = entry;
+      const evmRecipient = toEvmAddress(recipient);
 
-  // Calculate total amount
-  const totalAmount = entries.reduce((sum, entry) => sum + BigInt(entry.amount), BigInt(0));
-  console.log(`\n💰 Total Airdrop Amount: ${totalAmount.toString()} tokens`);
-}
+      const recipientBytes = getBytes(evmRecipient);
+      const namespaceBytes = toUtf8Bytes(chainNamespace);
+      const chainIdBytes = toUtf8Bytes(chainId);
+      const amountBytes = getBytes(zeroPadValue(toBeHex(BigInt(amount)), 32));
+      const packed = concat([recipientBytes, namespaceBytes, chainIdBytes, amountBytes]);
 
-// Main execution
-async function main() {
-  const airdropPath = path.join(__dirname, './data/airdrop.json');
-
-  // Check if airdrop file exists
-  if (!fs.existsSync(airdropPath)) {
-    console.error('❌ Airdrop file not found at:', airdropPath);
-    console.log('\nPlease create data/airdrop.json with the following format:');
-    console.log(
-      JSON.stringify(
-        [
-          {
-            recipient: '0x1234567890123456789012345678901234567890',
-            chainNamespace: 'eip155',
-            chainId: '11155111',
-            amount: '1000000000000000000',
-          },
-          {
-            recipient: '3u1111111111111111111111111111111111111111',
-            chainNamespace: 'solana',
-            chainId: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
-            amount: '2000000000000000000',
-          },
-        ],
-        null,
-        2
-      )
-    );
-    process.exit(1);
-  }
-
-  // Read airdrop entries
-  const entries: AirdropEntry[] = JSON.parse(fs.readFileSync(airdropPath, 'utf8'));
-
-  // Validate entries
-  for (const entry of entries) {
-    const isHex = entry.recipient.startsWith('0x') && entry.recipient.length === 42;
-    const isBase58 = !entry.recipient.startsWith('0x');
-    if (!isHex && !isBase58) {
-      throw new Error(`Invalid recipient: ${entry.recipient} (must be 0x-address or base58)`);
+      return keccak256(packed);
     }
-    if (!entry.chainNamespace || !entry.chainId) {
-      throw new Error(`Missing chain info for ${entry.recipient}`);
+
+    function buildMerkleTree(entries) {
+      const leaves = entries.map(generateLeaf);
+      const values = leaves.map((leaf) => [leaf]);
+      const tree = StandardMerkleTree.of(values, ['bytes32']);
+      const merkleRoot = tree.root;
+
+      const entriesWithProofs = entries.map((entry, index) => {
+        const proof = tree.getProof(index);
+        return {
+          ...entry,
+          leaf: leaves[index],
+          proof,
+        };
+      });
+
+      return { merkleRoot, entries: entriesWithProofs };
     }
-    if (isNaN(parseInt(entry.amount)) || BigInt(entry.amount) <= 0) {
-      throw new Error(`Invalid amount for ${entry.recipient}: ${entry.amount}`);
+
+    function printSummary(treeData) {
+      const { entries, merkleRoot } = treeData;
+      console.log('🌳 Universal Airdrop Merkle Tree Summary');
+      console.log('=====================================');
+      console.log('📁 Merkle Root:', merkleRoot);
+      console.log('👥 Total Recipients:', entries.length);
+
+      const chainStats = entries.reduce((acc, entry) => {
+        const key = entry.chainNamespace + ':' + entry.chainId;
+        if (!acc[key]) acc[key] = { count: 0, totalAmount: 0n };
+        acc[key].count += 1;
+        acc[key].totalAmount += BigInt(entry.amount);
+        return acc;
+      }, {});
+
+      console.log('\n📊 Per-Chain Breakdown:');
+      Object.entries(chainStats).forEach(([chain, stats]) => {
+        console.log('  ' + chain + ': ' + stats.count + ' recipients, ' + stats.totalAmount.toString() + ' tokens');
+      });
+
+      const totalAmount = entries.reduce((sum, e) => sum + BigInt(e.amount), 0n);
+      console.log('\n💰 Total Airdrop Amount:', totalAmount.toString(), 'tokens');
     }
-  }
 
-  console.log(`🔨 Building Merkle tree for ${entries.length} recipients...`);
+    async function main() {
+      // Demo dataset
+      const entries = [
+        { recipient: '0x1234567890123456789012345678901234567890', chainNamespace: 'eip155', chainId: '11155111', amount: '1000000000000000000' },
+        { recipient: '72JBejJFXrRKpQ69Hmaqr7vWJr6pdZXFEL6jt3sadsXU', chainNamespace: 'solana', chainId: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1', amount: '2000000000000000000' },
+      ];
 
-  // Build Merkle tree
-  const treeData = buildMerkleTree(entries);
+      console.log('🔨 Building Merkle tree for ' + entries.length + ' recipients...');
+      const treeData = buildMerkleTree(entries);
+      console.log('✅ Merkle tree built successfully!');
+      printSummary(treeData);
+    }
 
-  // Create output directory
-  const outputDir = path.join(__dirname, './data');
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
-
-  // Write tree data
-  const treePath = path.join(outputDir, 'tree.json');
-  fs.writeFileSync(treePath, JSON.stringify(treeData, null, 2));
-
-  console.log('✅ Merkle tree built successfully!');
-  console.log(`💾 Tree data saved to: ${treePath}`);
-
-  // Print summary
-  printSummary(treeData);
-}
-
-// Export functions for testing
-export { generateLeaf, buildMerkleTree, printSummary };
-
-// Run if called directly
-if (require.main === module) {
-  main().catch(console.error);
-}
-
+    main().catch(console.error);
   `}
   </NodeJSVirtualIDE>
 
