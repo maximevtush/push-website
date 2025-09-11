@@ -20,26 +20,23 @@ import {
   ModalWrapper,
 } from '@site/src/css/SharedStyling';
 import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
+import TutorialTimer from '@site/src/components/TutorialTimer';
 
 <!-- Content Start -->
 
-Welcome to the first tutorial of building and deploying smart contracts on Push Chain.
+<TutorialTimer estimatedMinutes={10} />
 
-We will start with the most popular smart contract, i.e., `Counter.sol`, that all Solidity devs are familiar with.
+In this tutorial, you’ll write, deploy, and interact with a simple Counter contract on Push Chain. 
 
-The tutorial is designed to achieve the following:
+We will start with the most popular smart contract, i.e., `Counter.sol`, that all Solidity devs are familiar with. You would have done the following by the end:
 
-1. Start with basic building and deployment of a Counter contract.
-2. Modify the Counter contract to a UniversalCounter that works with multiple chains.
-3. Deeply understand the uniqueness and benefits of building Universal Apps on Push Chain.
+- ✅ Build and deploy Counter.sol
+- ✅ Interact with it from any chain
+- ✅ Understand the benefits of building Universal Apps
+- ✅ Use **Live Playground** to test and interact with SimpleCounter
+- 🔜 Extend to a Universal Counter that tracks chain specific users
 
-> **Note:** How to use Tutorials: <br/ >
-> a. Every tutorial is designed with tutorial guide and a LivePlayground to test your code.<br/ >
-> b. **Use Live Playground** to test & interact with SimpleCounter.<br/ >
-> c. **Use Live App Preview** to view the results of your interaction with SimpleCounter.<br/ >
-> d. **Use Push Chain Examples** to view the code for the [tutorials](https://github.com/pushchain/push-chain-examples).
-
-## Let’s Build Counter
+## Write the Contract
 The process of building a simple smart contract like a counter is exactly similar to any other EVM Chain.
 You can use the same tools, such as, remix, foundry, hardhat, etc.
 
@@ -70,7 +67,7 @@ The contract is a simple counter contract that:
 - Emits an event with the current value of `countPC` and the caller’s address.
 - Allows anyone to reset the `countPC` to zero.
 
-## Build and Deploy the Contract
+## Compile & Deploy
 
 You can use any of the following guides to build and deploy this contract on Push Chain:
 
@@ -80,8 +77,12 @@ You can use any of the following guides to build and deploy this contract on Pus
 
 Once deployed, you can interact with the Counter contract just like on any other EVM-compatible chain.
 
+## Verify Contract
+
+If you are using Foundry or Hardhat, the contract is already verified for you. If you are using Remix, you can verify the contract on the Push Chain Explorer by going to [verify and publish contract](https://donut.push.network/contract-verification).
+
 ## Interact with SimpleCounter App
-A easier way to interact with the contract is to use the LivePlayground below.
+An easier way to interact with the contract is to use the LivePlayground below.
 The SimpleCounter app is already deployed on Push Chain Testnet.
 > **SimpleCounter Contract Address:** [0x9F95857e43d25Bb9DaFc6376055eFf63bC0887C1](https://donut.push.network/address/0x9F95857e43d25Bb9DaFc6376055eFf63bC0887C1?tab=contract)
 
@@ -92,9 +93,9 @@ Follow the steps below to interact with the SimpleCounter:
 - You can connect wallet of any supported chain ( Push Chain, Ethereum or Solana)
 - Click on the `Increment Counter` button to increment the counter.
 - Click on the `Refresh Counter Values` button to refresh the counter values.
-- Click on the `View in Explorer` button to view the transaction in the explorer.
+- After each transaction, click the hash link to view it on Push Chain Explorer.
 
-### Let's Test our SimpleCounter
+## Live Playground
 
 ```jsx live
 import React, { useState, useEffect } from 'react';
@@ -118,13 +119,6 @@ function SimpleCounterExample() {
     {
       inputs: [],
       name: 'increment',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'reset',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -162,14 +156,6 @@ function SimpleCounterExample() {
       return PushChain.utils.helpers.encodeTxData({
         abi: UCABI,
         functionName: 'increment',
-      });
-    };
-
-    // Function to encode reset transaction data
-    const getResetTxData = () => {
-      return PushChain.utils.helpers.encodeTxData({
-        abi: UCABI,
-        functionName: 'reset',
       });
     };
 
@@ -222,31 +208,6 @@ function SimpleCounterExample() {
       }
     };
 
-    // Handle transaction to reset counter
-    const handleResetTransaction = async () => {
-      if (pushChainClient) {
-        try {
-          setIsLoadingReset(true);
-          const data = getResetTxData();
-
-          const tx = await pushChainClient.universal.sendTransaction({
-            to: CONTRACT_ADDRESS,
-            value: BigInt(0),
-            data: data,
-          });
-
-          setTxHash(tx.hash);
-          await tx.wait();
-
-          await fetchCounters();
-          setIsLoadingReset(false);
-        } catch (err) {
-          console.error('Reset transaction error:', err);
-          setIsLoadingReset(false);
-        }
-      }
-    };
-
     return (
       <div
         style={{
@@ -274,7 +235,7 @@ function SimpleCounterExample() {
             flexWrap: 'nowrap',
           }}
         >
-          <h3>PC Counter: {countPC == -1 ? '...' : countPC}</h3>
+          <h3>Counter: {countPC == -1 ? '...' : countPC}</h3>
         </div>
 
         {connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && (
@@ -296,24 +257,6 @@ function SimpleCounterExample() {
                 }}
               >
                 {isLoadingIncrement ? 'Processing...' : 'Increment Counter'}
-              </button>
-
-              <button
-                className='reset-button'
-                onClick={handleResetTransaction}
-                disabled={isLoadingReset}
-                style={{
-                  backgroundColor: '#d946ef',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '20px',
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  fontWeight: 'bold'
-                }}
-              >
-                {isLoadingReset ? 'Processing...' : 'Reset Counter'}
               </button>
             </div>
 
@@ -345,21 +288,48 @@ function SimpleCounterExample() {
 }
 ```
 
-## What's Next?
-This was just a simple tutorial.
+## What we Achieved
 
-What we did in this tutorial:
+This was just a simple tutorial. What we did in this tutorial:
 
 - Deployed a simple counter contract on Push Chain.
-- Interacted with the contract from any chain easily. ( ethereum, solana or push chain)
+- Interacted seamlessly with the contract from any chain. (Ethereum, Solana or Push Chain)
 
-The next phase introduces the true power of **Universal Apps**.
+
+## Next Tutorial
+
+The next tutorial introduces the true power of **Universal Apps**.
+
+<div style={{textAlign: 'center'}}>
+
+```mermaid
+flowchart TD
+    EU[Ethereum User] --> UC[Universal Counter Contract]
+    SU[Solana User] --> UC
+    PU[Push Chain User] --> UC
+    
+    UC --> EC[Ethereum Counter: 5]
+    UC --> SC[Solana Counter: 3] 
+    UC --> PC[Push Chain Counter: 8]
+    
+    style UC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style EC fill:#627eea,stroke:#fff,stroke-width:2px,color:#fff
+    style SC fill:#9945ff,stroke:#fff,stroke-width:2px,color:#fff
+    style PC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style EU fill:#627eea,color:#fff
+    style SU fill:#9945ff,color:#fff
+    style PU fill:#dd44b9,color:#fff
+```
+
+</div>
+
+<hr />
 
 In the next part, we modify this contract to implement the following:
 
-1. `increment()` can be called by users on **any chain**.
-2. But now, the contract will natively detect which chain the `msg.sender` belongs to.
-3. Moreover, the contract will maintain a `count` for each chain based on the caller’s origin.
+1. `increment()` called by users of **any chain** will now be attributed to them.
+2. The contract will natively detect which chain the `msg.sender` belongs to.
+3. The contract will maintain a `count` for each chain based on the caller’s origin.
 
 > All of these features will be natively supported in the contract with no requirement of
 > third-party oracles, interop providers or packages.
