@@ -12,6 +12,13 @@ image: '/assets/docs/previews/docs_chain_tutorials_universal_airdrop--build_a_un
   <title>{`Build a Universal Airdrop: Generate Merkle Proofs, Deploy Contract, and Add a Claim UI | Tutorials | Push Chain Docs`}</title>
 </head>
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Details from '@theme/Details';
+import PushAPIReference from '@site/src/components/PushAPIReference/PushAPIReference';
+import NodeJSVirtualIDE from '@site/src/components/NodeJSVirtualIDE/NodeJSVirtualIDE';
+import RemixIDE from '@site/src/components/RemixIDE/RemixIDE';
+
 {/* Content Start */}
 
 Welcome! In this tutorial, you'll build a **Universal Airdrop** system that revolutionizes cross-chain token distribution. Unlike traditional airdrops that require deploying contracts on every blockchain, this universal approach lets you **deploy once on Push Chain** and enable users from **any blockchain** (Ethereum, Solana, Polygon, etc.) to claim their tokens seamlessly.
@@ -1037,6 +1044,10 @@ Copy `merkle-proof-generator/data/tree.json` and `merkle-proof-generator/data/ad
 
 ### 3.5. Add a minimal Claim component
 
+
+<Tabs className="liveplaytab" groupId="send-universal-transaction-coding">
+  <TabItem value='Full Application' label='Full Application'>
+
 ```jsx live
 // customPropMinimized='true'
 import { useState, useEffect, useCallback } from 'react';
@@ -1126,12 +1137,6 @@ function UniversalAirdrop() {
     const packed = ethers.concat([recipientBytes, namespaceBytes, chainIdBytes, amountBytes]);
     return keccak256(packed);
   };
-
-  // Pair hashing handled by merkletreejs with sortPairs: true
-
-  // Replaced by merkletreejs usage
-
-  // Replaced by merkletreejs usage
 
   function Component() {
     // Three-step UI
@@ -1813,6 +1818,247 @@ function UniversalAirdrop() {
   );
 }
 ```
+
+</TabItem>
+<TabItem value='Deploy ERC-20 Token' label='Deploy ERC-20 Token'>
+
+<RemixIDE
+  examples={{
+    'Counter.sol': {
+      absoluteFileURL:
+        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter/contracts/src/Counter.sol',
+      ctaTitle: 'View on GitHub',
+      ctaURL:
+        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter/contracts/src/Counter.sol',
+    },
+  }}
+/>
+
+</TabItem>
+<TabItem value='Deploy Universal Airdrop' label='Deploy Universal Airdrop'>
+
+<RemixIDE
+  examples={{
+    'Counter.sol': {
+      absoluteFileURL:
+        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter/contracts/src/Counter.sol',
+      ctaTitle: 'View on GitHub',
+      ctaURL:
+        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter/contracts/src/Counter.sol',
+    },
+  }}
+/>
+
+</TabItem>
+<TabItem value='Generate Merkle Tree' label='Generate Merkle Tree'>
+
+  <NodeJSVirtualIDE repo={{title: "Open in Github"}}>
+  {`
+import { keccak256 } from 'viem';
+import { makeMerkleTree, getProof } from '@openzeppelin/merkle-tree/dist/core.js';
+import * as fs from 'fs';
+import * as path from 'path';
+import bs58 from 'bs58';
+
+interface AirdropEntry {
+  recipient: string;
+  chainNamespace: 'eip155' | 'solana' | 'push' | string;
+  chainId: string;
+  amount: string;
+}
+
+interface TreeEntry extends AirdropEntry {
+  leaf: `0x${string}`;
+  proof: `0x${string}`[];
+}
+
+interface TreeData {
+  merkleRoot: `0x${string}`;
+  entries: TreeEntry[];
+}
+
+/**
+ * Generate a leaf hash matching the Solidity contract
+ * leaf = keccak256(abi.encodePacked(recipientOnPush, chainNamespace, chainId, amount))
+ */
+function generateLeaf(entry: AirdropEntry): `0x${string}` {
+  const { recipient, chainNamespace, chainId, amount } = entry;
+
+  // Normalize recipient address:
+  // - If hex 0x address (length 42), parse as 20-byte address
+  // - Else treat as base58 (e.g., Solana), hash bytes and take last 20 bytes
+  let recipientAddressHex: string;
+  if (recipient.startsWith('0x')) {
+    const addr = recipient.toLowerCase();
+    const addressBytes = addr.slice(2).padStart(40, '0');
+    recipientAddressHex = addressBytes;
+  } else {
+    const raw = Buffer.from(bs58.decode(recipient));
+    const hashed = Buffer.from(keccak256(`0x${raw.toString('hex')}`).slice(2), 'hex');
+    const last20 = hashed.slice(-20);
+    recipientAddressHex = last20.toString('hex');
+  }
+
+  const namespaceBytes = Buffer.from(chainNamespace, 'utf8');
+  const chainIdBytes = Buffer.from(chainId, 'utf8');
+  const amountBytes = Buffer.alloc(32);
+  amountBytes.writeBigUInt64BE(BigInt(amount), 24);
+
+  const packedBytes = Buffer.concat([
+    Buffer.from(recipientAddressHex, 'hex'),
+    namespaceBytes,
+    chainIdBytes,
+    amountBytes,
+  ]);
+
+  return keccak256(`0x${packedBytes.toString('hex')}`);
+}
+
+/**
+ * Build Merkle tree from airdrop entries
+ */
+function buildMerkleTree(entries: AirdropEntry[]): TreeData {
+  // Generate leaves
+  const leaves = entries.map((entry) => generateLeaf(entry));
+
+  // Create Merkle tree with sorted node hashing (default)
+  const tree = makeMerkleTree(leaves);
+  const merkleRoot = tree[0] as `0x${string}`;
+
+  // Generate proofs for each entry
+  const entriesWithProofs: TreeEntry[] = entries.map((entry, index) => {
+    const leafIndex = tree.length - 1 - index;
+    const proof = getProof(tree, leafIndex) as `0x${string}`[];
+
+    return {
+      ...entry,
+      leaf: leaves[index],
+      proof,
+    };
+  });
+
+  return {
+    merkleRoot,
+    entries: entriesWithProofs,
+  };
+}
+
+/**
+ * Print summary of the airdrop data
+ */
+function printSummary(treeData: TreeData): void {
+  const { entries, merkleRoot } = treeData;
+
+  console.log('🌳 Universal Airdrop Merkle Tree Summary');
+  console.log('=====================================');
+  console.log(`📁 Merkle Root: ${merkleRoot}`);
+  console.log(`👥 Total Recipients: ${entries.length}`);
+
+  // Calculate totals per chain namespace
+  const chainStats = entries.reduce((acc, entry) => {
+    const key = `${entry.chainNamespace}:${entry.chainId}`;
+    if (!acc[key]) {
+      acc[key] = { count: 0, totalAmount: BigInt(0) };
+    }
+    acc[key].count += 1;
+    acc[key].totalAmount += BigInt(entry.amount);
+    return acc;
+  }, {} as Record<string, { count: number; totalAmount: bigint }>);
+
+  console.log('\n📊 Per-Chain Breakdown:');
+  Object.entries(chainStats).forEach(([chain, stats]) => {
+    console.log(`  ${chain}: ${stats.count} recipients, ${stats.totalAmount.toString()} tokens`);
+  });
+
+  // Calculate total amount
+  const totalAmount = entries.reduce((sum, entry) => sum + BigInt(entry.amount), BigInt(0));
+  console.log(`\n💰 Total Airdrop Amount: ${totalAmount.toString()} tokens`);
+}
+
+// Main execution
+async function main() {
+  const airdropPath = path.join(__dirname, './data/airdrop.json');
+
+  // Check if airdrop file exists
+  if (!fs.existsSync(airdropPath)) {
+    console.error('❌ Airdrop file not found at:', airdropPath);
+    console.log('\nPlease create data/airdrop.json with the following format:');
+    console.log(
+      JSON.stringify(
+        [
+          {
+            recipient: '0x1234567890123456789012345678901234567890',
+            chainNamespace: 'eip155',
+            chainId: '11155111',
+            amount: '1000000000000000000',
+          },
+          {
+            recipient: '3u1111111111111111111111111111111111111111',
+            chainNamespace: 'solana',
+            chainId: 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
+            amount: '2000000000000000000',
+          },
+        ],
+        null,
+        2
+      )
+    );
+    process.exit(1);
+  }
+
+  // Read airdrop entries
+  const entries: AirdropEntry[] = JSON.parse(fs.readFileSync(airdropPath, 'utf8'));
+
+  // Validate entries
+  for (const entry of entries) {
+    const isHex = entry.recipient.startsWith('0x') && entry.recipient.length === 42;
+    const isBase58 = !entry.recipient.startsWith('0x');
+    if (!isHex && !isBase58) {
+      throw new Error(`Invalid recipient: ${entry.recipient} (must be 0x-address or base58)`);
+    }
+    if (!entry.chainNamespace || !entry.chainId) {
+      throw new Error(`Missing chain info for ${entry.recipient}`);
+    }
+    if (isNaN(parseInt(entry.amount)) || BigInt(entry.amount) <= 0) {
+      throw new Error(`Invalid amount for ${entry.recipient}: ${entry.amount}`);
+    }
+  }
+
+  console.log(`🔨 Building Merkle tree for ${entries.length} recipients...`);
+
+  // Build Merkle tree
+  const treeData = buildMerkleTree(entries);
+
+  // Create output directory
+  const outputDir = path.join(__dirname, './data');
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  // Write tree data
+  const treePath = path.join(outputDir, 'tree.json');
+  fs.writeFileSync(treePath, JSON.stringify(treeData, null, 2));
+
+  console.log('✅ Merkle tree built successfully!');
+  console.log(`💾 Tree data saved to: ${treePath}`);
+
+  // Print summary
+  printSummary(treeData);
+}
+
+// Export functions for testing
+export { generateLeaf, buildMerkleTree, printSummary };
+
+// Run if called directly
+if (require.main === module) {
+  main().catch(console.error);
+}
+
+  `}
+  </NodeJSVirtualIDE>
+
+</TabItem>
+</Tabs>
 
 ## Conclusion
 
