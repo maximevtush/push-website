@@ -52,7 +52,7 @@ function loadClientSideLibraryBS58() {
 
 function loadClientSideLibraryOpenZepplinMerkleTree(constantName) {
   return typeof window !== 'undefined'
-    ? require('@openzeppelin/merkle-tree')[constantName]
+    ? require('@openzeppelin/merkle-tree/dist/core.js')[constantName]
     : {}; // Return an empty object or appropriate placeholder for SSR.
 }
 
@@ -133,6 +133,7 @@ const ReactLiveScope = {
   TypedDataDomain: loadClientSideLibraryViem('TypedDataDomain'),
   defineChain: loadClientSideLibraryViem('defineChain'),
   webSocket: loadClientSideLibraryViem('webSocket'),
+  keccak256: loadClientSideLibraryViem('keccak256'),
 
   privateKeyToAccount: loadClientSideLibraryViemAccounts('privateKeyToAccount'),
   generatePrivateKey: loadClientSideLibraryViemAccounts('generatePrivateKey'),
@@ -143,8 +144,10 @@ const ReactLiveScope = {
   bytesToHex: loadClientSideLibraryViemUtils('bytesToHex'),
 
   bs58: loadClientSideLibraryBS58(),
-  StandardMerkleTree:
-    loadClientSideLibraryOpenZepplinMerkleTree('StandardMerkleTree'),
+  // StandardMerkleTree:
+  //   loadClientSideLibraryOpenZepplinMerkleTree('StandardMerkleTree'),
+  getProof: loadClientSideLibraryOpenZepplinMerkleTree('getProof'),
+  makeMerkleTree: loadClientSideLibraryOpenZepplinMerkleTree('makeMerkleTree'),
 
   PushAPI: loadClientSideLibraryPushProtocolRestAPI('PushAPI'),
   // CONSTANTS: loadClientSideLibraryPushProtocolRestAPI('CONSTANTS'),
