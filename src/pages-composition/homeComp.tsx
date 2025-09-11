@@ -6,6 +6,7 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player';
 
 // External Components
 import { useTranslation } from 'react-i18next';
@@ -64,15 +65,27 @@ export default function HomeComp() {
   const isTablet = useMediaQuery(device.tablet);
   const isLaptop = useMediaQuery(device.laptop);
 
+  // Hero video hover state
+  const [heroHovered, setHeroHovered] = useState(false);
+
   const isSafari = () => {
     if (typeof window === 'undefined') return false;
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   };
 
+  // Hero video hover handlers
+  const handleHeroMouseEnter = () => {
+    setHeroHovered(true);
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroHovered(false);
+  };
+
   return (
     <HomeWrapper showAlertBar={isHydrated ? shouldShowAlertBar : false}>
       {/* GLOW CIRCLE */}
-      <GlowCircle />
+      {/*<GlowCircle />*/}
 
       {/* HERO SECTION */}
       <HeroSection
@@ -83,7 +96,47 @@ export default function HomeComp() {
         aria-label={t('pages.home.hero-section.section-aria-label')}
       >
         <HeroContent alignSelf='center' overflow='visible'>
-          <HeroPrimary flex='initial' justifyContent='flex-start'>
+          <HeroPrimary
+            flex='initial'
+            justifyContent='flex-start'
+            onMouseEnter={handleHeroMouseEnter}
+            onMouseLeave={handleHeroMouseLeave}
+            style={{
+              backgroundImage: heroHovered ? 'none' : undefined,
+            }}
+          >
+            {/* Hero Video - plays on hover */}
+            {heroHovered && !isMobile && (
+              <HeroVideo
+                url={
+                  require(
+                    isSafari()
+                      ? `@site/static/assets/website/hero/hero-hover-video.mp4`
+                      : `@site/static/assets/website/hero/hero-hover-video.webm`
+                  ).default
+                }
+                playing={heroHovered}
+                loop={true}
+                muted={true}
+                width='100%'
+                height='100%'
+                config={{
+                  file: {
+                    attributes: {
+                      controlsList: 'nofullscreen',
+                    },
+                  },
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: 1,
+                  opacity: 0.8,
+                }}
+              />
+            )}
+
             <HeroItem alignItems='center'>
               <HeroBody>
                 <H1
@@ -1280,6 +1333,18 @@ const AccordionGrid = styled.div`
     max-width: 100%;
     min-width: 100%;
   }
+`;
+
+const HeroVideo = styled(ReactPlayer)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
 `;
 
 const VideoItemV = styled.div`
