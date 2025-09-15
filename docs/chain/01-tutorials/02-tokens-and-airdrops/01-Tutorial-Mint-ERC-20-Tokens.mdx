@@ -319,130 +319,79 @@ Current network: pushDonut
 
 Create `scripts/mint-wpush.ts` to deposit `$PC` into the `WPUSH` contract and mint `WPUSH` tokens:
 
-```typescript
-import { ethers } from 'ethers';
-import * as dotenv from 'dotenv';
+<NodeJSVirtualIDE>
 
-dotenv.config();
+  {`
+    import { ethers } from 'ethers';
+    import * as readline from 'node:readline/promises';
 
-// Contract addresses
-const CONTRACTS = {
-  wpush: '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818',
-} as const;
+    // Contract addresses
+    const CONTRACTS = {
+      wpush: '0x2c7EbF633ffC84ea67eB6C8B232DC5f42970B818',
+    };
 
-// WPUSH ABI
-const WPUSH_ABI = [
-  'function balanceOf(address) view returns (uint256)',
-  'function deposit() payable',
-  'function transfer(address,uint256) returns (bool)',
-] as const;
+    // WPUSH ABI
+    const WPUSH_ABI = ['function balanceOf(address) view returns (uint256)', 'function deposit() payable'];
 
-const PUSH_RPC_URL = 'https://evm.rpc-testnet-donut-node1.push.org/';
-const PRIVATE_KEY: string | undefined = process.env.PRIVATE_KEY;
+    const PUSH_RPC_URL = 'https://evm.rpc-testnet-donut-node1.push.org/';
 
-// Configuration - modify these values as needed
-const AMOUNT_TO_MINT = '5'; // Amount of WPUSH to mint
+    // Configuration - modify these values as needed
+    const AMOUNT_TO_MINT = '5'; // Amount of WPUSH to mint
 
-// Types
-interface MintResult {
-  targetAddress: string;
-  amount: string;
-  depositTx: string;
-}
+    // Enable User Input
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
 
-// Helper functions
-function getSigner(): ethers.Wallet {
-  if (!PRIVATE_KEY) {
-    throw new Error('PRIVATE_KEY is not configured');
-  }
-  const provider = new ethers.JsonRpcProvider(PUSH_RPC_URL);
-  return new ethers.Wallet(PRIVATE_KEY, provider);
-}
+    async function main() {
+      const provider = new ethers.JsonRpcProvider(PUSH_RPC_URL);
+      const ephemeral = ethers.Wallet.createRandom();
+      const wallet = ephemeral.connect(provider);
 
-function getWpushContract(): ethers.Contract {
-  const signer = getSigner();
-  return new ethers.Contract(CONTRACTS.wpush, WPUSH_ABI, signer);
-}
+      console.log('🔑 Ephemeral wallet address:', wallet.address);
 
-// Main minting function
-async function mintWpushToAddress(
-  targetAddress: string,
-  amount: string
-): Promise<MintResult> {
-  // Validate inputs
-  if (!ethers.isAddress(targetAddress)) {
-    throw new Error(`Invalid Ethereum address: ${targetAddress}`);
-  }
+      const wpush = new ethers.Contract(CONTRACTS.wpush, WPUSH_ABI, wallet);
+      const amountWei = ethers.parseUnits(AMOUNT_TO_MINT, 18);
 
-  const amountWei = ethers.parseUnits(amount.toString(), 18);
-  const signer = getSigner();
-  const wpushContract = getWpushContract();
+      // Wait for sufficient native PUSH balance
+      let nativeBal = await provider.getBalance(wallet.address);
+      while (nativeBal < amountWei) {
+        console.log(
+          '⏳ Insufficient native PUSH. Needed:',
+          ethers.formatUnits(amountWei, 18),
+          'PUSH; Have:',
+          ethers.formatUnits(nativeBal, 18)
+        );
+        await rl.question(':::prompt:::Please send native PUSH to ' + wallet.address + ' and press Enter to retry.');
+        nativeBal = await provider.getBalance(wallet.address);
+        console.log('💰 Native PUSH balance:', ethers.formatUnits(nativeBal, 18));
+      }
 
-  // Check balance
-  const signerBalance = await signer.provider!.getBalance(signer.address);
-  if (signerBalance < amountWei) {
-    throw new Error(
-      `Insufficient PUSH balance. Required: ${ethers.formatUnits(amountWei)}, Available: ${ethers.formatUnits(
-        signerBalance
-      )}`
-    );
-  }
+      try {
+        console.log('Depositing native PUSH to mint WPUSH...');
+        const tx = await wpush.deposit({ value: amountWei });
+        const rc = await tx.wait();
+        console.log('✅ Successfully minted', AMOUNT_TO_MINT, 'WPUSH');
+        console.log('📋 Deposit TX:', rc?.hash ?? tx.hash);
 
-  // Deposit PUSH to get WPUSH
-  const depositTx = await wpushContract.deposit({ value: amountWei });
-  await depositTx.wait();
+        const finalBalance = await wpush.balanceOf(wallet.address);
+        console.log('💰 Final WPUSH balance:', ethers.formatUnits(finalBalance, 18), 'WPUSH');
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error('❌ Error:', errorMessage);
+        process.exit(1);
+      } finally {
+        rl.close();
+      }
+    }
 
-  return {
-    targetAddress,
-    amount,
-    depositTx: depositTx.hash,
-  };
-}
-
-// Main function
-async function main(): Promise<void> {
-  const TARGET_ADDRESS = getSigner().address;
-  console.log(`🚀 Minting ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}\n`);
-
-  try {
-    const result = await mintWpushToAddress(TARGET_ADDRESS, AMOUNT_TO_MINT);
-    console.log(
-      `✅ Successfully minted ${AMOUNT_TO_MINT} WPUSH to ${TARGET_ADDRESS}`
-    );
-    console.log(`📋 Deposit TX: ${result.depositTx}`);
-
-    // Check final WPUSH balance
-    const wpushContract = getWpushContract();
-    const finalBalance = await wpushContract.balanceOf(TARGET_ADDRESS);
-    const formattedBalance = ethers.formatUnits(finalBalance, 18);
-    console.log(`💰 Final WPUSH balance: ${formattedBalance} WPUSH`);
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('❌ Error:', errorMessage);
-    process.exit(1);
-  }
-}
-
-main().catch((error) => {
-  console.error('Unhandled error:', error);
-  process.exit(1);
-});
-```
-
-Run:
-
-```bash
-npx ts-node scripts/mint-wpush.ts
-```
-
-Example output:
-
-```bash
-🚀 Minting 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
-
-✅ Successfully minted 1 WPUSH to 0xFd6C2fE69bE13d8bE379CCB6c9306e74193EC1A9
-📋 Deposit TX: 0xd8a62e24f9157950d46b5d99b94b693e09064147078fe7cace95093de4da8e3a
-```
+    main().catch((error) => {
+      console.error('Unhandled error:', error);
+      process.exit(1);
+    });
+`}
+</NodeJSVirtualIDE>
 
 ## Part 3: Create `$AIRDROP/$WPUSH` Pool and Add Liquidity
 
