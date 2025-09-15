@@ -78,6 +78,7 @@ const TimerIcon = styled.div`
   align-items: center;
   color: var(--ifm-color-primary-unified);
   flex-shrink: 0;
+  display: flex;
 `;
 
 const TimerContent = styled.div`
