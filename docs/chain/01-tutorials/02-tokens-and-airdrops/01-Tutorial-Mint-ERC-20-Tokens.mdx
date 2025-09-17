@@ -29,13 +29,13 @@ This tutorial shows how to let users on any chain mint a universal ERC-20 called
 What you’ll do:
 
 1. Deploy a standard ERC-20 `$AIRDROP` token on Push Chain
-2. Create a `$AIRDROP/$WPUSH` pool and add liquidity
-3. Test a swap programmatically
+2. Mint `$WPUSH` tokens for liquidity and swaps
+3. Create a `$AIRDROP/$WPUSH` pool and add liquidity
 4. Build a frontend UI that lets users mint `$WPUSH` and swap between `$WPUSH` and `$AIRDROP`
 
 ## Tutorial Overview
 
-This tutorial is divided into five main parts:
+This tutorial is divided into four main parts:
 
 ### Part 1: Deploy ERC-20 Token to Push Chain
 
@@ -49,11 +49,7 @@ Create a script to mint `$WPUSH` tokens (wrapped Push Chain tokens) needed for l
 
 Set up a Uniswap V3 `$AIRDROP/$WPUSH` pool and add initial liquidity for token swapping.
 
-### Part 4: Test Token Swaps
-
-Build a script to programmatically swap `$WPUSH` for `$AIRDROP` tokens through the pool.
-
-### Part 5: Build Frontend UI
+### Part 4: Build Frontend UI
 Create a React app with Push Universal Wallet integration that allows users to mint `$WPUSH` by depositing `$PC` and swap between `$WPUSH` and `$AIRDROP` using the Uniswap v3 router on Push Chain.
 
 ## Part 1: Deploying a standard ERC-20 token to Push Chain’s testnet with Hardhat
