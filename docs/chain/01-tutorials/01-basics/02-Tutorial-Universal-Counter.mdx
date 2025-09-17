@@ -20,8 +20,11 @@ import {
   ModalWrapper,
 } from '@site/src/css/SharedStyling';
 import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
+import TutorialTimer from '@site/src/components/TutorialTimer';
+import { GitHubRepo } from '@site/src/components/GitHubRepo';
 
 <!-- Content Start -->
+<TutorialTimer estimatedMinutes={10} />
 
 Welcome to the first tutorial of building a truly universal smart contract. The smart contract we are going to build here is the popular **Counter app**, that all Solidity developers are familiar with. This counter app, however, is going to be **Universal**.
 
@@ -274,8 +277,8 @@ function UniversalCounterExample() {
     },
   ];
 
-  // Contract address for the Universal Counter
-  const CONTRACT_ADDRESS = '0x07E7Ca060A4b5BcDa61A6B701305ef0Ee29E1A3e';
+  // Contract address for Universal Counter
+  const CONTRACT_ADDRESS = '0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6';
 
   function Component() {
     const { connectionStatus } = usePushWalletContext();
