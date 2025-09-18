@@ -198,9 +198,7 @@ export default function DocsHub(): JSX.Element {
   // TODO: add correct testnet launch date
   const targetDate = '2025-09-16T12:00:00';
   const { timeLeft, isExpired } = useCountdown(targetDate);
-  const tweetUrl =
-    'https://twitter.com/intent/tweet?text=' +
-    encodeURIComponent('[ Your shoutout here ] #pushchainsecret');
+  const buttonUrl = 'https://dorahacks.io/hackathon/pushchain-gud/';
 
   const { colorMode, setColorMode } = useColorMode();
 
@@ -307,7 +305,7 @@ export default function DocsHub(): JSX.Element {
                 {t('pages.docs.header.description')}
               </TextSpan>
 
-              <TweetAboutPushChain
+              <LaunchButton
                 background='var(--ifm-color-custom-pink)'
                 borderRadius='16px'
                 border='1px solid var(--ifm-color-overlay-white-30)'
@@ -316,13 +314,13 @@ export default function DocsHub(): JSX.Element {
                 letterSpacing='-0.03em'
                 lineHeight='1rem'
                 padding='16px 32px'
-                href={tweetUrl}
+                href={buttonUrl}
                 target='_blank'
                 title={t('pages.docs.header.title')}
                 aria-label={t('pages.docs.header.ariaLabel')}
               >
                 <p>{t('pages.docs.header.title')}</p>
-              </TweetAboutPushChain>
+              </LaunchButton>
             </DocsHeader>
           </Content>
         </DocsHeroSection>
@@ -385,7 +383,7 @@ const DocsHeader = styled(ItemV)`
   }
 `;
 
-const TweetAboutPushChain = styled(A)`
+const LaunchButton = styled(A)`
   margin-top: 24px;
 
   p {
