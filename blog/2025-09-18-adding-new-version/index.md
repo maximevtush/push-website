@@ -38,6 +38,23 @@ Here’s why building on Push Chain gives you a real edge:
 
 ## 🏆 Rewards & Incentives
 
+💰 $4000 Reward Pool + $1000 Additional through community voting (Stables)
+
+Jury Rewards:
+| Rank       | Prize (USD) |
+|--------------|-------------|
+| 🥇 First Place  | $2000       |
+| 🥈 Second Place | $1000       |
+| 🥉 Third Place  | $600        |
+| ⛳️ Fourth Place | $400        |
+
+Community Voting Rewards:
+| Rank       | Prize (USD) |
+|--------------|-------------|
+| 🥇 First Place | $500 |
+| 🥈 Second Place| $300 |
+| 🥉 Third Place  | $200 |
+
 ### 💰 Prize Pool
 
 - **$4,000 Reward Pool (Stables)**
