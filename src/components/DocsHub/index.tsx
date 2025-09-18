@@ -36,26 +36,12 @@ import {
 } from '@site/src/css/SharedStyling';
 import Footer from '../../segments/Footer';
 
-// Import Assets
-import ArrowUp from '@site/static/assets/docs/ArrowUpRight-pink.svg';
-import { FiArrowUpRight } from 'react-icons/fi';
-
 // Internal Configs
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import Spinner, {
-  SPINNER_TYPE,
-} from '@site/src/components/reusables/spinners/SpinnerUnit';
-import {
-  ITechDocItem,
-  QuickstartItems,
-  SdkItemsList,
-  TechDocItems,
-} from '@site/src/config/DocsHubList';
+import { ITechDocItem } from '@site/src/config/DocsHubList';
 import GLOBALS, { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
-import { useCountdown } from '@site/src/hooks/useCountDown';
 
 function QuickstartList({ title, codeblock, Svg }: IQuickstartItem) {
   return (
@@ -195,9 +181,6 @@ export default function DocsHub(): JSX.Element {
   const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
 
-  // TODO: add correct testnet launch date
-  const targetDate = '2025-09-16T12:00:00';
-  const { timeLeft, isExpired } = useCountdown(targetDate);
   const buttonUrl = 'https://dorahacks.io/hackathon/pushchain-gud/';
 
   const { colorMode, setColorMode } = useColorMode();
@@ -279,21 +262,6 @@ export default function DocsHub(): JSX.Element {
               >
                 {t('pages.docs.header.countdown-title')}
               </H3>
-
-              {!isExpired && (
-                <H3
-                  fontFamily='DM Sans'
-                  fontSize={isMobile ? '3rem' : '4rem'}
-                  fontWeight='500'
-                  color='var(--ifm-color-white)'
-                  lineHeight='110%'
-                  textAlign='center'
-                  margin='12px auto'
-                >
-                  {timeLeft.days}D : {timeLeft.hours}H : {timeLeft.minutes}M :{' '}
-                  {timeLeft.seconds}S
-                </H3>
-              )}
 
               <TextSpan
                 fontFamily='DM Sans'
