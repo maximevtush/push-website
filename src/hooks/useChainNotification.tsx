@@ -47,7 +47,10 @@ export const useChainNotification = () => {
           position='bottom-left'
           onClick={() => {
             localStorage.setItem('testnetNotificationShown', 'true');
-            window.open('https://t.me/+dHOCilvxNR9jZjM9', '_blank');
+            window.open(
+              'https://dorahacks.io/hackathon/pushchain-gud?utm_source=website&utm_medium=referral&utm_campaign=project_gud',
+              '_blank'
+            );
             toast.dismiss(toastId);
           }}
           onClose={() => {
@@ -141,7 +144,7 @@ const NotificationItem: FC<NotificationProps> = ({
           margin='0 auto'
           border='1.5px solid var(--ifm-color-white)'
           hoverBorder='1.5px solid var(--ifm-color-white)'
-          fontFamily='N27'
+          fontFamily='DM Sans'
           width='100%'
           title={t?.('notifications.chain-notification.button-title')}
           aria-label={t?.('notifications.chain-notification.button-aria-label')}
@@ -165,7 +168,7 @@ const NotificationContainer = styled.div`
   width: 320px;
   cursor: pointer;
   box-sizing: border-box;
-  font-family: N27;
+  font-family: 'DM Sans', sans-serif;
   overflow: hidden;
 
   @media ${device.tablet} {
@@ -201,7 +204,7 @@ const TextContainer = styled.div`
 const NotificationTitle = styled.span`
   color: var(--ifm-color-white);
   text-align: center;
-  font-family: N27;
+  font-family: 'DM Sans', sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
@@ -213,7 +216,7 @@ const NotificationTitle = styled.span`
 const NotificationDescription = styled.span`
   color: var(--ifm-color-white);
   text-align: center;
-  font-family: N27;
+  font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

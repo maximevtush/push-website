@@ -123,7 +123,7 @@ export default function Root({ children }) {
         {typeof window !== 'undefined' && showAlertBar && (
           <InfoBar
             translatedTextKey='notifications.info-bar.title'
-            url='https://push.org/blog/donut-testnet-closed-beta-is-now-live/'
+            url='https://push.org/blog/announcing-project-gud-go-universal-and-deploy/'
           />
         )}
 
