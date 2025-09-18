@@ -5,7 +5,7 @@ authors: [push]
 image: './cover-image.webp'
 description: 'Announcing Project G.U.D — Go Universal & Deploy on Push Chain, Win $5,000'
 text: "Push Chain is a shared-state Layer 1 blockchain built to eliminate fragmentation across all chains"
-tags: [Push Chain, Donut, Closed Beta, Early Access, Shared App Experience, Shared State Blockchain, Universal Smart Contracts, Testnet]
+tags: [Deployathon, Donut Testnet, Early Access, Universal Apps, Shared App Experience, Shared State Blockchain, Universal Smart Contracts]
 ---
 
 ![Announcing Project G.U.D — Go Universal & Deploy on Push Chain, Win $5,000](./cover-image.webp)
@@ -32,7 +32,7 @@ Here’s why building on Push Chain gives you a real edge:
 - **Avoid Audit Friction**: Since you do not modify your solidity code, there is no need for a full re-audit.
 - **Simplified Fees**: Automatically routes gas fees under the hood. Users do not need to hold $PC tokens or switch chains to complete transactions.
 - **Consistent DevEx**: One **Push SDK**, one set of JSON-RPC endpoints, and a unified API to build and deploy. Supports Viem, ethers, and our own Push Chain client.
-- **Future-Proof Builds**: With ****Shared state and programmable solvers (coming soon), you can orchestrate complex workflows with multichain R/W operations - without building separate adapters.
+- **Future-Proof Builds**: With Shared state and programmable solvers (coming soon), you can orchestrate complex workflows with multichain R/W operations - without building separate adapters.
 
 👉 *Note: Push Chain SDK is only accessible to contest participants.* [Register](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud) to unlock SDK + docs.
 
@@ -48,6 +48,8 @@ Jury Rewards:
 | 🥉 Third Place  | $600        |
 | ⛳️ Fourth Place | $400        |
 
+### Community Voting Rewards:
+
 Community Voting Rewards:
 | Rank       | Prize (USD) |
 |--------------|-------------|
@@ -55,10 +57,12 @@ Community Voting Rewards:
 | 🥈 Second Place| $300 |
 | 🥉 Third Place  | $200 |
 
-### 💰 Prize Pool
+### 🗳 Community Voting
 
-- **$4,000 Reward Pool (Stables)**
-- **$1,000 Community Voting Rewards**
+Once the public testnet is live, users will crown their favorites. Top community picks win:
+
+(*Voting will be sybil-resistant for fair outcomes.*)
+
 
 **Evaluation Criteria:**
 
@@ -75,16 +79,6 @@ Apps that show long-term conviction - benefit from more support and recognition:
 - Winning apps will be featured on the **Push Testnet Portal (Incentivized Season 3)**.
 - **Onchain** perks (Secret passes, Badges) and **Offchain** perks (Meet the founders, 1-1 Mentorship)
 - Winners gain a chance to access Push Chains VC and partner network.
-
-### 🗳 Community Voting
-
-Once the public testnet is live, users will crown their favorites. Top community picks win:
-
-- **Rank 1:** $500
-- **Rank 2:** $300
-- **Rank 3:** $200
-
-(*Voting will be sybil-resistant for fair outcomes.*)
 
 ---
 
@@ -104,12 +98,13 @@ A universal app doesn't have to start from scratch. Your submissions can be**:**
 <!--Need inspiration? Check out our **[Universal Apps Idea Bucket].**-->
 
 ---
+## 📋 How to Participate
 
 ![Announcing Project G.U.D — Go Universal & Deploy on Push Chain, Win $5,000](./image-2.webp)
 
-1. **Register** on Dorahacks [LINK]. Fill-in basic details and share your build ideas.
-2. **Join the Closed Beta TG Chat** [LINK] for support + mentoring.
-3. **Find Teammates** or hack solo via [Push X Community](https://x.com/i/communities/1957696067207651630).
+1. [**Register on Dorahacks**](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud). Fill-in basic details and share your build ideas.
+2. **Join the [Donut Early Access TG Chat](https://t.me/+HBr_tyPvACFhM2Vl)** for support + mentoring.
+3. **Find Teammates** or hack solo via [**Push X Community](https://x.com/i/communities/1957696067207651630).**
 4. **Build Build Build!** 🚀
 
 ---
@@ -132,8 +127,8 @@ A universal app doesn't have to start from scratch. Your submissions can be**:**
 
 We’ve got you covered with everything you need to build, deploy and shine during Project G.U.D:
 
-- **Developer Documentation** → [Register to Access](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud)
-- **Universal Apps Idea Bucket** → App ideas
+<!--- **Developer Documentation** → [Register to Access](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud)-->
+<!--- **Universal Apps Idea Bucket** → App ideas-->
 - **Mentorship & Guidance** → [Join Closed Beta TG Chat](https://t.me/+HBr_tyPvACFhM2Vl)
 - **Community Support** → [Push X Community](https://x.com/i/communities/1957696067207651630)
 
