@@ -12,6 +12,10 @@ tags: [Deployathon, Donut Testnet, Early Access, Universal Apps, Shared App Expe
 
 <!--truncate-->
 
+We’re excited to announce **Project G.U.D**, a 3-week-long **Deploython** where developers can port their EVM apps to Push Chain’s **Testnet Donut**, make them Universal, and compete for **$5,000 in prizes**!
+
+👉 We just upgraded our developer chat - [join here](https://t.me/+HBr_tyPvACFhM2Vl) to learn more.
+
 ## 🌐 What is Push Chain?
 
 [Push Chain](https://push.org?utm_source=blog&utm_medium=referral&utm_campaign=project_gud) is a **shared-state Layer 1 blockchain** built to eliminate fragmentation across all chains.
@@ -38,9 +42,9 @@ Here’s why building on Push Chain gives you a real edge:
 
 ## 🏆 Rewards & Incentives
 
-💰 $4000 Reward Pool + $1000 Additional through community voting (Stables)
+### 💰 $4000 Reward Pool + $1000 Additional through community voting (Stables)
 
-Jury Rewards:
+### 😎 Jury Rewards:
 | Rank       | Prize (USD) |
 |--------------|-------------|
 | 🥇 First Place  | $2000       |
@@ -48,20 +52,18 @@ Jury Rewards:
 | 🥉 Third Place  | $600        |
 | ⛳️ Fourth Place | $400        |
 
-### Community Voting Rewards:
+### 🗳 Community Voting Rewards:
+Once the public testnet is live, users will crown their favorites. Top community picks win:
 
-Community Voting Rewards:
+(*Voting will be sybil-resistant for fair outcomes.*)
+
 | Rank       | Prize (USD) |
 |--------------|-------------|
 | 🥇 First Place | $500 |
 | 🥈 Second Place| $300 |
 | 🥉 Third Place  | $200 |
 
-### 🗳 Community Voting
 
-Once the public testnet is live, users will crown their favorites. Top community picks win:
-
-(*Voting will be sybil-resistant for fair outcomes.*)
 
 
 **Evaluation Criteria:**
@@ -78,7 +80,7 @@ Apps that show long-term conviction - benefit from more support and recognition:
 
 - Winning apps will be featured on the **Push Testnet Portal (Incentivized Season 3)**.
 - **Onchain** perks (Secret passes, Badges) and **Offchain** perks (Meet the founders, 1-1 Mentorship)
-- Winners gain a chance to access Push Chains VC and partner network.
+- Winners gain a chance to **access Push Chains VC and partner network**.
 
 ---
 
@@ -89,7 +91,7 @@ This contest is open to **all developers**, whether you’re shipping production
 - Hack solo or form a team.
 - Deploy an existing EVM app or build from scratch.
 
-A universal app doesn't have to start from scratch. Your submissions can be**:**
+A universal app doesn't have to start from scratch. Your submissions can be:
 
 | Deploy Your Existing EVM App | Build a New Universal App |
 | --- | --- |
@@ -104,16 +106,16 @@ A universal app doesn't have to start from scratch. Your submissions can be**:**
 
 1. [**Register on Dorahacks**](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud). Fill-in basic details and share your build ideas.
 2. **Join the [Donut Early Access TG Chat](https://t.me/+HBr_tyPvACFhM2Vl)** for support + mentoring.
-3. **Find Teammates** or hack solo via [**Push X Community](https://x.com/i/communities/1957696067207651630).**
+3. **Find Teammates** or hack solo via [Push X Community](https://x.com/i/communities/1957696067207651630)
 4. **Build Build Build!** 🚀
 
 ---
 
 ## 🔑 3 Tips for a Strong Submission
 
-1. **Build in Public**: Share your progress publicly — the more the community sees, the better your chances of winning votes..
-    a. ***What can you share in public?***
-    Could be as simple as your project ideas, daily/ weekly progress, sneak peaks or early glimpses.
+1. **Build in Public**: Share your progress publicly — the more the community sees, the better your chances of winning votes.. <br/>
+      a. ***What can you share in public?***
+      Could be as simple as your project ideas, daily/ weekly progress, sneak peaks or early glimpses.
 2. **Submit Complete Projects**: Include repo + demo links. Incomplete apps get downgraded. Read the [**submission guidelines**](https://dorahacks.io/hackathon/pushchain-gud?utm_source=blog&utm_medium=referral&utm_campaign=project_gud)
 3. **Don’t Wait to Register**: We highly **encourage builders to apply early**. Early registrations give you more time to connect with mentors, judges, and the community.
 
