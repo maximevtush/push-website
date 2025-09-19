@@ -316,7 +316,7 @@ const { account, exists } = await PushChain.utils.account.convertExecutorToOrigi
 import { PushChain } from '@pushchain/core'
 
     async function main() {
-      const ueaAddress = '0x2C592Cd90d9d485EB27eC30c718B8A3b63B32d78';
+      const ueaAddress = '0xbCfaD05E5f19Ae46feAab2F72Ad9977BC239b395';
       const result = await PushChain.utils.account.convertExecutorToOriginAccount(
         ueaAddress
       );
@@ -537,7 +537,7 @@ const url = pushChainClient.explorer.getTransactionUrl(txHash);
         network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
       });
 
-      const exploredTxHashUrl = pushChainClient.explorer.getTransactionUrl('0x4627fd2eca321d5fd007995c94af636e5e332760f50fbd8e3426ad0c67543dad');
+      const exploredTxHashUrl = pushChainClient.explorer.getTransactionUrl('0x828911db033c65de8faab4906cfcb7d13ce225c3cd283534d110414a5b78cf87');
 
       console.log(JSON.stringify(exploredTxHashUrl));
     }

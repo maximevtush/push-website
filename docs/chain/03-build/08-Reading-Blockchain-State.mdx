@@ -81,7 +81,7 @@ import { createPublicClient, http } from 'viem';
 import { ethers } from 'ethers';
 
     const provider = new ethers.JsonRpcProvider('https://evm.rpc-testnet-donut-node1.push.org/');
-    const txHash  = '0x7ab175ee10a115ebd6529e41837074def2500bd6cb16e212b07a5d43b9ffee96';
+    const txHash  = '0x04ee80f072ab06ec88092701e7ba223451d0a1376e26755085271bc6de45a6a1';
 
     const tx = await provider.getTransaction(txHash);
     console.log(JSON.stringify(tx, null, 2));
@@ -100,7 +100,7 @@ import { ethers } from 'ethers';
 import { createPublicClient, http } from 'viem';
 
     const viemClient = createPublicClient({ transport: http('https://evm.rpc-testnet-donut-node1.push.org/') });
-    const txHash = '0x7ab175ee10a115ebd6529e41837074def2500bd6cb16e212b07a5d43b9ffee96';
+    const txHash = '0x04ee80f072ab06ec88092701e7ba223451d0a1376e26755085271bc6de45a6a1';
 
     const tx = await viemClient.getTransaction({ hash: txHash });
     console.log(JSON.stringify(tx, null, 2));
@@ -165,7 +165,7 @@ import { createPublicClient, http } from 'viem';
 import { ethers } from 'ethers';
 
     const provider  = new ethers.JsonRpcProvider('https://evm.rpc-testnet-donut-node1.push.org/');
-    const blockHash = '0x59d41d93c7090255a7525d914d0ee2c399a3b6871b06b84e7088e78f540d2cfb';
+    const blockHash = '0xa1a69fa217d219f71d44f4707f8aa4ded2aec52a0c737e0dca0dbf9096252b89';
 
     const block = await provider.getBlock(blockHash);
     console.log(JSON.stringify(block, null, 2));
@@ -184,7 +184,7 @@ import { ethers } from 'ethers';
 import { createPublicClient, http } from 'viem';
 
     const viemClient = createPublicClient({ transport: http('https://evm.rpc-testnet-donut-node1.push.org/') });
-    const blockHash = '0x59d41d93c7090255a7525d914d0ee2c399a3b6871b06b84e7088e78f540d2cfb';
+    const blockHash = '0xa1a69fa217d219f71d44f4707f8aa4ded2aec52a0c737e0dca0dbf9096252b89';
 
     const block = await viemClient.getBlock({ blockHash });
     console.log(JSON.stringify(block, null, 2));

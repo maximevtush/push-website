@@ -5506,9 +5506,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pushchain/core@npm:1.1.29":
-  version: 1.1.29
-  resolution: "@pushchain/core@npm:1.1.29"
+"@pushchain/core@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@pushchain/core@npm:2.0.2"
   dependencies:
     "@bufbuild/protobuf": "npm:^2.0.0"
     "@coral-xyz/anchor": "npm:^0.31.0"
@@ -5525,50 +5525,29 @@ __metadata:
     tslib: "npm:^2.3.0"
     tweetnacl: "npm:^1.0.3"
     viem: "npm:2.27.2"
-  checksum: 10c0/43f45002a08164edfa8fefb9c2af4e50601d8722bfba3a302156f139690125abdbd821f5df7417cbd563609d3d336ca6af7548b441ba4c6732bf7451c1596472
+  checksum: 10c0/d52bd7ff3fea9a0796b6c9cb009bd7c1c0c71d98bac14b3fe1aa14394bbd8322de047e24d35ef6c16c4acd5acb55d2ab05d12548114a9d68387fbc769f27da77
   languageName: node
   linkType: hard
 
-"@pushchain/core@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@pushchain/core@npm:1.1.33"
-  dependencies:
-    "@bufbuild/protobuf": "npm:^2.0.0"
-    "@coral-xyz/anchor": "npm:^0.31.0"
-    "@cosmjs/crypto": "npm:0.33.1"
-    "@cosmjs/encoding": "npm:0.33.1"
-    "@cosmjs/proto-signing": "npm:^0.33.1"
-    "@cosmjs/stargate": "npm:^0.33.1"
-    "@cosmjs/tendermint-rpc": "npm:0.33.1"
-    "@solana/web3.js": "npm:^1.68.0"
-    buffer: "npm:^6.0.3"
-    cosmjs-types: "npm:0.9.0"
-    ethers: "npm:^6.14.3"
-    protobufjs: "npm:7.4.0"
-    tslib: "npm:^2.3.0"
-    tweetnacl: "npm:^1.0.3"
-    viem: "npm:2.27.2"
-  checksum: 10c0/3b0934e7ec6a2b12ec40b7dac4e8d0e9e88e2432e2efec52213b30cff691069215ee6efce64e02d15f9121ba969d97486ae44ee5202af05f025d031f648aa6a0
-  languageName: node
-  linkType: hard
-
-"@pushchain/ui-kit@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@pushchain/ui-kit@npm:1.1.33"
+"@pushchain/ui-kit@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@pushchain/ui-kit@npm:2.0.2"
   dependencies:
     "@coral-xyz/anchor": "npm:^0.31.1"
     "@metamask/sdk": "npm:^0.32.0"
-    "@pushchain/core": "npm:1.1.29"
+    "@pushchain/core": "npm:2.0.2"
     "@solana/web3.js": "npm:^1.98.2"
     "@walletconnect/ethereum-provider": "npm:^2.21.5"
     buffer: "npm:^6.0.3"
     ethers: "npm:^6.13.5"
-    react: "npm:^18.3.1"
     react-is: "npm:^19.1.0"
-    styled-components: "npm:^5.3.8"
+    styled-components: "npm:^6.1.0"
     tslib: "npm:^2.3.0"
     viem: "npm:^2.23.9"
-  checksum: 10c0/eb1b5332ab1324b9a9b6635044fdb63588a00ca8a518899956fed8269d5ea29477db21876c5a7bdfd079ae68347403ad17c6926e8d2548a74ecebfef25ab5648
+  peerDependencies:
+    react: ">=18.3.0 <20.0.0"
+    react-dom: ">=18.3.0 <20.0.0"
+  checksum: 10c0/308117f3b3894c270e4ba05c70e0ff52f57c35273b29cb1a7c990cd3a29cb4ceab90aec0c925bd733c1c2c109f708fe24fcee0d634c3940dfcb644702d0d9b29
   languageName: node
   linkType: hard
 
@@ -20997,8 +20976,8 @@ __metadata:
     "@docusaurus/types": "npm:^3.8.1"
     "@mdx-js/react": "npm:^3.0.0"
     "@openzeppelin/merkle-tree": "npm:^1.0.8"
-    "@pushchain/core": "npm:1.1.33"
-    "@pushchain/ui-kit": "npm:1.1.33"
+    "@pushchain/core": "npm:2.0.2"
+    "@pushchain/ui-kit": "npm:2.0.2"
     "@pushprotocol/restapi": "npm:1.7.20"
     "@pushprotocol/uiweb": "npm:1.7.1"
     "@radix-ui/react-dialog": "npm:^1.1.2"
@@ -21800,7 +21779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0, react@npm:^18.3.1":
+"react@npm:^18.2.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
@@ -23683,7 +23662,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-components@npm:^5.3.5, styled-components@npm:^5.3.8":
+"styled-components@npm:^5.3.5":
   version: 5.3.11
   resolution: "styled-components@npm:5.3.11"
   dependencies:
