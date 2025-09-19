@@ -48,7 +48,10 @@ export const useChainNotification = () => {
           position='bottom-left'
           onClick={() => {
             localStorage.setItem('testnetNotificationShown', 'true');
-            window.open('https://t.me/+dHOCilvxNR9jZjM9', '_blank');
+            window.open(
+              'https://dorahacks.io/hackathon/pushchain-gud?utm_source=website&utm_medium=referral&utm_campaign=project_gud',
+              '_blank'
+            );
             toast.dismiss(toastId);
           }}
           onClose={() => {
@@ -142,7 +145,7 @@ const NotificationItem: FC<NotificationProps> = ({
           margin='0 auto'
           border='1.5px solid var(--ifm-color-white)'
           hoverBorder='1.5px solid var(--ifm-color-white)'
-          fontFamily='N27'
+          fontFamily='DM Sans'
           width='100%'
           title={t?.('notifications.chain-notification.button-title')}
           aria-label={t?.('notifications.chain-notification.button-aria-label')}
@@ -167,6 +170,7 @@ const NotificationContainer = styled.div`
   cursor: pointer;
   box-sizing: border-box;
   font-family: DM Sans !important;
+
   overflow: hidden;
 
   @media ${device.tablet} {

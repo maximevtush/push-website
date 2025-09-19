@@ -3,6 +3,21 @@
 
 // List of tweet URLs to fetch
 export const LFPushTweetsList: string[] = [
+  // Till 2 Sep, 2025
+  'https://x.com/x_SHE3/status/1961438282744488268',
+  'https://x.com/PatelNilesh_85/status/1960707686884163802',
+  'https://x.com/routescan_io/status/1960342410568827211',
+  'https://x.com/scrapychain/status/1959987464564830373',
+  'https://x.com/SecurityOak/status/1959876288510034095',
+  'https://x.com/V_Agarwal_666/status/1959121365984059521',
+  'https://x.com/Dnlxxy/status/1958896983328059394',
+  'https://x.com/amitrajeet7635/status/1958889843377021204',
+  'https://x.com/Unknown46433700/status/1958757044195934546',
+  'https://x.com/Streamr_TV/status/1958646700593344917',
+  'https://x.com/mohammadasimnod/status/1958561822253998500',
+  'https://x.com/V_Agarwal_666/status/1958455281178067004',
+  'https://x.com/parv_web3/status/1958430977119969554',
+  'https://x.com/amitrajeet7635/status/1958421227103506889',
   // Till 21 Aug, 2025
   'https://x.com/CNairobian1_/status/1958088292517154941',
   'https://x.com/V_Agarwal_666/status/1958074865434653109',
