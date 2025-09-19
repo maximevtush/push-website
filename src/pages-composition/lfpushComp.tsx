@@ -110,18 +110,22 @@ export default function LFPushComp() {
 
     setIsLoading(true);
 
-    // Use displayedTweets.length to calculate the correct start index
-    const startIndex = displayedTweets.length;
-    const endIndex = startIndex + TWEETS_PER_PAGE;
-    const newTweets = LFPushTweetsList.slice(startIndex, endIndex);
+    setDisplayedTweets((prev) => {
+      // Use previous state length to calculate the correct start index
+      const startIndex = prev.length;
+      const endIndex = startIndex + TWEETS_PER_PAGE;
+      const newTweets = LFPushTweetsList.slice(startIndex, endIndex);
 
-    if (newTweets.length === 0) {
-      setHasMore(false);
-    } else {
-      setDisplayedTweets((prev) => [...prev, ...newTweets]);
-    }
-    setIsLoading(false);
-  }, [displayedTweets.length, isLoading, hasMore]);
+      if (newTweets.length === 0) {
+        setHasMore(false);
+        setIsLoading(false);
+        return prev; // Return previous state unchanged
+      } else {
+        setIsLoading(false);
+        return [...prev, ...newTweets];
+      }
+    });
+  }, [isLoading, hasMore]);
 
   // Initial load
   useEffect(() => {

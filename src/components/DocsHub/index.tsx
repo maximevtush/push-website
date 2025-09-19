@@ -39,7 +39,6 @@ import {
 import GLOBALS, { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
-import { useCountdown } from '@site/src/hooks/useCountDown';
 
 import { Grid } from './Grid';
 import './styles.css';
@@ -72,12 +71,7 @@ export default function DocsHub(): JSX.Element {
   const { t } = useTranslation();
   const isMobile = useMediaQuery(device.mobileL);
 
-  // TODO: add correct testnet launch date
-  const targetDate = '2025-09-16T12:00:00';
-  const { timeLeft, isExpired } = useCountdown(targetDate);
-  const tweetUrl =
-    'https://twitter.com/intent/tweet?text=' +
-    encodeURIComponent('[ Your shoutout here ] #pushchainsecret');
+  const buttonUrl = 'https://dorahacks.io/hackathon/pushchain-gud/';
 
   const { colorMode, setColorMode } = useColorMode();
 
@@ -332,6 +326,7 @@ export default function DocsHub(): JSX.Element {
           </ItemV>
         </Content>
       </Section>
+
     </Layout>
   );
 }
