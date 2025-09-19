@@ -690,7 +690,7 @@ import \* as readline from 'node:readline/promises';
 
     // Contract ABI for UniversalCounter.sol
     // Source: https://github.com/pushchain/push-chain-examples/blob/counter-example/contracts/universal-counter/src/UniversalCounter.sol
-    // Deployed at: https://donut.push.network/address/0xA22E6B51586C80fED805c31d606e14F7AD77E164?tab=contract
+    // Deployed at: https://donut.push.network/address/0x5FbDB2315678afecb367f032d93F642f64180aa3?tab=contract
     const testAbi = [
       {
         "anonymous": false,
@@ -773,7 +773,7 @@ import \* as readline from 'node:readline/promises';
 
       // Prepare transaction parameters
       const txParams = {
-        to: '0x959ED7f6943bdd56B3a359BAE0115fef4aa07e17',
+        to: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
         data: data,
         value: BigInt(0),
       };
@@ -782,7 +782,7 @@ import \* as readline from 'node:readline/promises';
       await rl.question(':::prompt:::Please send funds to: ' + wallet.address + ' on Push Testnet Donut to continue.');
 
       // 6) Send universal transaction
-      console.log('📤 Sending transaction to:', '0xA22E6B51586C80fED805c31d606e14F7AD77E164');
+      console.log('📤 Sending transaction to:', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
 
       try {
         const txResponse = await pushChainClient.universal.sendTransaction(txParams);
@@ -819,7 +819,7 @@ import \* as readline from 'node:readline/promises';
 
     // Contract ABI for UniversalCounter.sol
     // Source: https://github.com/pushchain/push-chain-examples/blob/counter-example/contracts/universal-counter/src/UniversalCounter.sol
-    // Deployed at: https://donut.push.network/address/0xA22E6B51586C80fED805c31d606e14F7AD77E164?tab=contract
+    // Deployed at: https://donut.push.network/address/0x5FbDB2315678afecb367f032d93F642f64180aa3?tab=contract
     const testAbi = [
       {
         "anonymous": false,
@@ -902,7 +902,7 @@ import \* as readline from 'node:readline/promises';
 
       // Prepare transaction parameters
       const txParams = {
-        to: '0x959ED7f6943bdd56B3a359BAE0115fef4aa07e17',
+        to: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
         data: data,
         value: BigInt(0),
       };
@@ -911,7 +911,7 @@ import \* as readline from 'node:readline/promises';
       await rl.question(':::prompt:::Please send funds to: ' + wallet.address + ' on Sepolia to continue.');
 
       // 6) Send universal transaction
-      console.log('📤 Sending transaction to:', '0xA22E6B51586C80fED805c31d606e14F7AD77E164');
+      console.log('📤 Sending transaction to:', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
 
       try {
         const txResponse = await pushChainClient.universal.sendTransaction(txParams);
@@ -949,7 +949,7 @@ import \* as readline from 'node:readline/promises';
 
     // Contract ABI for UniversalCounter.sol
     // Source: https://github.com/pushchain/push-chain-examples/blob/counter-example/contracts/universal-counter/src/UniversalCounter.sol
-    // Deployed at: https://donut.push.network/address/0xA22E6B51586C80fED805c31d606e14F7AD77E164?tab=contract
+    // Deployed at: https://donut.push.network/address/0x5FbDB2315678afecb367f032d93F642f64180aa3?tab=contract
     const testAbi = [
       {
         "anonymous": false,
@@ -1031,7 +1031,7 @@ import \* as readline from 'node:readline/promises';
 
       // Prepare transaction parameters
       const txParams = {
-        to: '0x959ED7f6943bdd56B3a359BAE0115fef4aa07e17',
+        to: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
         data: data,
         value: BigInt(0),
       };
@@ -1040,7 +1040,7 @@ import \* as readline from 'node:readline/promises';
       await rl.question(':::prompt:::Please send funds to: ' + keypair.publicKey.toBase58() + ' on Sepolia to continue.');
 
       // 6) Send universal transaction
-      console.log('📤 Sending transaction to:', '0xA22E6B51586C80fED805c31d606e14F7AD77E164');
+      console.log('📤 Sending transaction to:', '0x5FbDB2315678afecb367f032d93F642f64180aa3');
 
       try {
         const txResponse = await pushChainClient.universal.sendTransaction(txParams);
