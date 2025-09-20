@@ -1,2 +1,1 @@
-export { GitHubRepo } from './GitHubRepo';
-export { default } from './GitHubRepo';
+export { default, GitHubRepo } from './GitHubRepo';

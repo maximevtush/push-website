@@ -21,6 +21,7 @@ import {
 } from '@site/src/css/SharedStyling';
 import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
 import TutorialTimer from '@site/src/components/TutorialTimer';
+import { SolidityCode } from '@site/src/components/SolidityCode';
 import { GitHubRepo } from '@site/src/components/GitHubRepo';
 
 <!-- Content Start -->
@@ -43,6 +44,12 @@ You can use the same tools, such as, remix, foundry, hardhat, etc.
 
 To get started, you can use the following contract:
 
+<SolidityCode 
+  title="Simple Counter Contract"
+  fileName="Counter.sol"
+  url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/simple-counter/contracts/src/Counter.sol"
+>
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.22;
@@ -61,6 +68,8 @@ contract Counter {
     }
 }
 ```
+
+</SolidityCode>
 
 The contract is a simple counter contract that:
 

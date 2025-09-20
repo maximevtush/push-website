@@ -268,10 +268,28 @@ export const CopyPageButton: React.FC<CopyPageButtonProps> = ({
   const handleOpenInChatGPT = async () => {
     try {
       const content = await getPageContent();
-      const prompt = encodeURIComponent(
-        `Please help me understand this documentation:\n\n${content}`
-      );
-      window.open(`https://chat.openai.com/?q=${prompt}`, '_blank');
+      const titleElement = document.querySelector('h1') || document.querySelector('title');
+      const pageTitle = titleElement?.textContent || pageTitle || document.title;
+      
+      let prompt;
+      
+      // If content is too long, use shorter format with GitHub raw URL
+      if (content.length > 1500) {
+        const githubUrl = await getGitHubRawUrl(window.location.href);
+        if (githubUrl) {
+          prompt = `Please help me understand this: ${pageTitle}\n\n${githubUrl}`;
+        } else {
+          // Fallback: truncate content if no GitHub URL available
+          const truncatedContent = content.substring(0, 800) + '...';
+          prompt = `Please help me understand this documentation:\n\n${truncatedContent}`;
+        }
+      } else {
+        // Use full content if it's short enough
+        prompt = `Please help me understand this documentation:\n\n${content}`;
+      }
+      
+      const encodedPrompt = encodeURIComponent(prompt);
+      window.open(`https://chat.openai.com/?q=${encodedPrompt}`, '_blank');
       setIsDropdownOpen(false);
     } catch (err) {
       console.error('Failed to get content for ChatGPT:', err);
@@ -282,10 +300,28 @@ export const CopyPageButton: React.FC<CopyPageButtonProps> = ({
   const handleOpenInClaude = async () => {
     try {
       const content = await getPageContent();
-      const prompt = encodeURIComponent(
-        `Please help me understand this documentation:\n\n${content}`
-      );
-      window.open(`https://claude.ai/chat?q=${prompt}`, '_blank');
+      const titleElement = document.querySelector('h1') || document.querySelector('title');
+      const pageTitle = titleElement?.textContent || pageTitle || document.title;
+      
+      let prompt;
+      
+      // If content is too long, use shorter format with GitHub raw URL
+      if (content.length > 1500) {
+        const githubUrl = await getGitHubRawUrl(window.location.href);
+        if (githubUrl) {
+          prompt = `Please help me understand this: ${pageTitle}\n\n${githubUrl}`;
+        } else {
+          // Fallback: truncate content if no GitHub URL available
+          const truncatedContent = content.substring(0, 800) + '...';
+          prompt = `Please help me understand this documentation:\n\n${truncatedContent}`;
+        }
+      } else {
+        // Use full content if it's short enough
+        prompt = `Please help me understand this documentation:\n\n${content}`;
+      }
+      
+      const encodedPrompt = encodeURIComponent(prompt);
+      window.open(`https://claude.ai/chat?q=${encodedPrompt}`, '_blank');
       setIsDropdownOpen(false);
     } catch (err) {
       console.error('Failed to get content for Claude:', err);
