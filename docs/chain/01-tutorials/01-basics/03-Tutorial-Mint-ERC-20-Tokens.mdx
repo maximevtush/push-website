@@ -1,0 +1,337 @@
+---
+id: docs-chain-tutorials-mint-erc-20-tokens
+title: Mint Universal ERC-20 Tokens
+hide_title: false
+slug: ./tutorial-mint-erc-20-tokens
+displayed_sidebar: pushChainSidebar
+sidebar_position: 3
+image: '/assets/docs/previews/docs_chain_tutorials_mint_erc_20_tokens--mint_universal_erc-20_tokens_(via_push-swap).png'
+---
+
+<head>
+  <title>Mint Universal ERC-20 Tokens | Tutorials | Push Chain Docs</title>
+</head>
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import {
+  ModalContainer,
+  ModalSmall,
+  ModalWrapper,
+} from '@site/src/css/SharedStyling';
+import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
+import NodeJSVirtualIDE from '@site/src/components/NodeJSVirtualIDE/NodeJSVirtualIDE';
+import TutorialTimer from '@site/src/components/TutorialTimer';
+import { SolidityCode } from '@site/src/components/SolidityCode';
+import { GitHubRepo } from '@site/src/components/GitHubRepo';
+
+<!-- Content Start -->
+
+<TutorialTimer estimatedMinutes={10} />
+
+In this tutorial, you'll create, deploy, and interact with a simple ERC-20 token on Push Chain. The main difference is that this ERC-20 token is a universal token that can be minted by anyone on any chain.
+
+By the end of this tutorial you’ll be able to:
+
+- ✅ Build a universal ERC-20 token, we will call it **$UNICORN**.
+- ✅ Have users from any chain connect and interact with it.
+
+## Write the Contract
+
+We will start with taking the ERC-20 contract from OpenZeppelin. The only change we will make is removing the restriction of `onlyOwner` modifier in the functionality of minting new tokens.
+
+<SolidityCode 
+  title="Universal ERC-20 Contract"
+  fileName="ERC20.sol"
+  url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-erc-20-mint/contracts/src/ERC20.sol"
+>
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.22;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract Token is ERC20 {
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        _mint(msg.sender, 1_000_000 * 10 ** decimals());
+    }
+
+    function mint(address to, uint256 amount) external {
+        _mint(to, amount);
+    }
+}
+```
+
+</SolidityCode>
+
+## Understanding the Contract
+
+This contract is a simple ERC-20 token:
+
+- We are minting 1,000,000 tokens with 18 decimals and giving it to the deployer of the contract.
+- We have removed `onlyOwner` from `mint()` function in order to enable anyone to mint freely from this contract.
+
+## Compile & Deploy
+
+You can use any of the following guides to build and deploy this contract on Push Chain:
+
+1. [Remix IDE](https://remix.ethereum.org/)
+2. [Foundry Configuration](/docs/chain/setup/smart-contract-environment/configure-foundry/)
+3. [Hardhat Configuration](/docs/chain/setup/smart-contract-environment/configure-hardhat/)
+
+Once deployed, you can interact with the ERC-20 contract just like on any other EVM-compatible chain.
+
+## Verify Contract
+
+If you are using Foundry or Hardhat, the contract is already verified for you. If you are using Remix, you can verify the contract on the Push Chain Explorer by going to [verify and publish contract](https://donut.push.network/contract-verification).
+
+## Interact with Universal ERC-20 Token
+
+The Universal ERC-20 contract is deployed on Push Chain Testnet.  
+This app lets any user — whether on Ethereum, Solana, or Push Chain — mint `$UNICORN` tokens directly from the frontend.
+
+> **Demo Token ERC-20 Contract Address:** [0x0165878A594ca255338adfa4d48449f69242Eb8F](https://donut.push.network/address/0x0165878A594ca255338adfa4d48449f69242Eb8F?tab=contract)
+
+**Steps to interact:**
+
+1. Connect your wallet (Ethereum, Solana, or Push Chain).  
+2. Click the **Mint Token** button — this calls the ERC-20’s `mint()` function through Push Universal Transactions.  
+3. Wait for the transaction to confirm.  
+4. Your `$UNICORN` balance will update in the UI automatically.  
+5. (Optional) Click **View in Explorer** to inspect the transaction on Push Chain Explorer.  
+
+---
+
+> 💡 **Tip: Why this matters**  
+> This is the simplest form of a **Universal Token**.  
+> Without bridges or wrapped assets, users on *any chain* can mint and hold the same ERC-20 natively on Push Chain.  
+
+## Live Playground
+
+```jsx live
+// customPropMinimized='true'
+import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import {
+  PushUniversalWalletProvider,
+  PushUniversalAccountButton,
+  usePushWalletContext,
+  usePushChainClient,
+  PushUI,
+} from "@pushchain/ui-kit";
+
+function UniversalMintExample() {
+  // Wallet config
+  const walletConfig = {
+    network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
+  };
+
+  // Define ERC-20 ABI, taking minimal ABI for the demo
+  const ERC20ABI = [
+    {
+      "inputs": [
+        { "name": "to", "type": "address" },
+        { "name": "amount", "type": "uint256" }
+      ],
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "name": "account", "type": "address" }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        { "name": "", "type": "uint256" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  // ERC-20 deployed on Push Chain Testnet
+  const CONTRACT_ADDRESS = "0x0165878A594ca255338adfa4d48449f69242Eb8F";
+
+  // Provider to read balances
+  const provider = new ethers.JsonRpcProvider(
+    "https://evm.rpc-testnet-donut-node1.push.org/"
+  );
+
+
+  function Component() {
+    const { connectionStatus } = usePushWalletContext();
+    const { pushChainClient } = usePushChainClient();
+
+    const [balance, setBalance] = useState<number>(-1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [txHash, setTxHash] = useState<string>("");
+
+    // Fetch balance of connected account
+    const readBalance = async () => {
+      if (connectionStatus === "connected" && pushChainClient) {
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, ERC20ABI, provider);
+        const bal = await contract.balanceOf(pushChainClient.universal.account);
+        setBalance(Number(ethers.formatUnits(bal, 18)));
+      }
+    };
+
+    useEffect(() => {
+      if (connectionStatus === "connected" && pushChainClient) {
+        readBalance();
+      } else {
+        setBalance(-1);
+      }
+    }, [connectionStatus, pushChainClient]);
+
+    // Mint function
+    const mintToken = async () => {
+      if (connectionStatus === "connected" && pushChainClient) {
+        try {
+          setIsLoading(true);
+          const tx = await pushChainClient.universal.sendTransaction({
+            to: CONTRACT_ADDRESS,
+            data: PushChain.utils.helpers.encodeTxData({
+              abi: ERC20ABI,
+              functionName: "mint",
+              args: [pushChainClient.universal.account, PushChain.utils.helpers.parseUnits("100", 18)], // Mint 100 tokens
+            }),
+            value: BigInt(0),
+          });
+
+          setTxHash(tx.hash);
+          await tx.wait();
+          await readBalance();
+        } catch (err) {
+          console.error("Transaction error:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
+        <h2>Universal ERC-20 Mint</h2>
+        <PushUniversalAccountButton />
+
+        {connectionStatus !== PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && (
+          <p>Please connect your wallet to mint tokens.</p>
+        )}
+
+        <div style={{ marginTop: "12px" }}>
+          <h3>
+            Balance: {balance === -1 ? "..." : balance} $UNICORN
+          </h3>
+        </div>
+
+        {balance !== -1 &&
+          <div style={{ maxWidth: "500px", textAlign: "center", fontSize: "0.75rem" }}>
+            <p>
+            Optional: Add <b>0x0165878A594ca255338adfa4d48449f69242Eb8F</b> ($UNICORN Token Address) to your wallet to see your balance in the wallet.
+            </p>
+          </div>
+        }
+
+        {connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && (
+          <>
+            <button
+              onClick={mintToken}
+              disabled={isLoading}
+              style={{
+                backgroundColor: "#d946ef",
+                color: "white",
+                border: "none",
+                borderRadius: "20px",
+                padding: "8px 16px",
+                fontSize: "14px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              {isLoading ? "Minting..." : "Mint 100 Tokens"}
+            </button>
+
+            {txHash && (
+              <p>
+                Transaction:{" "}
+                <a
+                  href={pushChainClient.explorer.getTransactionUrl(txHash)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#d946ef" }}
+                >
+                  {txHash}
+                </a>
+              </p>
+            )}
+          </>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <PushUniversalWalletProvider config={walletConfig}>
+      <Component />
+    </PushUniversalWalletProvider>
+  );
+}
+```
+
+## Source Code
+
+<GitHubRepo 
+  title="Mint Universal ERC-20 Tutorial"
+  repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/universal-erc-20-mint"
+  description="Full source code for the Universal ERC-20 Mint Token smart contract and example frontend."
+/>
+
+## What we Achieved
+
+In this tutorial, we built the simplest possible ERC-20-style token interaction.
+
+-	We wrote and deployed a minimal ERC-20 contract with an open mint() function.
+-	We minted tokens and confirmed balances via the frontend.
+
+With just these two functions, you now have the foundation of a token system.
+
+## Next Tutorial
+
+Up until now, we’ve been sending one transaction at a time. 
+
+In real-world apps, users often need to perform several actions together (for example: approve → transfer, or multiple contract calls in a single flow).
+
+<div style={{textAlign: 'center'}}>
+
+```mermaid
+flowchart TD
+    EU[Ethereum User] --> UB[Universal Batcher]
+    SU[Solana User] --> UB
+    OU[Other Chain User] --> UB
+    
+    UB --> TX1[Execute Transaction 1]
+    TX1 --> TX2[Execute Transaction 2]
+    TX2 --> TX3[Execute Transaction 3]
+    TX3 --> EOL[Complete]
+    
+    style EOL fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style UB fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style EU fill:#627eea,color:#fff
+    style SU fill:#16c492,color:#fff
+    style OU fill:#853dff,color:#fff
+```
+
+</div>
+
+<hr />
+
+In the next tutorial, we’ll explore batching multiple transactions as one universal transaction:
+
+1. How to combine several actions into a single transaction.
+2. Why batching improves user experience (fewer wallet popups, less friction).
+3. Practical code examples of executing multiple calls in sequence or atomically.
+
+This will help you take the step from simple token interactions to more powerful app logic on Push Chain. 🚀

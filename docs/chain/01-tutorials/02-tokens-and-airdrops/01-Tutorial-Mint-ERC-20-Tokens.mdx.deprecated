@@ -4,7 +4,7 @@ title: Mint Universal ERC-20 Tokens
 hide_title: false
 slug: ./tutorial-mint-erc-20-tokens
 displayed_sidebar: pushChainSidebar
-sidebar_position: 3
+sidebar_position: 1
 image: '/assets/docs/previews/docs_chain_tutorials_mint_erc_20_tokens--mint_universal_erc-20_tokens_(via_push-swap).png'
 ---
 
@@ -22,7 +22,7 @@ import {
 import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
 import NodeJSVirtualIDE from '@site/src/components/NodeJSVirtualIDE/NodeJSVirtualIDE';
 
-{/* Content Start */}
+<!-- Content Start -->
 
 This tutorial shows how to let users on any chain mint a universal ERC-20 called `$AIRDROP` by leveraging Push Universal Transactions plus a Uniswap v3 pool on Push Chain. Users “mint” by swapping `$WPUSH` (Wrapped Push Token) to `$AIRDROP` through the `$AIRDROP/$WPUSH` pool; the universal wallet abstracts cross-chain execution.
 

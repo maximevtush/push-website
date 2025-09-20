@@ -71,11 +71,16 @@ contract Counter {
 
 </SolidityCode>
 
-The contract is a simple counter contract that:
+## Understanding the Contract
 
-- Allows the caller to increment the variable `countPC`.
-- Emits an event with the current value of `countPC` and the caller’s address.
-- Allows anyone to reset the `countPC` to zero.
+This contract is a minimal counter:
+
+- The variable `count` stores the number of times the counter has been incremented.  
+- The `increment()` function adds `+1` each time it is called.  
+- The `getCount()` function lets anyone read the current counter value.  
+
+> **Key takeaway**  
+> On Push Chain, this contract works **universally**. A user on Ethereum, Solana, Push or any other chain itself can all call `increment()` — with no code changes.  
 
 ## Compile & Deploy
 
@@ -91,19 +96,19 @@ Once deployed, you can interact with the Counter contract just like on any other
 
 If you are using Foundry or Hardhat, the contract is already verified for you. If you are using Remix, you can verify the contract on the Push Chain Explorer by going to [verify and publish contract](https://donut.push.network/contract-verification).
 
-## Interact with SimpleCounter App
-An easier way to interact with the contract is to use the LivePlayground below.
-The SimpleCounter app is already deployed on Push Chain Testnet.
+## Interact with Counter
+
+The easiest way to interact with the contract is through the Live Playground.  
+The Simple Counter is already deployed on Push Chain Testnet.  
+
 > **SimpleCounter Contract Address:** [0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266](https://donut.push.network/address/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266?tab=contract)
 
-**Note:** Push Chain easily allows you to interact with the SimpleCounter from any chain.
-
-Follow the steps below to interact with the SimpleCounter:
-- Connect your wallet to the LivePlayground.
-- You can connect wallet of any supported chain ( Push Chain, Ethereum or Solana)
-- Click on the `Increment Counter` button to increment the counter.
-- Click on the `Refresh Counter Values` button to refresh the counter values.
-- After each transaction, click the hash link to view it on Push Chain Explorer.
+**Steps to interact:**
+- Connect your wallet to the Live Playground.
+- You can connect a wallet from any supported chain (Push Chain, Ethereum, or Solana).
+- Click **Increment Counter** to increase the counter.
+- Click **Refresh Counter Values** to update the display.
+- After each transaction, use the transaction hash link to view details in Push Chain Explorer.
 
 ## Live Playground
 

@@ -25,7 +25,7 @@ import { SolidityCode } from '@site/src/components/SolidityCode';
 import { GitHubRepo } from '@site/src/components/GitHubRepo';
 
 <!-- Content Start -->
-<TutorialTimer estimatedMinutes={10} />
+<TutorialTimer estimatedMinutes={18} />
 
 :::info Extends Counter App
 This tutorial builds on the [Simple Counter](/docs/chain/tutorials/basics/tutorial-simple-counter). If you haven’t completed it yet, go there first as this tutorial builds directly on top of it.
@@ -328,20 +328,19 @@ Once deployed, you can interact with the Counter contract just like on any other
 
 If you are using Foundry or Hardhat, the contract is already verified for you. If you are using Remix, you can verify the contract on the Push Chain Explorer by going to [verify and publish contract](https://donut.push.network/contract-verification).
 
-## Interact with UniversalCounter App
+## Interact with Universal Counter
 
-An easier way to interact with the contract is to use the LivePlayground below.
-The UniversalCounter app is already deployed on Push Chain Testnet.
+The easiest way to interact with the contract is through the Live Playground.  
+The Universal Counter is already deployed on Push Chain Testnet.  
+
 > **UniversalCounter Contract Address:** [0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512](https://donut.push.network/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?tab=contract)
 
-**Note:** Push Chain easily allows you to interact with the UniversalCounter from any chain.
-
-Follow the steps below to interact with the UniversalCounter:
-- Connect your wallet to the LivePlayground.
-- You can connect wallet of any supported chain ( Push Chain, Ethereum or Solana)
-- Click on the `Increment Counter` button to increment the counter.
-- Click on the `Refresh Counter Values` button to refresh the counter values.
-- Click on the `View in Explorer` button to view the transaction in the explorer.
+**Steps to interact:**
+- Connect your wallet to the Live Playground.
+- You can connect a wallet from any supported chain (Push Chain, Ethereum, or Solana).
+- Click **Increment Counter** to increase the counter for your chain.
+- Click **Refresh Counter Values** to see updated counts across chains.
+- Click **View in Explorer** to open the transaction in Push Chain Explorer.
 
 ## Live Playground
 
@@ -1044,12 +1043,12 @@ function UniversalCounterExample() {
 
 With Universal Counter, you can now:
 
-- A contract that natively identifies the caller of *ANY* chain.
-- Allows devs to build logic specific to the users for a particular chain.
-- Simplifies developer experience for building multi-chain universal apps.
-- Eliminates any use of third-party tooling, oracles, to achieve universal behavior.
+- Identify callers natively from *any* chain.  
+- Build logic that adapts to the user’s origin chain.  
+- Simplify the developer experience for multi-chain apps.  
+- Eliminate reliance on third-party tooling or oracles.  
 
-This makes our Counter smart contract **truly universal, all in just a few lines of Solidity**.
+This makes your Counter smart contract **truly universal, all in just a few lines of Solidity**.
 
 ## Next Tutorial
 
