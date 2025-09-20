@@ -52,7 +52,7 @@ To get started, you can use the following contract:
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity ^0.8.22;
 
 contract Counter {
     uint256 public countPC;
@@ -149,7 +149,7 @@ function SimpleCounterExample() {
   ];
 
   // Contract address for Simple Counter
-  const CONTRACT_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
   function Component() {
     const { connectionStatus } = usePushWalletContext();
@@ -171,8 +171,6 @@ function SimpleCounterExample() {
 
     // Function to fetch counter values
     const fetchCounters = async () => {
-      if (!pushChainClient) return;
-
       try {
         const provider = new ethers.JsonRpcProvider(
           'https://evm.rpc-testnet-donut-node1.push.org/'
@@ -186,12 +184,10 @@ function SimpleCounterExample() {
       }
     };
 
-    // Fetch counter values on component mount and when connection status changes
+    // Fetch counter values on component mount
     useEffect(() => {
-      if (connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED) {
-        fetchCounters();
-      }
-    }, [connectionStatus, pushChainClient]);
+      fetchCounters();
+    }, []);
 
     // Handle transaction to increment counter
     const handleSendTransaction = async () => {
@@ -298,6 +294,7 @@ function SimpleCounterExample() {
 }
 ```
 ## Source Code
+
 <GitHubRepo 
   title="Simple Counter Tutorial"
   repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/simple-counter"
@@ -330,10 +327,10 @@ flowchart TD
     
     style UC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
     style EC fill:#627eea,stroke:#fff,stroke-width:2px,color:#fff
-    style SC fill:#9945ff,stroke:#fff,stroke-width:2px,color:#fff
+    style SC fill:#16c492,stroke:#fff,stroke-width:2px,color:#fff
     style PC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
     style EU fill:#627eea,color:#fff
-    style SU fill:#9945ff,color:#fff
+    style SU fill:#16c492,color:#fff
     style PU fill:#dd44b9,color:#fff
 ```
 
