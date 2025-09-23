@@ -1273,7 +1273,7 @@ import \* as readline from 'node:readline/promises';
 
       // prepare ERC-20 funds
       const usdt = client.moveable.token.USDT;
-      const oneUsdt = PushChain.utils.helpers.parseUnits('1', { decimals: usdt.decimals }); // 1 USDT
+      const oneCents = PushChain.utils.helpers.parseUnits('0.01', { decimals: usdt.decimals });
 
       // Require user to fund gas in ETH and supply USDT to move to USDT to Push Chain
       await rl.question(':::prompt:::Please send Sepolia ETH (for gas) and Sepolia USDT (ERC-20) to: ' + account.address + '. You can mint USDT from here: https://sepolia.etherscan.io/address/' + client.moveable.token.USDT.address + '#writeContract#F6. Once done, press Enter to continue.');
@@ -1283,7 +1283,7 @@ import \* as readline from 'node:readline/promises';
           to: COUNTER_ADDRESS,
           value: BigInt(0),
           data,
-          funds: { amount: oneUsdt, token: client.moveable.token.USDT },
+          funds: { amount: oneCents, token: usdt },
         });
         console.log('✅ Sent. Tx:', JSON.stringify(res));
       } catch (err) {
