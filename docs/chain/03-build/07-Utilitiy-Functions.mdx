@@ -30,7 +30,7 @@ This section covers the most commonly used helpers in the Push Chain Core SDK to
 
 ### Parse Units
 
-**_`PushChain.utils.helpers.parseUnits(value, {options}): bigint`_**
+**_`PushChain.utils.helpers.parseUnits(value, exponent): bigint`_**
 
 Converts a human-readable token amount into its smallest unit representation (bigint). It multiplies the given value by 10^decimals, ensuring amounts are safe for on-chain use. 
 
@@ -48,7 +48,7 @@ const result = PushChain.utils.helpers.parseUnits('1.5', { decimals: 18 });
 | **Arguments** | **Type** | **Description**                                                                                                                                     |
 | ------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | _`value`_     | `string` | The string representation of the number to parse. Can include decimals (e.g., `"1.5"`, `"420"`, `"0.1"`).                                        |
-| _`options.decimals`_  | `number` | The number of decimal places to scale by. Must be a non-negative integer. For example, use `18` for PC or ETH, `6` for USDC, `8` for BTC.              |
+| _`exponent`_  | `number \| { decimals: number }` | Number of decimal places to scale by. Provide either a number (e.g., `18`) or an object with `decimals`. Must be a non-negative integer. Examples: `18` for PC/ETH, `6` for USDC, `8` for BTC. |
 
 </PushAPIReference>
 
