@@ -85,7 +85,7 @@ export default function HomeComp() {
   return (
     <HomeWrapper showAlertBar={isHydrated ? shouldShowAlertBar : false}>
       {/* GLOW CIRCLE */}
-      {/*<GlowCircle />*/}
+      <GlowCircle />
 
       {/* HERO SECTION */}
       <HeroSection
