@@ -122,9 +122,9 @@ import { PushChain } from '@pushchain/core';
 
 **_`PushChain.utils.helpers.formatUnits(value, {options}): string`_**
 
-Converts a raw token amount in smallest units (bigint) into a human-readable decimal string. It divides the given value by 10^decimals, making it easy to display amounts in human readable values.
+Converts a raw token amount in smallest units (bigint) into a human-readable decimal string. It divides the given value by 10^decimals, making it easy to display amounts for users.
 
-Commonly used in UI or logs (e.g., turning `1500000000000000000` into `1.5` or any token from smallest unit to it's human readable value).
+Commonly used in UI or logs (e.g., turning `1500000000000000000` into `1.5` or any token from smallest unit to its human-readable value).
 
 ```typescript
 const result = PushChain.utils.helpers.formatUnits('1500000000000000000', { decimals: 18 });
@@ -139,7 +139,7 @@ const result = PushChain.utils.helpers.formatUnits('1500000000000000000', { deci
 | ------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | _`value`_     | `bigint \| string` | Raw amount in smallest units (e.g., `'1500000000000000000'` for 1.5 assuming `18` decimals).                                        |
 | _`options.decimals`_  | `number` | The number of decimal places to scale by. Must be a non-negative integer. For example, use `18` for PC or ETH, `6` for USDC, `8` for BTC.              |
-| _`options.precision`_  | `number` | The number of precision to scale by, will round up the value. Must be a non-negative integer. For example, use `4` for returning 4 digits after the decimal.              |
+| `options.precision`  | `number` | The number of precision to scale by, will round up the value. Must be a non-negative integer. For example, use `4` for returning 4 digits after the decimal.              |
 
 </PushAPIReference>
 
@@ -175,18 +175,18 @@ import { PushChain } from '@pushchain/core';
       console.log('=== Basic Number Formatting ===');
       
       // Integer values
-      const integerResult = PushChain.utils.helpers.formatUnits(420000000000, { decimals: 9, precision: 2 });
+      const integerResult = PushChain.utils.helpers.formatUnits('420000000000', { decimals: 9, precision: 2 });
       console.log('420000000000 with 9 decimals and 2 precision (420.00):', integerResult);
       
       // Decimal values
       const decimalResult = PushChain.utils.helpers.formatUnits('123456', { decimals: 5, precision: 4 });
-      console.log('123456 with 6 decimal places and 4 precision (1.2346):', decimalResult.toString());
+      console.log('123456 with 6 decimal places and 4 precision (1.2346):', decimalResult);
       
       console.log('=== Variation Examples ===');
       
       // Push token amount (18 decimals)
       const pushAmount = PushChain.utils.helpers.formatUnits('1000500000000000000000', 18);
-      console.log('1000500000000000000000 uPC tokens to PC tokens (1000.5):', pushAmount.toString());
+      console.log('1000500000000000000000 uPC tokens to PC tokens (1000.5):', pushAmount);
     }
 
     main();
@@ -303,7 +303,7 @@ import { PushChain } from '@pushchain/core';
 Every external chain is represented as a particular string on Push Chain. You can see the list of supported chains in the [Chain Configuration](/docs/chain/setup/chain-config#universal-chain-namespace) section.
 
 ```typescript
-const chainName = PushChain.utils.chains.getChainNamespace(chainName);
+const chainName = PushChain.utils.chains.getChainNamespace('PUSH_TESTNET_DONUT');
 ```
 
 <PushAPIReference>
@@ -358,7 +358,7 @@ import { PushChain } from '@pushchain/core';
 Every external chain is represented as a particular string on Push Chain. You can see the list of supported chains in the [chain configuration](/docs/chain/setup/chain-config#universal-chain-namespace) section.
 
 ```typescript
-const chainName = PushChain.utils.chains.getChainName(namespace);
+const chainName = PushChain.utils.chains.getChainName('eip155:42101');
 ```
 
 <PushAPIReference>
@@ -375,7 +375,7 @@ const chainName = PushChain.utils.chains.getChainName(namespace);
 // chainName string
 'PUSH_TESTNET_DONUT';
 
-// NOTE: returns undefined if chainId is unsupported
+// NOTE: returns undefined if chainNamespace is unsupported
 ```
 
 </Details>
@@ -558,7 +558,7 @@ const chainAgnosticAddress = PushChain.utils.account.toChainAgnostic(address, {
 
 </Details>
 
-<Details summary="Live Playground: Convert Ethereum Mainnet address to chain agnostic address" className="alert alert--live-play">
+<Details summary="Live Playground: Convert Ethereum Sepolia address to chain agnostic address" className="alert alert--live-play">
 
 <NodeJSVirtualIDE repo={{title: "Open in Github", url: "https://github.com/pushchain/push-chain-examples/tree/main/core-sdk-functions/utility-functions"}}>
 {`
@@ -928,7 +928,7 @@ import { Keypair } from '@solana/web3.js';
 
 **_`PushChain.utils.tokens.getMoveableTokens(chainOrClient?): { tokens: [] }`_**
 
-Commonly used to get list of supported assets that can be moved across chains. See [send universal transaction](./docs/chain/build/send-universal-transaction/#sending-universal-transaction) for more info.
+Commonly used to get list of supported assets that can be moved across chains. See [send universal transaction](/docs/chain/build/send-universal-transaction/#sending-universal-transaction) for more info.
 
 ```typescript
 // All supported moveable tokens across chains
@@ -994,7 +994,7 @@ import { PushChain } from '@pushchain/core';
 
 **_`PushChain.utils.tokens.getPayableTokens(chainOrClient?): { tokens: [] }`_**
 
-Commonly used to get list of supported assets to pay with (either for gas or token movement) across chains. See [send universal transaction](./docs/chain/build/send-universal-transaction/#sending-universal-transaction) for more info.
+Commonly used to get list of supported assets to pay with (either for gas or token movement) across chains. See [send universal transaction](/docs/chain/build/send-universal-transaction/#sending-universal-transaction) for more info.
 
 ```typescript
 // All supported payable tokens across chains
@@ -1120,7 +1120,7 @@ import { PushChain } from '@pushchain/core';
 
 > **Note**: This function is available only after initializing the Push Chain client.
 
-The function is used to get conversion quote especially when you want to pay with (from) one token, move as (to) another token. Used in [send universal transaction](./docs/chain/build/send-universal-transaction/#sending-universal-transaction) for token movement across chains or to pay gas in other tokens instead of native token of the source chain.
+The function is used to get conversion quote especially when you want to pay with (from) one token, move as (to) another token. Used in [send universal transaction](/docs/chain/build/send-universal-transaction/#sending-universal-transaction) for token movement across chains or to pay gas in other tokens instead of native token of the source chain.
 
 > **Convention:** from = the token you pay with (Payable), to = the token you move as (Moveable).
 
@@ -1262,7 +1262,7 @@ const url = pushChainClient.explorer.getTransactionUrl(txHash);
 
       const exploredTxHashUrl = pushChainClient.explorer.getTransactionUrl('0x828911db033c65de8faab4906cfcb7d13ce225c3cd283534d110414a5b78cf87');
 
-      console.log(JSON.stringify(exploredTxHashUrl));
+      console.log("url:", exploredTxHashUrl);
     }
 
     await main().catch(console.error);
@@ -1283,14 +1283,14 @@ const url = pushChainClient.explorer.getTransactionUrl(txHash);
 > **Note**: This function is available only after initializing the Push Chain client.
 
 ```typescript
-// ... Intialize Push Chain Client
-const explorerUrls = pushChainClient.explorer.listUrls();
+// ... Initialize Push Chain Client
+const urls = pushChainClient.explorer.listUrls();
 ```
 
-<Details summary="Returns `explorerUrls` <string[]>" className="alert alert--fn-args">
+<Details summary="Returns `urls` <{ urls: string[] }>" className="alert alert--fn-args">
 
 ```typescript
-// explorerUrls object { urls:[] }
+// urls object { urls:[] }
 {
   urls: ['https://donut.push.network', 'https://scan.push.org'];
 }
