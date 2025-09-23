@@ -43,7 +43,7 @@ const txHash = await pushChainClient.universal.sendTransaction({
 | **Arguments**          | **Type** | **Description**                                       |
 | ---------------------- | -------- | ----------------------------------------------------- |
 | _`tx.to`_                 | `string` | The address of the recipient.                         |
-| _`tx.value`_              | `BigInt` | The value to send in uPC. smallest unit of PC, like wei in ETH                             |
+| _`tx.value`_              | `BigInt` | The value to send in uPC. smallest unit of PC, like wei in ETH.                             |
 | `tx.data`                 | `string` | The data to send.                                     |
 | `tx.gasLimit`             | `BigInt` | The gas limit for the transaction.                    |
 | `tx.maxFeePerGas`         | `BigInt` | The maximum fee per gas for the transaction.          |
@@ -1363,7 +1363,7 @@ Below are end-to-end examples showing how to bridge assets to Push Chain and exe
       // Convert to Universal signer and initialize SDK
       const signer = await PushChain.utils.signer.toUniversal(walletClient);
       const client = await PushChain.initialize(signer, {
-        network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+        network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
         progressHook: (progress) => console.log('TX Progress:', progress.title || progress.id),
       });
 
@@ -1427,7 +1427,7 @@ Below are end-to-end examples showing how to bridge assets to Push Chain and exe
       const signer = await PushChain.utils.signer.toUniversal(walletClient);
       const client = await PushChain.initialize(signer, 
         { 
-          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT,
+          network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET,
           progressHook: (progress) => console.log('TX Progress:', progress.title || progress.id),
         }
       );
@@ -1485,7 +1485,7 @@ Below are end-to-end examples showing how to bridge assets to Push Chain and exe
 
       const walletClient = createWalletClient({ account, chain: sepolia, transport: http(RPC_SEPOLIA) });
       const signer = await PushChain.utils.signer.toUniversal(walletClient);
-      const client = await PushChain.initialize(signer, { network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET_DONUT, progressHook: (progress) => console.log('TX Progress:', progress.title || progress.id) });
+      const client = await PushChain.initialize(signer, { network: PushChain.CONSTANTS.PUSH_NETWORK.TESTNET, progressHook: (progress) => console.log('TX Progress:', progress.title || progress.id) });
 
       // Require user to fund gas in ETH
       await rl.question(':::prompt:::Please send Sepolia ETH (for gas) to: ' + account.address + ' and press Enter to continue.');
