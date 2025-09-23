@@ -40,7 +40,6 @@ import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
 // Import Assets
 import HeroBGMobile from '@site/static/assets/website/hero/hero-bg-img.webp';
-import HeroBG from '@site/static/assets/website/hero/hero-bg.webp';
 import FinalBgImage from '@site/static/assets/website/home/others/push-chain-final.webm';
 import StarSolidIcon from '@site/static/assets/website/illustrations/starSolidIcon.svg';
 
@@ -764,10 +763,6 @@ const HeroContent = styled(Content)`
 `;
 
 const HeroPrimary = styled.div`
-  background-image: url(${HeroBG});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
   width: 1440px;
   height: 850px;
   z-index: 99;
@@ -815,7 +810,7 @@ const HeroItem = styled(ItemV)`
 `;
 
 const HeroBody = styled(ItemV)`
-  margin: auto 0px;
+  margin-bottom: 150px;
   text-align: left;
   align-self: center;
 
@@ -834,6 +829,8 @@ const HeroBody = styled(ItemV)`
   }
 
   @media ${device.mobileL} {
+    margin: auto 0px;
+
     h1,
     span {
       white-space: normal;
