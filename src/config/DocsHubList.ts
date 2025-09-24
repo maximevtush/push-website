@@ -219,7 +219,7 @@ export const ToolingItems = [
 
 export const TutorialDocumentationItems = [
   {
-    title: 'Simple Counter App',
+    title: 'Counter App',
     href: '/docs/chain/tutorials/basics/tutorial-simple-counter/',
     content:
       'The process of building a simple smart contract like a counter is exactly similar to any other EVM Chain.',

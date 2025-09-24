@@ -28,14 +28,14 @@ import { GitHubRepo } from '@site/src/components/GitHubRepo';
 
 <TutorialTimer estimatedMinutes={10} />
 
-In this tutorial, you’ll write, deploy, and interact with a simple Counter contract on Push Chain. 
+In this tutorial, you’ll write, deploy, and interact with a Counter contract on Push Chain.
 
 We will start with the most popular smart contract, i.e., `Counter.sol`, that all Solidity devs are familiar with. You would have done the following by the end:
 
 - ✅ Build and deploy Counter.sol
 - ✅ Interact with it from any chain
 - ✅ Understand the benefits of building Universal Apps
-- ✅ Use **Live Playground** to test and interact with SimpleCounter
+- ✅ Use **Live Playground** to test and interact with Counter
 - 🔜 Extend to a Universal Counter that tracks chain specific users
 
 ## Write the Contract
@@ -44,8 +44,8 @@ You can use the same tools, such as, remix, foundry, hardhat, etc.
 
 To get started, you can use the following contract:
 
-<SolidityCode 
-  title="Simple Counter Contract"
+<SolidityCode
+  title="Counter Contract"
   fileName="Counter.sol"
   url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/simple-counter/contracts/src/Counter.sol"
 >
@@ -75,12 +75,12 @@ contract Counter {
 
 This contract is a minimal counter:
 
-- The variable `count` stores the number of times the counter has been incremented.  
-- The `increment()` function adds `+1` each time it is called.  
-- The `getCount()` function lets anyone read the current counter value.  
+- The variable `count` stores the number of times the counter has been incremented.
+- The `increment()` function adds `+1` each time it is called.
+- The `getCount()` function lets anyone read the current counter value.
 
-> **Key takeaway**  
-> On Push Chain, this contract works **universally**. A user on Ethereum, Solana, Push or any other chain itself can all call `increment()` — with no code changes.  
+> **Key takeaway**
+> On Push Chain, this contract works **universally**. A user on Ethereum, Solana, Push or any other chain itself can all call `increment()` — with no code changes.
 
 ## Compile & Deploy
 
@@ -98,10 +98,10 @@ If you are using Foundry or Hardhat, the contract is already verified for you. I
 
 ## Interact with Counter
 
-The easiest way to interact with the contract is through the Live Playground.  
-The Simple Counter is already deployed on Push Chain Testnet.  
+The easiest way to interact with the contract is through the Live Playground.
+The Counter is already deployed on Push Chain Testnet.
 
-> **SimpleCounter Contract Address:** [0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266](https://donut.push.network/address/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266?tab=contract)
+> **Counter Contract Address:** [0x5FbDB2315678afecb367f032d93F642f64180aa3](https://donut.push.network/address/0x5FbDB2315678afecb367f032d93F642f64180aa3?tab=contract)
 
 **Steps to interact:**
 - Connect your wallet to the Live Playground.
@@ -123,13 +123,13 @@ import {
   PushUI,
 } from '@pushchain/ui-kit';
 
-function SimpleCounterExample() {
+function CounterExample() {
   // Define Wallet Config
   const walletConfig = {
     network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
   };
 
-  // Define Simple Counter ABI, taking minimal ABI for the demo
+  // Define Counter ABI, taking minimal ABI for the demo
   const UCABI = [
     {
       inputs: [],
@@ -153,7 +153,7 @@ function SimpleCounterExample() {
     },
   ];
 
-  // Contract address for Simple Counter
+  // Contract address for Counter
   const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
   function Component() {
@@ -228,7 +228,7 @@ function SimpleCounterExample() {
           gap: '12px',
         }}
       >
-        <h2>Simple Counter Example</h2>
+        <h2>Counter Example</h2>
 
         <PushUniversalAccountButton />
 
@@ -300,17 +300,17 @@ function SimpleCounterExample() {
 ```
 ## Source Code
 
-<GitHubRepo 
-  title="Simple Counter Tutorial"
+<GitHubRepo
+  title="Counter Tutorial"
   repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/simple-counter"
-  description="Full source code for the Universal Simple Counter smart contract and example frontend."
+  description="Full source code for the Universal Counter smart contract and example frontend."
 />
 
 ## What we Achieved
 
 This was just a simple tutorial. What we did in this tutorial:
 
-- Deployed a simple counter contract on Push Chain.
+- Deployed a counter contract on Push Chain.
 - Interacted seamlessly with the contract from any chain. (Ethereum, Solana or Push Chain)
 
 
@@ -325,11 +325,11 @@ flowchart TD
     EU[Ethereum User] --> UC[Universal Counter Contract]
     SU[Solana User] --> UC
     PU[Push Chain User] --> UC
-    
+
     UC --> EC[Ethereum Counter: 5]
-    UC --> SC[Solana Counter: 3] 
+    UC --> SC[Solana Counter: 3]
     UC --> PC[Push Chain Counter: 8]
-    
+
     style UC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
     style EC fill:#627eea,stroke:#fff,stroke-width:2px,color:#fff
     style SC fill:#16c492,stroke:#fff,stroke-width:2px,color:#fff
