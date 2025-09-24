@@ -635,6 +635,10 @@ const GlowCircle = styled.div`
   left: 30%;
   top: 200px;
 
+  @media ${device.desktopL} {
+    left: 40%;
+  }
+
   @media ${device.laptopL} {
     width: 500px;
     height: 500px;
