@@ -40,7 +40,7 @@ By the end of this tutorial you’ll be able to:
 
 We will start with taking the ERC-20 contract from OpenZeppelin. The only change we will make is removing the restriction of `onlyOwner` modifier in the functionality of minting new tokens.
 
-<SolidityCode 
+<SolidityCode
   title="Universal ERC-20 Contract"
   fileName="ERC20.sol"
   url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-erc-20-mint/contracts/src/ERC20.sol"
@@ -88,24 +88,24 @@ If you are using Foundry or Hardhat, the contract is already verified for you. I
 
 ## Interact with Universal ERC-20 Token
 
-The Universal ERC-20 contract is deployed on Push Chain Testnet.  
+The Universal ERC-20 contract is deployed on Push Chain Testnet.
 This app lets any user — whether on Ethereum, Solana, or Push Chain — mint `$UNICORN` tokens directly from the frontend.
 
 > **Demo Token ERC-20 Contract Address:** [0x0165878A594ca255338adfa4d48449f69242Eb8F](https://donut.push.network/address/0x0165878A594ca255338adfa4d48449f69242Eb8F?tab=contract)
 
 **Steps to interact:**
 
-1. Connect your wallet (Ethereum, Solana, or Push Chain).  
-2. Click the **Mint Token** button — this calls the ERC-20’s `mint()` function through Push Universal Transactions.  
-3. Wait for the transaction to confirm.  
-4. Your `$UNICORN` balance will update in the UI automatically.  
-5. (Optional) Click **View in Explorer** to inspect the transaction on Push Chain Explorer.  
+1. Connect your wallet (Ethereum, Solana, or Push Chain).
+2. Click the **Mint Token** button — this calls the ERC-20’s `mint()` function through Push Universal Transactions.
+3. Wait for the transaction to confirm.
+4. Your `$UNICORN` balance will update in the UI automatically.
+5. (Optional) Click **View in Explorer** to inspect the transaction on Push Chain Explorer.
 
 ---
 
-> 💡 **Tip: Why this matters**  
-> This is the simplest form of a **Universal Token**.  
-> Without bridges or wrapped assets, users on *any chain* can mint and hold the same ERC-20 natively on Push Chain.  
+> 💡 **Tip: Why this matters**
+> This is the simplest form of a **Universal Token**.
+> Without bridges or wrapped assets, users on *any chain* can mint and hold the same ERC-20 natively on Push Chain.
 
 ## Live Playground
 
@@ -283,7 +283,7 @@ function UniversalMintExample() {
 
 ## Source Code
 
-<GitHubRepo 
+<GitHubRepo
   title="Mint Universal ERC-20 Tutorial"
   repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/universal-erc-20-mint"
   description="Full source code for the Universal ERC-20 Mint Token smart contract and example frontend."
@@ -297,41 +297,3 @@ In this tutorial, we built the simplest possible ERC-20-style token interaction.
 -	We minted tokens and confirmed balances via the frontend.
 
 With just these two functions, you now have the foundation of a token system.
-
-## Next Tutorial
-
-Up until now, we’ve been sending one transaction at a time. 
-
-In real-world apps, users often need to perform several actions together (for example: approve → transfer, or multiple contract calls in a single flow).
-
-<div style={{textAlign: 'center'}}>
-
-```mermaid
-flowchart TD
-    EU[Ethereum User] --> UB["Batch Transactions (Multicall)"]
-    SU[Solana User] --> UB
-    OU[Other Chain User] --> UB
-    
-    UB --> TX1[Execute Transaction 1]
-    TX1 --> TX2[Execute Transaction 2]
-    TX2 --> TX3[Execute Transaction 3]
-    TX3 --> EOL[Complete]
-    
-    style EOL fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
-    style UB fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
-    style EU fill:#627eea,color:#fff
-    style SU fill:#16c492,color:#fff
-    style OU fill:#853dff,color:#fff
-```
-
-</div>
-
-<hr />
-
-In the next tutorial, we’ll explore batching multiple transactions as one universal transaction:
-
-1. How to combine several actions into a single transaction.
-2. Why batching improves user experience (fewer wallet popups, less friction).
-3. Practical code examples of executing multiple calls in sequence or atomically.
-
-This will help you take the step from simple token interactions to more powerful app logic on Push Chain. 🚀
