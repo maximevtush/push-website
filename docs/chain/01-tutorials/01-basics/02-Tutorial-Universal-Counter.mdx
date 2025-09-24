@@ -28,35 +28,35 @@ import { GitHubRepo } from '@site/src/components/GitHubRepo';
 <TutorialTimer estimatedMinutes={18} />
 
 :::info Extends Counter App
-This tutorial builds on the [Simple Counter](/docs/chain/tutorials/basics/tutorial-simple-counter). If you haven’t completed it yet, go there first as this tutorial builds directly on top of it.
+This tutorial builds on the [Counter](/docs/chain/tutorials/basics/tutorial-simple-counter). If you haven’t completed it yet, go there first as this tutorial builds directly on top of it.
 :::
 
-In the last tutorial, you built a counter that worked across chains with no code changes.  
+In the last tutorial, you built a counter that worked across chains with no code changes.
 
 Now, let’s take it further: instead of one shared counter, we’ll track **counts per chain**. This is your first truly **Universal App**. Let’s dive in 🤿.
 
 By the end of this tutorial you’ll be able to:
 
-- ✅ Build a counter app that tracks transactions from **different chains**.  
-- ✅ Use the **UEAFactory interface** to detect a user’s origin.  
-- ✅ Work with the **UniversalAccountId struct** to fetch chain details.  
+- ✅ Build a counter app that tracks transactions from **different chains**.
+- ✅ Use the **UEAFactory interface** to detect a user’s origin.
+- ✅ Work with the **UniversalAccountId struct** to fetch chain details.
 
 
 ## What’s Unique About This App?
 
-In the **Simple Counter**, every increment was added to a single shared value. That worked fine, but it didn’t tell us *who* was incrementing or *from where*.  
+In the **Counter**, every increment was added to a single shared value. That worked fine, but it didn’t tell us *who* was incrementing or *from where*.
 
-With the **Universal Counter**, we take the next step:  
-- Each chain gets its **own counter** (`countEth`, `countPC`, `countSol`, …).  
-- The contract can **natively detect the origin** of the caller (`msg.sender`).  
-- The `increment()` function updates **only the counter for the caller’s chain**.  
+With the **Universal Counter**, we take the next step:
+- Each chain gets its **own counter** (`countEth`, `countPC`, `countSol`, …).
+- The contract can **natively detect the origin** of the caller (`msg.sender`).
+- The `increment()` function updates **only the counter for the caller’s chain**.
 
 ### Example
-- Alice (Ethereum) → calls `increment()` → only `countEth` goes up.  
-- Bob (Push Chain) → calls `increment()` → only `countPC` goes up.  
+- Alice (Ethereum) → calls `increment()` → only `countEth` goes up.
+- Bob (Push Chain) → calls `increment()` → only `countPC` goes up.
 
 > **🚀 Why this matters**
-> 
+>
 > You’re not just tracking clicks anymore. You’re building logic that’s aware of where your users come from. This is the foundation of truly universal apps, and it’s all **natively supported on Push Chain**.
 
 ## Write the Contract
@@ -64,14 +64,14 @@ With the **Universal Counter**, we take the next step:
 Below is the Solidity code for the Universal Counter. In the Beginner version, chains are hardcoded for simplicity.
 
 :::tip Beginner vs Pro
-- **Beginner:** Easier to follow. Great if you’re new to Solidity or Push Chain.  
+- **Beginner:** Easier to follow. Great if you’re new to Solidity or Push Chain.
 - **Pro (Dynamic):** Slightly more advanced. Switch to the **Pro (Dynamic)** version once you’re comfortable — it scales to any chain without edits.
 :::
 
 <Tabs className="liveplaytab" groupId="universal-counter-solidity">
   <TabItem value='universal_counter_hardcoded' label='Universal Counter (Beginner)'>
 
-<SolidityCode 
+<SolidityCode
   title="Universal Counter Contract"
   fileName="UniversalCounter.sol"
   url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter/contracts/src/UniversalCounter.sol"
@@ -141,7 +141,7 @@ contract UniversalCounter {
 
 <TabItem value='universal_counter_dynamic' label='Universal Counter (Dynamic / Pro)'>
 
-<SolidityCode 
+<SolidityCode
   title="Universal Counter Dynamic Contract"
   fileName="UniversalCounterDynamic.sol"
   url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/universal-counter-dynamic/contracts/src/UniversalCounterDynamic.sol"
@@ -186,7 +186,7 @@ contract UniversalCounter {
 
     function increment() public {
         address caller = msg.sender;
-        (UniversalAccountId memory originAccount, bool isUEA) = 
+        (UniversalAccountId memory originAccount, bool isUEA) =
             IUEAFactory(0x00000000000000000000000000000000000000eA).getOriginForUEA(caller);
 
         // Calculate chain hash
@@ -201,8 +201,8 @@ contract UniversalCounter {
           // add to chain unique count if user is not already counted
           chainCountUnique[chainHash] += 1;
           chainUsers[caller] = true;
-        }        
-        
+        }
+
         // Add to chain count
         chainCount[chainHash] += 1;
 
@@ -218,7 +218,7 @@ contract UniversalCounter {
         totalCount += chainCount[chainIds[i]];
         totalCountUnique += chainCountUnique[chainIds[i]];
       }
-      
+
       return (totalCount, totalCountUnique);
     }
 }
@@ -283,7 +283,7 @@ function increment() public {
           countSol += 1;
       } else if (chainHash == keccak256(abi.encodePacked("eip155","11155111"))) {
           countEth += 1;
-      } 
+      }
       // ...
   }
   // ...
@@ -330,10 +330,11 @@ If you are using Foundry or Hardhat, the contract is already verified for you. I
 
 ## Interact with Universal Counter
 
-The easiest way to interact with the contract is through the Live Playground.  
-The Universal Counter is already deployed on Push Chain Testnet.  
+The easiest way to interact with the contract is through the Live Playground.
+The Universal Counter is already deployed on Push Chain Testnet.
 
-> **UniversalCounter Contract Address:** [0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512](https://donut.push.network/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?tab=contract)
+> **UniversalCounter (Beginner) :** [0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512](https://donut.push.network/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?tab=contract)
+> **UniversalCounter (Dynamic / Pro) :** [0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9](https://donut.push.network/address/0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9?tab=contract)
 
 **Steps to interact:**
 - Connect your wallet to the Live Playground.
@@ -760,7 +761,7 @@ function UniversalCounterExample() {
   ];
 
   // Contract address for Universal Counter
-  const CONTRACT_ADDRESS = '0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9';
+  const COUNTER_CONTRACT_ADDRESS = '0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9';
 
   function Component() {
     const { connectionStatus } = usePushWalletContext();
@@ -791,7 +792,7 @@ function UniversalCounterExample() {
         );
 
         const contract = new ethers.Contract(
-          CONTRACT_ADDRESS,
+          COUNTER_CONTRACT_ADDRESS,
           UCDynamicABI,
           provider
         );
@@ -802,25 +803,24 @@ function UniversalCounterExample() {
         // Get all chain data
         const newChainData: Array<{chainHash: string, count: number, uniqueCount: number}> = [];
         let chainIndex = 0;
-        
+
         try {
           while (true) {
             const chainHash = await contract.chainIds(chainIndex);
             const count = await contract.chainCount(chainHash);
             const uniqueCount = await contract.chainCountUnique(chainHash);
-            
+
             newChainData.push({
               chainHash: ethers.hexlify(chainHash),
               count: Number(count),
               uniqueCount: Number(uniqueCount)
             });
-            
+
             chainIndex++;
           }
         } catch (error) {
           // Expected error when we reach the end of the array
         }
-        
         setChainData(newChainData);
       } catch (err) {
         console.error("Error reading counter:", err);
@@ -931,7 +931,7 @@ function UniversalCounterExample() {
                     {chainData.map((chain, index) => (
                       <tr key={index} style={{ borderBottom: index < chainData.length - 1 ? "1px solid #dee2e6" : "none" }}>
                         <td style={{ padding: "12px", fontFamily: "monospace", fontSize: "0.8rem", wordBreak: "break-all" }}>
-                          {PushChain.utils.chains.getChainName(ethers.toUtf8String(chain.chainHash))}
+                          {PushChain.utils.helpers.getChainName(ethers.toUtf8String(chain.chainHash))}
                         </td>
                         <td style={{ padding: "12px", textAlign: "center", fontWeight: "bold" }}>
                           {chain.count}
@@ -987,12 +987,6 @@ function UniversalCounterExample() {
               </button>
             </div>
 
-            {winningMessage && (
-              <div style={{ margin: '10px 0', fontWeight: 'bold', color: '#d946ef' }}>
-                {winningMessage}
-              </div>
-            )}
-
             {txHash && pushChainClient && (
               <div className='transaction-info' style={{ textAlign: 'center' }}>
                 <p>
@@ -1027,13 +1021,13 @@ function UniversalCounterExample() {
 
 ## Source Code
 
-<GitHubRepo 
+<GitHubRepo
   title="Universal Counter Tutorial"
   repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/universal-counter"
   description="Full source code for the Universal Counter (hard coded chains) smart contract and example frontend."
 />
 
-<GitHubRepo 
+<GitHubRepo
   title="Universal Counter (Dynamic) Tutorial"
   repoUrl="https://github.com/pushchain/push-chain-examples/tree/main/tutorials/universal-counter-dynamic"
   description="Full source code for the Universal Counter (dynamic chains) smart contract and example frontend."
@@ -1043,10 +1037,10 @@ function UniversalCounterExample() {
 
 With Universal Counter, you can now:
 
-- Identify callers natively from *any* chain.  
-- Build logic that adapts to the user’s origin chain.  
-- Simplify the developer experience for multi-chain apps.  
-- Eliminate reliance on third-party tooling or oracles.  
+- Identify callers natively from *any* chain.
+- Build logic that adapts to the user’s origin chain.
+- Simplify the developer experience for multi-chain apps.
+- Eliminate reliance on third-party tooling or oracles.
 
 This makes your Counter smart contract **truly universal, all in just a few lines of Solidity**.
 
@@ -1061,11 +1055,11 @@ flowchart TD
     EU[Ethereum User] --> UTOKEN[Universal ERC-20 Contract]
     SU[Solana User] --> UTOKEN
     PU[Push Chain User] --> UTOKEN
-    
+
     UTOKEN --> EC[1000 $UNICORN]
-    UTOKEN --> SC[1000 $UNICORN] 
+    UTOKEN --> SC[1000 $UNICORN]
     UTOKEN --> PC[1000 $UNICORN]
-    
+
     style EC fill:#627eea,stroke:#fff,stroke-width:2px,color:#fff
     style SC fill:#16c492,stroke:#fff,stroke-width:2px,color:#fff
     style PC fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
