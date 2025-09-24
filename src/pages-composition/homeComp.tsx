@@ -6,6 +6,7 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player';
 
 // External Components
 import { useTranslation } from 'react-i18next';
@@ -39,7 +40,6 @@ import { getShortFAQsList } from '@site/src/config/ShortFAQsList';
 
 // Import Assets
 import HeroBGMobile from '@site/static/assets/website/hero/hero-bg-img.webp';
-import HeroBG from '@site/static/assets/website/hero/hero-bg.webp';
 import FinalBgImage from '@site/static/assets/website/home/others/push-chain-final.webm';
 import StarSolidIcon from '@site/static/assets/website/illustrations/starSolidIcon.svg';
 
@@ -64,9 +64,21 @@ export default function HomeComp() {
   const isTablet = useMediaQuery(device.tablet);
   const isLaptop = useMediaQuery(device.laptop);
 
+  // Hero video hover state
+  const [heroHovered, setHeroHovered] = useState(false);
+
   const isSafari = () => {
     if (typeof window === 'undefined') return false;
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  };
+
+  // Hero video hover handlers
+  const handleHeroMouseEnter = () => {
+    setHeroHovered(true);
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroHovered(false);
   };
 
   return (
@@ -83,7 +95,47 @@ export default function HomeComp() {
         aria-label={t('pages.home.hero-section.section-aria-label')}
       >
         <HeroContent alignSelf='center' overflow='visible'>
-          <HeroPrimary flex='initial' justifyContent='flex-start'>
+          <HeroPrimary
+            flex='initial'
+            justifyContent='flex-start'
+            onMouseEnter={handleHeroMouseEnter}
+            onMouseLeave={handleHeroMouseLeave}
+            style={{
+              backgroundImage: heroHovered ? 'none' : undefined,
+            }}
+          >
+            {/* Hero Video - plays continuously */}
+            {!isMobile && (
+              <HeroVideo
+                url={
+                  require(
+                    isSafari()
+                      ? `@site/static/assets/website/hero/hero-hover-video.mp4`
+                      : `@site/static/assets/website/hero/hero-hover-video.webm`
+                  ).default
+                }
+                playing={true}
+                loop={true}
+                muted={true}
+                width='100%'
+                height='100%'
+                config={{
+                  file: {
+                    attributes: {
+                      controlsList: 'nofullscreen',
+                    },
+                  },
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: 1,
+                  opacity: 0.8,
+                }}
+              />
+            )}
+
             <HeroItem alignItems='center'>
               <HeroBody>
                 <H1
@@ -711,10 +763,6 @@ const HeroContent = styled(Content)`
 `;
 
 const HeroPrimary = styled.div`
-  background-image: url(${HeroBG});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
   width: 1440px;
   height: 850px;
   z-index: 99;
@@ -762,7 +810,7 @@ const HeroItem = styled(ItemV)`
 `;
 
 const HeroBody = styled(ItemV)`
-  margin: auto 0px;
+  margin-bottom: 150px;
   text-align: left;
   align-self: center;
 
@@ -781,6 +829,8 @@ const HeroBody = styled(ItemV)`
   }
 
   @media ${device.mobileL} {
+    margin: auto 0px;
+
     h1,
     span {
       white-space: normal;
@@ -1280,6 +1330,18 @@ const AccordionGrid = styled.div`
     max-width: 100%;
     min-width: 100%;
   }
+`;
+
+const HeroVideo = styled(ReactPlayer)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
 `;
 
 const VideoItemV = styled.div`
