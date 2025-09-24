@@ -931,7 +931,7 @@ function UniversalCounterExample() {
                     {chainData.map((chain, index) => (
                       <tr key={index} style={{ borderBottom: index < chainData.length - 1 ? "1px solid #dee2e6" : "none" }}>
                         <td style={{ padding: "12px", fontFamily: "monospace", fontSize: "0.8rem", wordBreak: "break-all" }}>
-                          {PushChain.utils.helpers.getChainName(ethers.toUtf8String(chain.chainHash))}
+                          {PushChain.utils.chains.getChainName(ethers.toUtf8String(chain.chainHash))}
                         </td>
                         <td style={{ padding: "12px", textAlign: "center", fontWeight: "bold" }}>
                           {chain.count}
