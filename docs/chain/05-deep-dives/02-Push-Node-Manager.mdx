@@ -1,15 +1,15 @@
 ---
-id: docs-chain-deep-dives-push-node-manager
-title: Push Node Manager
+id: docs-chain-deep-dives-push-validator-manager
+title: Push Validator Manager
 hide_title: false
-slug: ./push-node-manager
+slug: ./push-validator-manager
 displayed_sidebar: pushChainSidebar
 sidebar_position: 2
-image: "/assets/docs/previews/docs_chain_deep_dives--push_node_manager.png"
+image: "/assets/docs/previews/docs_chain_deep_dives--push_validator_manager.png"
 ---
 
 <head>
-  <title>Push Node Manager | Deep Dives | Push Chain Docs</title>
+  <title>Push Validator Manager | Deep Dives | Push Chain Docs</title>
 </head>
 
 import Tabs from '@theme/Tabs';
@@ -24,81 +24,84 @@ import {
 
 <!-- Content Start -->
 
-# Push Node Manager
+# Push Validator Manager
 
-**Push Chain validator management**
+**Fast validator setup with automatic recovery for Push Chain**
 
-## 🚀 Quick Start
+## 🚀 Quick Start (2-3 minutes)
 
 ### Step 1: Install & Start
 ```bash
 curl -fsSL https://get.push.network/node/install.sh | bash
 ```
-This installs and starts your validator automatically.
+Automatically installs and starts your validator using state sync (no full sync needed).
 
-> **Note:** After installation, restart your terminal or run `source ~/.bashrc` (or `~/.zshrc`) to use the `push-node-manager` command from anywhere.
+> **Note:** Restart terminal or run `source ~/.bashrc` to use `push-validator-manager` from anywhere.
 
-### Step 2: Check Sync Status
+### Step 2: Verify Sync
 ```bash
-push-node-manager status
+push-validator-manager status
 ```
-Wait for: `✅ Catching Up: false` (fully synced)
+Wait for: `✅ Catching Up: false` (takes ~2-3 minutes with state sync)
 
-### Step 3: Become a Validator
+### Step 3: Register Validator
 ```bash
-push-node-manager register-validator
+push-validator-manager register-validator
 ```
+**Requirements:** 2+ PC tokens from [faucet](https://faucet.push.org)
 
-**Requirements:**
-- Node must be synced (catching_up: false)
-- Need 2+ PC tokens from [faucet](https://faucet.push.org)
-- Account must be funded first
-
-**That's it! You're now running a Push Chain validator! 🎉**
+**Done! Your validator is running with automatic recovery enabled! 🎉**
 
 ## 📖 Commands
 
-### Essential Commands
+### Core
 ```bash
-push-node-manager start              # Setup + start node  
-push-node-manager stop               # Stop node
-push-node-manager status             # Show sync status & validator info
-push-node-manager register-validator # Become a validator
-push-node-manager logs               # View live logs
+push-validator-manager start                # Start with state sync (2-3 min)
+push-validator-manager stop                 # Stop node
+push-validator-manager status               # Check sync & validator status
+push-validator-manager register-validator   # Register as validator
+push-validator-manager logs                 # View logs
 ```
 
-### Additional Commands
+### Monitoring
 ```bash
-push-node-manager restart    # Restart node
-push-node-manager sync       # Real-time sync monitor
-push-node-manager validators # List all validators
-push-node-manager balance    # Check wallet balance
-push-node-manager reset      # Reset blockchain data
-push-node-manager help       # Show all commands
+push-validator-manager sync            # Monitor sync progress
+push-validator-manager peers           # Show peer connections
+push-validator-manager doctor          # Run health diagnostics
 ```
 
-### Public Setup Commands (Optional)
+### Management
 ```bash
-push-node-manager setup-nginx <domain> # Setup NGINX + SSL for public RPC
-push-node-manager setup-logs           # Configure log rotation
-push-node-manager backup               # Create node backup
+push-validator-manager restart         # Restart node
+push-validator-manager validators      # List validators
+push-validator-manager balance         # Check balance
+push-validator-manager reset           # Reset data
+push-validator-manager backup          # Backup node
+push-validator-manager update          # Update to latest version
 ```
 
-## 📊 Network Info
+## ⚡ Features
 
-- **Chain ID**: `push_42101-1`
-- **Network**: Push Chain Testnet
+- **State Sync**: 2-3 minute setup (no full blockchain download)
+- **Interactive Logs**: Real-time log viewer with search and filtering
+- **Smart Detection**: Monitors for sync stalls and network issues
+- **Reliable Snapshots**: Uses trusted RPC nodes for recovery
+- **Multiple Outputs**: JSON, YAML, or text format support
+
+## 📊 Network
+
+- **Chain**: `push_42101-1` (Testnet)
 - **Min Stake**: 2 PC
 - **Faucet**: https://faucet.push.org
 - **Explorer**: https://donut.push.network
 
-## 🔧 File Locations
-
-- **Binary**: `./build/pchaind`
+### File Locations
+- **Manager**: `~/.local/bin/push-validator-manager`
+- **Binary**: `~/.local/bin/pchaind`
 - **Config**: `~/.pchain/config/`
 - **Data**: `~/.pchain/data/`
-- **Keys**: `~/.pchain/keyring-test/`
 - **Logs**: `~/.pchain/logs/pchaind.log`
+- **Backups**: `~/push-node-backups/`
 
 ## 🌍 Public Setup (Optional)
 
@@ -108,7 +111,7 @@ By default, your validator runs locally. These optional commands help set up pub
 
 #### Setup NGINX with SSL
 ```bash
-push-node-manager setup-nginx yourdomain.com
+push-validator-manager setup-nginx yourdomain.com
 ```
 **Creates:**
 - `https://yourdomain.com` - Cosmos RPC endpoint
@@ -123,7 +126,7 @@ push-node-manager setup-nginx yourdomain.com
 
 #### Setup Log Rotation
 ```bash
-push-node-manager setup-logs
+push-validator-manager setup-logs
 ```
 **Configures:**
 - Daily log rotation
@@ -131,10 +134,10 @@ push-node-manager setup-logs
 - Automatic compression
 - System logrotate integration
 
-#### Create Backups  
+#### Create Backups
 ```bash
-push-node-manager backup
+push-validator-manager backup
 ```
 - Timestamped backup in `~/push-node-backups/`
-- Includes all config, keys, and blockchain data  
+- Includes all config, keys, and blockchain data
 - Compressed archive with integrity verification
