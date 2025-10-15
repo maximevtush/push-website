@@ -50,7 +50,7 @@ export const FooterUrls = {
     target: '_blank' as const,
   },
   reddit: {
-    href: 'https://discord.com/invite/pushchain',
+    href: 'https://www.reddit.com/r/pushprotocol/',
     target: '_blank' as const,
   },
   telegram: {
