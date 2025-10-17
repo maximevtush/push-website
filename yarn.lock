@@ -5541,29 +5541,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pushchain/core@npm:2.0.16":
-  version: 2.0.16
-  resolution: "@pushchain/core@npm:2.0.16"
-  dependencies:
-    "@bufbuild/protobuf": "npm:^2.0.0"
-    "@coral-xyz/anchor": "npm:^0.31.0"
-    "@cosmjs/crypto": "npm:0.33.1"
-    "@cosmjs/encoding": "npm:0.33.1"
-    "@cosmjs/proto-signing": "npm:^0.33.1"
-    "@cosmjs/stargate": "npm:^0.33.1"
-    "@cosmjs/tendermint-rpc": "npm:0.33.1"
-    "@solana/web3.js": "npm:^1.68.0"
-    buffer: "npm:^6.0.3"
-    cosmjs-types: "npm:0.9.0"
-    ethers: "npm:^6.14.3"
-    protobufjs: "npm:7.4.0"
-    tslib: "npm:^2.3.0"
-    tweetnacl: "npm:^1.0.3"
-    viem: "npm:2.27.2"
-  checksum: 10c0/57fa8079ed1800cd02d1bb5adcbdb37a8ae930bad7ff8b3749d4863fae0b8bc22c86412bad81f091e5f5b67000a7a9ad42f0e0531a9a097ed940417846c7870f
-  languageName: node
-  linkType: hard
-
 "@pushchain/core@npm:2.0.19":
   version: 2.0.19
   resolution: "@pushchain/core@npm:2.0.19"
@@ -5587,13 +5564,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pushchain/ui-kit@npm:2.0.9":
-  version: 2.0.9
-  resolution: "@pushchain/ui-kit@npm:2.0.9"
+"@pushchain/ui-kit@npm:2.0.10":
+  version: 2.0.10
+  resolution: "@pushchain/ui-kit@npm:2.0.10"
   dependencies:
     "@coral-xyz/anchor": "npm:^0.31.1"
     "@metamask/sdk": "npm:^0.32.0"
-    "@pushchain/core": "npm:2.0.16"
+    "@pushchain/core": "npm:2.0.19"
     "@solana/web3.js": "npm:^1.98.2"
     "@walletconnect/ethereum-provider": "npm:^2.21.5"
     buffer: "npm:^6.0.3"
@@ -5605,7 +5582,7 @@ __metadata:
   peerDependencies:
     react: ">=18.3.0 <20.0.0"
     react-dom: ">=18.3.0 <20.0.0"
-  checksum: 10c0/7a8dcf27dbb6c32381d597ed8ad760634b86b3761d2b168ebc24197f24ee47995b0dfb9b2519e3b80a1e88191d42e727fb59067aea6da296847e55f72ae73af1
+  checksum: 10c0/66d1f45b0ff414794a30cb0edb7cfb10f900748495f21d856bb4ddfa00699330bd702cc06eb29e7f736342c1091f26f3317ffc0e6e471b36cb365f7d7185daa1
   languageName: node
   linkType: hard
 
@@ -21045,7 +21022,7 @@ __metadata:
     "@mdx-js/react": "npm:^3.0.0"
     "@openzeppelin/merkle-tree": "npm:^1.0.8"
     "@pushchain/core": "npm:2.0.19"
-    "@pushchain/ui-kit": "npm:2.0.9"
+    "@pushchain/ui-kit": "npm:2.0.10"
     "@pushprotocol/restapi": "npm:1.7.20"
     "@pushprotocol/uiweb": "npm:1.7.1"
     "@radix-ui/react-dialog": "npm:^1.1.2"
