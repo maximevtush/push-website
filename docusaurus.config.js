@@ -21,9 +21,9 @@ const getBlogPath = () => {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Push Chain — Universal L1 for Apps',
+  title: 'Push Chain — Universal Blockchain for Apps',
   tagline:
-    'Shared-state L1 for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token. No network switching.',
+    'Shared-state blockchain for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token. No network switching.',
   favicon: '/assets/website/favicon.ico',
 
   // Set the production url of your site here
