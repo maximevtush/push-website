@@ -40,11 +40,11 @@ import GLOBALS, { device } from '@site/src/config/globals';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 
+import { DocsResourcesList } from '@site/src/config/DocsResourcesList';
+import { KBRootResourcesList } from '@site/src/config/KBRootResourcesList';
+import ContentBlocks from '../ContentBlocks/ContentBlocks';
 import { Grid } from './Grid';
 import './styles.css';
-import ContentBlocks from '../ContentBlocks/ContentBlocks';
-import { KBRootResourcesList } from '@site/src/config/KBRootResourcesList';
-import { DocsResourcesList } from '@site/src/config/DocsResourcesList';
 
 export const TechnicalGrid = ({ item }) => {
   const { title, content, href, target } = item;
@@ -143,7 +143,8 @@ export default function DocsHub(): JSX.Element {
                 fontSize='1.25rem'
                 fontWeight='400'
               >
-                Get started with building shared state apps for any chain.
+                Get started with building universal apps that you deploy once
+                and reach users of any chain.
               </Span>
             </ItemV>
 
@@ -326,7 +327,6 @@ export default function DocsHub(): JSX.Element {
           </ItemV>
         </Content>
       </Section>
-
     </Layout>
   );
 }

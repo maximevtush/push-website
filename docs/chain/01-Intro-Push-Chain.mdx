@@ -20,6 +20,7 @@ import {
   ModalWrapper,
 } from '@site/src/css/SharedStyling';
 import NodeJSVirtualIDE from '@site/src/components/NodeJSVirtualIDE/NodeJSVirtualIDE';
+import IFrameModal from '@site/src/components/IFrameModal/IFrameModal';
 import ThemedImage from '@theme/ThemedImage';
 
 <!-- Content Start -->
@@ -36,8 +37,8 @@ Write your smart contract once, deploy it on Push Chain, and instantly reach use
   <ThemedImage
     alt="Diagram to show how an existing EVM or non-EVM application can be deployed on Push Chain to instantly reach users on Ethereum, Solana, and all other supported chains without changing on-chain code."
     sources={{
-      light: require('/static/assets/docs/chain/build/unichain_light.webp').default,
-      dark: require('/static/assets/docs/chain/build/unichain_dark.webp').default,
+      light: require('/static/assets/docs/chain/build/chain_comparision_light.webp').default,
+      dark: require('/static/assets/docs/chain/build/chain_comparision_dark.webp').default,
     }}
   />
 </p>
@@ -211,6 +212,10 @@ Write your smart contract once, deploy it on Push Chain, and instantly reach use
 
 Push Chain provides a unified toolkit to build truly universal dApps. Without custom bridges or multi-chain deployments, you gain:
 
+- **Universal Smart Contracts**<br />
+  Deploy your existing Solidity contract on Push Chain and instantly become compatible with every chain (even **different layer 1s**).
+  <!-- Optional: [Learn more](../01-build/05-Universal-Smart-Contract) -->
+
 - **Zero EVM Code Changes**<br />
   Deploy your existing Solidity contract on Push Chain without modifying ABI, bytecode, or on-chain logic.
   <!-- Optional: [Learn more](../01-build/05-Universal-Smart-Contract) -->
@@ -218,21 +223,17 @@ Push Chain provides a unified toolkit to build truly universal dApps. Without cu
 - **Single Transaction from any Chain**<br />
   Send transactions from any chain to Push Chain with just a single transaction, massively reducing the complexity of multi-chain users interaction.
 
-- **Wallet Abstraction**<br />
-  Support MetaMask, Phantom, and other wallets as well as social or email login through one unified provider. Users never need to create a new wallet simply to access your dApp.
-  <!-- Optional: [Learn more](../01-build/02-Important-Concepts#wallet-abstraction) -->
-
 - **Universal Fee Abstraction**<br />
   Allow users to pay gas fees in their native tokens (for example ETH or SOL). Push Chain automatically routes fees so users do not have to bridge or hold $PC tokens (native token of Push Chain).
   <!-- Optional: [Learn more](../01-build/02-Important-Concepts#fee-abstraction) -->
 
-- **Universal Smart Contracts and Cross-Chain Mapping**<br />
-  Contracts on Push Chain automatically recognize addresses from Ethereum, Solana, and other chains and **_natively attribute transactions_** to the correct chain.
-  <!-- Optional: [Learn more](../01-build/02-Important-Concepts#shared-state) -->
+- **Wallet Abstraction**<br />
+  Support MetaMask, Phantom, and other wallets as well as social or email login through one unified provider. Users never need to create a new wallet simply to access your dApp.
+  <!-- Optional: [Learn more](../01-build/02-Important-Concepts#wallet-abstraction) -->
 
-- **Shared State and Programmable Solvers (Roadmap)**<br />
-  Read from and write to external chains and coordinate multi-chain workflows using a distributed solver network (coming soon).
-  <!-- Optional: link to “Roadmap” or “Shared State” page -->
+- **True Native Experience**<br />
+  Users from any chain will always feel that they are **interacting natively** with your App. Drawbacks of multi-chain deployments are eliminated and transactions are natively attributed to the correct chain.
+  <!-- Optional: [Learn more](../01-build/02-Important-Concepts#shared-state) -->
 
 ## Why Build on Push Chain?
 
@@ -251,10 +252,10 @@ Building on Push Chain delivers immediate benefits for developers and users:
   Push Chain automatically routes gas fees under the hood. Users do not need to hold $PC tokens or switch chains to complete transactions.
 
 - **Future-Proof Your Application**<br />
-  Shared state and programmable solvers (coming soon) enable multi-chain read and write operations. Your dApp can orchestrate cross-chain workflows without building separate adapters.
+  Your App can orchestrate cross-chain workflows without building separate adapters. Any added chain support on Push natively flows to your app without any codebase changes.
 
 - **Consistent Developer Tooling**<br />
-  Use one SDK, one set of JSON-RPC endpoints, and a unified API to build and deploy. Whether you prefer Viem, ethers, or our Push Chain client, the experience is the same across languages and frameworks.
+  Use one SDK, one set of JSON-RPC endpoints, and a unified API to build and deploy. Whether you prefer **Viem**, **Ethers**, or our **custom client**, the experience is the same across languages and frameworks.
 
 ## Developer SDKs
 
@@ -369,16 +370,16 @@ Building on Push Chain delivers immediate benefits for developers and users:
 
 To get started with Push Chain, you can:
 
-1. **Visit [Send Transaction Example](https://pushchain.github.io/push-chain-website/pr-preview/pr-1067/docs/chain/ui-kit/examples/send-transaction-example/)** to interact directly.
+1. **Checkout** [Ballsy App](https://ballsy.push.org) to experience Push Chain.
 *You can log in with your existing wallet, email, or social accounts.*
-
-   <!-- <IFrameModal
-     url='https://simulate.push.org'
-     buttonTitle='Load Simulate Page'
+   <IFrameModal
+     url='https://ballsy.push.org'
+     buttonTitle='Load Ballsy Apps'
      maxHeight='840px'
-   /> -->
-2. **Use our live playgrounds** to experiment with code within our documentation.
-3. **Deep dive into Push Chain** fundamentals, how it works, and developer resources in our comprehensive [](https://push.org/knowledge).
+   />
+2. **Goto** [Send Transaction Example](/docs/chain/ui-kit/examples/send-transaction-example/) to learn and play.
+3. **Use our live playgrounds** to experiment with code within our documentation.
+4. **Deep dive into Push Chain** fundamentals, how it works, and developer resources in our comprehensive [Knowledge Base](https://push.org/knowledge).
 
 ## Next Steps
 
