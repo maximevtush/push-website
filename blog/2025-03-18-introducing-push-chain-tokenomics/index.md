@@ -76,7 +76,7 @@ Or you can better web3 and create innovations:
 
 Or you can see some popular app examples and to take inspiration from:
 
-![Universal app use cases of Push Chain](./appusecases.webp)
+![Universal app use cases of Push Chain](./popularapps.webp)
 
 <hr />
 
