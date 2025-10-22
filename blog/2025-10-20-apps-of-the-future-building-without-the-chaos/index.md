@@ -24,17 +24,17 @@ The dream of “expanding” turns into the nightmare of maintenance.
 
 We’ve seen this play out a thousand times. So we asked ourselves, what if interop wasn’t something apps had to build…
 but something the chain itself handled? That’s how <b>Push Chain</b> reimagines interoperability… but something the chain itself handled?
-#### We stopped solving interop above the chain.
-#### Instead we solved it inside the chain.
+#### We stopped solving interop <i>above</i> the chain.
+#### Instead we solved it <i>inside</i> the chain.
 #### Because the future of apps isn’t about managing chaos — it’s about removing it.
 
-### The Hidden Cost of “Just Make It Work”
+## The Hidden Cost of “Just Make It Work”
 -  Expanding beyond one chain should feel like growth, not grief.
 
 But in web3 today, <b>the moment you go cross-chain, you trade innovation for exhaustion.</b>
 Each decision; to bridge, to redeploy, to patch adds friction that compounds across teams, audits, and user experiences.
 
--  That’s where the hidden cost begins. The moment when “just make it work” becomes your full-time job.
+- #### That’s where the hidden cost begins. The moment when “just make it work” becomes your full-time job.
 
 - #### By the time the app does work across chains, it’s no longer fun to build… or delightful to use.
 
@@ -50,7 +50,7 @@ Let’s look at the hacker’s current reality, and what needs to change so no o
 
 Every developer dreams of focusing on features. Yet, most spend 70% of their time patching infra across chains.
 
-With the current broken reality of web3, <b>Every chain you add doubles your overhead.</b>
+With the current broken reality of web3, <b>every chain you add doubles your overhead.</b>
 
 - Infra eats your week before you ship a feature.
 
@@ -88,12 +88,12 @@ And the problem doesn’t even stop here…
 
 Supporting both EVM and non-EVM chains (like Solana or Sui) usually means rewriting everything in new languages: Rust, Go, Move, etc.
 
-The result? You are now killing your momentum as you struggle with
+The result? You are now killing your momentum as you struggle with:
 
 - Hiring new engineers to create the same features
 - Bloating your team for no additional use cases
 - Introducing delays and slowing momentum as your engineers rewrite the same contracts
-- Adding Auditing bills that will climb faster than TVL charts
+- Adding auditing bills that will climb faster than TVL charts
 
 But, let’s say you are brave enough to do it once.
 
@@ -103,7 +103,7 @@ And then? be prepared to do it all over again once you want to add a new feature
 
 And the worst part? None of this adds new value… just new overhead.
 
-While we struggle with these horrors, your users are not getting the best treatment as well cause you have introduced for them
+While we struggle with these horrors, your users are not getting the best treatment as well cause you have introduced for them.
 
 ### 4️⃣ The Gas Fee Dilemma
 
@@ -114,7 +114,7 @@ Think about this, is this onboarding.. No, that’s homework.
 
 Users need ETH for Ethereum, SOL for Solana, POL for Polygon and countless other things… just to use one cross-chain app they like.
 
-Make it make sense 🤷‍♂️.
+Does it make sense 🤷‍♂️
 
 Is this onboarding? Or is this friction on day one?
 
@@ -147,7 +147,7 @@ This is not a story that you are going through. While building one of the first 
 We reimagined interop so that devs are able to focus their energy on what matters most, which is the app and the features of the app that got them popular.
 
 #### Universal Smart Contracts 🌌
-We created universal smart contracts that ensures the developer only writes one smart contract that once deployed is instantly compatible with every chain (even different L1s).
+We created universal smart contracts that ensure the developer only writes one smart contract that once deployed is instantly compatible with every chain (even different L1s).
 
 This is our best innovation yet and for developers it simply means:
 – Write once in solidity and deploy
@@ -164,7 +164,7 @@ One deployment. Global presence. 🌐
 You never have to re-work the app. You simply deploy your EVM app on Push Chain and it’s good to go.
 
 – Ethers, Viem or any of your favorite EVM tooling simply works
-– The only thing you replace is the sendTransaction with universal transaction
+– The only thing you replace is the <b>sendTransaction</b> with universal transaction
 – Here’s a snippet of the code that you use to now send a transaction from any chain
 
 ![Apps of the Future - Building without the Chaos](./image-5.webp)
@@ -200,7 +200,8 @@ TL;DR 🦦
 
 #### Interop that is invisible = Push. ✨
 
-### Conclusion
+## Conclusion
+
 Cross-chain shouldn’t mean cross-chaos.
 
 Push Chain makes interoperability invisible. So apps, wallets, and users can finally move like one network.
@@ -208,7 +209,7 @@ Push Chain makes interoperability invisible. So apps, wallets, and users can fin
 We believe the future of web3 isn’t about where your app lives.
 
 It’s about how freely it can flow.
-Welcome to the <b>App of the Future.</b>
+Welcome to the <b>Apps of the Future.</b>
 
 Let’s build Universal Apps 💪.
 - The apps of the future won’t call themselves cross-chain.
