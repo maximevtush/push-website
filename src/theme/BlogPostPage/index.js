@@ -48,7 +48,7 @@ function BlogPostPageContent({ allPosts, post, children }) {
       <BlogItem>
         <BlogPostItem>{children}</BlogPostItem>
 
-        <FooterItem />
+        <FooterItem post={post} />
         <MorePosts allPosts={allPosts} post={post} />
       </BlogItem>
     </BlogLayout>
