@@ -1,6 +1,6 @@
 ---
 id: docs-deep-dives-how-uea-works
-title: JSON-RPC Functions
+title: How Universal Executor Account (UEA) Works
 hide_title: false
 slug: ./how-uea-works
 displayed_sidebar: pushChainSidebar
@@ -9,96 +9,55 @@ image: "/assets/docs/previews/docs_deep_dives--json-rpc_functions.png"
 ---
 
 <head>
-  <title>How UEA (Universal Executor Account) Works | Deep Dives | Push Chain Docs</title>
+  <title>How Universal Executor Account (UEA) Works | Deep Dives | Push Chain Docs</title>
 </head>
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Details from '@theme/Details';
-import {
-  ModalContainer,
-  ModalSmall,
-  ModalWrapper,
-  AFocus,
-} from '@site/src/css/SharedStyling';
 
 <!-- Content Start -->
 
-Push Chain is an EVM-compatible blockchain, and thus supports the standard JSON-RPC functions available on all Ethereum-compatible networks. This document provides examples of how to call basic JSON-RPC functions on Push Chain. For comprehensive details, visit the official [Ethereum JSON-RPC Documentation](https://ethereum.org/en/developers/docs/apis/json-rpc/).
+The **Universal Executor Account (UEA)** is one of the key innovations behind **Push Chain’s Universal Execution Layer** — a system that lets any user, from *any origin chain*, execute smart contract transactions natively on Push Chain.
 
-## Examples
+In this deep dive, we’ll explore:
+- 🧠 What a UEA is  
+- 🔗 How it links identity across chains  
+- ⚙️ How transactions execute under the hood  
+- 🧩 How it differs from EOAs and Smart Accounts  
 
-Here are examples showcasing how to make JSON-RPC requests using CURL.
+## What Is a Universal Executor Account?
 
-### Get Block by Number
+A **Universal Executor Account** (UEA) is an *interoperable execution identity* that exists on Push Chain but can be *controlled from any origin chain* (like Ethereum, Solana, Polygon, etc.).
 
-Fetch block details for a specific block number:
+It acts as your **on-chain agent** on Push Chain:
+- It holds funds and state.
+- It can execute transactions (even bundles like multicall).
+- It validates signatures coming from other chains.
+- It supports **universal fee abstraction** — so users don’t need to hold $PC to transact.
 
-```bash
-curl -X POST https://evm.rpc-testnet-donut-node1.push.org/ \
-     -H "Content-Type: application/json" \
-     -d '{
-       "jsonrpc":"2.0",
-       "method":"eth_getBlockByNumber",
-       "params":["0x10d4f", true],
-       "id":1
-     }'
+> Think of UEA as a *universal smart account* that can be signed from anywhere.
+
+## The UEA Architecture
+
+UEA combines three key components:
+
+| Component | Role | Description |
+|------------|------|-------------|
+| **Universal Signature Verification Layer (USVL)** | Security | Verifies signatures from multiple chain types (EVM, Solana, etc.). |
+| **Universal Gateway** | Routing | Handles inbound/outbound transaction routing between chains. |
+| **UEA Contract** | Execution | Executes encoded transactions and maintains account state on Push Chain. |
+
+```mermaid
+flowchart LR
+A[User on Origin Chain] --> B[Universal Signature Verification Layer]
+B --> C[Universal Gateway]
+C --> D[Universal Executor Account]
+D --> E[Contracts on Push Chain]
+E --> F[Events / State Updates]
 ```
 
-<br />
-<br />
-
-### Get Current Block Number
-
-Retrieve the current block number:
-
-```bash
-curl -X POST https://evm.rpc-testnet-donut-node1.push.org/ \
-     -H "Content-Type: application/json" \
-     -d '{
-       "jsonrpc":"2.0",
-       "method":"eth_blockNumber",
-       "params":[],
-       "id":1
-     }'
-```
-
-<br />
-<br />
-
-### Get Transaction by txHash
-
-Fetch transaction details using its hash:
-
-```bash
-curl -X POST https://evm.rpc-testnet-donut-node1.push.org/ \
-     -H "Content-Type: application/json" \
-     -d '{
-       "jsonrpc":"2.0",
-       "method":"eth_getTransactionByHash",
-       "params":["0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"],
-       "id":1
-     }'
-```
-
-<br />
-<br />
-
-### Get Account Balance
-
-Retrieve the balance of an address:
-
-```bash
-curl -X POST https://evm.rpc-testnet-donut-node1.push.org/ \
-     -H "Content-Type: application/json" \
-     -d '{
-       "jsonrpc":"2.0",
-       "method":"eth_getBalance",
-       "params":["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", "latest"],
-       "id":1
-     }'
-```
-
-## Further Information
-
-For more JSON-RPC methods and their usage, refer to the [Ethereum JSON-RPC API Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/).
+Each external signature goes through:
+	1.	Verification — The USVL verifies the origin chain signature.
+	2.	Routing — The Universal Gateway determines the destination UEA.
+	3.	Execution — The UEA executes the call(s) as if the origin user directly interacted on Push Chain.
