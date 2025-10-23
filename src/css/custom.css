@@ -1010,6 +1010,7 @@ html[data-theme='light'] .alert.alert--fn-args summary::before {
 
 .alert a {
   text-decoration: none;
+  color: var(--ifm-color-primary);
 }
 
 .admonition_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module

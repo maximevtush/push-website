@@ -103,8 +103,8 @@ This app lets any user — whether on Ethereum, Solana, or Push Chain — mint `
 
 ---
 
-> 💡 **Tip: Why this matters**
-> This is the simplest form of a **Universal Token**.
+> 💡 **Tip: Why this matters**<br />
+> This is the simplest form of a **Universal Token**.<br />
 > Without bridges or wrapped assets, users on *any chain* can mint and hold the same ERC-20 natively on Push Chain.
 
 ## Live Playground
@@ -297,3 +297,41 @@ In this tutorial, we built the simplest possible ERC-20-style token interaction.
 -	We minted tokens and confirmed balances via the frontend.
 
 With just these two functions, you now have the foundation of a token system.
+
+## Next Tutorial
+
+Up until now, we’ve been sending one transaction at a time. 
+
+In real-world apps, users often need to perform several actions together (for example: approve → transfer, or multiple contract calls in a single flow).
+
+<div style={{textAlign: 'center'}}>
+
+```mermaid
+flowchart TD
+    EU[Ethereum User] --> UB[Universal Batcher]
+    SU[Solana User] --> UB
+    OU[Other Chain User] --> UB
+    
+    UB --> TX1[Execute Transaction 1]
+    TX1 --> TX2[Execute Transaction 2]
+    TX2 --> TX3[Execute Transaction 3]
+    TX3 --> EOL[Complete]
+    
+    style EOL fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style UB fill:#dd44b9,stroke:#fff,stroke-width:2px,color:#fff
+    style EU fill:#627eea,color:#fff
+    style SU fill:#16c492,color:#fff
+    style OU fill:#853dff,color:#fff
+```
+
+</div>
+
+<hr />
+
+In the next tutorial, we’ll explore batching multiple transactions as one universal transaction:
+
+1. How to combine several actions into a single transaction.
+2. Why batching improves user experience (fewer wallet popups, less friction).
+3. Practical code examples of executing multiple calls in sequence or atomically.
+
+This will help you take the step from simple token interactions to more powerful app logic on Push Chain. 🚀

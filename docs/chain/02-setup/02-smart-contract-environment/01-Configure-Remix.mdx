@@ -13,7 +13,7 @@ image: "/assets/docs/previews/docs_chain_setup_tooling_configure_remix--remix_id
 </head>
 
 import PushChainSpecs from '@site/src/components/Static/PushChainSpecs';
-import RemixIDE from '@site/src/components/RemixIDE/RemixIDE';
+import { SolidityCode } from '@site/src/components/SolidityCode';
 
 <!-- Content Start -->
 
@@ -33,17 +33,28 @@ Let's use Remix to compile, deploy, and test smart contracts on Push Chain.
 
 Open [Remix IDE](https://remix.ethereum.org) or use the embedded IDE below.
 
-<RemixIDE
-  examples={{
-    'Counter.sol': {
-      absoluteFileURL:
-        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/simple-counter/contracts/src/Counter.sol',
-      ctaTitle: 'View on GitHub',
-      ctaURL:
-        'https://github.com/pushchain/push-chain-examples/blob/main/tutorials/simple-counter/contracts/src/Counter.sol',
-    },
-  }}
-/>
+<SolidityCode
+  title="Universal ERC-20 Contract"
+  fileName="ERC20.sol"
+  url="https://github.com/pushchain/push-chain-examples/blob/main/tutorials/simple-counter/contracts/src/Counter.sol"
+>
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.22;
+
+contract Counter {
+    uint256 public countPC;
+    event CountIncremented(uint256 indexed countPC, address indexed caller);
+    
+    function increment() public {
+        countPC += 1;
+        emit CountIncremented(countPC, msg.sender);
+    }
+} 
+```
+
+</SolidityCode>
 
 <br />
 <br />
