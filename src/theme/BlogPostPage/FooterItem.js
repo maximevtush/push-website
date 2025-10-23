@@ -15,7 +15,7 @@ const FooterItem = ({ post }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <FooterWrapper>
       <LikeAndRetweetItem
         twitterId={post?.metadata?.twitterId}
         text='If it’s worth reading, it’s worth sharing. Like and retweet.'
@@ -83,11 +83,15 @@ const FooterItem = ({ post }) => {
           </KPIMetric>
         </BannerItem>
       </KPIBanner>
-    </div>
+    </FooterWrapper>
   );
 };
 
 export default FooterItem;
+
+const FooterWrapper = styled.div`
+  margin-top: 64px;
+`;
 
 const AboutSection = styled.div`
   margin-top: 99px;

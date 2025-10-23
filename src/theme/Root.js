@@ -22,6 +22,8 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 i18nInitialize();
 
 export default function Root({ children }) {
+  const queryClient = new QueryClient();
+
   // superimposed conditions
   const superimposedConditions = [
     {
@@ -48,7 +50,6 @@ export default function Root({ children }) {
 
   const location = useLocation();
   const baseURL = useSiteBaseUrl();
-  const queryClient = new QueryClient();
   useChainNotification();
   const { showAlertBar } = useContext(AccountContext);
   const isPreview = /^\/push-chain-website\/pr-preview\/pr-\d+\/?$/.test(
