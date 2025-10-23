@@ -7,6 +7,7 @@ description: 'Push Chain joins forces with zkPass!'
 text: "Push chain is pumped to join forces with zkPass to transform user privacy in the new internet world. Discover how this collaboration empowers devs, users and the entire web3 ecosystem!
 "
 tags: [Push Chain, Partnerships]
+twitterId: '1882435635937673639'
 ---
 
 ![Cover image of Push Chain joins forces with zkPass ](./cover-image.webp)

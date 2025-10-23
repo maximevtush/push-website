@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain joins forces with Plume!'
 text: 'Push Chain is set to revolutionize RWAfi by joining forces with Plume! Learn what this announcement means for Plume and Push Chain users, the use cases it unlocks, and how the collaboration benefits the greater Web3 ecosystem.'
 tags: [Push Chain, Partnerships]
+twitterId: '1879899425117806791'
 ---
 
 ![Cover image of Push Chain joins forces with Plume ](./cover-image.webp)

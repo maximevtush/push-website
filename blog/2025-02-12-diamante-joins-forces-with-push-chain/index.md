@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Diamante'
 text: 'Push Chain is teaming up with Diamante to bring unified exposure to the way enterprises and users transact and operate in the web3 economy. Learn what usecases does this collaboration unlocks and how devs and users can make the best of it!'
 tags: [Push Chain, Partnerships]
+twitterId: '1889683548942245905'
 ---
 
 ![Cover image of Push Chain Join Forces With Diamante ](./cover-image.webp)

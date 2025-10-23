@@ -6,7 +6,7 @@ image: './cover-image.webp'
 description: 'How Web3 Interop Started and Where its Going'
 text: "Understand how Push Chain flips the script on the Interop Trilemma but turning it into a Design Choice Spectrum for Universal App developers."
 tags: [Push Chain, Interop, Intent Solvers, Bridges, Deep dives]
-twitterId: '1909632568103747670'
+twitterId: '1926304390794612962'
 ---
 
 

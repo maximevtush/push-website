@@ -7,6 +7,7 @@ description: 'Innovations by Push Chain'
 text: 'Unlike traditional L1 chains, Push Chain introduces ten key innovations and optimized mechanisms to unify any chain, any user, and any app. This article will help you understand - What Innovations Push Chain brings to Web3!
 '
 tags: [Push Chain, Shared App Experience, Any Chain Tx, Universal Smart Contracts, Shared State Blockchain, Consumer Tx, Parallel Validators, Dynamic Sharding]
+twitterId: '1883813233070617043'
 ---
 
 ![Cover image of Innovations By Push Chain](./cover-image.webp)
