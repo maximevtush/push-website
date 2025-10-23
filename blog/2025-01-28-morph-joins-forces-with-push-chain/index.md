@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Morph'
 text: 'Push Chain is about to facelift the consumer app experience by teaming up with Morph L2!. Learn everything about our collaboration with Morph - what it means for Push and Morph users, the use cases it unlocks and more!'
 tags: [Push Chain, Partnerships]
+twitterId: '1884247572430340115'
 ---
 
 ![Cover image of Push Chain Join Forces With Morph ](./cover-image.webp)

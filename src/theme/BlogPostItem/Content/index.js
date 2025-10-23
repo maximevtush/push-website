@@ -7,7 +7,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { blogPostContainerID } from '@docusaurus/utils-common';
-import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
+import { useBlogPost } from '@docusaurus/theme-common/internal';
+
 import MDXContent from '@theme/MDXContent';
 import LikeAndRetweetItem from '../../BlogPostPage/LikeAndRetweetItem';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -46,7 +47,9 @@ export default function BlogPostItemContent({ children, className }) {
 
     root.render(
       <QueryClientProvider client={queryClient}>
-        <LikeAndRetweetItem twitterId={metadata?.frontMatter?.twitterId} />
+        <div style={{ marginBottom: '32px' }}>
+          <LikeAndRetweetItem twitterId={metadata?.frontMatter?.twitterId} />
+        </div>
       </QueryClientProvider>
     );
   };

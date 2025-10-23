@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Scroll'
 text: "Scroll is coming to Push Chain! Learn what usecases does this collaboration unlocks and how devs and users can make the best of it!"
 tags: [Push Chain, Partnerships]
+twitterId: '1890446538091991283'
 ---
 
 ![Cover image of Push Chain Join Forces With Scroll ](./cover-image.webp)

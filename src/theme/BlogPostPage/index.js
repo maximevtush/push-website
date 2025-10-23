@@ -49,8 +49,6 @@ function BlogPostPageContent({ allPosts, post, children }) {
       </MultiContent>
       <StyledMultiContent>
         <FooterItem post={post} />
-      </StyledMultiContent>
-      <StyledMultiContent>
         <MorePosts allPosts={allPosts} post={post} />
       </StyledMultiContent>
     </BlogLayout>

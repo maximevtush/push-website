@@ -22,7 +22,6 @@ import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 i18nInitialize();
 
 export default function Root({ children }) {
-  // Initialize React Query Client
   const queryClient = new QueryClient();
 
   // superimposed conditions
@@ -128,7 +127,7 @@ export default function Root({ children }) {
           {typeof window !== 'undefined' && showAlertBar && (
             <InfoBar
               translatedTextKey='notifications.info-bar.title'
-              url='https://push.org/blog/donut-testnet-closed-beta-is-now-live/'
+              url='https://push.org/blog/announcing-project-gud-go-universal-and-deploy/'
             />
           )}
 
@@ -145,6 +144,7 @@ export default function Root({ children }) {
 
             {shouldRenderFooter && (
               <>
+                {/* <Footer /> */}
                 {/* CookieComponent has its own hydration handling */}
                 <CookieComponent />
               </>

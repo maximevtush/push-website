@@ -13,6 +13,7 @@ tags:
     Shared State Blockchain,
     Universal Execution Layer,
   ]
+  twitterId: '1920475763322630510'
 ---
 
 ![Cover image of Is Push Chain Another L1?](./cover-image.webp)

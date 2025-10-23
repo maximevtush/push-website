@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Fuse'
 text: 'Push Chain is joining forces with the Fuse Network to transform the way enterprises and users transact and operate in the web3 economy. Learn what usecases does this collaboration unlocks and how devs and users can make the best of it!'
 tags: [Push Chain, Partnerships]
+twitterId: '1887151022898119019'
 ---
 
 ![Cover image of Push Chain Join Forces With Fuse ](./cover-image.webp)

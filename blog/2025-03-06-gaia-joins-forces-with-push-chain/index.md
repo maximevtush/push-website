@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Scroll'
 text: 'Gaia is coming to Push Chain! Learn how this collaboration unlocks cross-chain autonomous intelligence and how devs and users can make the best of it!'
 tags: [Push Chain, Partnerships]
+twitterId: '1897664911133839538'
 ---
 
 ![Cover image of Push Chain Join Forces With Gaia ](./cover-image.webp)
