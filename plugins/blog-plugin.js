@@ -38,6 +38,7 @@ async function blogPluginExtended(...pluginArgs) {
               description: blogPost?.metadata?.description || '',
               frontMatter: blogPost?.metadata?.frontMatter || {},
               content: blogPost,
+              twitterId: blogPost?.metadata?.frontMatter?.twitterId || '',
             })
           ),
 
@@ -69,6 +70,7 @@ async function blogPluginExtended(...pluginArgs) {
               description: blogPost?.metadata?.description || '',
               frontMatter: blogPost?.metadata?.frontMatter || {},
               content: blogPost,
+              twitterId: blogPost?.metadata?.frontMatter?.twitterId  || '',
             })
           ),
 
@@ -139,6 +141,7 @@ async function blogPluginExtended(...pluginArgs) {
                 blogDescription: pluginOptions.blogDescription,
                 totalPosts: content.blogPosts.length,
                 totalRecentPosts: recentPosts.length,
+                twitterId: blogPost?.metadata?.frontMatter?.twitterId || '',
               })
             ),
             allPosts: (

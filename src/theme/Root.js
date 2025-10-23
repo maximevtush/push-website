@@ -16,11 +16,14 @@ import AccountContext from '../context/accountContext';
 import { useChainNotification } from '../hooks/useChainNotification';
 import { Notification } from '../hooks/useRewardsNotification';
 import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // Initialize Internalization
 i18nInitialize();
 
 export default function Root({ children }) {
+  const queryClient = new QueryClient();
+
   // superimposed conditions
   const superimposedConditions = [
     {
@@ -117,37 +120,39 @@ export default function Root({ children }) {
   }
 
   return (
-    <AccountProvider>
-      <>
-        {/* Only render InfoBar on client-side after hydration */}
-        {typeof window !== 'undefined' && showAlertBar && (
-          <InfoBar
-            translatedTextKey='notifications.info-bar.title'
-            url='https://push.org/blog/announcing-project-gud-go-universal-and-deploy/'
-          />
-        )}
-
-        <PageContainer
-          className={returnAdditionalClasses(superimposedConditions)}
-        >
-          <ServerStyle from={children} />
-
-          {/* Main react children */}
-          <Content isHome={isHome}>{children}</Content>
-
-          {/* Notifications - only render on client-side */}
-          {typeof window !== 'undefined' && <Notification />}
-
-          {shouldRenderFooter && (
-            <>
-              {/* <Footer /> */}
-              {/* CookieComponent has its own hydration handling */}
-              <CookieComponent />
-            </>
+    <QueryClientProvider client={queryClient}>
+      <AccountProvider>
+        <>
+          {/* Only render InfoBar on client-side after hydration */}
+          {typeof window !== 'undefined' && showAlertBar && (
+            <InfoBar
+              translatedTextKey='notifications.info-bar.title'
+              url='https://push.org/blog/announcing-project-gud-go-universal-and-deploy/'
+            />
           )}
-        </PageContainer>
-      </>
-    </AccountProvider>
+
+          <PageContainer
+            className={returnAdditionalClasses(superimposedConditions)}
+          >
+            <ServerStyle from={children} />
+
+            {/* Main react children */}
+            <Content isHome={isHome}>{children}</Content>
+
+            {/* Notifications - only render on client-side */}
+            {typeof window !== 'undefined' && <Notification />}
+
+            {shouldRenderFooter && (
+              <>
+                {/* <Footer /> */}
+                {/* CookieComponent has its own hydration handling */}
+                <CookieComponent />
+              </>
+            )}
+          </PageContainer>
+        </>
+      </AccountProvider>
+    </QueryClientProvider>
   );
 }
 

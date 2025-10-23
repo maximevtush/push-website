@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Donut Testnet Closed Beta is Now Live!'
 text: "We’ve been building the foundation for a new era of universal apps.Now, we're opening the gates."
 tags: [Push Chain, Donut, Closed Beta, Early Access, Shared App Experience, Shared State Blockchain, Universal Smart Contracts, Testnet]
+twitterId: '1909632568103747670'
 ---
 
 

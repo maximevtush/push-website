@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Apps Possible Only with Shared State - Vol.1'
 text: 'Learn about 5 super helpful use cases that are only only possible with shared state blockchains like Push Chain'
 tags: [Push Chain, Shared App Experience, Universal Apps, Consumer Crypto]
+twitterId: '1919758550777356776'
 ---
 
 ![Cover Image of Apps Possible Only with Shared State - Vol.1](./cover-image.webp)
