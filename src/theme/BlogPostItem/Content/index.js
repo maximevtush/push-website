@@ -48,7 +48,7 @@ export default function BlogPostItemContent({ children, className }) {
     root.render(
       <QueryClientProvider client={queryClient}>
         <div style={{ marginBottom: '32px' }}>
-          <LikeAndRetweetItem twitterId={metadata?.frontMatter?.twitterId} />
+          <LikeAndRetweetItemtwitterId={metadata?.frontMatter?.twitterId} />
         </div>
       </QueryClientProvider>
     );

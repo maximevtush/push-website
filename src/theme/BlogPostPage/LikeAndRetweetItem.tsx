@@ -14,10 +14,10 @@ import { useTweetMetrics } from '@site/src/api/GetTwitterMetrics';
 import { H2, ItemH } from '@site/src/css/SharedStyling';
 import { formatTwitterCount } from '@site/src/utils/FormatTwitterCount';
 
-const LikeAndRetweetItem = ({ twitterId, text }) => {
+const LikeAndRetweetItem = ({twitterId, text }) => {
   const isMobile = useMediaQuery(device.tablet);
 
-  const twitterID = twitterId;
+  consttwitterId =twitterId;
   const { data: twitterData } = useTweetMetrics(twitterID);
 
   if (!twitterData) return null;
