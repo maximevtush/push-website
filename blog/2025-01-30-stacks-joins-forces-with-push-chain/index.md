@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Stacks'
 text: 'Push Chain is building with Stacks to unlock accessibility to Bitcoin apps from any chain, any app, and any wallet.'
 tags: [Push Chain, Partnerships]
+twitterId: '1884990363053793759'
 ---
 
 ![Cover image of Push Chain Join Forces With Morph ](./cover-image.webp)

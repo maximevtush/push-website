@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Push Chain Joins Forces With Aptos'
 text: "Push Chain's road to testnet has kickstarted in full swing. Learn everything about our collaboration with Aptos - what it means for Push and Aptos users, the use cases it unlocks and more!"
 tags: [Push Chain, Partnerships]
+twitterId: '1877362460950253622'
 ---
 
 ![Cover image of Push Chain Join Forces With Aptos ](./cover-image.webp)
