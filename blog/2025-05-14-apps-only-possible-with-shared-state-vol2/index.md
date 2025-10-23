@@ -6,6 +6,7 @@ image: './cover-image.webp'
 description: 'Apps Possible Only with Shared State - Vol.2'
 text: 'Welcome to the 2nd Volume of  - Apps that are only possible with Push Chain’s shared state architecture!'
 tags: [Push Chain, Shared App Experience, Universal Apps, Consumer Crypto]
+twitterId: '1922675646725275972'
 ---
 
 ![Cover Image of Apps Possible Only with Shared State - Vol.2](./cover-image.webp)
