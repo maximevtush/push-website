@@ -6,7 +6,9 @@
  */
 import React from 'react';
 import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
-import { useBlogPost } from '@docusaurus/theme-common/internal';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
+import styled from 'styled-components';
+
 export default function BlogPostItemContainer({ children, className }) {
   const {
     frontMatter,
@@ -17,7 +19,7 @@ export default function BlogPostItemContainer({ children, className }) {
   const image = assets.image ?? frontMatter.image;
   const keywords = frontMatter.keywords ?? [];
   return (
-    <article
+    <StyledArticle
       className={className}
       itemProp='blogPost'
       itemScope
@@ -31,6 +33,12 @@ export default function BlogPostItemContainer({ children, className }) {
         <meta itemProp='keywords' content={keywords.join(',')} />
       )}
       {children}
-    </article>
+    </StyledArticle>
   );
 }
+
+const StyledArticle = styled.article`
+  @media (min-width: 1200px) {
+    max-width: 75%;
+  }
+`;

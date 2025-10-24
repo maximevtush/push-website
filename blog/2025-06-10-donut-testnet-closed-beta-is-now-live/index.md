@@ -9,7 +9,6 @@ tags: [Push Chain, Donut, Closed Beta, Early Access, Shared App Experience, Shar
 twitterId: '1943312573107150884'
 ---
 
-
 ![Donut Testnet Closed Beta is Now Live](./cover-image.webp)
 
 <!--truncate-->

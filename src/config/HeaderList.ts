@@ -114,4 +114,48 @@ export const HeaderList = {
       target: '_self',
     },
   ],
+  explore: [
+    {
+      text: 'header.explore.link1.text',
+      subtext: 'header.explore.link1.subtext',
+      title: 'header.explore.link1.title',
+      href: '/docs',
+      target: '_self',
+    },
+    {
+      text: 'header.explore.link2.text',
+      subtext: 'header.explore.link2.subtext',
+      title: 'header.explore.link2.title',
+      href: '/docs/chain/quickstart',
+      target: '_self',
+    },
+    {
+      text: 'header.explore.link3.text',
+      subtext: 'header.explore.link3.subtext',
+      title: 'header.explore.link3.title',
+      href: '/docs/chain/tutorials',
+      target: '_self',
+    },
+    {
+      text: 'header.explore.link4.text',
+      subtext: 'header.explore.link4.subtext',
+      title: 'header.explore.link4.title',
+      href: 'https://github.com/pushchain',
+      target: '_blank',
+    },
+    {
+      text: 'header.explore.link5.text',
+      subtext: 'header.explore.link5.subtext',
+      title: 'header.explore.link5.title',
+      href: 'https://discord.com/invite/pushchain',
+      target: '_blank',
+    },
+    {
+      text: 'header.explore.link6.text',
+      subtext: 'header.explore.link6.subtext',
+      title: 'header.explore.link6.title',
+      href: 'https://github.com/pushchain/push-chain-examples',
+      target: '_blank',
+    },
+  ],
 };

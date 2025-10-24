@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { Button, H2, Image } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
 import BlogPostItemHeaderInfo from '@theme/BlogPostItem/Header/Info';
-import { BsTwitter } from 'react-icons/bs';
+import { BsTwitterX } from 'react-icons/bs';
 
 // Internal Configs
-import GLOBALS, { device } from '@site/src/config/globals';
+import { device } from '@site/src/config/globals';
 
 const MorePosts = ({ allPosts, post }) => {
   const { t } = useTranslation();
@@ -64,10 +64,10 @@ const MorePosts = ({ allPosts, post }) => {
 
         <MoreButton
           title='Developer Docs'
-          background='#D53A94'
+          background='var(--ifm-color-custom-pink)'
           radius='12px'
           padding='14px 20px'
-          size='16px'
+          size='1rem'
           weight='500'
           spacing='-0.03em'
           lineHeight='26px'
@@ -79,21 +79,20 @@ const MorePosts = ({ allPosts, post }) => {
             window.open(`https://x.com/PushChain`, '_blank');
           }}
         >
-          <BsTwitter
+          <BsTwitterX
             size={23}
             color='var(--ifm-color-white)'
             style={{ marginRight: '10px' }}
           />
-          {t('components.blog.more-posts.follow-button')}
+          {t('components.blog.more-posts.follow-button')} @PushChain
         </MoreButton>
-        {/* </Anchor> */}
       </MoreRow>
 
       <GridItem marginTop={false}>
         {filteredArray?.slice(0, 4).map((item) => (
           <>
             {item !== null && (
-              <div>
+              <GridItemPost>
                 <Image src={item?.Preview?.assets?.image} />
 
                 <TextView>
@@ -109,7 +108,7 @@ const MorePosts = ({ allPosts, post }) => {
                 >
                   {t('components.blog.more-posts.read-more')}
                 </Link>
-              </div>
+              </GridItemPost>
             )}
           </>
         ))}
@@ -147,9 +146,8 @@ const MoreButton = styled(Button)`
 `;
 
 const GridItem = styled.div`
-  width: 800px !important;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 33px;
   box-sizing: border-box;
   margin: ${(props) =>
@@ -157,9 +155,7 @@ const GridItem = styled.div`
 
   @media (max-width: 820px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
-    margin: 10px auto 0 auto;
     gap: 30px;
   }
 
@@ -167,6 +163,8 @@ const GridItem = styled.div`
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
+
+const GridItemPost = styled.div``;
 
 const TextView = styled.div`
   margin-top: 20px;
@@ -177,7 +175,9 @@ const TextView = styled.div`
 
 const TextSpan = styled.div`
   color: var(--ifm-color-secondary-blog);
-  font-family: Inter, sans-serif;
+  font-family:
+    DM Sans,
+    sans-serif;
   font-size: 19px;
   font-style: normal;
   font-weight: 300;
@@ -198,7 +198,9 @@ const LinkText = styled.div`
 
   color: var(--ifm-color-primary-blog) !important;
 
-  font-family: Inter, sans-serif;
+  font-family:
+    DM Sans,
+    sans-serif;
   font-size: 22px;
   font-style: normal;
   font-weight: 700;

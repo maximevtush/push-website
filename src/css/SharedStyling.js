@@ -136,6 +136,35 @@ export const Content = styled.div`
       props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.DESKTOP};
   }
 
+  &.skeletonextrasmall {
+    margin: ${(props) =>
+      props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.DESKTOP};
+  }
+
+  &.blog {
+    max-width: ${(props) =>
+      props.maxWidth ||
+      `${GLOBALS.NAVBAR.BLOG.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
+
+    overflow: visible;
+  }
+
+  &.docs {
+    max-width: ${(props) =>
+      props.maxWidth ||
+      `${GLOBALS.NAVBAR.DOCS.MAX_WIDTH + structure.PADDING.DESKTOP.LEFT + structure.PADDING.DESKTOP.RIGHT}px`};
+    overflow: visible;
+
+    .row {
+      margin: unset;
+    }
+
+    &.clip {
+      overflow: clip;
+      width: 100%;
+    }
+  }
+
   @media ${device.laptop} {
     max-width: ${(props) =>
       props.maxWidth ||
@@ -155,6 +184,11 @@ export const Content = styled.div`
     &.skeletonsmall {
       margin: ${(props) =>
         props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.TABLET};
+    }
+
+    &.skeletonextrasmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.TABLET};
     }
   }
 
@@ -178,17 +212,23 @@ export const Content = styled.div`
       margin: ${(props) =>
         props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_SMALL.MOBILE};
     }
+
+    &.skeletonextrasmall {
+      margin: ${(props) =>
+        props.margin || GLOBALS.STRUCTURE.MARGIN.SKELETON_XSMALL.MOBILE};
+    }
   }
 `;
 
 export const MultiContent = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.flexDirection || 'column'};
+  gap: ${(props) => props.gap || 'unset'};
   position: ${(props) => props.position || 'relative'};
 
   flex: ${(props) => props.flex || '1'};
   align-self: ${(props) => props.alignSelf || 'stretch'};
-  width: inherit;
+  width: ${(props) => props.width || 'inherit'};
   max-width: inherit;
 
   justify-content: ${(props) => props.justifyContent || 'center'};
@@ -404,7 +444,7 @@ export const Span = styled.span`
   font-weight: ${(props) => props.fontWeight || 400};
   font-size: ${(props) =>
     props.fontSize || GLOBALS.ADJUSTMENTS.FONT.NORMAL_TEXT.DESKTOP};
-  font-family: ${(props) => props.fontFamily || 'DM Sans, sans-serif'};
+  font-family: ${(props) => props.fontFamily || 'DM Sans'};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '0px'};
   padding: ${(props) => props.padding || '0px'};
@@ -451,6 +491,10 @@ export const Button = styled.button`
   text-decoration: ${(props) => props.textDecoration || 'none'};
   width: ${(props) => props.width || 'initial'};
   overflow: ${(props) => props.overflow || 'hidden'};
+  right: ${(props) => props.right || 'auto'};
+  left: ${(props) => props.left || 'auto'};
+  bottom: ${(props) => props.bottom || 'auto'};
+  top: ${(props) => props.top || 'auto'};
   z-index: ${(props) => props.zIndex || '3'};
   pointer: ${(props) => props.pointer || 'hand'};
   cursor: ${(props) => props.cursor || 'pointer'};
@@ -617,7 +661,8 @@ export const P = styled.p`
   color: ${(props) => props.color || 'inherit)'};
   background: ${(props) => props.background || 'transparent'};
   font-weight: ${(props) => props.fontWeight || 300};
-  font-size: ${(props) => props.fontSize || 'inherit'};
+  font-size: ${(props) =>
+    props.fontSize || GLOBALS.ADJUSTMENTS.FONT.NORMAL_TEXT.DESKTOP};
   text-transform: ${(props) => props.textTransform || 'inherit'};
   margin: ${(props) => props.margin || '20px 0px'};
   padding: ${(props) => props.padding || '0px'};
@@ -797,7 +842,7 @@ export const ModalContainer = styled(ItemH)`
 `;
 
 export const ModalInner = styled(Button)`
-  border: 1px solid #d9d9d9;
+  border: var(--ifm-playground-button-border);
   border-radius: 16px;
   padding: 12px 16px;
   background: transparent;
@@ -873,6 +918,7 @@ export const ModalWrapper = styled(ItemH)`
   gap: 5px;
   align-items: center;
   justify-content: center;
+  color: var(--ifm-color-primary-text);
 `;
 
 export const ImageText = styled.div`
@@ -943,4 +989,19 @@ export const FeatureImage = styled.img`
   width: 100%;
   height: auto;
   border-radius: 8px;
+`;
+
+export const CopyContainer = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+`;
+
+export const CopyButton = styled.div`
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  height: 20px;
+  width: 16px;
+  margin-right: 4px;
 `;

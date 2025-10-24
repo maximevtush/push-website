@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
 // React and other libraries
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -127,7 +128,7 @@ const NotificationItem: FC<NotificationProps> = ({
           <Image
             src={
               require(
-                `@site/static/assets/website/notifications/testnet-donut.webp`
+                `@site/static/assets/website/notifications/testnet-donut-img.png`
               ).default
             }
             srcSet={`${require(`@site/static/assets/website/notifications/testnet-donut@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-donut@3x.webp`).default} 3x`}
@@ -168,7 +169,8 @@ const NotificationContainer = styled.div`
   width: 320px;
   cursor: pointer;
   box-sizing: border-box;
-  font-family: 'DM Sans', sans-serif;
+  font-family: DM Sans !important;
+
   overflow: hidden;
 
   @media ${device.tablet} {
@@ -176,7 +178,7 @@ const NotificationContainer = styled.div`
   }
 
   img {
-    width: 230px;
+    width: 209px;
     height: 132px;
     margin: 0 auto;
   }
@@ -204,7 +206,7 @@ const TextContainer = styled.div`
 const NotificationTitle = styled.span`
   color: var(--ifm-color-white);
   text-align: center;
-  font-family: 'DM Sans', sans-serif;
+  font-family: DM Sans !important;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
@@ -216,7 +218,7 @@ const NotificationTitle = styled.span`
 const NotificationDescription = styled.span`
   color: var(--ifm-color-white);
   text-align: center;
-  font-family: 'DM Sans', sans-serif;
+  font-family: DM Sans !important;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

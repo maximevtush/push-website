@@ -6,6 +6,7 @@ import React, { useContext } from 'react';
 // External Components
 import i18nInitialize from '@site/src/utils/i18n';
 import styled from 'styled-components';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Internal Components
 import { AccountProvider } from '@site/src/context/accountContext';
@@ -16,7 +17,6 @@ import AccountContext from '../context/accountContext';
 import { useChainNotification } from '../hooks/useChainNotification';
 import { Notification } from '../hooks/useRewardsNotification';
 import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // Initialize Internalization
 i18nInitialize();

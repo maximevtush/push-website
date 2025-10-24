@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useBlogPost } from '@docusaurus/theme-common/internal';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 import styled from 'styled-components';
 
 // Internal Configs
@@ -36,7 +36,7 @@ const LinkText = styled.h1`
 
   color: var(--ifm-color-primary-blog) !important;
 
-  font-family: Inter;
+  font-family: DM Sans;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 700;
@@ -50,7 +50,7 @@ const LinkText = styled.h1`
 const PostTitle = styled.h1`
   color: var(--ifm-color-primary-blog) !important;
 
-  font-family: Inter;
+  font-family: DM Sans;
   font-size: 2.625rem;
   font-style: normal;
   font-weight: 700;

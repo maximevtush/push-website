@@ -1,17 +1,14 @@
-// /* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-//
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Webpack configuration
 module.exports = function () {
   return {
     name: 'custom-docusaurus-plugin',
-    configureWebpack(config, isServer, utils) {
+    configureWebpack(config, isServer) {
       return {
         resolve: {
-          alias: {},
           fallback: {
             assert: require.resolve('assert'),
             http: require.resolve('stream-http'),
@@ -25,26 +22,32 @@ module.exports = function () {
             File: isServer ? false : require.resolve('form-data'),
             bufferutil: false, // Fallback for WebSocket
             'utf-8-validate': false, // Fallback for WebSocket
-            'pino-pretty': false, // Fallback for pino
+            'pino-pretty': false, //
+            process: require.resolve('process/browser.js'),
           },
         },
-        module: {
-          rules: [
-            {
-              test: /\.m?js/,
-              resolve: {
-                fullySpecified: false,
+        plugins: [
+          new webpack.ProvidePlugin({
+            process: 'process/browser.js',
+          }),
+        ],
+        optimization: {
+          minimize: false,
+          minimizer: [
+            new TerserPlugin({
+              parallel: false,
+              terserOptions: {
+                format: {
+                  comments: false,
+                },
               },
-            },
+              extractComments: false,
+            }),
+            new CssMinimizerPlugin({
+              parallel: false,
+            }),
           ],
         },
-        plugins: isServer
-          ? [
-              new webpack.ProvidePlugin({
-                File: ['form-data', 'FormData'],
-              }),
-            ]
-          : [],
       };
     },
   };

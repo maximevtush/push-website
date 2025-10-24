@@ -29,16 +29,9 @@ export default function NotFoundContent({ className }: Props): ReactElement {
       )
     : location.pathname;
 
-  const oldDocsUrls = [
-    '/docs/chat',
-    '/docs/notifications',
-    '/docs/dao',
-    '/docs/hackers',
-    '/docs/rewards',
-    '/docs/roadmap',
-    '/docs/tokenomics',
-    '/docs/video',
-  ];
+  // no old docs redirection now
+  const oldDocsUrls = [];
+
   // Determine if the pathname starts with any of the oldDocsUrls
   const isOldDocsPage = oldDocsUrls.some((url) =>
     location?.pathname.startsWith(baseURL + url)

@@ -52,10 +52,12 @@ const KnowledgeComp = () => {
         <SpanHighlighted>
           {t('pages.knowledge.hero-section.description.highlighted')}
         </SpanHighlighted>
-        <p />
+        <br />
+        <br />
         <b>{t('pages.knowledge.hero-section.description.developers')}</b>{' '}
         {t('pages.knowledge.hero-section.description.developers-text')}
-        <p />
+        <br />
+        <br />
         <b>{t('pages.knowledge.hero-section.description.users')}</b>{' '}
         {t('pages.knowledge.hero-section.description.users-text')}
       </>

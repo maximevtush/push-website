@@ -121,7 +121,6 @@ const ListItem = styled.div`
 
   @media (max-width: 1200px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
     margin: 10px auto 0 auto;
   }
@@ -129,7 +128,9 @@ const ListItem = styled.div`
 
 const ListSpan = styled(Span)`
   color: var(--ifm-color-primary-blog);
-  font-family: Inter;
+  font-family:
+    DM Sans,
+    sans-serif;
   font-size: 37px;
   font-style: normal;
   font-weight: 700;

@@ -12,8 +12,7 @@ import {
 import {
   BlogPostProvider,
   useBlogPost,
-} from '@docusaurus/theme-common/internal';
-import GLOBALS from '@site/src/config/globals';
+} from '@docusaurus/plugin-content-blog/client';
 import BlogLayout from '@theme/BlogLayout';
 import BlogPostItem from '@theme/BlogPostItem';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';
@@ -22,6 +21,7 @@ import clsx from 'clsx';
 import styled from 'styled-components';
 import FooterItem from './FooterItem';
 import MorePosts from './MorePosts';
+import { MultiContent } from '@site/src/css/SharedStyling';
 
 function BlogPostPageContent({ allPosts, post, children }) {
   const { metadata, toc } = useBlogPost();
@@ -34,23 +34,23 @@ function BlogPostPageContent({ allPosts, post, children }) {
   } = frontMatter;
 
   return (
-    <BlogLayout
-      toc={
-        !hideTableOfContents && toc.length > 0 ? (
-          <TOC
-            toc={toc}
-            minHeadingLevel={tocMinHeadingLevel}
-            maxHeadingLevel={tocMaxHeadingLevel}
-          />
-        ) : undefined
-      }
-    >
-      <BlogItem>
+    <BlogLayout>
+      <MultiContent flexDirection='row' gap='clamp(64px, 8vw, 128px)'>
         <BlogPostItem>{children}</BlogPostItem>
-
+        <TOCWrapper className=''>
+          {!hideTableOfContents && toc.length > 0 ? (
+            <TOC
+              toc={toc}
+              minHeadingLevel={tocMinHeadingLevel}
+              maxHeadingLevel={tocMaxHeadingLevel}
+            />
+          ) : undefined}
+        </TOCWrapper>
+      </MultiContent>
+      <StyledMultiContent>
         <FooterItem post={post} />
         <MorePosts allPosts={allPosts} post={post} />
-      </BlogItem>
+      </StyledMultiContent>
     </BlogLayout>
   );
 }
@@ -98,49 +98,18 @@ export default function BlogPostPage(props) {
   );
 }
 
-const BlogItem = styled.div`
-  width: 100% !important;
-  margin: 0 auto;
-
-  & article .markdown {
-    * {
-      font-size: 1.15rem;
-    }
-
-    h1 {
-      font-size: 2.65rem;
-      font-weight: 700;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    h4 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    h5 {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    h6 {
-      font-size: 1rem;
-      font-weight: 700;
-    }
+const StyledMultiContent = styled(MultiContent)`
+  @media (min-width: 1200px) {
+    width: 75%;
   }
+`;
 
-  @media (max-width: 820px) {
-    width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
-    box-sizing: border-box;
+const TOCWrapper = styled.div`
+  display: none;
+
+  @media (min-width: 1200px) {
+    max-width: 250px;
+    display: block;
+    margin-top: 100px;
   }
 `;

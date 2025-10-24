@@ -1,8 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer').themes.dracula;
-const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+const { lightCodeTheme, darkCodeTheme } = require('./src/theme/codeTheme');
 const fs = require('fs');
 const path = require('path');
 
@@ -34,13 +33,13 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: process.env.GITHUB_ACTIONS
-    ? `${process.env.REACT_APP_BASE_URL}`
+    ? `/push-chain-website/pr-preview/${process.env.REACT_APP_PREVIEW_BASE}`
     : '/',
   trailingSlash: true,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'push-protocol', // Usually your GitHub org/user name.
+  organizationName: 'push-chain', // Usually your GitHub org/user name.
   projectName: 'push-chain-website', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
@@ -117,10 +116,6 @@ const config = {
             to: 'https://comms.push.org/bootcamp',
           },
           {
-            from: '/chain',
-            to: '/',
-          },
-          {
             from: '/chain/knowledge',
             to: '/knowledge',
           },
@@ -154,8 +149,7 @@ const config = {
           sidebarCollapsed: false,
           // Please change this to your repo.
           // Remove this to remove the 'edit this page' links.
-          editUrl:
-            'https://github.com/push-protocol/push-chain-website/blob/main',
+          editUrl: 'https://github.com/pushchain/push-chain-website/blob/main',
         },
         blog: false,
         theme: {
@@ -185,7 +179,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet',
       },
     },
     {
@@ -229,14 +223,12 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       // image: "/assets/docs/social-card.jpg",
       themeconfig: {
         sidebarCollapsible: true,
       },
       navbar: {
         hideOnScroll: true,
-        // title: 'Title with Logo',
         logo: {
           alt: 'Push Logo',
           src: '/assets/website/docshub/PushLogoBlack@3x.png',
@@ -253,11 +245,6 @@ const config = {
             to: '/docs',
             position: 'left',
             label: 'Docs',
-          },
-          {
-            to: '/blog',
-            label: 'Blog',
-            position: 'right',
           },
           {
             to: 'https://discord.com/invite/pushchain',
@@ -277,9 +264,7 @@ const config = {
         additionalLanguages: ['solidity'],
       },
       algolia: {
-        // The application ID provided by Algolia
         appId: 'LHUKHXUHQP',
-
         // Public API key: it is safe to commit it
         apiKey: 'f41c253713d3cee20253bd3bfb166cac',
 

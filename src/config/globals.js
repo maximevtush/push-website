@@ -66,6 +66,26 @@ export const structure = {
         RIGHT: 0,
       },
     },
+    SKELETON_XSMALL: {
+      DESKTOP: {
+        TOP: -92,
+        LEFT: 0,
+        BOTTOM: 0,
+        RIGHT: 0,
+      },
+      TABLET: {
+        TOP: -92,
+        LEFT: 0,
+        BOTTOM: 0,
+        RIGHT: 0,
+      },
+      MOBILE: {
+        TOP: -92,
+        LEFT: 0,
+        BOTTOM: 0,
+        RIGHT: 0,
+      },
+    },
     MULTI_CONTENT_DEFAULT: {
       DESKTOP: {
         TOP: 32,
@@ -185,6 +205,15 @@ const GLOBALS = {
     },
   },
 
+  NAVBAR: {
+    BLOG: {
+      MAX_WIDTH: 1600,
+    },
+    DOCS: {
+      MAX_WIDTH: 1600,
+    },
+  },
+
   STRUCTURE: {
     MAX_WIDTH: size.laptopM,
     PADDING: {
@@ -209,6 +238,11 @@ const GLOBALS = {
         DESKTOP: `${structure.MARGIN.SKELETON_SMALL.DESKTOP.TOP}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.DESKTOP.LEFT}px`,
         TABLET: `${structure.MARGIN.SKELETON_SMALL.TABLET.TOP}px ${structure.MARGIN.SKELETON_SMALL.TABLET.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.TABLET.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.TABLET.LEFT}px`,
         MOBILE: `${structure.MARGIN.SKELETON_SMALL.MOBILE.TOP}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.RIGHT}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.BOTTOM}px ${structure.MARGIN.SKELETON_SMALL.MOBILE.LEFT}px`,
+      },
+      SKELETON_XSMALL: {
+        DESKTOP: `${structure.MARGIN.SKELETON_XSMALL.DESKTOP.TOP}px ${structure.MARGIN.SKELETON_XSMALL.DESKTOP.RIGHT}px ${structure.MARGIN.SKELETON_XSMALL.DESKTOP.BOTTOM}px ${structure.MARGIN.SKELETON_XSMALL.DESKTOP.LEFT}px`,
+        TABLET: `${structure.MARGIN.SKELETON_XSMALL.TABLET.TOP}px ${structure.MARGIN.SKELETON_XSMALL.TABLET.RIGHT}px ${structure.MARGIN.SKELETON_XSMALL.TABLET.BOTTOM}px ${structure.MARGIN.SKELETON_XSMALL.TABLET.LEFT}px`,
+        MOBILE: `${structure.MARGIN.SKELETON_XSMALL.MOBILE.TOP}px ${structure.MARGIN.SKELETON_XSMALL.MOBILE.RIGHT}px ${structure.MARGIN.SKELETON_XSMALL.MOBILE.BOTTOM}px ${structure.MARGIN.SKELETON_XSMALL.MOBILE.LEFT}px`,
       },
       MULTI_CONTENT_DEFAULT: {
         DESKTOP: `${structure.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP.TOP}px 0px ${structure.MARGIN.MULTI_CONTENT_DEFAULT.DESKTOP.BOTTOM}px 0px`,

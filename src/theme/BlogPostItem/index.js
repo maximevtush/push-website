@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import clsx from 'clsx';
-import { useBlogPost } from '@docusaurus/theme-common/internal';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 import BlogPostItemContainer from '@theme/BlogPostItem/Container';
 import BlogPostItemHeader from '@theme/BlogPostItem/Header';
 import BlogPostItemContent from '@theme/BlogPostItem/Content';
@@ -51,6 +51,7 @@ export default function BlogPostItem({ children, className, list }) {
         {isBlogPostPage && <BlogPostItemHeader />}
 
         <BlogPostItemContent>{children}</BlogPostItemContent>
+
         {!isBlogPostPage && <BlogPostItemHeader />}
         {!isBlogPostPage && (
           <TextSpan>{children?.type?.frontMatter?.text}</TextSpan>
@@ -93,7 +94,9 @@ const TextView = styled.div`
 
 const TextSpan = styled.div`
   color: var(--ifm-color-secondary-blog);
-  font-family: Inter, sans-serif;
+  font-family:
+    DM Sans,
+    sans-serif;
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 300;
