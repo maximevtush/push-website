@@ -8,10 +8,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { blogPostContainerID } from '@docusaurus/utils-common';
 import { useBlogPost } from '@docusaurus/theme-common/internal';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import MDXContent from '@theme/MDXContent';
 import LikeAndRetweetItem from '../../BlogPostPage/LikeAndRetweetItem';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function BlogPostItemContent({ children, className }) {
   const { isBlogPostPage, metadata } = useBlogPost();
