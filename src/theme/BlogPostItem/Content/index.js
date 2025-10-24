@@ -11,7 +11,6 @@ import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
 
 import MDXContent from '@theme/MDXContent';
 import LikeAndRetweetItem from '../../BlogPostPage/LikeAndRetweetItem';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function BlogPostItemContent({ children, className }) {
   const { isBlogPostPage, metadata } = useBlogPost();
