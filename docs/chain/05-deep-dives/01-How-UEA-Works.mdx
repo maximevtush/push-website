@@ -28,8 +28,6 @@ In this deep dive, we’ll explore:
 
 ## What Is a Universal Executor Account (UEA)?
 
-A **Universal Executor Account** (UEA) is an *interoperable execution identity* that exists on Push Chain but can be *controlled from any origin chain* (like Ethereum, Solana, Polygon, etc.).
-
 A **Universal Executor Account** (UEA) is an *interoperable execution identity* that lives on Push Chain but can be *controlled from any origin chain* (such as Ethereum, Solana, Base, Polygon, etc.).
 
 
@@ -98,9 +96,9 @@ Not all cross-chain transactions require full routing through the Universal Gate
 The SDK dynamically detects whether the user’s UEA already holds sufficient fees for execution.
 
 If fees exist on the UEA:
-	•	The transaction bypasses both the Gateway and Validators.
-	•	It’s sent directly to the UEA for immediate execution.
-	•	This removes source-chain confirmation latency, giving users a near-instant experience after their first funded transaction.
+- The transaction bypasses both the Gateway and Validators.
+-	It’s sent directly to the UEA for immediate execution.
+-	This removes source-chain confirmation latency, giving users a near-instant experience after their first funded transaction.
 
 Subsequent transactions feel instant because the UEA can self-fund execution once fees are already available.
 
@@ -112,12 +110,6 @@ Subsequent transactions feel instant because the UEA can self-fund execution onc
 | Standard Mode | Default | Waits for multiple block confirmations (based on re-org probability) before relaying to Push Chain for execution. |
 
 
-## How is the identity preserved and linked?
-
-Each UEA is linked to a user's origin wallet address. This is done by using the origin wallet address as the seed for the UEA's deterministic address generation. Whenever the UEA is deployed (always gasless) for a new user, a mapping is created between the origin wallet address and the UEA address. This mapping is stored on the [UEAFactory contract](/docs/chain/build/contract-helpers/#ueafactory-interface) and is accesible on-chain or through the SDK.
-
-This mapping ensures that each UEA is linked to a user's origin wallet address and enables novel features such as chain tracking or enabling chain vs chain use cases. A great example of this is the [Ballsy App](https://ballsy.push.org) or the [Universal Counter Tutorial](/docs/chain/tutorials/basics/tutorial-universal-counter/#live-playground).
-
 ## How is the Identity Preserved and Linked?
 
 Each UEA is deterministically linked to the user’s origin wallet address.  
@@ -127,7 +119,7 @@ Whenever a new user performs their first transaction, a UEA is automatically dep
 - The origin wallet address, and  
 - The derived UEA address on Push Chain.
 
-This mapping is stored on the [UEAFactory contract](/docs/chain/build/contract-helpers/#ueafactory-interface) and can be queried either **on-chain** or through the SDK. This ensures every user’s identity remains consistent across chains — their UEA always maps back to the same origin wallet.
+This mapping is stored on the [UEAFactory contract](/docs/chain/build/contract-helpers/#ueafactory-interface) and can be queried either **on-chain** or through the SDK. This ensures every user’s identity remains consistent across chains, and their UEA always maps back to the same origin wallet.
 
 This deterministic linkage also enables advanced cross-chain use cases such as —
 - Tracking activity per chain or per identity,  
@@ -165,4 +157,4 @@ The UEA fundamentally redefines what a blockchain account can be:
 -	Capable of **multi-call atomic execution**.
 -	Compatible with **fee abstraction** and **sponsorship models**.
 
-Together, these properties make Push Chain the first blockchain where external users can **act natively** — not through bridges or wrapped assets, but through their own universal accounts. 
+Together, these properties make Push Chain the first blockchain where external users can **act natively**. Not through bridges or wrapped assets, but through their own universal accounts. 
