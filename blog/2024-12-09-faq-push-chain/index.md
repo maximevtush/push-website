@@ -60,7 +60,7 @@ This is an **extremely powerful approach** that allows users to interact with an
 
 ### Why is Push Chain unique for users?
 
-Push Chain addresses specific gaps in the existing blockchains, such as interoperability, state access across chains, programmable solvers and wallet abstraction resulting in a **full stack interop**. While existing blockchains are robust, they operate in their own eco-system and an aggregator to unite these chains are needed.
+Push Chain addresses specific gaps in the existing blockchains, such as broken interoperability, universal smart contracts, fee and wallet abstraction resulting in a **full stack interop**. While existing blockchains are robust, they operate in their own eco-system and an aggregator to unite these chains are needed.
 
 Push Chain’s focus is on being a **shared state chain** for universal (interoperable) applications acting as a unifying layer where all chains can come together and use PC as universal hub or do settlement between them.
 
@@ -88,9 +88,6 @@ Push Chain is a Proof-of-Stake Layer 1 designed to eliminate fragmentation acros
 
 - **Universal EVM**
   Push Chain is smart enough to natively recognize users of other chains and correctly attributes and maps the transactions to them.
-
-- **Shared State and Programmable Solvers**
-  (Roadmap) Enables smart contracts of Push Chain to read and write state to any other chain.
 
 Together, these features let you build **universal web3 apps**. Instead of “Uniswap on Ethereum” or “Uniswap on Polygon,” a user simply becomes **user of Uniswap**—period.
 
@@ -228,10 +225,10 @@ A traditional blockchain only knows its own ledger and wallet standard. Push Cha
 - Validators commit Merkle proofs of external chain state (via MPT roots) each block.
 - Relayers fetch and submit leaf proofs on demand, so contracts can read any chain’s data in real time.
 
-4. **Programmable Solvers**
+4. **Universal Validators**
 
-- A solver network executes atomic cross-chain workflows (e.g., swap on Chain A, mint on Chain B) under a single transaction.
-- Developers write simple solver scripts; the network handles routing and execution.
+- Universal Validators executes atomic cross-chain workflows (e.g., swap on Chain A, mint on Chain B) under a single transaction.
+- Developers write execution from their smart contracts on Push Chain. The network handles routing and execution.
 
 Together, these features turn Push Chain into a **shared-state L1** that enables universal apps to be native to all chains. A world where any user of any chain is able to access and interact with any app on any other chain.
 
