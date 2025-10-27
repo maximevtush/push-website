@@ -44,7 +44,6 @@ const config = {
   deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   // Internationalization configuration
   // Note: Using react-i18next for actual translations, Docusaurus i18n for base setup
@@ -62,6 +61,9 @@ const config = {
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   // Themes
