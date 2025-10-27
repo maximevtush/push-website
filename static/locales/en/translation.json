@@ -1072,7 +1072,7 @@
         },
         "qna6": {
           "question": "How fast is it and what do fees look like?",
-          "answer": "<1><2>Speed.</2> Designed for ~1–2s confirmations with fast UX feedback. Check live metrics on <3>🍩 Donut Testnet</3>.</1><1><2>Fee model.</2> You see the fee in the token you choose to pay; the network settles in $PC under the hood.</1><1><2>Typical costs.</2> Typical fees is less than <2>$0.001</2> per transaction. though, it varies by contract complexity, price of the token and network load. You get an exact quote before you sign.</1>",
+          "answer": "<1><2>Speed.</2> Designed for ~1s confirmations on Push Chain with determinitis finality and fast UX feedback. For universal transactions, It depends per chain but most modern blockchains should take ~2-3s confirmations or less. Check live metrics on <3>🍩 Donut Testnet</3>.</1><1><2>Fee model.</2> You see the fee in the token you choose to pay; the network settles in $PC under the hood.</1><1><2>Typical costs.</2> Typical fees is less than <2>$0.001</2> per transaction. though, it varies by contract complexity, price of the token and network load. You get an exact quote before you sign.</1>",
           "donut-testnet-title": "Check out stats of Push Chain Donut Testnet."
         }
       }
