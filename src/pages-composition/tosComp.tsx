@@ -81,29 +81,93 @@ const TosComp = () => {
                   margin='30px 0px 20px 0px'
                   justifyContent='flex-start'
                 >
-                  <P
-                    fontWeight='400'
-                    letterSpacing='0.2em'
-                    textTransform='uppercase'
-                    fontSize='1.2em'
-                  >
-                    1. ACCEPTANCE OF TERMS
-                  </P>
-                  <P margin='-10px 0px 0px'>
-                    <B>&quot;Push&rdquo;</B>, <B>&quot;we,&rdquo;</B>{' '}
-                    <B>&quot;us&rdquo;</B> or <B>&quot;our&rdquo;</B> provides
-                    an experimental open source protocol comprising a set of
-                    Ethereum based smart contracts (the{' '}
-                    <B>&quot;Push Protocol&rdquo;</B>) that enables any service
-                    / DApp or Ethereum based smart contract to create channels,
-                    whereby they may display, publish or distribute
-                    decentralized and incentivized notifications to subscribers
-                    to those channels (each with a unique wallet addresses).
-                    Each user/subscriber (unique wallet addresses) will be able
-                    to control what notifications they opt in to receive, or are
-                    rewarded for indirect opt in by channels. Users may interact
-                    with the Push Protocol directly via the smart contracts, or
-                    the dApp located at{' '}
+                  <P>
+                    These Terms and Conditions ("<B>Terms</B>") establish the
+                    agreement ("<B>Agreement</B>") between You (hereinafter
+                    referred to as <B>"You," "Your," or "User"</B>) and PUSH
+                    ("Push," "We," "Us," Or "Our"), governing Your access to and
+                    use of the Services for its Apps, Smart Contracts, Services
+                    or Platform as detailed in Section 4 (“<B>Services</B>”),
+                    provided through our Website https://push.org and its
+                    subdomains (including, but not limited to,{' '}
+                    <A
+                      href='https://wallet.push.org'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      wallet.push.org
+                    </A>
+                    ,{' '}
+                    <A
+                      href='https://portal.push.org'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      portal.push.org
+                    </A>
+                    ,{' '}
+                    <A
+                      href='https://faucet.push.org'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      faucet.push.org
+                    </A>
+                    ,{' '}
+                    <A
+                      href='https://push.network'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      push.network
+                    </A>
+                    ,{' '}
+                    <A
+                      href='https://donut.push.network'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      donut.push.network
+                    </A>
+                    ) (collectively, the "Website" or "Platform") and excluding{' '}
+                    <A
+                      href='https://comms.push.org'
+                      target='_blank'
+                      display=' inline'
+                      color='var(--ifm-color-pink-500)'
+                      background='transparent'
+                      padding='0px'
+                      letterSpacing='inherit'
+                      textTransform='initial'
+                    >
+                      comms.push.org
+                    </A>
+                    , and{' '}
                     <A
                       href='https://app.push.org'
                       target='_blank'
@@ -116,9 +180,57 @@ const TosComp = () => {
                     >
                       app.push.org
                     </A>{' '}
-                    or at{' '}
+                    . This Agreement constitutes a binding and enforceable legal
+                    contract between Push, its affiliates, and subsidiaries
+                    worldwide, and you, an end-user of the Platform. In relation
+                    to the Platform, you and PUSH are referred to separately as
+                    "Party" and collectively as "Parties."
+                  </P>
+
+                  <P textTransform='uppercase'>
+                    PLEASE READ THESE TERMS CAREFULLY BEFORE USING THE PLATFORM,
+                    APPS, SMART CONTRACTS, PARTICIPATING IN AIRDROP REWARDS
+                    THESE TERMS GOVERN YOUR USE OF THE WEBSITE, UNLESS WE HAVE
+                    EXECUTED A SEPARATE WRITTEN AGREEMENT WITH YOU FOR THAT
+                    PURPOSE. WE ARE ONLY WILLING TO MAKE THE WEBSITE AVAILABLE
+                    TO YOU IF YOU ACCEPT ALL OF THESE TERMS. BY USING THE
+                    WEBSITE, APPS, SMART CONTRACTS OR ANY PART OF THEM, YOU ARE
+                    CONFIRMING THAT YOU UNDERSTAND AND AGREE TO BE BOUND BY ALL
+                    OF THESE TERMS. IF YOU ARE ACCEPTING THESE TERMS ON BEHALF
+                    OF A COMPANY OR OTHER LEGAL ENTITY, YOU REPRESENT THAT YOU
+                    HAVE THE LEGAL AUTHORITY TO ACCEPT THESE TERMS ON THAT
+                    ENTITY’S BEHALF, IN WHICH CASE "YOU" WILL MEAN THAT ENTITY.
+                    IF YOU DO NOT HAVE SUCH AUTHORITY, OR IF YOU DO NOT ACCEPT
+                    ALL OF THESE TERMS, THEN WE ARE UNWILLING TO MAKE THE
+                    PLATFORM, AVAILABLE TO YOU. IF YOU DO NOT AGREE TO THESE
+                    TERMS, YOU MAY NOT ACCESS OR USE THE WEBSITE OR THE
+                    SERVICES, APPS, OR SMART CONTRACTS.
+                  </P>
+
+                  <P
+                    fontWeight='400'
+                    letterSpacing='0.1em'
+                    textTransform='uppercase'
+                    fontSize='1.2em'
+                  >
+                    1. INTERPRETATION
+                  </P>
+                  <P margin='0px 0px 0px 20px'>
+                    <B>1.1.</B> Modifications: We reserve the right to change or
+                    modify these Terms at any time and at our sole discretion.
+                    Any changes to or modifications of these Terms will be in
+                    effect as of the “Last Updated Date” referred to at the top
+                    of this page. You should review these Terms before using any
+                    services. Your continued access or participation in using
+                    the Services after the modifications will be deemed as your
+                    acceptance of the modified Terms.
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>1.2.</B> Comprehensive Agreement: These Terms, along with
+                    the Privacy Policy [
                     <A
-                      href='https://staging.push.org'
+                      href='https://push.org/privacy'
                       target='_blank'
                       display=' inline'
                       color='var(--ifm-color-pink-500)'
@@ -127,17 +239,181 @@ const TosComp = () => {
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      staging.push.org
-                    </A>{' '}
-                    or any other subdomains associated with <B>push.org</B>,
-                    including any mobile application or any similar frontend
-                    interface that can interact with blockchain smart contracts
-                    (the <B>&quot;App&rdquo;</B>). Channels and
-                    subscribers/users interact directly in a peer to peer manner
-                    via the Push Protocol (for example, transaction requests and
-                    notifications are sent directly from each channel to the
-                    subscriber), and Push is not, under any circumstances, a
-                    party or intermediary to that process.
+                      push.org/privacy
+                    </A>
+                    ] outlined on the Website, or its related Apps constitute
+                    the complete and exclusive Agreement between you and Push
+                    pertaining to Your use of the Platform.
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>1.3.</B> Headings: The headings and sub-headings in the
+                    Terms are for ease of reference only and are not to be taken
+                    into account in the construction or interpretation of any
+                    provision or provisions to which they refer.
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>1.4.</B> Extended meaning: Unless otherwise specified in
+                    these Terms, words importing the singular include the plural
+                    and vice versa and words importing gender include all
+                    genders. The word “include”, “includes” or “including” will
+                    be interpreted on an inclusive basis and be deemed to be
+                    followed by the words “without limitation”.
+                    <br />
+                    <br />
+                    The language in these Terms will be interpreted as to its
+                    fair meaning, and not strictly for or against any party.
+                  </P>
+
+                  <P
+                    fontWeight='400'
+                    letterSpacing='0.1em'
+                    textTransform='uppercase'
+                    fontSize='1.2em'
+                  >
+                    2. ABOUT THE PLATFORM
+                  </P>
+                  <P margin='0px 0px 0px 20px'>
+                    <B>2.1.</B> Push Chain is a universal Layer 1 blockchain
+                    built for all Web3 applications.It is designed to eliminate
+                    fragmentation across blockchains and unify L1s, L2s, and L3s
+                    for both developers and users.
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>2.2.</B> Push Chain supports transactions from any chain
+                    and implements cross-chain gas abstraction, allowing
+                    seamless interaction without friction. It also offers wallet
+                    abstraction for smooth onboarding—whether you're a seasoned
+                    Web3 user or coming from Web2.
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>2.3.</B> For developers, Push Chain introduces universal
+                    smart contracts, enabling interaction from users on any
+                    chain with apps deployed on Push. It supports shared
+                    state—allowing smart contracts to read data from other
+                    chains—and programmable solvers, enabling them to write to
+                    other chains. This creates a frictionless developer
+                    experience and an ideal environment for consumer and
+                    universal apps to thrive, accessible to users across the
+                    entire Web3 ecosystem.
+                  </P>
+
+                  <P
+                    fontWeight='400'
+                    letterSpacing='0.1em'
+                    textTransform='uppercase'
+                    fontSize='1.2em'
+                  >
+                    3. SERVICES
+                  </P>
+                  <P margin='0px 0px 0px 20px'>
+                    We provide a suite of blockchain-based services
+                    (collectively, the “Services”) designed to enable
+                    interoperability, asset management, and decentralized
+                    interaction across multiple blockchain networks. The
+                    Services currently include, but are not limited to, the
+                    following components:
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>3.1. Components</B>
+
+                    <P margin='10px 0px 0px 20px'>
+                      <B>3.1.1. Blockchain:</B> Push Chain is a universal
+                      blockchain network that enables users from other chains to
+                      interact with smart contracts deployed on the Push Chain.
+                      This interoperability facilitates cross-chain
+                      communication and decentralized application (DApp)
+                      functionality across multiple blockchain ecosystems.
+                    </P>
+
+                    <P margin='10px 0px 0px 20px'>
+                      <B>3.1.2. Wallet:</B> Push Chain provides an abstracted
+                      wallet interface that allows users to connect their
+                      existing digital wallets or access the Push Chain
+                      ecosystem through social login or other authentication
+                      methods. This enables seamless user interaction and
+                      transaction execution on Push Chain.
+                    </P>
+
+                    <P margin='10px 0px 0px 20px'>
+                      <B>3.1.3. Digital Assets:</B> Push Chain issues and
+                      supports a range of native and non-native digital assets
+                      (collectively, “Push Digital Assets”). These include: The
+                      native Push Chain cryptographic token (“<B>PC</B>”);
+                      Soulbound NFTs; Collectibles; Tokens and other
+                      blockchain-based assets. All Push Digital Assets are
+                      provided without warranty of any kind, express or implied.
+                    </P>
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>3.2. Push Digital Tokens: </B>
+                    The <B>PC token</B> is the native cryptographic token of the
+                    Push Chain. Push Chain (like other blockchain networks)
+                    requires the payment of transaction fees (“gas”) for the
+                    execution of transactions or smart contracts. Gas fees are
+                    typically paid in PCs by the sender or creator of a
+                    transaction. PCs may also be used to pay transaction fees on
+                    certain external blockchains that support Push
+                    interoperability. Push Digital Assets, including PCs and any
+                    other tokens, NFTs, or collectibles issued by us or our
+                    affiliates, are intended solely for use within the Push
+                    Chain ecosystem and for their stated functionality. They are
+                    not intended as investments or securities, and no guarantee
+                    or promise of future value, appreciation, or return is made.
+                    You acknowledge and understand that:
+                    <UList>
+                      <LI>
+                        The market value of Push Digital Assets may be highly
+                        volatile and could decrease, including to zero, at any
+                        time.
+                      </LI>
+
+                      <LI>
+                        The secondary market for Push Digital Assets may be
+                        illiquid, non-existent, or discontinued at any time.
+                      </LI>
+
+                      <LI>
+                        If the value of PCs reduces to zero, it may become
+                        impossible to use applications (“Apps”) on Push Chain
+                        for cross-chain transactions or messaging.
+                      </LI>
+
+                      <LI>
+                        Push Chain, its affiliates, and related entities shall
+                        have <B>no liability</B> whatsoever for any loss,
+                        depreciation, or devaluation of Push Digital Assets,
+                        including total loss of value.
+                      </LI>
+                    </UList>
+                  </P>
+
+                  <P margin='10px 0px 0px 20px'>
+                    <B>3.3.</B> You understand and agree that:
+                    <UList>
+                      <LI>
+                        Push Digital Assets are <B>not</B> intended to generate
+                        profit, interest, dividends, or any other form of
+                        return.
+                      </LI>
+
+                      <LI>
+                        Holding Push Digital Assets does <B>not</B> confer any
+                        governance, voting, ownership, or similar rights in Push
+                        Chain or any affiliated entities.
+                      </LI>
+
+                      <LI>
+                        Any published roadmap, whitepaper, or forward-looking
+                        statement does <B>not</B> constitute a commitment,
+                        warranty, or promise of future value or services.
+                      </LI>
+                    </UList>
                   </P>
 
                   <P margin='20px 0px 0px'>
@@ -1531,4 +1807,9 @@ const HeroContent = styled(Content)`
   }
 `;
 
+const UList = styled(UL)`
+  li {
+    list-style: disc;
+  }
+`;
 export default TosComp;
