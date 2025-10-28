@@ -50,17 +50,6 @@ const TosComp = () => {
               >
                 {t('pages.tos.hero-section.update-text')}
               </H3>
-              <P
-                testAlign='center'
-                size='1.3rem'
-                color='var(--ifm-color-white)'
-              >
-                <B color='var(--ifm-color-white)'>IMPORTANT NOTICE: </B>THIS
-                AGREEMENT IS SUBJECT TO BINDING ARBITRATION AND A WAIVER OF
-                CLASS ACTION RIGHTS AS DETAILED IN{' '}
-                <B color='var(--ifm-color-white)'>SCHEDULE B</B>. PLEASE READ
-                THE AGREEMENT CAREFULLY.
-              </P>
             </ItemV>
           </HeroContent>
         </HeroSection>
