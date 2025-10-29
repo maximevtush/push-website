@@ -195,12 +195,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    1. INTERPRETATION
+                    <B>1.</B> INTERPRETATION
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     <B>1.1.</B> Modifications: We reserve the right to change or
@@ -254,12 +254,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    2. ABOUT THE PLATFORM
+                    <B>2.</B> ABOUT THE PLATFORM
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     <B>2.1.</B> Push Chain is a universal Layer 1 blockchain
@@ -289,12 +289,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    3. SERVICES
+                    <B>3.</B> SERVICES
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     We provide a suite of blockchain-based services
@@ -404,12 +404,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    4. SECURITY MEASURES
+                    <B>4.</B> SECURITY MEASURES
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     <B>4.1.</B> A crucial security mechanism of the Push is the
@@ -446,12 +446,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    5. INTELLECTUAL PROPERTY RIGHTS
+                    <B>5.</B> INTELLECTUAL PROPERTY RIGHTS
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     <B>5.1.</B> All rights, titles, and interests in and to the
@@ -520,12 +520,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    6. CONFIDENTIAL INFORMATION
+                    <B>6.</B> CONFIDENTIAL INFORMATION
                   </P>
                   <P margin='0px 0px 0px 20px'>
                     <B>6.1.</B> Personal Information sharing Liability: You
@@ -574,12 +574,12 @@ const TosComp = () => {
 
                   <ItemV alignItems='flex-start'>
                     <P
-                      fontWeight='400'
+                      fontWeight='400 !important'
                       letterSpacing='0.1em'
                       textTransform='uppercase'
                       fontSize='1.2em'
                     >
-                      7. YOUR REPRESENTATIONS AND WARRANTIES
+                      <B>7.</B> YOUR REPRESENTATIONS AND WARRANTIES
                     </P>
                     <P margin='0px 0px 0px 20px'>
                       You hereby represent and warrant to us as follows:
@@ -644,12 +644,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    8. NO REPRESENTATIONS AND WARRANTIES
+                    <B>8.</B> NO REPRESENTATIONS AND WARRANTIES
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -730,12 +730,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    9. NO FIDUCIARY DUTIES
+                    <B>9.</B> NO FIDUCIARY DUTIES
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -771,12 +771,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    10. THIRD PARTY LINKS
+                    <B>10.</B> THIRD PARTY LINKS
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -805,12 +805,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    11. WARRANTIES AND DISCLAIMER
+                    <B>11.</B> WARRANTIES AND DISCLAIMER
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -839,12 +839,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    12. PROHIBITED ACTIVITIES
+                    <B>12.</B> PROHIBITED ACTIVITIES
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -870,12 +870,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    13. BREACH OF THESE TERMS
+                    <B>13.</B> BREACH OF THESE TERMS
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -906,12 +906,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    14. LIMITATION OF LIABILITY
+                    <B>14.</B> LIMITATION OF LIABILITY
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1019,12 +1019,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    15. INDEMNITY
+                    <B>15.</B> INDEMNITY
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1069,12 +1069,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    16. RESTRICTION AND SUSPENSION
+                    <B>16.</B> RESTRICTION AND SUSPENSION
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1173,12 +1173,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    17. RESTRICTED JURISDICTION
+                    <B>17.</B> RESTRICTED JURISDICTION
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1198,12 +1198,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    18. GOVERNING LAW AND DISPUTE RESOLUTION
+                    <B>18.</B> GOVERNING LAW AND DISPUTE RESOLUTION
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1226,12 +1226,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    19. GRIEVANCE REDRESSAL MECHANISMS
+                    <B>19.</B> GRIEVANCE REDRESSAL MECHANISMS
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1328,12 +1328,12 @@ const TosComp = () => {
                   </P>
 
                   <P
-                    fontWeight='400'
+                    fontWeight='400 !important'
                     letterSpacing='0.1em'
                     textTransform='uppercase'
                     fontSize='1.2em'
                   >
-                    20. MISCELLANEOUS
+                    <B>20.</B> MISCELLANEOUS
                   </P>
 
                   <P margin='10px 0px 0px 20px'>
@@ -1460,6 +1460,12 @@ const HeroContent = styled(Content)`
 const BodyContent = styled(Content)`
   padding-top: 0px;
   padding-bottom: 30px;
+
+  /* Default typography for body content without explicit font weights */
+  & :where(p, li, a) {
+    font-weight: 200;
+    line-height: 170%;
+  }
 `;
 
 const UList = styled(UL)`
