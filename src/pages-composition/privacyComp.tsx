@@ -23,15 +23,6 @@ import {
   Span,
 } from '@site/src/css/SharedStyling';
 
-// Internal Configs
-
-// Interfaces and Props
-
-// Helper Functions
-
-// Helper Component
-
-// Main
 const PrivacyComp = () => {
   // Internationalization
   const { t } = useTranslation();
@@ -40,7 +31,7 @@ const PrivacyComp = () => {
     <>
       {/* Hero Section */}
       <Section>
-        <Content className='skeletonsmall'>
+        <BodyContent className='skeletonsmall'>
           <MultiContent>
             <H1>{t('pages.privacy.hero-section.title')}</H1>
             <Span>{t('pages.privacy.hero-section.description')}</Span>
@@ -864,7 +855,7 @@ const PrivacyComp = () => {
               </Span>
             </ItemV>
           </MultiContent>
-        </Content>
+        </BodyContent>
       </Section>
     </>
   );
@@ -873,6 +864,19 @@ const PrivacyComp = () => {
 const ListGroup = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const BodyContent = styled(Content)`
+  & :where(p, li, a, span) {
+    font-weight: 200;
+    line-height: 170%;
+  }
+
+  & :where(p, li, a, span) :where(b, strong),
+  & :where(p, li, a, span) ${B} {
+    font-weight: 700;
+    line-height: 170%;
+  }
 `;
 
 export default PrivacyComp;

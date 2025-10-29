@@ -215,7 +215,7 @@ const TosComp = () => {
 
                   <P margin='10px 0px 0px 20px'>
                     <B>1.2.</B> Comprehensive Agreement: These Terms, along with
-                    the Privacy Policy
+                    the{' '}
                     <A
                       href='https://push.org/privacy'
                       target='_blank'
@@ -226,7 +226,7 @@ const TosComp = () => {
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      push.org/privacy
+                      Privacy Policy
                     </A>
                     outlined on the Website, or its related Apps constitute the
                     complete and exclusive Agreement between you and Push
@@ -1461,9 +1461,15 @@ const BodyContent = styled(Content)`
   padding-top: 0px;
   padding-bottom: 30px;
 
-  /* Default typography for body content without explicit font weights */
   & :where(p, li, a) {
     font-weight: 200;
+    line-height: 170%;
+  }
+
+  /* Preserve bold text inside body content */
+  & :where(p, li, a) :where(b, strong),
+  & :where(p, li, a) ${B} {
+    font-weight: 700;
     line-height: 170%;
   }
 `;
