@@ -85,7 +85,7 @@ const PrivacyComp = () => {
                   letterSpacing='inherit'
                   textTransform='initial'
                 >
-                  wallet.push.org
+                  https://wallet.push.org
                 </A>
                 ,{' '}
                 <A
@@ -98,7 +98,7 @@ const PrivacyComp = () => {
                   letterSpacing='inherit'
                   textTransform='initial'
                 >
-                  portal.push.org
+                  https://portal.push.org
                 </A>
                 , or other subdomains of push (the <B>Website</B> or{' '}
                 <B>Platform</B>) and, why and how your personal data may be

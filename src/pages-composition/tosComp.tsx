@@ -55,7 +55,7 @@ const TosComp = () => {
         </HeroSection>
 
         <Section curve='bottom' data-bkg='light'>
-          <Content className='contentBox'>
+          <BodyContent className='contentBox'>
             <MultiContent>
               <ItemH
                 alignSelf='stretch'
@@ -81,91 +81,91 @@ const TosComp = () => {
                       href='https://wallet.push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      wallet.push.org
+                      https://wallet.push.org
                     </A>
                     ,{' '}
                     <A
                       href='https://portal.push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      portal.push.org
+                      https://portal.push.org
                     </A>
                     ,{' '}
                     <A
                       href='https://faucet.push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      faucet.push.org
+                      https://faucet.push.org
                     </A>
                     ,{' '}
                     <A
                       href='https://push.network'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      push.network
+                      https://push.network
                     </A>
                     ,{' '}
                     <A
                       href='https://donut.push.network'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      donut.push.network
+                      https://donut.push.network
                     </A>
                     ) (collectively, the "Website" or "Platform") and excluding{' '}
                     <A
                       href='https://comms.push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      comms.push.org
+                      https://comms.push.org
                     </A>
                     , and{' '}
                     <A
                       href='https://app.push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
                       textTransform='initial'
                     >
-                      app.push.org
+                      https://app.push.org
                     </A>{' '}
                     . This Agreement constitutes a binding and enforceable legal
                     contract between Push, its affiliates, and subsidiaries
@@ -215,12 +215,12 @@ const TosComp = () => {
 
                   <P margin='10px 0px 0px 20px'>
                     <B>1.2.</B> Comprehensive Agreement: These Terms, along with
-                    the Privacy Policy [
+                    the Privacy Policy
                     <A
                       href='https://push.org/privacy'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
@@ -228,8 +228,8 @@ const TosComp = () => {
                     >
                       push.org/privacy
                     </A>
-                    ] outlined on the Website, or its related Apps constitute
-                    the complete and exclusive Agreement between you and Push
+                    outlined on the Website, or its related Apps constitute the
+                    complete and exclusive Agreement between you and Push
                     pertaining to Your use of the Platform.
                   </P>
 
@@ -1253,7 +1253,7 @@ const TosComp = () => {
                           href='https://support@push.org'
                           target='_blank'
                           display=' inline'
-                          color='var(--ifm-color-pink-500)'
+                          color='var(--ifm-link-color)'
                           background='transparent'
                           padding='0px'
                           letterSpacing='inherit'
@@ -1312,12 +1312,12 @@ const TosComp = () => {
 
                   <P margin='10px 0px 0px 20px'>
                     <B>19.4.</B> For any further assistance or clarification,
-                    You may contact Our Grievance Redressal Officer at {''}[
+                    You may contact Our Grievance Redressal Officer at {''}
                     <A
                       href='https://support@push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
@@ -1325,7 +1325,6 @@ const TosComp = () => {
                     >
                       support@push.org
                     </A>
-                    ]
                   </P>
 
                   <P
@@ -1419,7 +1418,7 @@ const TosComp = () => {
                       href='https://support@push.org'
                       target='_blank'
                       display=' inline'
-                      color='var(--ifm-color-pink-500)'
+                      color='var(--ifm-link-color)'
                       background='transparent'
                       padding='0px'
                       letterSpacing='inherit'
@@ -1427,12 +1426,11 @@ const TosComp = () => {
                     >
                       support@push.org
                     </A>
-                    ]
                   </P>
                 </ItemH>
               </ItemH>
             </MultiContent>
-          </Content>
+          </BodyContent>
         </Section>
       </Section>
     </>
@@ -1445,18 +1443,23 @@ const HeroSection = styled(Section)`
 
 const HeroContent = styled(Content)`
   align-self: stretch;
-  padding-top: 250px;
-  padding-bottom: 40px;
+  padding-top: 150px;
+  padding-bottom: 20px;
 
   @media ${device.laptop} {
-    padding-top: 200px;
-    padding-bottom: 40px;
+    padding-top: 100px;
+    padding-bottom: 20px;
   }
 
   @media ${device.mobileL} {
-    padding-top: 112px;
-    padding-bottom: 40px;
+    padding-top: 72px;
+    padding-bottom: 20px;
   }
+`;
+
+const BodyContent = styled(Content)`
+  padding-top: 0px;
+  padding-bottom: 30px;
 `;
 
 const UList = styled(UL)`
