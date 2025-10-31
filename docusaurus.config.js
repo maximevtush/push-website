@@ -1,13 +1,29 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer').themes.dracula;
-const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+const { lightCodeTheme, darkCodeTheme } = require('./src/theme/codeTheme');
+const fs = require('fs');
+const path = require('path');
+
+// Determine blog directory based on mode
+const getBlogPath = () => {
+  const blogMode = process.env.BLOG_MODE || 'full';
+  const blogLitePath = path.join(__dirname, 'blog-lite');
+
+  if (blogMode === 'lite' && fs.existsSync(blogLitePath)) {
+    console.log('🚀 Using blog-lite directory for faster development');
+    return './blog-lite';
+  }
+
+  console.log('📚 Using full blog directory');
+  return './blog';
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Push | The Communication Protocol of Web3',
-  tagline: 'One place to learn about everything Push Protocol!',
+  title: 'Push Chain — Universal Blockchain for Apps',
+  tagline:
+    'Shared-state blockchain for universal apps. Deploy once; reach users on any chain. Use any wallet. Pay with any token. No network switching.',
   favicon: '/assets/website/favicon.ico',
 
   // Set the production url of your site here
@@ -17,29 +33,37 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: process.env.GITHUB_ACTIONS
-    ? `/push-website/pr-preview/${process.env.REACT_APP_PREVIEW_BASE}`
+    ? `/push-chain-website/pr-preview/${process.env.REACT_APP_PREVIEW_BASE}`
     : '/',
   trailingSlash: true,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'push-protocol', // Usually your GitHub org/user name.
-  projectName: 'push-website', // Usually your repo name.
+  organizationName: 'push-chain', // Usually your GitHub org/user name.
+  projectName: 'push-chain-website', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace 'en' with 'zh-Hans'.
+  // Internationalization configuration
+  // Note: Using react-i18next for actual translations, Docusaurus i18n for base setup
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+    },
   },
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   // Themes
@@ -54,7 +78,7 @@ const config = {
       './plugins/blog-plugin',
       {
         id: 'blog',
-        path: './blog',
+        path: getBlogPath(),
         routeBasePath: 'blog',
         blogSidebarTitle: 'All posts',
         blogSidebarCount: 'ALL',
@@ -67,7 +91,7 @@ const config = {
             const { blogPosts, defaultCreateFeedItems, ...rest } = params;
             return defaultCreateFeedItems({
               // keep only the 10 most recent blog posts in the feed
-              blogPosts: blogPosts.filter((item, index) => index < 10),
+              blogPosts: blogPosts.filter((item, index) => index < 30),
               ...rest,
             });
           },
@@ -75,7 +99,6 @@ const config = {
       },
     ],
     require.resolve('./plugins/custom-webpack-plugin'),
-    require.resolve('./plugins/myPlugin'),
     [
       '@docusaurus/plugin-client-redirects',
       {
@@ -85,6 +108,22 @@ const config = {
           {
             from: '/docs/chat/build/get-started/',
             to: 'https://comms.push.org/docs',
+          },
+          {
+            from: '/cheatsheet',
+            to: 'https://comms.push.org/cheatsheet',
+          },
+          {
+            from: '/bootcamp',
+            to: 'https://comms.push.org/bootcamp',
+          },
+          {
+            from: '/chain/knowledge',
+            to: '/knowledge',
+          },
+          {
+            from: '/frens',
+            to: 'https://comms.push.org/frens',
           },
         ],
         createRedirects(existingPath) {
@@ -112,7 +151,7 @@ const config = {
           sidebarCollapsed: false,
           // Please change this to your repo.
           // Remove this to remove the 'edit this page' links.
-          editUrl: 'https://github.com/push-protocol/push-website/blob/main',
+          editUrl: 'https://github.com/pushchain/push-chain-website/blob/main',
         },
         blog: false,
         theme: {
@@ -123,6 +162,51 @@ const config = {
   ],
 
   headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1, viewport-fit=cover',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+      },
+      innerHTML: `
+        (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:6483480,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      `,
+    },
     {
       tagName: 'script',
       attributes: {
@@ -148,18 +232,16 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       // image: "/assets/docs/social-card.jpg",
       themeconfig: {
         sidebarCollapsible: true,
       },
       navbar: {
         hideOnScroll: true,
-        // title: 'Title with Logo',
         logo: {
           alt: 'Push Logo',
           src: '/assets/website/docshub/PushLogoBlack@3x.png',
-          srcDark: '/assets/website/docshub/PushLogo@3x.png',
+          srcDark: '/assets/website/segments/PushLogoTextWhite@3x.webp',
           href: '/',
         },
         items: [
@@ -174,23 +256,13 @@ const config = {
             label: 'Docs',
           },
           {
-            to: 'https://github.com/push-protocol',
-            label: 'GitHub',
-            position: 'right',
-          },
-          {
-            to: '/blog',
-            label: 'Blog',
-            position: 'right',
-          },
-          {
-            to: 'https://discord.com/invite/pushprotocol',
+            to: 'https://discord.com/invite/pushchain',
             label: 'Discord',
             position: 'right',
           },
           {
-            to: 'https://app.push.org/',
-            label: 'Launch App',
+            to: 'https://portal.push.org/',
+            label: 'Push Portal',
             position: 'right',
           },
         ],
@@ -201,9 +273,7 @@ const config = {
         additionalLanguages: ['solidity'],
       },
       algolia: {
-        // The application ID provided by Algolia
         appId: 'LHUKHXUHQP',
-
         // Public API key: it is safe to commit it
         apiKey: 'f41c253713d3cee20253bd3bfb166cac',
 
@@ -225,8 +295,8 @@ const config = {
       // announcementBar: {
       //   id: 'support_us',
       //   content:
-      //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener noreferrer' href='#'>this survey</a>',
-      //   backgroundColor: '#fff',
+      //     'We are looking to revamp our docs, please fill <a target='_blank' rel='noopener' href='#'>this survey</a>',
+      //   backgroundColor: 'var(--ifm-color-white)',
       //   textColor: '#e03dc1',
       //   isCloseable: true,
       // },

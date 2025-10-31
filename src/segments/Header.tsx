@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 // React + Web3 Essentials
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useLocation } from '@docusaurus/router';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // External Components
 import { gsap } from 'gsap';
@@ -16,6 +16,7 @@ import styled from 'styled-components';
 
 // Internal Components
 import { Alert } from '@site/src/components/Alert';
+import { LiquidGlass } from '@site/src/components/LiquidGlass/LiquidGlass';
 import {
   A,
   Button,
@@ -30,6 +31,8 @@ import {
   Span,
 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
+import AccountContext from '../context/accountContext';
+import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 
 // Import Assets
 import { AiOutlineClose } from 'react-icons/ai';
@@ -37,11 +40,10 @@ import { BsChevronDown } from 'react-icons/bs';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 // Internal Configs
-import { SupportedLanguagesList } from '@site/src/config/SupportedLanguagesList';
-import GLOBALS, { device, structure } from '@site/src/config/globals';
-import { HeaderList } from '../config/HeaderList';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useSiteBaseUrl } from '../utils/useSiteBaseUrl';
+import GLOBALS, { device, structure } from '@site/src/config/globals';
+import { SupportedLanguagesList } from '@site/src/config/SupportedLanguagesList';
+import { HeaderList } from '../config/HeaderList';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -67,6 +69,8 @@ function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileMenuMap, setMobileMenuMap] = useState(defaultMobileMenuState);
   const [scrollDirection, setScrollDirection] = useState(null);
+  const [isAlertBarVisible, setIsAlertBarVisible] = useState(true);
+
   const location = useLocation();
   const baseURL = useSiteBaseUrl() || '';
   // const [isAlertVisible, setIsAlertVisible] = useState(true);
@@ -76,6 +80,8 @@ function Header() {
 
   // Internationalization
   const { t, i18n } = useTranslation();
+  const { showAlertBar, setShowAlertBar, delayedShowAlertBar } =
+    useContext(AccountContext);
 
   const showMobileMenu = isMobile && isMobileMenuOpen;
 
@@ -141,12 +147,34 @@ function Header() {
     };
 
     // add event listener
-    window.addEventListener('scroll', updateScrollDirection, { passive: true });
+    // window.addEventListener('scroll', updateScrollDirection, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', updateScrollDirection); // clean up
+      // window.removeEventListener('scroll', updateScrollDirection); // clean up
     };
   }, []);
+
+  useEffect(() => {
+    const checkAlertBarVisibility = () => {
+      if (!showAlertBar) {
+        setIsAlertBarVisible(false);
+        return;
+      }
+
+      const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+      setIsAlertBarVisible(scrollY < 60);
+    };
+
+    checkAlertBarVisibility();
+
+    window.addEventListener('scroll', checkAlertBarVisibility, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', checkAlertBarVisibility);
+    };
+  }, [showAlertBar]);
 
   const HeaderSpace = ({ item, index }) => {
     const openLink = async (e, href, id, target) => {
@@ -187,52 +215,70 @@ function Header() {
     };
 
     return (
-      <HeaderItem onClick={(e) => openLink(e, item.href, item.id, item.target)}>
-        {item.srcrefoff && (
-          <HeaderImage
-            key={index}
-            src={
-              require(
-                `@site/static/assets/website/header/${item.srcrefoff}.png`
-              ).default
-            }
-            srcSet={`${require(`@site/static/assets/website/header/${item.srcrefoff}@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/${item.srcrefoff}@3x.png`).default} 3x`}
-            alt={`${t(item.title)}`}
-            height={24}
-            width={24}
-          />
-        )}
+      <a
+        href={item.href.includes('http') ? item.href : `${baseURL}${item.href}`}
+        target={item.target}
+        rel='noopener'
+        title={item.title ? t(item.title) : t(item.subtext)}
+        className='header-item'
+        style={{
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+        }}
+      >
+        <HeaderItem>
+          {item.srcrefoff && (
+            <HeaderImage
+              key={index}
+              src={
+                require(
+                  `@site/static/assets/website/header/${item.srcrefoff}.png`
+                ).default
+              }
+              srcSet={`${require(`@site/static/assets/website/header/${item.srcrefoff}@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/${item.srcrefoff}@3x.png`).default} 3x`}
+              alt={`${t(item.text)}`}
+              height={24}
+              width={24}
+            />
+          )}
 
-        <ItemH flexDirection='column' alignItems='flex-start' gap='4px'>
-          <H2
-            fontSize='16px'
-            fontFamily='FK Grotesk Neue'
-            color='#FFF'
-            lineHeight='130%'
-            letterSpacing='normal'
-            fontWeight='500'
+          <ItemH
+            flexDirection='column'
+            alignItems='flex-start'
+            gap='0px'
+            flex='1'
           >
-            {t(item.title)}
+            <H2
+              fontSize='1rem'
+              color='var(--ifm-color-white)'
+              lineHeight='130%'
+              letterSpacing='normal'
+              fontWeight='600'
+            >
+              {t(item.text)}
 
-            {item.tagitem && (
-              <TagItem style={{ marginLeft: '10px' }}>
-                {item.tagitem.text}
-              </TagItem>
-            )}
-          </H2>
+              {item.tagitem && (
+                <TagItem style={{ marginLeft: '10px' }}>
+                  {item.tagitem.text}
+                </TagItem>
+              )}
+            </H2>
 
-          <H3
-            fontSize='14px'
-            fontFamily='FK Grotesk Neue'
-            color='#BBBCD0'
-            lineHeight='130%'
-            letterSpacing='normal'
-            fontWeight='400'
-          >
-            {t(item.subtitle)}
-          </H3>
-        </ItemH>
-      </HeaderItem>
+            <H3
+              fontSize='0.875rem'
+              color='var(--ifm-color-white)'
+              opacity='0.75'
+              lineHeight='130%'
+              letterSpacing='normal'
+              fontWeight='400'
+            >
+              {t(item.subtext)}
+            </H3>
+          </ItemH>
+        </HeaderItem>
+      </a>
     );
   };
 
@@ -243,7 +289,7 @@ function Header() {
       if (id !== activeId) {
         const element = document.getElementById(id);
         if (element) {
-          element.style.color = '#6C6C6C';
+          element.style.opacity = '0.5';
           element.style.transitionDuration = '1s';
         }
       }
@@ -254,14 +300,10 @@ function Header() {
     textIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
-        element.style.color = '#fff';
+        element.style.opacity = '1';
         element.style.transitionDuration = '1s';
       }
     });
-  };
-
-  const openChainLink = () => {
-    history.push(baseURL + '/chain');
   };
 
   return (
@@ -273,31 +315,46 @@ function Header() {
       <Alert />
 
       {/* INVISIBLE WALL TO CLOSE */}
-      <InvisibleWall />
+      <InvisibleWall onClick={toggleMobileMenu} isActive={isMobileMenuOpen} />
 
       {/* HEADER SECTION */}
       <Section onClick={(e) => e.stopPropagation()}>
-        <Content className='vertfluid' overflow='visible'>
+        <Content
+          className='vertfluid'
+          overflow='visible'
+          padding={isMobile && '0 16px'}
+          position='relative'
+        >
           {/* Header Content Begins */}
           <HeaderItemH
             alignSelf='stretch'
             padding={GLOBALS.ADJUSTMENTS.PADDING.SMALL}
             borderRadius={GLOBALS.ADJUSTMENTS.RADIUS.MID}
+            showAlertBar={delayedShowAlertBar && isAlertBarVisible}
           >
-            <HeaderBlurV
-              position='absolute'
-              top='0'
-              right='0'
-              bottom='0'
-              left='0'
-              overflow='hidden'
-              borderRadius={GLOBALS.ADJUSTMENTS.RADIUS.MID}
-              className={'headerblur'}
-            />
+            {/* Insert Liquid Glass */}
+            <LiquidGlassOuter>
+              <LiquidGlass
+                autoResize={true}
+                radius={24}
+                depth={10}
+                blur={2}
+                chromaticAberration={5}
+                debug={false}
+              />
+            </LiquidGlassOuter>
 
-            <MenuTop flex='initial' showMobileMenu={showMobileMenu}>
+            <MenuTop
+              flex='initial'
+              showMobileMenu={showMobileMenu}
+              showAlertBar={delayedShowAlertBar && isAlertBarVisible}
+            >
               <PushLogoBlackContainer className='headerlogo' flex='initial'>
-                <LinkTo to={useBaseUrl('/')} aria-label='Push'>
+                <LinkTo
+                  title={t('header.logo.ctatitle')}
+                  to={useBaseUrl('/')}
+                  aria-label={t('header.meta.logo-aria-label')}
+                >
                   <Image
                     src={
                       require(
@@ -305,7 +362,7 @@ function Header() {
                       ).default
                     }
                     srcSet={`${require(`@site/static/assets/website/segments/PushLogoTextBlack@2x.webp`).default} 2x, ${require(`@site/static/assets/website/segments/PushLogoTextBlack@3x.webp`).default} 3x`}
-                    alt={`Push Logo`}
+                    alt={t('header.logo.imagealt')}
                     width='auto'
                     height='auto'
                   />
@@ -314,20 +371,20 @@ function Header() {
               <PushLogoWhiteContainer className='headerlogo' flex='initial'>
                 <LinkTo
                   to={useBaseUrl('/')}
-                  aria-label='Push'
+                  title={t('header.logo.ctatitle')}
                   hoverBackground='transparent'
                   padding='0'
                 >
                   <Image
                     src={
                       require(
-                        `@site/static/assets/website/header/Push-Logo.png`
+                        `@site/static/assets/website/segments/PushLogoTextWhite.webp`
                       ).default
                     }
-                    srcSet={`${require(`@site/static/assets/website/header/Push-Logo@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/Push-Logo@3x.png`).default} 3x`}
-                    alt={`Push Logo`}
+                    srcSet={`${require(`@site/static/assets/website/segments/PushLogoTextWhite@2x.webp`).default} 2x, ${require(`@site/static/assets/website/segments/PushLogoTextWhite@3x.webp`).default} 3x`}
+                    alt={t('header.logo.imagealt')}
                     width='auto'
-                    height={isMobile ? '40px' : 'auto'}
+                    height='auto'
                   />
                 </LinkTo>
               </PushLogoWhiteContainer>
@@ -336,17 +393,155 @@ function Header() {
                 {isMobileMenuOpen ? (
                   <AiOutlineClose size={28} onClick={toggleMobileMenu} />
                 ) : (
-                  <Image
-                    src={
-                      require(`@site/static/assets/website/header/bars.png`)
-                        .default
-                    }
-                    srcSet={`${require(`@site/static/assets/website/header/bars@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/bars@3x.png`).default} 3x`}
-                    alt={`Bars Icon`}
-                    width='auto'
-                    height='28px'
-                    onClick={toggleMobileMenu}
-                  />
+                  <ItemH gap='24px'>
+                    <PortalLauncher
+                      showMobileMenu={showMobileMenu}
+                      href='https://portal.push.org/'
+                      target='_blank'
+                      title={t('header.app-button.title')}
+                      background='var(--ifm-color-custom-pink)'
+                      borderRadius='16px'
+                      border='1px solid rgba(255, 255, 255, 0.30)'
+                      fontSize='1.125rem'
+                      fontWeight='600'
+                      letterSpacing='-0.03em'
+                      lineHeight='1rem'
+                      width='100%'
+                    >
+                      {t('header.app-button.text')}
+                    </PortalLauncher>
+
+                    {/* TODO: Bring Language, maybe remove Portal in Tablet */}
+                    {/* <LanguageItem showMobileMenu={showMobileMenu}>
+                      <LanguageMenuItem>
+                        <LanguageMenuHeader
+                          onClick={(e) => onMobileHeaderMenuClick(e, 4)}
+                          expanded={mobileMenuMap[4]}
+                          onMouseEnter={(e) => handleMouseEnter(e, 'text4')}
+                          onMouseLeave={(e) => handleMouseLeave(e)}
+                          id='text4'
+                        >
+                          <H2
+                            fontSize='16px'
+                            lineHeight='130%'
+                            letterSpacing='normal'
+                            fontWeight='500'
+                          >
+                            {isMobile &&
+                              i18n &&
+                              SupportedLanguagesList.filter(
+                                (item) => item.id === i18n.language
+                              ).map((item, index) => (
+                                <div>{item?.language}</div>
+                              ))}
+                          </H2>
+
+                          <Span
+                            fontSize='18px'
+                            fontWeight='500'
+                            letterSpacing='-0.03em'
+                            lineHeight='142%'
+                            padding='16px 0px'
+                            aria-label={t('header.language.ctatitle')}
+                          >
+                            <Image
+                              src={
+                                require(
+                                  `@site/static/assets/website/languages/world.webp`
+                                ).default
+                              }
+                              srcSet={`${require(`@site/static/assets/website/languages/world@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/world@3x.webp`).default} 3x`}
+                              alt={t('header.meta.language-icon-alt')}
+                              height={24}
+                              width={24}
+                              borderRadius='100%'
+                            />
+                          </Span>
+                          <BsChevronDown size={12} className='chevronIcon' />
+                        </LanguageMenuHeader>
+
+                        <LanguageMenuContent
+                          className='menuContent'
+                          expanded={mobileMenuMap[4]}
+                        >
+                          {/* Insert Liquid Glass */}
+                    {/* <LiquidGlassOuter>
+                            <LiquidGlass
+                              autoResize={true}
+                              radius={24}
+                              depth={20}
+                              blur={5}
+                              chromaticAberration={10}
+                              debug={false}
+                            />
+                          </LiquidGlassOuter>
+
+                          <LanguageMenuContentInner>
+                            {SupportedLanguagesList.map((item, index) => {
+                              return (
+                                <LanguageButton
+                                  key={index}
+                                  href='#'
+                                  title={t(item.ctatitle)}
+                                  background='transparent'
+                                  hoverbackground='var(--ifm-color-white)'
+                                  color='var(--ifm-color-white)'
+                                  padding='8px 14px'
+                                  display='flex'
+                                  borderRadius='0'
+                                  justifyContent='flex-start'
+                                  onClick={() => i18n.changeLanguage(item.id)}
+                                >
+                                  <ItemH
+                                    justifyContent='flex-start'
+                                    flexWrap='nowrap'
+                                    padding='0px'
+                                  >
+                                    <Image
+                                      key={index}
+                                      src={
+                                        require(
+                                          `@site/static/assets/website/languages/${item.srcref}.webp`
+                                        ).default
+                                      }
+                                      srcSet={`${require(`@site/static/assets/website/languages/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/${item.srcref}@3x.webp`).default} 3x`}
+                                      alt={`${item?.alt}`}
+                                      height={24}
+                                      width={24}
+                                      borderRadius='100%'
+                                    />
+                                    <H3
+                                      fontSize='14px'
+                                      fontWeight='500'
+                                      lineHeight='130%'
+                                      letterSpacing='normal'
+                                      alignSelf='flex-start'
+                                      padding='8px 30px 8px 10px !important'
+                                      color='inherit'
+                                    >
+                                      {t(item.ctatext)}
+                                    </H3>
+                                  </ItemH>
+                                </LanguageButton>
+                              );
+                            })}
+                          </LanguageMenuContentInner>
+                        </LanguageMenuContent>
+                      </LanguageMenuItem>
+                    </LanguageItem> */}
+
+                    <Image
+                      src={
+                        require(`@site/static/assets/website/header/bars.png`)
+                          .default
+                      }
+                      srcSet={`${require(`@site/static/assets/website/header/bars@2x.png`).default} 2x, ${require(`@site/static/assets/website/header/bars@3x.png`).default} 3x`}
+                      alt={t('header.meta.hamburger-menu-alt')}
+                      width='auto'
+                      height='28px'
+                      onClick={toggleMobileMenu}
+                    />
+                  </ItemH>
                 )}
               </MobileMenuToggleIcon>
             </MenuTop>
@@ -360,50 +555,60 @@ function Header() {
                 >
                   <NavigationMenuItem>
                     <NavigationMenuHeader
-                      onClick={() => openChainLink()}
-                      id='text5'
-                    >
-                      <Span
-                        fontSize='18px'
-                        fontWeight='500'
-                        letterSpacing='-0.03em'
-                        lineHeight='142%'
-                        padding='16px'
-                        color='inherit'
-                      >
-                        Push Chain
-                      </Span>
-                    </NavigationMenuHeader>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuHeader
                       onClick={(e) => onMobileHeaderMenuClick(e, 0)}
                       expanded={mobileMenuMap[0]}
                       onMouseEnter={(e) => handleMouseEnter(e, 'text0')}
                       onMouseLeave={(e) => handleMouseLeave(e)}
                       id='text0'
                     >
-                      <Span
-                        fontSize='18px'
-                        fontWeight='500'
-                        letterSpacing='-0.03em'
-                        lineHeight='142%'
-                        padding='16px'
-                        color='inherit'
-                      >
-                        {t('header.products.title')}
-                      </Span>
+                      <ItemH justifyContent='flex-start' gap='4px'>
+                        <Image
+                          src={
+                            require(
+                              `@site/static/assets/website/header/donut-icon.webp`
+                            ).default
+                          }
+                          alt={t('header.meta.testnet-badge-alt')}
+                          width='20px'
+                          height='auto'
+                        />
+                        <Span
+                          fontSize='1rem'
+                          fontWeight='500'
+                          letterSpacing='-0.03em'
+                          lineHeight='142%'
+                          padding='16px'
+                          color='inherit'
+                        >
+                          {t('header.testnet.title')}
+                        </Span>
+                      </ItemH>
                       <BsChevronDown size={12} className='chevronIcon' />
                     </NavigationMenuHeader>
-
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[0]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
-                      {HeaderList.products.map((item, index) => (
-                        <HeaderSpace item={item} index={index} />
-                      ))}
+                      {/* Insert Liquid Glass */}
+                      <LiquidGlassOuter>
+                        <LiquidGlass
+                          autoResize={true}
+                          radius={24}
+                          depth={20}
+                          blur={5}
+                          chromaticAberration={10}
+                          debug={false}
+                        />
+                      </LiquidGlassOuter>
+                      <HeaderDiv>
+                        <HeaderSection>
+                          {HeaderList.testnet.map((item, index) => (
+                            <HeaderSpace item={item} index={index} />
+                          ))}
+                        </HeaderSection>
+                      </HeaderDiv>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
@@ -432,24 +637,27 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[1]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
+                      {/* Insert Liquid Glass */}
+                      <LiquidGlassOuter>
+                        <LiquidGlass
+                          autoResize={true}
+                          radius={24}
+                          depth={20}
+                          blur={5}
+                          chromaticAberration={10}
+                          debug={false}
+                        />
+                      </LiquidGlassOuter>
+
                       <HeaderDiv>
                         <HeaderSection>
                           {HeaderList.developers
-                            .slice(0, 4)
+                            .slice(0, 5)
                             .map((item, index) => (
                               <HeaderSpace item={item} index={index} />
-                            ))}
-                        </HeaderSection>
-
-                        <HeaderSection>
-                          {HeaderList.developers
-                            .slice(4, 7)
-                            .map((item, index) => (
-                              <HeaderSpace
-                                item={item}
-                                index={`divide-${index}`}
-                              />
                             ))}
                         </HeaderSection>
                       </HeaderDiv>
@@ -480,9 +688,27 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[2]}
-                      onMouseEnter={(e) => handleMouseEnter(e, 'text1')}
-                      onMouseLeave={(e) => handleMouseLeave(e)}
+                      onMouseEnter={(e) => {
+                        e.stopPropagation();
+                        handleMouseEnter(e, 'text2');
+                      }}
+                      onMouseLeave={(e) => {
+                        e.stopPropagation();
+                        handleMouseLeave(e);
+                      }}
                     >
+                      {/* Insert Liquid Glass */}
+                      <LiquidGlassOuter>
+                        <LiquidGlass
+                          autoResize={true}
+                          radius={24}
+                          depth={20}
+                          blur={5}
+                          chromaticAberration={10}
+                          debug={false}
+                        />
+                      </LiquidGlassOuter>
+
                       {HeaderList.community.map((item, index) => (
                         <HeaderSpace item={item} index={index} />
                       ))}
@@ -513,7 +739,21 @@ function Header() {
                     <NavigationMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[3]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
+                      {/* Insert Liquid Glass */}
+                      <LiquidGlassOuter>
+                        <LiquidGlass
+                          autoResize={true}
+                          radius={24}
+                          depth={20}
+                          blur={5}
+                          chromaticAberration={10}
+                          debug={false}
+                        />
+                      </LiquidGlassOuter>
+
                       {HeaderList.resources.map((item, index) => (
                         <HeaderSpace item={item} index={index} />
                       ))}
@@ -534,7 +774,6 @@ function Header() {
                     >
                       <H2
                         fontSize='16px'
-                        fontFamily='FK Grotesk Neue'
                         lineHeight='130%'
                         letterSpacing='normal'
                         fontWeight='500'
@@ -552,15 +791,16 @@ function Header() {
                         letterSpacing='-0.03em'
                         lineHeight='142%'
                         padding='16px 0px'
+                        aria-label={t('header.language.aria-label')}
                       >
                         <Image
                           src={
                             require(
-                              `@site/static/assets/website/languages/eng.png`
+                              `@site/static/assets/website/languages/world.webp`
                             ).default
                           }
-                          srcSet={`${require(`@site/static/assets/website/languages/eng@2x.png`).default} 2x, ${require(`@site/static/assets/website/languages/eng@3x.png`).default} 3x`}
-                          alt={'Language Header Icon'}
+                          srcSet={`${require(`@site/static/assets/website/languages/world@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/world@3x.webp`).default} 3x`}
+                          alt={t('header.meta.language-icon-alt')}
                           height={24}
                           width={24}
                           borderRadius='100%'
@@ -572,77 +812,91 @@ function Header() {
                     <LanguageMenuContent
                       className='menuContent'
                       expanded={mobileMenuMap[4]}
+                      onMouseEnter={(e) => e.stopPropagation()}
+                      onMouseLeave={(e) => e.stopPropagation()}
                     >
-                      {SupportedLanguagesList.map((item, index) => {
-                        return (
-                          <LanguageButton
-                            key={index}
-                            href='#'
-                            title={t(item.translatedtitle)}
-                            background='transparent'
-                            hoverbackground='#fff'
-                            color='#fff'
-                            padding='8px 14px'
-                            display='flex'
-                            borderRadius='0'
-                            justifyContent='flex-start'
-                            onClick={() => i18n.changeLanguage(item.id)}
-                          >
-                            <ItemH
+                      {/* Insert Liquid Glass */}
+                      <LiquidGlassOuter>
+                        <LiquidGlass
+                          autoResize={true}
+                          radius={24}
+                          depth={20}
+                          blur={5}
+                          chromaticAberration={10}
+                          debug={false}
+                        />
+                      </LiquidGlassOuter>
+
+                      <LanguageMenuContentInner>
+                        {SupportedLanguagesList.map((item, index) => {
+                          return (
+                            <LanguageButton
+                              key={index}
+                              href='#'
+                              title={t(item.ctatitle)}
+                              background='transparent'
+                              hoverbackground='var(--ifm-color-white)'
+                              color='var(--ifm-color-white)'
+                              padding='8px 14px'
+                              display='flex'
+                              borderRadius='0'
                               justifyContent='flex-start'
-                              flexWrap='nowrap'
-                              padding='0px'
+                              onClick={() => i18n.changeLanguage(item.id)}
                             >
-                              <Image
-                                key={index}
-                                src={
-                                  require(
-                                    `@site/static/assets/website/languages/${item.srcref}.png`
-                                  ).default
-                                }
-                                srcSet={`${require(`@site/static/assets/website/languages/${item.srcref}@2x.png`).default} 2x, ${require(`@site/static/assets/website/languages/${item.srcref}@3x.png`).default} 3x`}
-                                alt={`${item?.alt}`}
-                                height={24}
-                                width={24}
-                                borderRadius='100%'
-                              />
-                              <H3
-                                fontSize='14px'
-                                fontWeight='500'
-                                lineHeight='130%'
-                                letterSpacing='normal'
-                                alignSelf='flex-start'
-                                padding='8px 30px 8px 10px !important'
-                                color='#FFF !important'
-                                fontFamily='FK Grotesk Neue'
+                              <ItemH
+                                justifyContent='flex-start'
+                                flexWrap='nowrap'
+                                padding='0px'
                               >
-                                {t(item.translatedtitle)}
-                              </H3>
-                            </ItemH>
-                          </LanguageButton>
-                        );
-                      })}
+                                <Image
+                                  key={index}
+                                  src={
+                                    require(
+                                      `@site/static/assets/website/languages/${item.srcref}.webp`
+                                    ).default
+                                  }
+                                  srcSet={`${require(`@site/static/assets/website/languages/${item.srcref}@2x.webp`).default} 2x, ${require(`@site/static/assets/website/languages/${item.srcref}@3x.webp`).default} 3x`}
+                                  alt={`${item?.alt}`}
+                                  height={24}
+                                  width={24}
+                                  borderRadius='100%'
+                                />
+                                <H3
+                                  fontSize='14px'
+                                  fontWeight='500'
+                                  lineHeight='130%'
+                                  letterSpacing='normal'
+                                  alignSelf='flex-start'
+                                  padding='8px 30px 8px 10px !important'
+                                  color='inherit'
+                                >
+                                  {t(item.ctatext)}
+                                </H3>
+                              </ItemH>
+                            </LanguageButton>
+                          );
+                        })}
+                      </LanguageMenuContentInner>
                     </LanguageMenuContent>
                   </LanguageMenuItem>
                 </LanguageItem>
 
-                <DappLauncher
+                <PrimaryLauncher
                   showMobileMenu={showMobileMenu}
-                  className='launchDappBtn'
-                  href='https://app.push.org/'
+                  href='https://portal.push.org/'
                   target='_blank'
-                  title={t('header.app-button.alt-title')}
-                  background='#DD44B9'
-                  borderRadius='12px'
-                  fontSize='15px'
-                  fontWeight='500'
+                  title={t('header.app-button.title')}
+                  background='var(--ifm-link-color)'
+                  borderRadius='16px'
+                  border='1px solid rgba(255, 255, 255, 0.30)'
+                  fontSize='1.125rem'
+                  fontWeight='600'
                   letterSpacing='-0.03em'
-                  lineHeight='normal'
+                  lineHeight='1rem'
                   width='100%'
-                  // margin="0px 8px 0px 0px"
                 >
-                  {t('header.app-button.title')}
-                </DappLauncher>
+                  {t('header.app-button.text')}
+                </PrimaryLauncher>
               </HeaderFocusItems>
             </HeaderWrapper>
           </HeaderItemH>
@@ -656,6 +910,7 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  background: transparent;
 
   @media ${device.laptopM} {
     flex-direction: column;
@@ -664,34 +919,71 @@ const HeaderWrapper = styled.div`
 
 const LanguageItem = styled.div`
   list-style: none;
-  margin: 0px 24px 0px 0px;
+  margin: 0px 16px 0px 0px;
 
   @media ${device.laptopM} {
     display: ${(props) => (props.showMobileMenu ? 'flex' : 'none')};
     margin: 0px;
+    padding: 0px 16px 0px 16px;
     flex: 1;
-    width: 100%;
+    width: inherit;
   }
 `;
 
-// V2 Designs
 const HeaderItemH = styled(ItemH)`
-  margin: ${`${GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.TOP}px ${GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.RIGHT}px ${GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.BOTTOM}px ${GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.LEFT}px`};
+  border-radius: 24px;
+  border: 1px solid rgba(171, 70, 248, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+    border-radius: 24px;
+  }
+
+  margin: ${({ showAlertBar }) =>
+    `${showAlertBar ? 80 : GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.TOP}px ${
+      GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.RIGHT
+    }px ${GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.BOTTOM}px ${
+      GLOBALS.HEADER.OUTER_MARGIN.DESKTOP.LEFT
+    }px`};
   color: ${GLOBALS.COLORS.FONT_LIGHT};
   height: ${GLOBALS.HEADER.HEIGHT}px;
   padding: ${`${GLOBALS.HEADER.OUTER_PADDING.DESKTOP.TOP}px ${GLOBALS.HEADER.OUTER_PADDING.DESKTOP.RIGHT}px ${GLOBALS.HEADER.OUTER_PADDING.DESKTOP.BOTTOM}px ${GLOBALS.HEADER.OUTER_PADDING.DESKTOP.LEFT}px`};
   flex-direction: row;
   flex-wrap: nowrap;
+  transition: margin 0.1s ease-out;
 
   @media ${device.laptopM} {
-    margin: ${`${GLOBALS.HEADER.OUTER_MARGIN.TABLET.TOP}px ${GLOBALS.HEADER.OUTER_MARGIN.TABLET.RIGHT}px ${GLOBALS.HEADER.OUTER_MARGIN.TABLET.BOTTOM}px ${GLOBALS.HEADER.OUTER_MARGIN.TABLET.LEFT}px`};
+    margin: ${({ showAlertBar }) =>
+      `${showAlertBar ? 74 : GLOBALS.HEADER.OUTER_MARGIN.TABLET.TOP}px ${
+        GLOBALS.HEADER.OUTER_MARGIN.TABLET.RIGHT
+      }px ${GLOBALS.HEADER.OUTER_MARGIN.TABLET.BOTTOM}px ${
+        GLOBALS.HEADER.OUTER_MARGIN.TABLET.LEFT
+      }px`};
     flex-direction: column;
     padding: ${`${GLOBALS.HEADER.OUTER_PADDING.TABLET.TOP}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.RIGHT}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.BOTTOM}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.LEFT}px`};
     height: fit-content;
   }
 
   @media ${device.mobileL} {
-    margin: ${`${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.TOP}px ${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.RIGHT}px ${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.BOTTOM}px ${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.LEFT}px`};
+    margin: ${({ showAlertBar }) =>
+      `${showAlertBar ? 74 : GLOBALS.HEADER.OUTER_MARGIN.MOBILE.TOP}px ${
+        GLOBALS.HEADER.OUTER_MARGIN.MOBILE.RIGHT
+      }px ${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.BOTTOM}px ${
+        GLOBALS.HEADER.OUTER_MARGIN.MOBILE.LEFT
+      }px`};
     flex-direction: column;
     padding: ${`${GLOBALS.HEADER.OUTER_PADDING.MOBILE.TOP}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.RIGHT}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.BOTTOM}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.LEFT}px`};
     box-sizing: border-box;
@@ -703,17 +995,6 @@ const HeaderItemH = styled(ItemH)`
   }
 `;
 
-const HeaderBlurV = styled(ItemV)`
-  backdrop-filter: blur(32px);
-  background: rgba(13, 13, 15, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-
-  &.light {
-    background: ${GLOBALS.COLORS.HEADER_BG_LIGHT};
-  }
-`;
-
 const HeaderNavItemV = styled(ItemV)`
   margin: 0 ${GLOBALS.ADJUSTMENTS.PADDING.SMALL} 0
     ${GLOBALS.ADJUSTMENTS.PADDING.SMALL};
@@ -721,20 +1002,21 @@ const HeaderNavItemV = styled(ItemV)`
   @media ${device.laptopM} {
     margin: ${(props) =>
       props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_PADDING.TABLET.TOP + GLOBALS.HEADER.OUTER_PADDING.TABLET.BOTTOM + 20}px 0 20px 0`
+        ? `${GLOBALS.HEADER.OUTER_PADDING.TABLET.TOP}px 16px 20px 16px`
         : '0'};
   }
 
   @media ${device.laptopM} {
     margin: ${(props) =>
       props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_PADDING.MOBILE.TOP + GLOBALS.HEADER.OUTER_PADDING.MOBILE.BOTTOM + 20}px 0 20px 0`
+        ? `${GLOBALS.HEADER.OUTER_PADDING.MOBILE.TOP}px 16px 20px 16px`
         : '0'};
   }
 `;
 
 const PushLogoWhiteContainer = styled(ItemV)`
   display: flex;
+  max-width: 190px;
   &.light {
     display: none;
   }
@@ -769,14 +1051,14 @@ const StyledHeader = styled.header`
 
   &.light {
     & span {
-      color: #121315;
+      color: var(--ifm-color-neutral-1000);
     }
 
     & svg.chevronIcon {
-      fill: #121315;
+      fill: var(--ifm-color-neutral-1000);
 
       & path {
-        stroke: #121315;
+        stroke: var(--ifm-color-neutral-1000);
       }
     }
   }
@@ -805,7 +1087,7 @@ const StyledHeader = styled.header`
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #cb3faa;
+      background: var(--ifm-color-pink-300);
       border-radius: 6px;
     }
 
@@ -818,21 +1100,37 @@ const StyledHeader = styled.header`
     }
 
     /* Firefox */
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 `;
 
 const InvisibleWall = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background: ${(props) =>
+    props.isActive ? 'rgba(0, 0, 0, 0.25)' : 'rgba(0, 0, 0, 0)'};
+  pointer-events: ${(props) => (props.isActive ? 'auto' : 'none')};
+
+  @media ${device.mobileL} {
+    transition:
+      background 0.2s ease-in-out,
+      -webkit-backdrop-filter 0.4s ease-in-out,
+      backdrop-filter 0.4s ease-in-out;
+
+    -webkit-backdrop-filter: ${(props) =>
+      props.isActive ? 'blur(12px)' : 'blur(0px)'};
+    backdrop-filter: ${(props) =>
+      props.isActive ? 'blur(12px)' : 'blur(0px)'};
+  }
 `;
 
 const MobileMenuToggleIcon = styled.span`
   display: none;
+  padding: 0 10px 0px 16px;
 
   @media ${device.laptopM} {
     display: flex;
@@ -841,7 +1139,10 @@ const MobileMenuToggleIcon = styled.span`
 `;
 
 const ADJUST_FOR_BLUR = 8;
-const MenuTop = styled(ItemV)`
+const MenuTop = styled(ItemV)<{
+  showMobileMenu?: boolean;
+  showAlertBar?: boolean;
+}>`
   display: flex;
   z-index: 9999;
   height: ${GLOBALS.HEADER.HEIGHT}px;
@@ -851,47 +1152,17 @@ const MenuTop = styled(ItemV)`
   }
 
   @media ${device.laptopM} {
-    position: ${(props) => (props.showMobileMenu ? 'fixed' : 'relative')};
+    position: ${({ showMobileMenu }) => {
+      return showMobileMenu ? 'relative' : 'relative';
+    }};
     height: auto;
-    top: ${(props) =>
-      props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_MARGIN.TABLET.TOP + ADJUST_FOR_BLUR}px`
-        : 0};
-    left: ${(props) =>
-      props.showMobileMenu
-        ? `${structure.PADDING.TABLET.LEFT + GLOBALS.HEADER.OUTER_MARGIN.TABLET.LEFT + ADJUST_FOR_BLUR}px`
-        : 0};
+    top: ${({ showMobileMenu }) => (showMobileMenu ? '3px' : '0')};
+    left: 0;
     flex-direction: row;
-    width: ${(props) =>
-      props.showMobileMenu
-        ? `calc(100% - ${structure.PADDING.TABLET.LEFT + structure.PADDING.TABLET.RIGHT + GLOBALS.HEADER.OUTER_MARGIN.TABLET.RIGHT + GLOBALS.HEADER.OUTER_MARGIN.TABLET.LEFT + GLOBALS.HEADER.OUTER_PADDING.TABLET.RIGHT + GLOBALS.HEADER.OUTER_PADDING.TABLET.LEFT - ADJUST_FOR_BLUR * 2}px)`
-        : '100%'};
-    padding: ${(props) =>
-      props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_PADDING.TABLET.TOP - ADJUST_FOR_BLUR}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.RIGHT - ADJUST_FOR_BLUR}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.BOTTOM}px ${GLOBALS.HEADER.OUTER_PADDING.TABLET.LEFT - ADJUST_FOR_BLUR}px`
-        : '0px'};
+    width: 100%;
+    padding: 0px;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(4px);
-  }
-
-  @media ${device.mobileL} {
-    top: ${(props) =>
-      props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_MARGIN.MOBILE.TOP + ADJUST_FOR_BLUR}px`
-        : 0};
-    left: ${(props) =>
-      props.showMobileMenu
-        ? `${structure.PADDING.MOBILE.LEFT + GLOBALS.HEADER.OUTER_MARGIN.MOBILE.LEFT + ADJUST_FOR_BLUR}px`
-        : 0};
-    width: ${(props) =>
-      props.showMobileMenu
-        ? `calc(100% - ${structure.PADDING.MOBILE.LEFT + structure.PADDING.MOBILE.RIGHT + GLOBALS.HEADER.OUTER_MARGIN.MOBILE.RIGHT + GLOBALS.HEADER.OUTER_MARGIN.MOBILE.LEFT + GLOBALS.HEADER.OUTER_PADDING.MOBILE.RIGHT + GLOBALS.HEADER.OUTER_PADDING.MOBILE.LEFT - ADJUST_FOR_BLUR * 2}px)`
-        : '100%'};
-    padding: ${(props) =>
-      props.showMobileMenu
-        ? `${GLOBALS.HEADER.OUTER_PADDING.MOBILE.TOP - ADJUST_FOR_BLUR}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.RIGHT - ADJUST_FOR_BLUR}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.BOTTOM}px ${GLOBALS.HEADER.OUTER_PADDING.MOBILE.LEFT - ADJUST_FOR_BLUR}px`
-        : '0px'};
   }
 `;
 
@@ -927,60 +1198,53 @@ const NavigationMenuItem = styled.li`
   }
 
   & span {
-    font-family: 'FK Grotesk Neue';
-
     padding: 4px;
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
     letter-spacing: normal;
-    color: #6c6c6c;
+    color: var(--ifm-color-neutral-700);
   }
 
   // & .chevronIcon {
-  //   color: #6C6C6C;
+  //   color: var(--ifm-color-neutral-700);
   // }
 
   &:hover {
     & span {
-      color: #fff;
+      color: var(--ifm-color-white);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      // color: #fff;
+      // color: var(--ifm-color-white);
     }
 
     & .menuContent {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
   }
-`;
 
-const NavMenuItemLink = styled(LinkTo)`
-  flex: 1;
-  margin: 0 auto;
-
-  @media ${device.laptopM} {
-    flex: initial;
-    margin: 16px;
-  }
-`;
-
-const HeaderText = styled.div`
-  padding: 0px;
-  justify-content: flex-start;
-  font-size: 16px;
-  fontweight: 400;
-  line-height: 230%;
-  letter-spacing: normal;
-
-  &:hover:before {
-    display: block;
+  // Add a small delay to prevent accidental closing
+  & .menuContent {
+    transition: opacity 0.1s ease-in-out;
   }
 
-  &:hover:after {
-    opacity: 1;
+  // Create a hover bridge to prevent dropdown from closing
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    pointer-events: auto;
   }
 `;
 
@@ -1004,8 +1268,7 @@ const LanguageMenuItem = styled.li`
   padding-left: 16px;
 
   & span {
-    font-family: 'Strawford';
-    padding: 4px;
+    padding: 4px 0px;
     font-weight: 500;
     font-size: 18px;
     line-height: 142%;
@@ -1013,11 +1276,11 @@ const LanguageMenuItem = styled.li`
 
   // &:hover {
   // & span {
-  //   color: ${(props) => (props.expanded ? '#dd44b9' : '')};
+  //   color: ${(props) => (props.expanded ? 'var(--ifm-color-primary)' : '')};
   // }
 
   & .chevronIcon {
-    color: #6c6c6c;
+    color: var(--ifm-color-neutral-700);
   }
 
   // & .menuContent {
@@ -1027,17 +1290,38 @@ const LanguageMenuItem = styled.li`
 
   &:hover {
     & span {
-      color: #dd44b9;
+      color: var(--ifm-color-primary);
     }
 
     & .chevronIcon {
       transform: rotate(180deg);
-      color: #fff;
+      color: var(--ifm-color-white);
     }
 
     & .menuContent {
       display: block;
     }
+  }
+
+  // Add a small delay to prevent accidental closing
+  & .menuContent {
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  // Create a hover bridge to prevent dropdown from closing
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    pointer-events: auto;
   }
 
   @media ${device.laptopM} {
@@ -1080,20 +1364,6 @@ const NavigationMenuHeader = styled.div`
       transform: ${(props) =>
         props.expanded ? 'rotate(180deg)' : 'none  !important'};
     }
-  }
-`;
-
-const MenuHeader = styled.div`
-  width: 100%;
-  height: 100%;
-  flex: 1;
-  margin: auto 0;
-  display: flex;
-  align-items: center;
-
-  @media ${device.laptopM} {
-    flex: initial;
-    margin: 0 0;
   }
 `;
 
@@ -1140,27 +1410,65 @@ const LanguageMenuHeader = styled.div`
 
     h2 {
       margin: 0 auto 0 0;
-      padding: 4px;
+      padding: 4px 0px;
     }
   }
 `;
 
 const NavigationMenuContent = styled.ul`
   list-style: none;
+  .header-item {
+    &:not(.absolute) + .header-item:not(.absolute) {
+      margin-top: 16px;
+    }
+  }
 
   font-family: 'Strawford', 'Manrope', sans-serif;
   display: none;
   position: absolute;
 
   // logic - this should touch the parent li for enough hover surface area.
-  top: 44px;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  padding: 10px 14px 24px 14px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #19181b;
+  padding: 12px;
+  margin-top: 4px;
+
+  border: 1px solid rgba(171, 70, 248, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    filter: blur(5px);
+    backdrop-filter: blur(5px);
+    pointer-events: none;
+    z-index: -1;
+    border-radius: 30px;
+    overflow: hidden;
+  }
+
+  min-width: 390px;
+
+  // Keep dropdown open when hovering over the content
+  &:hover {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media ${device.mobileL} {
+    min-width: 100%;
+  }
 
   @media ${device.laptopM} {
     width: 100%;
@@ -1171,7 +1479,7 @@ const NavigationMenuContent = styled.ul`
     display: flex;
     flex-direction: column;
     margin: 8px 0 0 0;
-    padding: 0px 12px 6px 12px;
+    padding: 12px;
     max-height: initial;
     min-height: initial;
 
@@ -1198,48 +1506,63 @@ const HeaderFocusItems = styled(ItemH)`
     flex-direction: column;
     width: 100%;
     flex: 1;
-    // align-self: center;
-    // flex-wrap: wrap;
   }
 `;
 
 const LanguageMenuContent = styled.div`
   list-style: none;
 
-  font-family: 'Strawford', 'Manrope', sans-serif;
   display: none;
   position: absolute;
 
   // logic - this should touch the parent li for enough hover surface area.
-  top: 44px;
-  // top: 54px;
-
+  top: 100%;
   left: 50%;
-  transform: translateX(-90%);
+  transform: translateX(-50%);
   z-index: 1;
-  padding: 10px 12px;
-
+  padding: 12px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #19181b;
-  // min-width: 202px;
+  margin-top: 4px;
+
+  border: 1px solid rgba(171, 70, 248, 0.4);
+  // background: rgba(0, 0, 0, 0.8);
+  // box-shadow:
+  //   2.788px 2.598px 12px 0 rgba(255, 255, 255, 0.15) inset,
+  //   1.858px 1.732px 6px 0 rgba(255, 255, 255, 0.15) inset;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: rgba(0, 0, 0, 0.5);
+    filter: blur(10px);
+    z-index: -1;
+    border-radius: 24px;
+  }
 
   & button {
     min-width: 182px;
+  }
+
+  // Keep dropdown open when hovering over the content
+  &:hover {
+    display: block;
   }
 
   @media ${device.laptopM} {
     min-width: 100%;
 
     position: relative;
-    top: 0px;
+    top: 8px;
     left: 0;
     transform: none;
     display: flex;
     flex-direction: column;
-
-    margin: 8px 0 0 0;
-    padding: 2px 12px 2px 12px;
+    padding: 12px;
 
     display: ${(props) => (props.expanded ? 'flex' : 'none !important')};
 
@@ -1249,16 +1572,51 @@ const LanguageMenuContent = styled.div`
   }
 `;
 
-const LanguageButton = styled(Button)`
-  margin: 8px 0;
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    border: none;
+const LanguageMenuContentInner = styled.div`
+  max-height: 400px;
+  overflow-y: auto;
 
-    h2 {
-      color: #d98aec;
-    }
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(171, 70, 248, 0.6);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(171, 70, 248, 0.8);
+  }
+
+  @media ${device.tablet} {
+    max-height: 300px;
+  }
+
+  @media ${device.mobileL} {
+    max-height: 200px;
+  }
+`;
+
+const LanguageButton = styled(Button)`
+  border: 1px solid transparent;
+  color: var(--ifm-color-white);
+
+  &:not(:first-of-type) {
+    margin-top: 8px;
+  }
+
+  &:hover {
+    border-radius: var(--radius-xs, 12px);
+    border: 1px solid transparent;
+    background: rgba(0, 0, 0, 1);
+    color: var(--ifm-link-color);
   }
 
   @media ${device.laptopM} {
@@ -1272,21 +1630,22 @@ const HeaderItem = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 10px;
+  padding: 8px 12px;
   gap: 6px;
-  margin: 14px 0 0 0;
   cursor: pointer;
+  border: 1px solid transparent;
 
   @media (min-width: 1025px) {
-    min-width: 450px;
+    width: auto;
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
+    border-radius: var(--radius-xs, 12px);
+    // border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    background: rgba(0, 0, 0, 1);
 
     h2 {
-      color: #d98aec;
+      color: var(--ifm-color-custom-pink);
     }
     & ${Image} {
       filter: brightness(0) saturate(100%) invert(83%) sepia(53%)
@@ -1296,7 +1655,7 @@ const HeaderItem = styled.div`
 
   @media ${device.laptopM} {
     max-width: 100%;
-    margin: 6px 0 0 0;
+    // margin: 6px 0 0 0;
   }
 `;
 
@@ -1323,32 +1682,78 @@ const HeaderSection = styled.div`
   flex: 1;
 `;
 
-const DappLauncher = styled(A)`
-  padding: 14px 38px;
-  font-family: FK Grotesk Neue;
-  height: 48px;
+const PrimaryLauncher = styled(A)`
+  padding: 16px 32px;
+  font-family:
+    DM Sans,
+    sans-serif;
+  height: auto;
   min-width: 140px;
+  box-sizing: border-box;
 
   @media ${device.laptopM} {
     align-self: stretch;
-    display: ${(props) => (props.showMobileMenu ? 'flex' : 'none')};
     flex: 0 1 100%;
+    display: ${(props) => (props.showMobileMenu ? 'flex' : 'none')};
     margin-top: ${(props) => props.showMobileMenu && '32px'};
+  }
+
+  @media ${device.mobileL} {
+  }
+`;
+
+const PortalLauncher = styled(A)`
+  padding: 16px 32px;
+  font-family:
+    DM Sans,
+    sans-serif;
+  height: auto;
+  min-width: 140px;
+  box-sizing: border-box;
+
+  @media ${device.laptop} {
+    display: block;
+  }
+
+  @media (max-width: 522px) {
+    display: none;
+  }
+
+  @media (max-width: 522px) {
+    display: none;
+  }
+
+  @media ${device.mobileL} {
+    display: none;
   }
 `;
 
 const TagItem = styled.b`
   width: fit-content;
   border-radius: 12px;
-  border: 1px solid #d98aec;
+  border: 1px solid var(--ifm-color-pink-200);
   background: transparent;
   padding: 2px 5px;
-  color: #d98aec;
+  color: var(--ifm-color-pink-200);
   // text-align: center;
   font-size: 9px;
   font-style: normal;
   font-weight: bolder;
   line-height: normal;
+`;
+
+const LiquidGlassOuter = styled(ItemV)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  pointer-events: none;
+
+  @media ${device.mobileL} {
+    display: none;
+  }
 `;
 
 export default Header;

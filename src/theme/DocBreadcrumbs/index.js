@@ -8,10 +8,8 @@ import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
 import { useLocation } from '@docusaurus/router';
 import { ThemeClassNames } from '@docusaurus/theme-common';
-import {
-  useHomePageRoute,
-  useSidebarBreadcrumbs,
-} from '@docusaurus/theme-common/internal';
+import { useHomePageRoute } from '@docusaurus/theme-common/internal';
+import { useSidebarBreadcrumbs } from '@docusaurus/plugin-content-docs/client';
 import HomeBreadcrumbItem from '@theme/DocBreadcrumbs/Items/Home';
 import clsx from 'clsx';
 import React from 'react';

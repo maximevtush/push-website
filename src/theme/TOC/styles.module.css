@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+.tableOfContents {
+  max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.copyPageButtonWrapper {
+  margin-top: auto;
+  padding: 1rem 0rem 1rem 0rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+/* Ensure the TOC items have proper spacing above the Copy Page Button */
+.tableOfContents > .table-of-contents {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* Mobile hiding is now handled by styled-components in the Copy Page Button component */
+
+/* Adjust TOC height when Copy Page Button is present */
+.tableOfContents:has(.copyPageButtonWrapper) {
+  max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
+}
+
+/* Ensure proper scrolling for TOC items when Copy Page Button is present */
+.tableOfContents > .table-of-contents {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ifm-color-emphasis-400) transparent;
+}
+
+.tableOfContents > .table-of-contents::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tableOfContents > .table-of-contents::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tableOfContents > .table-of-contents::-webkit-scrollbar-thumb {
+  background-color: var(--ifm-color-emphasis-400);
+  border-radius: 2px;
+}
+
+.tableOfContents > .table-of-contents::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ifm-color-emphasis-500);
+}

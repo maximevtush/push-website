@@ -107,7 +107,7 @@ const Schedules = ({
                       className={schedule.hasEnded ? 'disabled' : ''}
                       background={
                         schedule.hasEnded
-                          ? '#2A2A39'
+                          ? 'var(--ifm-color-gray-200)'
                           : schedule?.backgroundColor
                       }
                       title={`${schedule?.title}`}
@@ -160,14 +160,22 @@ const Schedules = ({
                       <ScheduleData>
                         <PlaceContainer>
                           <PlaceName
-                            color={schedule.hasEnded ? '#FFF' : '#b0ffc3'}
+                            color={
+                              schedule.hasEnded
+                                ? 'var(--ifm-color-white)'
+                                : 'var(--ifm-color-brb-success)'
+                            }
                           >
                             {schedule?.place}
                           </PlaceName>
                           {!schedule.hasEnded && <Arrow />}
                         </PlaceContainer>
                         <DateContainer
-                          color={schedule.hasEnded ? '#494968' : '#fff'}
+                          color={
+                            schedule.hasEnded
+                              ? 'var(--ifm-color-brb-border)'
+                              : 'var(--ifm-color-white)'
+                          }
                           onClick={() => checkDateStatus(schedule?.date)}
                         >
                           {schedule?.date}
@@ -187,7 +195,11 @@ const Schedules = ({
         <div style={{ position: 'relative' }}>
           <ActionContainer className='splide__arrows'>
             <SplideArrow
-              background={index > 0 ? '#E64DE9' : '#2A2A39'}
+              background={
+                index > 0
+                  ? 'var(--ifm-color-pink-secondary)'
+                  : 'var(--ifm-color-gray-200)'
+              }
               onClick={() =>
                 index !== 0 ? setIndex((prev) => prev - 1) : null
               }
@@ -196,9 +208,13 @@ const Schedules = ({
             >
               <Left />
             </SplideArrow>
-            {/* <Button background={direction === 'right' ? '#E64DE9' : '#2A2A39'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
+            {/* <Button background={direction === 'right' ? 'var(--ifm-color-pink-secondary)' : 'var(--ifm-color-gray-200)'} onClick={() => setDirection('right')} className="splide__arrow splide__arrow--next"> */}
             <SplideArrow
-              background={!isLastSchedule ? '#E64DE9' : '#2A2A39'}
+              background={
+                !isLastSchedule
+                  ? 'var(--ifm-color-pink-secondary)'
+                  : 'var(--ifm-color-gray-200)'
+              }
               onClick={() =>
                 !isLastSchedule ? setIndex((prev) => prev + 1) : null
               }
@@ -208,7 +224,7 @@ const Schedules = ({
               <Right />
             </SplideArrow>
             <Button
-              border='1px solid #E64DE9'
+              border='1px solid var(--ifm-color-pink-secondary)'
               onClick={() =>
                 window.open(
                   'https://pushprotocol.notion.site/Dev-Doc-Billion-Reasons-to-Buidl-One-place-to-start-b900d90937f440fcb737ffcd32078699?pvs=4',
@@ -268,7 +284,7 @@ const SplideContainer = styled.div`
 const Header = styled.span`
   font-size: 46px;
   font-weight: 400;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px 0px 37px;
   @media (max-width: 480px) {
     margin: 0px 0px 27px;
@@ -327,10 +343,6 @@ const Image = styled.img`
   object-fit: cover;
   overflow: hidden;
 `;
-const Icon = styled.img`
-  width: 50px;
-  height: 50px;
-`;
 
 const ScheduleData = styled(ItemV)`
   width: 100%;
@@ -361,7 +373,7 @@ const PlaceName = styled(Span)`
 
 const DateContainer = styled(Span)`
   height: 32px;
-  // color: #fff;
+  // color: var(--ifm-color-white);
   color: ${(props) => props.color};
   font-size: 20px;
   font-weight: 400;

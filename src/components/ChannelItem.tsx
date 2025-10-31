@@ -124,7 +124,7 @@ const ChannelItem = ({ channelProp }, delay) => {
       ) : null}
 
       <ArrowCont className='arrow-body'>
-        <BsArrowUpRight size={25} color={'#000'} />
+        <BsArrowUpRight size={25} color={'var(--ifm-color-black)'} />
       </ArrowCont>
 
       <ChannelTitle>
@@ -166,9 +166,9 @@ const Container = styled.a`
   position: relative;
   &:hover {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid #bac4d6;
-    backdrop-filter: blur(60px);
+    background: var(--ifm-color-overlay-white-70);
+    border: 1px solid var(--ifm-color-border-medium);
+    backdrop-filter: var(--ifm-color-backdrop-blur-heavy);
     .arrow-body {
       display: block;
     }
@@ -209,14 +209,14 @@ const ChannelTitle = styled.b`
   font-size: 22px;
   line-height: 110%;
   letter-spacing: -0.03em;
-  color: #121315;
+  color: var(--ifm-color-neutral-1000);
 `;
 
 const ChannelDesc = styled.p`
   font-weight: 300;
   font-size: 16px;
   line-height: 140%;
-  color: #303c5e;
+  color: var(--ifm-color-neutral-900);
   margin: 5px 0 0 0;
 
   overflow: hidden;

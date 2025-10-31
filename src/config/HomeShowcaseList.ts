@@ -4,7 +4,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'bankless',
-          alt: 'Powered by Push Protocol - Bankless Logo',
+          logoname: 'Bankless',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -13,7 +13,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'decentraland',
-          alt: 'Powered by Push Protocol - Decentraland Logo',
+          logoname: 'Decentraland',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -24,7 +24,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'shapeshift',
-          alt: 'Powered by Push Protocol - Shapeshift Logo',
+          logoname: 'Shapeshift',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -33,7 +33,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'uniswap',
-          alt: 'Powered by Push Protocol - Uniswap Logo',
+          logoname: 'Uniswap',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -42,7 +42,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'oasis',
-          alt: 'Powered by Push Protocol - Oasis Logo',
+          logoname: 'Oasis',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -55,7 +55,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'snapshot',
-          alt: 'Powered by Push Protocol - Snapshot Logo',
+          logoname: 'Snapshot',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -64,7 +64,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'ens',
-          alt: 'Powered by Push Protocol - ENS Logo',
+          logoname: 'ENS',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -75,7 +75,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'bancor',
-          alt: 'Powered by Push Protocol - Bancor Logo',
+          logoname: 'Bancor',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -84,7 +84,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'aragon',
-          alt: 'Powered by Push Protocol - Aragon Logo',
+          logoname: 'Aragon',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -97,7 +97,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'makerdao',
-          alt: 'Powered by Push Protocol - MakerDAO Logo',
+          logoname: 'MakerDAO',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -106,7 +106,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'earnifi',
-          alt: 'Powered by Push Protocol - EarniFi Logo',
+          logoname: 'EarniFi',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -117,7 +117,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'cryptocurrencyjobs',
-          alt: 'Powered by Push Protocol - Cryptocurrency Jobs Logo',
+          logoname: 'Cryptocurrency Jobs',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -126,7 +126,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'aave',
-          alt: 'Powered by Push Protocol - AAVE Logo',
+          logoname: 'AAVE',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -135,7 +135,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'rekt',
-          alt: 'Powered by Push Protocol - Rekt Logo',
+          logoname: 'Rekt',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -150,7 +150,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'metastable',
-          alt: 'Powered by Push Protocol - Meta Stable Logo',
+          logoname: 'Meta Stable',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -159,7 +159,7 @@ export const ShowcaseList = {
         },
         {
           srcref: '1inch',
-          alt: 'Powered by Push Protocol - 1Inch Logo',
+          logoname: '1Inch',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -168,7 +168,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'secondlive',
-          alt: 'Powered by Push Protocol - Second Live Logo',
+          logoname: 'Second Live',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -179,7 +179,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'atlendis',
-          alt: 'Powered by Push Protocol - Atlendis Logo',
+          logoname: 'Atlendis',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -188,7 +188,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'apeswap',
-          alt: 'Powered by Push Protocol - Apeswap Logo',
+          logoname: 'Apeswap',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -201,7 +201,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'qidao',
-          alt: 'Powered by Push Protocol - QiDAO Logo',
+          logoname: 'QiDAO',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -210,7 +210,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'dydx',
-          alt: 'Powered by Push Protocol - DyDx Logo',
+          logoname: 'DyDx',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -221,7 +221,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'lepasametaverse',
-          alt: 'Powered by Push Protocol - Lepasa Metaverse Logo',
+          logoname: 'Lepasa Metaverse',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -230,7 +230,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'orionprotocol',
-          alt: 'Powered by Push Protocol - Orion Protocol Logo',
+          logoname: 'Orion Protocol',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -243,7 +243,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'symphonyfinance',
-          alt: 'Powered by Push Protocol - Symphony Finance Labs Logo',
+          logoname: 'Symphony Finance Labs',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -252,7 +252,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'coindesk',
-          alt: 'Powered by Push Protocol - Coindesk Logo',
+          logoname: 'Coindesk',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -261,7 +261,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'kybernetwork',
-          alt: 'Powered by Push Protocol - Kyber Network Logo',
+          logoname: 'Kyber Network',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -272,7 +272,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'lifi',
-          alt: 'Powered by Push Protocol - LiFi Protocol Logo',
+          logoname: 'LiFi Protocol',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -281,7 +281,7 @@ export const ShowcaseList = {
         },
         {
           srcref: 'dd',
-          alt: 'Powered by Push Protocol - Developer DAO Logo',
+          logoname: 'Developer DAO',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -296,7 +296,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'unstoppable',
-          alt: 'Powered by Push Protocol - Unstoppable Domains Logo',
+          logoname: 'Unstoppable Domains',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -307,7 +307,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'mahadao',
-          alt: 'Powered by Push Protocol - MahaDAO Logo',
+          logoname: 'MahaDAO',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -320,7 +320,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'proofofhumanity',
-          alt: 'Powered by Push Protocol - Proof of Humanity Logo',
+          logoname: 'Proof of Humanity',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -331,7 +331,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'sushi',
-          alt: 'Powered by Push Protocol - Sushiswap Logo',
+          logoname: 'Sushiswap',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -346,7 +346,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'polychainmonsters',
-          alt: 'Powered by Push Protocol - Polychain Monsters Logo',
+          logoname: 'Polychain Monsters',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -357,7 +357,7 @@ export const ShowcaseList = {
       lower: [
         {
           srcref: 'pooltogether',
-          alt: 'Powered by Push Protocol - Pool Together Logo',
+          logoname: 'Pool Together',
           width: '96px',
           height: '96px',
           margin: '14px',
@@ -370,7 +370,7 @@ export const ShowcaseList = {
       upper: [
         {
           srcref: 'ethsign',
-          alt: 'Powered by Push Protocol - ETHSign Logo',
+          logoname: 'ETHSign',
           width: '0px',
           height: '0px',
           margin: '0px',
@@ -380,8 +380,8 @@ export const ShowcaseList = {
       ],
       lower: [
         {
-          srcref: 'lensprotocol',
-          alt: 'Powered by Push Protocol - Lens Protocol Logo',
+          srcref: 'diamante',
+          logoname: 'Diamante',
           width: '178px',
           height: '178px',
           margin: '14px',
@@ -397,56 +397,56 @@ export const ShowcaseResponsiveList = {
   top: [
     {
       srcref: 'bankless',
-      alt: 'Powered by Push Protocol - Bankless Logo',
+      logoname: 'Bankless',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'decentraland',
-      alt: 'Powered by Push Protocol - Decentraland Logo',
+      logoname: 'Decentraland',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'uniswap',
-      alt: 'Powered by Push Protocol - Uniswap Logo',
+      logoname: 'Uniswap',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'aave',
-      alt: 'Powered by Push Protocol - AAVE Logo',
+      logoname: 'AAVE',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'rekt',
-      alt: 'Powered by Push Protocol - Rekt Logo',
+      logoname: 'Rekt',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'sushi',
-      alt: 'Powered by Push Protocol - Sushiswap Logo',
+      logoname: 'Sushiswap',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'unstoppable',
-      alt: 'Powered by Push Protocol - Unstoppable Domains Logo',
+      logoname: 'Unstoppable Domains',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'proofofhumanity',
-      alt: 'Powered by Push Protocol - Proof of Humanity Logo',
+      logoname: 'Proof of Humanity',
       width: '96px',
       height: '96px',
       class: '',
@@ -454,57 +454,57 @@ export const ShowcaseResponsiveList = {
   ],
   bottom: [
     {
-      srcref: 'lensprotocol',
-      alt: 'Powered by Push Protocol - Lens Protocol Logo',
+      srcref: 'diamante',
+      logoname: 'Diamante',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: '1inch',
-      alt: 'Powered by Push Protocol - 1Inch Logo',
+      logoname: '1Inch',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'coindesk',
-      alt: 'Powered by Push Protocol - Coindesk Logo',
+      logoname: 'Coindesk',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'ens',
-      alt: 'Powered by Push Protocol - ENS Logo',
+      logoname: 'ENS',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'bancor',
-      alt: 'Powered by Push Protocol - Bancor Logo',
+      logoname: 'Bancor',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'aragon',
-      alt: 'Powered by Push Protocol - Aragon Logo',
+      logoname: 'Aragon',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'qidao',
-      alt: 'Powered by Push Protocol - QiDAO Logo',
+      logoname: 'QiDAO',
       width: '96px',
       height: '96px',
       class: '',
     },
     {
       srcref: 'dydx',
-      alt: 'Powered by Push Protocol - DyDx Logo',
+      logoname: 'DyDx',
       width: '96px',
       height: '96px',
       class: '',
@@ -516,42 +516,42 @@ export const ShowcaseResponsiveList = {
 // [
 //   {
 //     srcref: 'anglelabs',
-//     alt: 'Powered by Push Protocol - Angle Labs Logo',
+//    logoname: 'Angle Labs',
 //   },
 //   {
 //     srcref: 'flipside',
-//     alt: 'Powered by Push Protocol - Flipside Logo',
+//    logoname: 'Flipside',
 //   },
 //   {
 //     srcref: 'goodghosting',
-//     alt: 'Powered by Push Protocol - Good Ghosting Logo',
+//    logoname: 'Good Ghosting',
 //   },
 //   {
 //     srcref: 'gro',
-//     alt: 'Powered by Push Protocol - Gro Logo',
+//    logoname: 'Gro',
 //   },
 //   {
 //     srcref: 'meanfinance',
-//     alt: 'Powered by Push Protocol - Mean Finance Logo',
+//    logoname: 'Mean Finance',
 //   },
 //   {
 //     srcref: 'mover',
-//     alt: 'Powered by Push Protocol - Mover Logo',
+//    logoname: 'Mover',
 //   },
 //   {
 //     srcref: 'podsfinance',
-//     alt: 'Powered by Push Protocol - Pods Finance Logo',
+//    logoname: 'Pods Finance',
 //   },
 //   {
 //     srcref: 'thena',
-//     alt: 'Powered by Push Protocol - Thena Logo',
+//    logoname: 'Thena',
 //   },
 //   {
 //     srcref: 'wormbat',
-//     alt: 'Powered by Push Protocol - Wormbat Logo',
+//    logoname: 'Wormbat',
 //   },
 //   {
 //     srcref: 'zeroswap',
-//     alt: 'Powered by Push Protocol - Zeroswap Logo',
+//    logoname: 'Zeroswap',
 //   },
 // ]

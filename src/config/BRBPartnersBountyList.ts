@@ -19,7 +19,7 @@ export const brbPartnersBountyList = [
     alt: 'Polygon, Partner of Push, #BRBIndia, pan-India dev tour',
     text: 'Implement OpenZeppelin Governor to vote on zkEVM from Ethereum or Polygon PoS',
     price: 5000,
-    ended: false,
+    ended: true,
   },
   // {
   //   srcref: 'ethglobal',
@@ -75,7 +75,7 @@ export const brbPartnersBountyList = [
     alt: 'Shardeum, Partner of Push, #BRBIndia, pan-India dev tour',
     text: 'Build an Automated Market Maker (AMM) optimized for parallel processing',
     price: 5000,
-    ended: false,
+    ended: true,
   },
   {
     srcref: 'aragon',
@@ -97,7 +97,7 @@ export const brbPartnersBountyList = [
     alt: 'Biconomy, Partner of Push, #BRBIndia, pan-India dev tour',
     text: 'Build a new validation module to use with the Biconomy smart accounts',
     price: 5000,
-    ended: false,
+    ended: true,
   },
   {
     srcref: 'filecoin',
@@ -119,7 +119,7 @@ export const brbPartnersBountyList = [
     alt: 'Timeswap, Partner of Push, #BRBIndia, pan-India dev tour',
     text: 'Design and implement Account Abstraction (AA) features for Timeswap Protocol',
     price: 5000,
-    ended: false,
+    ended: true,
   },
   {
     srcref: 'chainsafe',
@@ -157,7 +157,7 @@ export const brbPartnersBountyList = [
     alt: 'Push Protocol',
     text: 'Build Push V3 by enhancing the fees pool logic of V2 to accept any tokens',
     price: 7500,
-    ended: false,
+    ended: true,
   },
 ];
 

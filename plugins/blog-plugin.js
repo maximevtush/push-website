@@ -1,5 +1,3 @@
-// ./custom-blog-plugin.js
-
 const blogPluginExports = require('@docusaurus/plugin-content-blog');
 
 const defaultBlogPlugin = blogPluginExports.default;
@@ -26,15 +24,21 @@ async function blogPluginExtended(...pluginArgs) {
       const allPosts = [...content.blogPosts];
 
       async function createRecentPostModule(blogPost, index) {
+        if (!blogPost || !blogPost.metadata) {
+          console.warn(`Skipping blog post ${index} - missing metadata`);
+          return null;
+        }
+
         return {
           // Inject the metadata you need for each recent blog post
           metadata: await actions.createData(
             `home-page-recent-post-metadata-${index}.json`,
             JSON.stringify({
-              title: blogPost.metadata.title,
-              description: blogPost.metadata.description,
-              frontMatter: blogPost.metadata.frontMatter,
+              title: blogPost?.metadata?.title || 'Untitled',
+              description: blogPost?.metadata?.description || '',
+              frontMatter: blogPost?.metadata?.frontMatter || {},
               content: blogPost,
+              twitterId: blogPost?.metadata?.frontMatter?.twitterId || '',
             })
           ),
 
@@ -43,7 +47,7 @@ async function blogPluginExtended(...pluginArgs) {
           Preview: {
             __import: true,
             // The markdown file for the blog post will be loaded by webpack
-            path: blogPost.metadata.source,
+            path: blogPost?.metadata?.source,
             query: {
               truncated: true,
             },
@@ -52,15 +56,21 @@ async function blogPluginExtended(...pluginArgs) {
       }
 
       async function createMorePostModule(blogPost, index) {
+        if (!blogPost || !blogPost.metadata) {
+          console.warn(`Skipping blog post ${index} - missing metadata`);
+          return null;
+        }
+
         return {
           // Inject the metadata you need for each recent blog post
           metadata: await actions.createData(
             `blog-page-more-post-metadata-${index}.json`,
             JSON.stringify({
-              title: blogPost.metadata.title,
-              description: blogPost.metadata.description,
-              frontMatter: blogPost.metadata.frontMatter,
+              title: blogPost?.metadata?.title || 'Untitled',
+              description: blogPost?.metadata?.description || '',
+              frontMatter: blogPost?.metadata?.frontMatter || {},
               content: blogPost,
+              twitterId: blogPost?.metadata?.frontMatter?.twitterId || '',
             })
           ),
 
@@ -69,7 +79,7 @@ async function blogPluginExtended(...pluginArgs) {
           Preview: {
             __import: true,
             // The markdown file for the blog post will be loaded by webpack
-            path: blogPost.metadata.source,
+            path: blogPost?.metadata?.source,
             // query: {
             // truncated: false,
             // },
@@ -85,7 +95,7 @@ async function blogPluginExtended(...pluginArgs) {
         exact: true,
 
         // The component to use for the "Home" page route
-        component: '../src/pages/home.tsx',
+        component: '@site/src/pages/home.tsx',
 
         // These are the props that will be passed to our "Home" page component
         modules: {
@@ -98,14 +108,21 @@ async function blogPluginExtended(...pluginArgs) {
               totalRecentPosts: recentPosts.length,
             })
           ),
-          recentPosts: await Promise.all(
-            recentPosts.map(createRecentPostModule)
-          ),
+          recentPosts: (
+            await Promise.all(recentPosts.map(createRecentPostModule))
+          ).filter(Boolean),
         },
       });
 
       for (let i = 0; i < allPosts.length; i++) {
         const blogPost = allPosts[i];
+        if (!blogPost || !blogPost.metadata || !blogPost.metadata.permalink) {
+          console.warn(
+            `Skipping blog post ${i} - missing metadata or permalink`
+          );
+          continue;
+        }
+
         actions.addRoute({
           // Add route for the blog page
           // path: "/blog/:slug",
@@ -124,9 +141,12 @@ async function blogPluginExtended(...pluginArgs) {
                 blogDescription: pluginOptions.blogDescription,
                 totalPosts: content.blogPosts.length,
                 totalRecentPosts: recentPosts.length,
+                twitterId: blogPost?.metadata?.frontMatter?.twitterId || '',
               })
             ),
-            allPosts: await Promise.all(allPosts.map(createMorePostModule)),
+            allPosts: (
+              await Promise.all(allPosts.map(createMorePostModule))
+            ).filter(Boolean),
           },
         });
       }

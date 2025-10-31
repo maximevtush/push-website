@@ -1,15 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+
 // React and other libraries
-import React, { useEffect, useState, FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { toast, Toaster } from 'sonner';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BiX } from 'react-icons/bi';
+import { toast, Toaster } from 'sonner';
+import styled from 'styled-components';
 
 // Internal Components
-import { Button } from '../../src/css/SharedStyling';
-import { PushLogoSVG } from '../components/reusables/pushlogo';
-import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
+import { Button, Image } from '../../src/css/SharedStyling';
+
+// Internal Configs
+import { device } from '@site/src/config/globals';
 
 type NotificationProps = {
   image?: ReactNode;
@@ -27,31 +30,35 @@ type NotificationProps = {
   position?: 'bottom-right' | 'bottom-left' | 'top-center';
   /* Optional duration of the notification component */
   duration?: number;
+  /* Translation function */
+  t?: (key: string) => string;
 };
 
 // Custom Hook
 export const useChainNotification = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { t } = useTranslation();
 
   const showNotification = () => {
     const toastId = toast.custom(
       () => (
         <NotificationItem
-          title='Vote for Devnet'
-          description='Governance proposal is live! Vote today to power up Push Chain'
+          title={t('notifications.chain-notification.title')}
+          description={t('notifications.chain-notification.description')}
           position='bottom-left'
           onClick={() => {
-            localStorage.setItem('chainNotificationShown', 'true');
+            localStorage.setItem('testnetNotificationShown', 'true');
             window.open(
-              'https://gov.push.org/t/introducing-push-chain-a-shared-state-l1-for-universal-apps/1991',
+              'https://dorahacks.io/hackathon/pushchain-gud?utm_source=website&utm_medium=referral&utm_campaign=project_gud',
               '_blank'
             );
             toast.dismiss(toastId);
           }}
           onClose={() => {
-            localStorage.setItem('chainNotificationShown', 'true');
+            localStorage.setItem('testnetNotificationShown', 'true');
             toast.dismiss(toastId);
           }}
+          t={t}
         />
       ),
       {
@@ -61,21 +68,21 @@ export const useChainNotification = () => {
     );
   };
 
-  useEffect(() => {
-    // Ensure this code only runs in the browser
-    if (typeof window !== 'undefined') {
-      const notificationAlreadyShown =
-        localStorage.getItem('chainNotificationShown') === 'true';
+  // useEffect(() => {
+  //   // Ensure this code only runs in the browser
+  //   if (typeof window !== 'undefined') {
+  //     const notificationAlreadyShown =
+  //       localStorage.getItem('testnetNotificationShown') === 'true';
 
-      if (!notificationAlreadyShown && !hasMounted) {
-        showNotification();
-        setHasMounted(true);
-      } else {
-        toast.dismiss();
-        setHasMounted(false);
-      }
-    }
-  }, []);
+  //     if (!notificationAlreadyShown && !hasMounted) {
+  //       showNotification();
+  //       setHasMounted(true);
+  //     } else {
+  //       toast.dismiss();
+  //       setHasMounted(false);
+  //     }
+  //   }
+  // }, []);
 };
 
 export const Notification = () => {
@@ -88,6 +95,7 @@ const NotificationItem: FC<NotificationProps> = ({
   description,
   onClick,
   onClose,
+  t,
 }) => {
   const handleNotificationClick = () => onClick?.();
   const handleNotificationClose = () => {
@@ -96,32 +104,54 @@ const NotificationItem: FC<NotificationProps> = ({
   };
 
   return (
-    <NotificationContainer onClick={handleNotificationClick}>
+    <NotificationContainer
+      onClick={handleNotificationClick}
+      role='alert'
+      aria-label={t?.('notifications.chain-notification.container-aria-label')}
+      aria-describedby='chain-notification-content'
+      aria-live='assertive'
+    >
       <CloseButton
         onClick={(e) => {
           e.stopPropagation();
           handleNotificationClose();
         }}
+        title={t?.('notifications.chain-notification.close-button-title')}
+        aria-label={t?.(
+          'notifications.chain-notification.close-button-aria-label'
+        )}
       >
-        <BiX size={20} color='#FFF' />
+        <BiX size={20} color='var(--ifm-color-white)' />
       </CloseButton>
-      <TextContainer>
+      <TextContainer id='chain-notification-content'>
         <PushLogoBlackContainer>
-          <PushLogoSVG />
-
-          <ChainLogoDark style={{ margin: '0px 0px 0px 8px' }} />
+          <Image
+            src={
+              require(
+                `@site/static/assets/website/notifications/testnet-donut-img.png`
+              ).default
+            }
+            srcSet={`${require(`@site/static/assets/website/notifications/testnet-donut@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-donut@3x.webp`).default} 3x`}
+            alt={t?.('notifications.chain-notification.image-alt')}
+            loading='lazy'
+          />
         </PushLogoBlackContainer>
-        <NotificationTitle>{title}</NotificationTitle>
+        {title && <NotificationTitle>{title}</NotificationTitle>}
+        {description && (
+          <NotificationDescription>{description}</NotificationDescription>
+        )}
         <Button
           background='transparent'
           margin='0 auto'
-          border='1.5px solid #fff'
-          hoverBorder='1.5px solid #fff'
-          fontFamily='N27'
+          border='1.5px solid var(--ifm-color-white)'
+          hoverBorder='1.5px solid var(--ifm-color-white)'
+          fontFamily='DM Sans'
+          width='100%'
+          title={t?.('notifications.chain-notification.button-title')}
+          aria-label={t?.('notifications.chain-notification.button-aria-label')}
         >
-          Vote Now
+          {t?.('notifications.chain-notification.button-text')}
         </Button>
-        <NotificationDescription>{description}</NotificationDescription>
       </TextContainer>
     </NotificationContainer>
   );
@@ -130,25 +160,26 @@ const NotificationItem: FC<NotificationProps> = ({
 // Notification Container
 const NotificationContainer = styled.div`
   position: relative;
-  background-color: #000;
+  background-color: var(--ifm-color-blue);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  height: 310px;
+  height: auto;
   width: 320px;
   cursor: pointer;
   box-sizing: border-box;
-  font-family: N27;
+  font-family: DM Sans !important;
+
   overflow: hidden;
 
-  @media (max-width: 425px) {
-    width: -webkit-fill-available;
+  @media ${device.tablet} {
+    display: none;
   }
 
   img {
-    width: 72px;
-    height: auto;
+    width: 209px;
+    height: 132px;
     margin: 0 auto;
   }
 `;
@@ -156,7 +187,7 @@ const NotificationContainer = styled.div`
 const StyledToaster = styled(Toaster)`
   width: 397px;
 
-  @media (max-width: 425px) {
+  @media ${device.mobileL} {
     width: -webkit-fill-available;
   }
 `;
@@ -173,9 +204,9 @@ const TextContainer = styled.div`
 `;
 
 const NotificationTitle = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
-  font-family: N27;
+  font-family: DM Sans !important;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
@@ -185,9 +216,9 @@ const NotificationTitle = styled.span`
 `;
 
 const NotificationDescription = styled.span`
-  color: #fff;
+  color: var(--ifm-color-white);
   text-align: center;
-  font-family: N27;
+  font-family: DM Sans !important;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -199,7 +230,7 @@ const NotificationDescription = styled.span`
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #fff;
+  color: var(--ifm-color-white);
   padding: 0px;
   position: absolute;
   right: 8px;

@@ -1,22 +1,29 @@
 // React + Web3 Essentials
 import { useLocation } from '@docusaurus/router';
-import React from 'react';
+
+import React, { useContext } from 'react';
 
 // External Components
 import i18nInitialize from '@site/src/utils/i18n';
 import styled from 'styled-components';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Internal Components
-// import Footer from '@site/src/segments/Footer';
+import { AccountProvider } from '@site/src/context/accountContext';
 import ServerStyle from '@site/src/theme/ServerStyle';
 import CookieComponent from '../components/CookieComponent';
-import { useSiteBaseUrl } from '../utils/useSiteBaseUrl';
+import InfoBar from '../components/InfoBar';
+import AccountContext from '../context/accountContext';
+import { useChainNotification } from '../hooks/useChainNotification';
 import { Notification } from '../hooks/useRewardsNotification';
+import { useSiteBaseUrl } from '../hooks/useSiteBaseUrl';
 
 // Initialize Internalization
 i18nInitialize();
 
 export default function Root({ children }) {
+  const queryClient = new QueryClient();
+
   // superimposed conditions
   const superimposedConditions = [
     {
@@ -41,8 +48,16 @@ export default function Root({ children }) {
     },
   ];
 
+  const location = useLocation();
   const baseURL = useSiteBaseUrl();
-  const excludePaths = ['/BRB', '/DOCS', '/BOOTCAMP', '/CHAIN', '/TEMPLATE'];
+  useChainNotification();
+  const { showAlertBar } = useContext(AccountContext);
+  const isPreview = /^\/push-chain-website\/pr-preview\/pr-\d+\/?$/.test(
+    location.pathname
+  );
+  const isHome = (location.pathname === '/' || isPreview) && showAlertBar;
+
+  const excludePaths = ['/BRB', '/DOCS'];
   const shouldRenderFooter = excludePaths.every((path) =>
     excludeDefaultConfigAt(path)
   );
@@ -60,7 +75,6 @@ export default function Root({ children }) {
       }
     }
 
-    // return result
     return result;
   }
 
@@ -74,9 +88,6 @@ export default function Root({ children }) {
   function locationPathExists(pathname, condition) {
     let result = false;
     pathname = pathname?.toUpperCase();
-
-    // Define location
-    const location = useLocation();
 
     const str = location?.pathname.toUpperCase();
     const modstr =
@@ -109,20 +120,39 @@ export default function Root({ children }) {
   }
 
   return (
-    <PageContainer className={returnAdditionalClasses(superimposedConditions)}>
-      <ServerStyle from={children} />
-
-      {/* Main react children */}
-      <Content>{children}</Content>
-      <Notification />
-
-      {shouldRenderFooter && (
+    <QueryClientProvider client={queryClient}>
+      <AccountProvider>
         <>
-          {/* <Footer /> */}
-          <CookieComponent />
+          {/* Only render InfoBar on client-side after hydration */}
+          {typeof window !== 'undefined' && showAlertBar && (
+            <InfoBar
+              translatedTextKey='notifications.info-bar.title'
+              url='https://push.org/blog/announcing-project-gud-go-universal-and-deploy/'
+            />
+          )}
+
+          <PageContainer
+            className={returnAdditionalClasses(superimposedConditions)}
+          >
+            <ServerStyle from={children} />
+
+            {/* Main react children */}
+            <Content isHome={isHome}>{children}</Content>
+
+            {/* Notifications - only render on client-side */}
+            {typeof window !== 'undefined' && <Notification />}
+
+            {shouldRenderFooter && (
+              <>
+                {/* <Footer /> */}
+                {/* CookieComponent has its own hydration handling */}
+                <CookieComponent />
+              </>
+            )}
+          </PageContainer>
         </>
-      )}
-    </PageContainer>
+      </AccountProvider>
+    </QueryClientProvider>
   );
 }
 
@@ -135,4 +165,8 @@ const PageContainer = styled.div`
 // The main content should take up all remaining space
 const Content = styled.div`
   flex: 1;
+  ${({ isHome }) =>
+    isHome &&
+    `background: linear-gradient(90deg, #3524ed 0%,var(--ifm-color-custom-pink) 50%, #3524ed 100%);
+    `}
 `;

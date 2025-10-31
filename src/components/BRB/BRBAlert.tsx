@@ -48,7 +48,7 @@ export const BRBAlert = ({ isAlertVisible, setIsAlertVisible }) => {
           <CancelIcon>
             <AiOutlineClose
               size='1.25rem'
-              color='#7f7b80'
+              color='var(--ifm-color-icon-close)'
               className='icon'
               onClick={hideAlertHandler}
             />
@@ -62,10 +62,10 @@ export const BRBAlert = ({ isAlertVisible, setIsAlertVisible }) => {
 const AlertContainer = styled(ItemH)`
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.5) -2.55%,
-    rgba(42, 42, 57, 0.5) 32.62%,
-    rgba(213, 86, 244, 0.5) 68.34%,
-    rgba(0, 0, 0, 0.5) 102.97%
+    var(--ifm-color-overlay-black-50) -2.55%,
+    var(--ifm-color-grad-mid-purple) 32.62%,
+    var(--ifm-color-grad-alt-pink) 68.34%,
+    var(--ifm-color-overlay-black-50) 102.97%
   );
   backdrop-filter: blur(15px);
   padding: 1rem 0;
@@ -82,7 +82,7 @@ const AlertText = styled.div`
   font-size: 18px;
   line-height: 142%;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: var(--ifm-color-white);
   margin: auto auto;
   cursor: pointer;
   @media ${device.tablet} {
@@ -115,7 +115,7 @@ const KnowMoreLink = styled.span`
   background: none;
   font-size: 1.125rem;
   padding-left: 0.3rem;
-  color: #fff;
+  color: var(--ifm-color-white);
   text-decoration: none;
   cursor: pointer;
   font-weight: 700;

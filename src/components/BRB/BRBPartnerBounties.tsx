@@ -38,7 +38,7 @@ export const PartnerBounties = ({
       <ItemH gap='24px' margin='0px 0px 60px'>
         <Header>Partners {isMobile && <br />} Bounties</Header>
         <Button
-          background='#e64de9'
+          background='var(--ifm-color-pink-secondary)'
           display='flex'
           maxWidth='187px'
           alignItems='center'
@@ -126,7 +126,7 @@ export const PartnerBounties = ({
               {item.ended ? (
                 <BountyButton
                   disabled
-                  borderColor={'#53536C'}
+                  borderColor={'var(--ifm-color-brb-disabled)'}
                   className='buttonId'
                 >
                   <ViewBountyText>CLOSED</ViewBountyText>
@@ -145,7 +145,7 @@ export const PartnerBounties = ({
 };
 
 const TwitterLink = styled.div`
-  color: #e64de9;
+  color: var(--ifm-color-pink-secondary);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -159,7 +159,7 @@ const WinnerItem = styled.div`
   gap: 10px;
   align-items: center;
   justify-content: flex-start;
-  color: #fff;
+  color: var(--ifm-color-white);
 `;
 const BountyPrice = styled.div`
   margin-left: auto;
@@ -199,12 +199,12 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: 'Glancyr', sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px;
 `;
 
 const PartnerLine = styled.div`
-  background: #1b1b25;
+  background: var(--ifm-color-brb-background);
   width: 100%;
   height: 120px;
   margin: 0 auto;
@@ -224,11 +224,14 @@ const PartnerLine = styled.div`
 
   &:hover {
     border: ${(props) =>
-      props.disabled ? '1px solid transparent' : '1px solid #E64DE9'};
+      props.disabled
+        ? '1px solid transparent'
+        : '1px solid var(--ifm-color-pink-secondary)'};
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
     & .buttonId {
-      background: ${(props) => (!props.disabled ? '#E64DE9 !important' : '')};
+      background: ${(props) =>
+        !props.disabled ? 'var(--ifm-color-pink-secondary) !important' : ''};
     }
   }
 
@@ -257,7 +260,7 @@ const ViewBountyText = styled(Span)`
   font-style: normal;
   font-weight: 400;
   line-height: 12px;
-  color: #fff;
+  color: var(--ifm-color-white);
 
   @media ${device.mobileS} {
     flex: 1;
@@ -270,8 +273,12 @@ const BountyButton = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 12px;
-  border: 1px solid ${(props) => props.borderColor || '#e64de9'};
-  background: ${(props) => (props.disabled ? '#53536C' : '#E64DE9')};
+  border: 1px solid
+    ${(props) => props.borderColor || 'var(--ifm-color-pink-secondary)'};
+  background: ${(props) =>
+    props.disabled
+      ? 'var(--ifm-color-brb-disabled)'
+      : 'var(--ifm-color-pink-secondary)'};
   border-radius: 8px;
   cursor: pointer;
 `;
@@ -285,7 +292,7 @@ const ArrowSmall = styled(Arrow)`
 const BountyDescription = styled(Span)`
   font-weight: 400;
   font-size: 18px;
-  color: #fff;
+  color: var(--ifm-color-white);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -312,7 +319,7 @@ const BountyDescription = styled(Span)`
 `;
 
 const PriceSpan = styled(Span)`
-  color: #fff;
+  color: var(--ifm-color-white);
   font-weight: 400;
 `;
 

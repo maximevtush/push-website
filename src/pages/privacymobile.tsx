@@ -1,50 +1,69 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import PushLogo from '@site/static/assets/website/brb/pushIcon.svg';
-import ChainLogoDark from '@site/static/assets/website/chain/ChainLogoDark.svg';
 
-import { ItemV } from '../../src/css/SharedStyling';
+import Head from '@docusaurus/Head';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Layout from '@theme/Layout';
+import React from 'react';
 
-function PrivacyMobile() {
-  // Redirect to Home Page
-  useEffect(() => {
-    window.location.href = 'https://comms.push.org/privacymobile';
-  }, []);
+import { useTranslation } from 'react-i18next';
+
+import { DefaultDarkTheme } from '@site/src/css/SharedStyling';
+import PrivacyMobileComp from '@site/src/pages-composition/privacymobileComp';
+
+function PrivacyMobilePage() {
+  const { t } = useTranslation();
 
   return (
-    <Container>
-      <PushLogoBlackContainer className='headerlogo' flex='initial'>
-        <PushLogo style={{ margin: '0px 9px 0px 4px' }} />
-        <ChainLogoDark />
-      </PushLogoBlackContainer>
-      <Message>Redirecting...</Message>
-    </Container>
+    <Layout
+      title={t('pages.privacymobile.seo.title')}
+      description={t('pages.privacymobile.seo.description')}
+      showNavbar='website'
+    >
+      <Head>
+        <meta property='og:url' content='https://push.org/privacymobile' />
+        <meta property='og:type' content='website' />
+        <meta
+          property='og:title'
+          content={t('pages.privacymobile.seo.og-title')}
+        />
+        <meta
+          property='og:description'
+          content={t('pages.privacymobile.seo.og-description')}
+        />
+        <meta
+          property='og:image'
+          content={useBaseUrl(
+            require('/static/assets/previews/privacypreview.png').default,
+            { absolute: true }
+          )}
+        />
+
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:site' content='@PushChain' />
+        <meta name='twitter:creator' content='@PushChain' />
+        <meta
+          name='twitter:title'
+          content={t('pages.privacymobile.seo.twitter-title')}
+        />
+        <meta
+          property='twitter:description'
+          content={t('pages.privacymobile.seo.twitter-description')}
+        />
+        <meta
+          property='twitter:image'
+          content={useBaseUrl(
+            require('/static/assets/previews/privacypreview.png').default,
+            { absolute: true }
+          )}
+        />
+      </Head>
+
+      <DefaultDarkTheme>
+        <PrivacyMobileComp />
+      </DefaultDarkTheme>
+    </Layout>
   );
 }
 
-export default PrivacyMobile;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: black;
-  color: white;
-  text-align: center;
-`;
-
-const PushLogoBlackContainer = styled(ItemV)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #fff;
-`;
-
-const Message = styled.p`
-  font-size: 18px;
-  margin-top: 8px;
-`;
+export default PrivacyMobilePage;

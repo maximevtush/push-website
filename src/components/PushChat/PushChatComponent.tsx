@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 
 // External Components
 import styled from 'styled-components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+// import { ChatUIProvider } from '@pushprotocol/uiweb';
 
 // Internal Components
 import { PushChatTheme } from '@site/src/components/BRB/PushChatTheme';
@@ -42,7 +44,7 @@ export const ChatComponent = () => {
     <Container>
       <Header>
         Join the conversation
-        <BrandA href='https://comms.push.org/docs' target='_blank'>
+        <BrandA href={useBaseUrl('/docs/chat')} target='_blank'>
           <Image
             src={
               require(
@@ -57,9 +59,9 @@ export const ChatComponent = () => {
       </Header>
 
       <PlayGround>
-        {/* 
+        {/*
           b8e068e02fe12d7136bc2f24408835573f30c6fbf0b65ea26ab4c7055a2c85f1 -> test group
-          4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68 -> brb group 
+          4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68 -> brb group
           */}
         <BrowserOnly
           fallback={
@@ -71,38 +73,84 @@ export const ChatComponent = () => {
           }
         >
           {() => {
-            const uiweb = require('@pushprotocol/uiweb');
+            try {
+              // Safer dynamic import with error handling
+              const uiweb = require('@pushprotocol/uiweb');
 
-            const ChatUIProvider = uiweb.ChatUIProvider;
-            const ChatView = uiweb.ChatView;
-            const MODAL_POSITION_TYPE = uiweb.MODAL_POSITION_TYPE;
+              // Check if the required components exist before using them
+              if (
+                !uiweb ||
+                !uiweb.ChatUIProvider ||
+                !uiweb.ChatView ||
+                !uiweb.MODAL_POSITION_TYPE
+              ) {
+                console.warn('Push Protocol UI components not available');
+                return (
+                  <div
+                    style={{
+                      color: 'var(--ifm-color-white)',
+                      textAlign: 'center',
+                      padding: '20px',
+                    }}
+                  >
+                    Chat component is temporarily unavailable
+                  </div>
+                );
+              }
 
-            return (
-              <>
-                <ChatUIProvider theme={PushChatTheme}>
-                  <ChatView
-                    chatId='4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68'
-                    limit={10}
-                    isConnected={true}
-                    onVerificationFail={() => setShowFaucet(true)}
-                    verificationFailModalPosition={MODAL_POSITION_TYPE.RELATIVE}
-                  />
-                </ChatUIProvider>
-              </>
-            );
+              const ChatUIProvider = uiweb.ChatUIProvider;
+              const ChatView = uiweb.ChatView;
+              const MODAL_POSITION_TYPE = uiweb.MODAL_POSITION_TYPE;
+
+              return (
+                <>
+                  <ChatUIProvider theme={PushChatTheme}>
+                    <ChatView
+                      chatId='4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68'
+                      limit={10}
+                      isConnected={true}
+                      onVerificationFail={() => setShowFaucet(true)}
+                      verificationFailModalPosition={
+                        MODAL_POSITION_TYPE.RELATIVE
+                      }
+                    />
+                  </ChatUIProvider>
+                </>
+              );
+            } catch (error) {
+              console.error('Error loading Push Chat component:', error);
+              return (
+                <div
+                  style={{
+                    color: 'var(--ifm-color-white)',
+                    textAlign: 'center',
+                    padding: '20px',
+                  }}
+                >
+                  Chat component failed to load
+                </div>
+              );
+            }
           }}
         </BrowserOnly>
       </PlayGround>
 
       <BottomBar>
         <TokenGated />
-        <Span fontSize='16px' color='#fff' fontWeight='400'>
+        <Span fontSize='16px' color='var(--ifm-color-white)' fontWeight='400'>
           This is a token gated group. You can join but will need{' '}
-          <span style={{ color: '#E64DE9', fontWeight: '400' }}>1 $PUSH</span>{' '}
+          <span
+            style={{
+              color: 'var(--ifm-color-pink-secondary)',
+              fontWeight: '400',
+            }}
+          >
+            1 $PUSH
+          </span>{' '}
           in your wallet to be able to send messages.
         </Span>
         <ButtonItem
-          background='#E64DE9'
+          background='var(--ifm-color-pink-secondary)'
           padding='8px'
           margin='0px 0px 0px 16px'
           fontWeight='500'
@@ -135,7 +183,7 @@ const BottomBar = styled(ItemH)`
   max-height: 33px;
   background: transparent;
   align-items: center;
-  color: #fff;
+  color: var(--ifm-color-white);
   z-index: 0 !important;
   margin-top: 20px;
 
@@ -183,7 +231,7 @@ const Header = styled.h3`
   font-size: 46px;
   font-weight: 400;
   font-family: Glancyr, sans-serif;
-  color: #fff;
+  color: var(--ifm-color-white);
   margin: 0px 0px 60px;
   position: relative;
   @media (max-width: 768px) {
@@ -209,7 +257,7 @@ const BrandA = styled(A)`
 `;
 
 const PlayGround = styled(Section)`
-  font-family: 'Strawford', sans-serif;
+  font-family: 'Inter', sans-serif;
   flex-direction: column;
   background-image: url(${PlaygroundBg});
   background-position: center;

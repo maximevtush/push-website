@@ -5,18 +5,8 @@ authors: [push]
 image: './cover-image.webp'
 description: 'Push Chain joins forces with Plume!'
 text: 'Push Chain is set to revolutionize RWAfi by joining forces with Plume! Learn what this announcement means for Plume and Push Chain users, the use cases it unlocks, and how the collaboration benefits the greater Web3 ecosystem.'
-tags:
-  [
-    Push Chain,
-    Partnerships,
-    Shared App Experience,
-    Any Chain Tx,
-    Universal Smart Contracts,
-    Shared State Blockchain,
-    Consumer Tx,
-    Parallel Validators,
-    Dynamic Sharding,
-  ]
+tags: [Push Chain, Partnerships]
+twitterId: '1879899425117806791'
 ---
 
 ![Cover image of Push Chain joins forces with Plume ](./cover-image.webp)
@@ -108,4 +98,4 @@ _Get ready! RWAfi is set to be accessible to any user from any app on any chain 
 3. Visit the [Push Chain Website](https://push.org/chain) to find a one-pager explanation of the vision.
 4. [Push Chain Devnet](https://scan.push.org/) is running live on Proof-of-Stake network validators, storage and archival nodes. The network already supports consumer transactions as well.
 5. [Push Chain Simulate Tx](https://simulate.push.org) already provides a way for everyone to send tx from any chain using wallet abstraction.
-6. For more questions join [Push Discord](https://discord.com/invite/pushprotocol). Our team would be glad to help you!
+6. For more questions join [Push Discord](https://discord.com/invite/pushchain). Our team would be glad to help you!

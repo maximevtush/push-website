@@ -19,6 +19,7 @@ import SearchMetadata from '@theme/SearchMetadata';
 import clsx from 'clsx';
 import styled from 'styled-components';
 import { useLocation } from '@docusaurus/router';
+import { useTranslation } from 'react-i18next';
 
 // Internal Configs
 import GLOBALS, { device } from '@site/src/config/globals';
@@ -46,20 +47,23 @@ function BlogListPageMetadata(props) {
   );
 }
 function BlogListPageContent(props) {
+  const { t } = useTranslation();
   const { metadata, items } = props;
 
   return (
     <>
       <ListItem>
         <ListSpan>
-          {metadata.page == 1 ? 'Recent Updates' : `Page ${metadata?.page}`}
+          {metadata?.page == 1
+            ? t('components.blog.list.recent-updates')
+            : t('components.blog.list.page-title', { page: metadata?.page })}
         </ListSpan>
-        {metadata.page == 1 && (
-          <BlogPostItems items={items.slice(0, 4)} list={true} />
+        {metadata?.page == 1 && (
+          <BlogPostItems items={items?.slice(0, 4)} list={true} />
         )}
       </ListItem>
-      <GridItem marginTop={metadata.page == 1 ? true : false}>
-        <BlogPostItems items={items.slice(metadata?.page == 1 ? 4 : 0, 11)} />
+      <GridItem marginTop={metadata?.page == 1 ? true : false}>
+        <BlogPostItems items={items?.slice(metadata?.page == 1 ? 4 : 0, 11)} />
       </GridItem>
       <PaginatorDiv>
         <BlogListPaginator metadata={metadata} />
@@ -117,7 +121,6 @@ const ListItem = styled.div`
 
   @media (max-width: 1200px) {
     width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
     box-sizing: border-box;
     margin: 10px auto 0 auto;
   }
@@ -125,7 +128,9 @@ const ListItem = styled.div`
 
 const ListSpan = styled(Span)`
   color: var(--ifm-color-primary-blog);
-  font-family: Strawford;
+  font-family:
+    DM Sans,
+    sans-serif;
   font-size: 37px;
   font-style: normal;
   font-weight: 700;

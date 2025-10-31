@@ -7,11 +7,11 @@ import React, { ReactElement } from 'react';
 
 // Internal Components
 import { translate } from '@docusaurus/Translate';
+import { useLocation } from '@docusaurus/router';
 import { PageMetadata } from '@docusaurus/theme-common';
+import { useSiteBaseUrl } from '@site/src/hooks/useSiteBaseUrl';
 import Layout from '@theme/Layout';
 import NotFoundContent from '@theme/NotFound/Content';
-import { useLocation } from '@docusaurus/router';
-import { useSiteBaseUrl } from '@site/src/utils/useSiteBaseUrl';
 
 export default function Index(): ReactElement {
   const location = useLocation();
@@ -31,7 +31,7 @@ export default function Index(): ReactElement {
         showNavbar={
           !pathname.startsWith(baseURL + '/docs') &&
           !pathname.startsWith(baseURL + '/blog')
-            ? 'chain'
+            ? 'website'
             : 'docusaurus'
         }
       >

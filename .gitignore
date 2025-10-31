@@ -12,6 +12,9 @@
 .cache-loader
 .yarn
 
+# Blog lite directory (development optimization)
+blog-lite
+
 # Misc
 .DS_Store
 .env

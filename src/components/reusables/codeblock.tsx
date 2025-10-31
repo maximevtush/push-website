@@ -122,6 +122,10 @@ const Div = styled.div`
     position: relative;
     top: 120px;
     left: -15px;
+
+    span {
+      color: #000 !important;
+    }
   }
 `;
 
@@ -145,7 +149,7 @@ const TechDocCodeBlock = styled(CodeBlock)`
   }
 
   *::-webkit-scrollbar-thumb {
-    background: #cb3faa;
+    background: var(--ifm-color-pink-300);
     border-radius: 6px;
   }
 
@@ -159,7 +163,7 @@ const TechDocCodeBlock = styled(CodeBlock)`
 
   /* Firefox */
   * {
-    scrollbar-color: #cb3faa #f1f1f1;
+    scrollbar-color: var(--ifm-color-pink-300) var(--ifm-color-neutral-100);
     scrollbar-width: thin;
   }
 `;

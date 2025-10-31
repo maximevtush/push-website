@@ -1,3 +1,4 @@
+/* eslint-disable @docusaurus/prefer-docusaurus-heading */
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -11,23 +12,21 @@ import {
 import {
   BlogPostProvider,
   useBlogPost,
-} from '@docusaurus/theme-common/internal';
-import GLOBALS, { device } from '@site/src/config/globals';
+} from '@docusaurus/plugin-content-blog/client';
 import BlogLayout from '@theme/BlogLayout';
 import BlogPostItem from '@theme/BlogPostItem';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';
-import BlogPostPaginator from '@theme/BlogPostPaginator';
 import TOC from '@theme/TOC';
 import clsx from 'clsx';
-import React from 'react';
 import styled from 'styled-components';
 import FooterItem from './FooterItem';
 import MorePosts from './MorePosts';
+import { MultiContent } from '@site/src/css/SharedStyling';
 
 function BlogPostPageContent({ allPosts, post, children }) {
   const { metadata, toc } = useBlogPost();
 
-  const { nextItem, prevItem, frontMatter, unlisted } = metadata;
+  const { frontMatter } = metadata;
   const {
     hide_table_of_contents: hideTableOfContents,
     toc_min_heading_level: tocMinHeadingLevel,
@@ -35,44 +34,55 @@ function BlogPostPageContent({ allPosts, post, children }) {
   } = frontMatter;
 
   return (
-    <BlogLayout
-      toc={
-        !hideTableOfContents && toc.length > 0 ? (
-          <TOC
-            toc={toc}
-            minHeadingLevel={tocMinHeadingLevel}
-            maxHeadingLevel={tocMaxHeadingLevel}
-          />
-        ) : undefined
-      }
-    >
-      <BlogItem>
+    <BlogLayout>
+      <MultiContent flexDirection='row' gap='64px'>
         <BlogPostItem>{children}</BlogPostItem>
-
-        {/* {(nextItem || prevItem) && (
-          <BlogPostPaginator nextItem={nextItem} prevItem={prevItem} />
-        )} */}
-
-        <FooterItem />
+        <TOCWrapper className=''>
+          {!hideTableOfContents && toc.length > 0 ? (
+            <TOC
+              toc={toc}
+              minHeadingLevel={tocMinHeadingLevel}
+              maxHeadingLevel={tocMaxHeadingLevel}
+            />
+          ) : undefined}
+        </TOCWrapper>
+      </MultiContent>
+      <StyledMultiContent>
+        <FooterItem post={post} />
         <MorePosts allPosts={allPosts} post={post} />
-      </BlogItem>
+      </StyledMultiContent>
     </BlogLayout>
   );
 }
+
 export default function BlogPostPage(props) {
   const blogPath = props.location.pathname.substring(
     0,
     props.location.pathname.length - 1
   );
   const allPosts = props.allPosts;
-  const contentName = allPosts?.filter((x) =>
-    x?.Preview?.metadata?.permalink.includes(blogPath)
-  )[0];
+
+  const contentName = allPosts?.find((x) =>
+    x?.Preview?.metadata?.permalink?.includes(blogPath)
+  );
+
   const BlogPostContent = contentName?.Preview;
 
-  // const BlogPostContent = props.content;
+  const isValidComponent =
+    BlogPostContent && typeof BlogPostContent === 'function';
+
+  if (!isValidComponent) {
+    console.warn(`Invalid blog post component for path: ${blogPath}`);
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h1>Blog post not found or invalid.</h1>
+        <p>Please check the metadata or route configuration.</p>
+      </div>
+    );
+  }
+
   return (
-    <BlogPostProvider content={contentName?.Preview} isBlogPostPage>
+    <BlogPostProvider content={BlogPostContent} isBlogPostPage>
       <HtmlClassNameProvider
         className={clsx(
           ThemeClassNames.wrapper.blogPages,
@@ -88,13 +98,18 @@ export default function BlogPostPage(props) {
   );
 }
 
-const BlogItem = styled.div`
-  width: 800px !important;
-  margin: 0 auto;
+const StyledMultiContent = styled(MultiContent)`
+  @media (min-width: 1200px) {
+    width: 75%;
+  }
+`;
 
-  @media (max-width: 820px) {
-    width: 100% !important;
-    padding: ${`${GLOBALS.STRUCTURE.PADDING.MOBILE}`};
-    box-sizing: border-box;
+const TOCWrapper = styled.div`
+  display: none;
+
+  @media (min-width: 1200px) {
+    max-width: 250px;
+    display: block;
+    margin-top: 100px;
   }
 `;

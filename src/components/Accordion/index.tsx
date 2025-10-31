@@ -3,13 +3,13 @@
 // @ts-nocheck
 // External Components
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import styled from 'styled-components';
 
 // Internal Components
-import { H2, H3 } from '@site/src/css/SharedStyling';
+import { H3 } from '@site/src/css/SharedStyling';
 import useMediaQuery from '@site/src/hooks/useMediaQuery';
-import { useSiteBaseUrl } from '../../utils/useSiteBaseUrl';
+import { useSiteBaseUrl } from '../../hooks/useSiteBaseUrl';
 
 // Internal Configs
 import { device } from '@site/src/config/globals';
@@ -24,18 +24,14 @@ interface AccordionItem {
 
 interface AccordionProps {
   items: AccordionItem[];
-  fontFamily?: string;
   firstOpen?: boolean;
-  textColor?: string;
   fontWeight?: string;
   fontSize?: string;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
   items,
-  fontFamily,
   firstOpen,
-  textColor,
   fontWeight,
   fontSize,
 }) => {
@@ -55,42 +51,40 @@ const Accordion: React.FC<AccordionProps> = ({
       {items.map((item, index) => (
         <AccordionSection key={index}>
           <AccordionParent onClick={() => toggleAccordion(index)}>
-            <H2
-              color={textColor || '#FFF'}
-              fontSize={fontSize ? fontSize : isMobile ? '20px' : '22px'}
-              fontFamily={fontFamily}
-              fontWeight={fontWeight || '400'}
+            <H3
+              color={'var(--ifm-color-white)'}
+              fontSize={fontSize ? fontSize : isMobile ? '20px' : '1.5rem'}
+              fontFamily={'DM Sans, sans-serif'}
+              fontWeight={fontWeight || '600'}
               lineHeight='140%'
             >
               {item.title || item.question}
-            </H2>
+            </H3>
             <div>
               {activeIndex === index ? (
-                <AiOutlineMinus color={textColor || '#FFF'} size={22} />
+                <AiOutlineMinus color={'var(--ifm-color-white)'} size={22} />
               ) : (
-                <AiOutlinePlus color={textColor || '#FFF'} size={22} />
+                <AiOutlinePlus color={'var(--ifm-color-white)'} size={22} />
               )}
             </div>
           </AccordionParent>
           {activeIndex === index && item.content !== undefined && (
             <>
               <H3
-                color={textColor || '#FFF'}
+                color={'var(--ifm-color-white)'}
                 fontSize={isMobile ? '16px' : '19px'}
-                fontFamily={fontFamily}
+                fontFamily={'DM Sans, sans-serif'}
                 fontWeight='400'
-                lineHeight='150%'
                 padding='0 0 24px 0'
               >
                 {item.content}
 
                 {item.link && (
                   <a
-                    color='#FFF'
-                    fontFamily={fontFamily}
+                    color='var(--ifm-color-white)'
+                    fontFamily={'DM Sans, sans-serif'}
                     fontSize='16px'
                     fontWeight='300'
-                    lineHeight='140%'
                     letterSpacing='normal'
                     target='_blank'
                     href={item.link}
@@ -113,7 +107,7 @@ const Accordion: React.FC<AccordionProps> = ({
 };
 
 const AccordionSection = styled.div`
-  border-bottom: 1px solid #2a2a39;
+  border-bottom: 1px solid var(--ifm-color-gray-200);
 
   h3 {
     white-space: pre-wrap;

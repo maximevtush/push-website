@@ -1,13 +1,18 @@
+/* eslint-disable no-useless-escape */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 // React and other libraries
-import React, { useEffect, useState, FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { toast, Toaster } from 'sonner';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { toast, Toaster } from 'sonner';
+import styled from 'styled-components';
 
 // Internal Components
 import { Image } from '../../src/css/SharedStyling';
 import CrossSVG from '../../static/assets/website/illustrations/Cross.svg';
-import { useSiteBaseUrl } from '../utils/useSiteBaseUrl';
+import { useSiteBaseUrl } from './useSiteBaseUrl';
 
 type NotificationProps = {
   image?: ReactNode;
@@ -25,6 +30,8 @@ type NotificationProps = {
   position?: 'bottom-right' | 'bottom-left' | 'top-center';
   /* Optional duration of the notification component */
   duration?: number;
+  /* Translation function */
+  t?: (key: string) => string;
 };
 
 // Notification Container
@@ -40,7 +47,9 @@ const NotificationContainer = styled.div`
   width: 397px;
   cursor: pointer;
   box-sizing: border-box;
-  font-family: FK Grotesk Neue;
+  font-family:
+    DM Sans,
+    san-serif;
   overflow: hidden;
 
   @media (max-width: 425px) {
@@ -50,6 +59,7 @@ const NotificationContainer = styled.div`
 
 const StyledToaster = styled(Toaster)`
   width: 397px;
+  margin-right: 50px;
 
   @media (max-width: 425px) {
     width: -webkit-fill-available;
@@ -70,14 +80,14 @@ const NotificationTitle = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 23px;
-  color: #17181b;
+  color: var(--ifm-color-neutral-950);
 `;
 
 const NotificationDescription = styled.span`
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
-  color: #8c93a0;
+  color: var(--ifm-color-neutral-500);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -86,20 +96,12 @@ const NotificationDescription = styled.span`
   -webkit-box-orient: vertical;
 `;
 
-const IconContainer = styled.div`
-  padding: 16px 12px;
-  border-radius: 8px 0px 0px 8px;
-  background: radial-gradient(
-    79.55% 79.55% at 50% 50%,
-    #344efd 0%,
-    #171717 100%
-  );
-`;
+const IconContainer = styled.div``;
 
 const CloseButton = styled.div`
   background-color: transparent;
   cursor: pointer;
-  color: #202124;
+  color: var(--ifm-color-gray-700);
   padding: 0px;
   position: absolute;
   right: 8px;
@@ -109,6 +111,7 @@ const CloseButton = styled.div`
 // Custom Hook
 export const useRewardsNotification = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { t } = useTranslation();
 
   const location = useLocation();
   const baseURL = useSiteBaseUrl();
@@ -120,34 +123,36 @@ export const useRewardsNotification = () => {
     const toastId = toast.custom(
       () => (
         <NotificationItem
-          title='Push Points are Live'
-          description='Earn Push Points to unlock exclusive rewards on completing exciting activities'
+          title={t('notifications.rewards-notification.title')}
+          description={t('notifications.rewards-notification.description')}
           image={
             <Image
               src={
                 require(
-                  `@site/static/assets/website/illustrations/rewardspoint.png`
+                  `@site/static/assets/website/notifications/testnet-notif.webp`
                 ).default
               }
-              srcSet={`${require(`@site/static/assets/website/illustrations/rewardspoint@2x.png`).default} 2x, ${require(`@site/static/assets/website/illustrations/rewardspoint@3x.png`).default} 3x`}
-              alt='Image showing BRB Chat is powered by Push Chat'
+              srcSet={`${require(`@site/static/assets/website/notifications/testnet-notif@2x.webp`).default} 2x, ${require(`@site/static/assets/website/notifications/testnet-notif@3x.webp`).default} 3x`}
+              alt={t('notifications.rewards-notification.image-alt')}
+              loading='lazy'
             />
           }
           position='bottom-left'
           onClick={() => {
             localStorage.setItem('notificationShown', 'true');
-            window.open('https://app.push.org/points', '_blank');
+            window.open('https://t.me/+dHOCilvxNR9jZjM9', '_blank');
             toast.dismiss(toastId);
           }}
           onClose={() => {
             localStorage.setItem('notificationShown', 'true');
             toast.dismiss(toastId);
           }}
+          t={t}
         />
       ),
       {
         duration: Infinity,
-        position: 'bottom-left',
+        position: 'bottom-right',
       }
     );
   };
@@ -180,6 +185,7 @@ const NotificationItem: FC<NotificationProps> = ({
   image,
   onClick,
   onClose,
+  t,
 }) => {
   const handleNotificationClick = () => onClick?.();
   const handleNotificationClose = () => {
@@ -188,17 +194,29 @@ const NotificationItem: FC<NotificationProps> = ({
   };
 
   return (
-    <NotificationContainer onClick={handleNotificationClick}>
+    <NotificationContainer
+      onClick={handleNotificationClick}
+      role='alert'
+      aria-label={t?.(
+        'notifications.rewards-notification.container-aria-label'
+      )}
+      aria-describedby='rewards-notification-content'
+      aria-live='assertive'
+    >
       {image && <IconContainer>{image}</IconContainer>}
       <CloseButton
         onClick={(e) => {
           e.stopPropagation();
           handleNotificationClose();
         }}
+        title={t?.('notifications.rewards-notification.close-button-title')}
+        aria-label={t?.(
+          'notifications.rewards-notification.close-button-aria-label'
+        )}
       >
         <CrossSVG width={16} height={16} />
       </CloseButton>
-      <TextContainer>
+      <TextContainer id='rewards-notification-content'>
         <NotificationTitle>{title}</NotificationTitle>
         <NotificationDescription>{description}</NotificationDescription>
       </TextContainer>

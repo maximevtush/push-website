@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 // React + Web3 Essentials
 import React, { useRef, useState } from 'react';
@@ -9,14 +10,7 @@ import { useClickAway } from 'react-use';
 import styled from 'styled-components';
 
 // Internal Components
-import {
-  A,
-  Button,
-  Image,
-  ItemH,
-  ItemV,
-  Span,
-} from '@site/src/css/SharedStyling';
+import { Button, Image, ItemH, ItemV, Span } from '@site/src/css/SharedStyling';
 
 // Import Assets
 import Discord from '@site/static/assets/website/brb/Discord-BRB.svg';
@@ -70,7 +64,7 @@ export const TokenFaucet = ({
         />
         <Span
           fontSize='13px'
-          color='#F0A5FC'
+          color='var(--ifm-color-token-highlight)'
           margin='5px 0px 0px 16px'
           flex='1'
           letterSpacing='1.5px'
@@ -96,8 +90,12 @@ export const TokenFaucet = ({
         <ItemH justifyContent='flex-start' alignItems='center' gap='8px'>
           <ButtonItem
             borderRadius='12px'
-            background={isFollowed ? '#FFF' : '#25AAF5'}
-            border='1px solid #25AAF5'
+            background={
+              isFollowed
+                ? 'var(--ifm-color-white)'
+                : 'var(--ifm-color-twitter-blue-btn)'
+            }
+            border='1px solid var(--ifm-color-twitter-blue-btn)'
             padding='6.5px 8.5px'
             onClick={() => openLink('https://x.com/PushChain')}
           >
@@ -106,9 +104,12 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isFollowed ? '#25AAF5' : '#FFF'}
+              color={
+                isFollowed
+                  ? 'var(--ifm-color-twitter-blue-btn)'
+                  : 'var(--ifm-color-white)'
+              }
             >
-              PushChain
               {isFollowed ? 'Following' : 'Follow @PushChain'}
             </Span>
             {isFollowed && (
@@ -117,8 +118,12 @@ export const TokenFaucet = ({
           </ButtonItem>
           <ButtonItem
             borderRadius='12px'
-            background={isPosted ? '#FFF' : '#25AAF5'}
-            border='1px solid #25AAF5'
+            background={
+              isPosted
+                ? 'var(--ifm-color-white)'
+                : 'var(--ifm-color-twitter-blue-btn)'
+            }
+            border='1px solid var(--ifm-color-twitter-blue-btn)'
             padding='6.5px 8.5px'
             onClick={() =>
               openLink(
@@ -131,7 +136,11 @@ export const TokenFaucet = ({
             <Span
               fontSize='16px'
               fontWeight='400'
-              color={isPosted ? '#25AAF5' : '#FFF'}
+              color={
+                isPosted
+                  ? 'var(--ifm-color-twitter-blue-btn)'
+                  : 'var(--ifm-color-white)'
+              }
             >
               {isPosted ? 'Posted' : 'Post about BRB'}
             </Span>
@@ -144,12 +153,18 @@ export const TokenFaucet = ({
       <InputContainer>
         <Label>
           2. Join Discord and Share a link of your post in{' '}
-          <span style={{ color: '#F878DC' }}>#brb-faucet</span>
+          <span style={{ color: 'var(--ifm-color-discord-channel)' }}>
+            #brb-faucet
+          </span>
         </Label>
         <ButtonItem
           borderRadius='12px'
-          background={isJoined ? '#FFF' : '#3C63C6'}
-          border='1px solid #3C63C6'
+          background={
+            isJoined
+              ? 'var(--ifm-color-white)'
+              : 'var(--ifm-color-discord-blue)'
+          }
+          border='1px solid var(--ifm-color-discord-blue)'
           padding='6.5px 8.5px'
           onClick={() => openLink('https://discord.gg/cTRqvYzXpW')}
         >
@@ -158,7 +173,11 @@ export const TokenFaucet = ({
           <Span
             fontSize='16px'
             fontWeight='400'
-            color={isJoined ? '#3C63C6' : '#FFF'}
+            color={
+              isJoined
+                ? 'var(--ifm-color-discord-blue)'
+                : 'var(--ifm-color-white)'
+            }
           >
             {isJoined ? 'Joined' : 'Join Discord and Share link'}
           </Span>
@@ -174,7 +193,7 @@ export const TokenFaucet = ({
       </InputContainer>
       {/* <ButtonItem
         borderRadius="16px"
-        background="#E64DE9"
+        background="var(--ifm-color-pink-secondary)"
         border="1px solid #FC6DFF"
         padding="16px 32px"
         style={{ width: '100%', fontSize: '18px', marginTop: '4px' }}
@@ -205,7 +224,7 @@ const Container = styled(ItemV)`
   height: fit-content;
   justify-content: flex-start;
   border-radius: 32px;
-  background: #2a2a39;
+  background: var(--ifm-color-gray-200);
   padding: 20px;
   z-index: 10;
   margin-top: 115px;
@@ -246,21 +265,9 @@ const Label = styled.label`
   font-size: 14px;
   font-weight: 600;
   text-align: left;
-  color: #fff;
+  color: var(--ifm-color-white);
   // padding: 5px;
   margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-  box-sizing: border-box;
-  height: 48px;
-  width: 100%;
-  padding: 12px 23px;
-  border-radius: 61px;
-  border: 1px solid #5a5a75;
-  outline: none;
-  background: transparent;
-  color: #b6bcd6;
 `;
 
 const ButtonItem = styled(Button)`
@@ -287,10 +294,4 @@ const ButtonItem = styled(Button)`
   @media ${device.mobileL} {
     width: fit-content;
   }
-`;
-
-const ImportantText = styled(Span)`
-  font-size: 10px;
-  color: #b5bcd6;
-  font-weight: 400;
 `;

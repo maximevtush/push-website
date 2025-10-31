@@ -1,0 +1,348 @@
+---
+id: docs-chain-tutorials-universal-gateway-payment
+title: "Build a Universal Payment Gateway"
+hide_title: false
+slug: ./tutorial-universal-payment-gateway
+displayed_sidebar: pushChainSidebar
+sidebar_position: 4
+image: "/assets/docs/previews/docs_chain_tutorials_universal_gateway_payment--build_a_universal_payment_gateway.png"
+---
+
+<head>
+  <title>Build a Universal Payment Gateway | Tutorials | Push Chain Docs</title>
+</head>
+
+{/* Content Start */}
+
+Welcome! In this tutorial you'll build a **Universal Payment Gateway** where **any user can pay you from their preferred chain** (e.g. **Ethereum** or **Solana**) **to a single Push Chain address**. Think of it like **Stripe for chains**—_Visa or Mastercard_ doesn't matter; **everyone can pay**.
+
+## Why Push Chain for payments
+
+Most payments in web3 are **not unified**—they force users to switch chains, bridge, or hold the “right” gas token. That leads to drop‑offs and lost revenue. **Push Chain** fixes this by giving you:
+
+- **Single transaction from any chain** → Users can execute a transaction _from their chain_ to your Push address without custom bridges.  
+- **Wallet abstraction** → Connect with MetaMask, Phantom, email, Google, etc., via a single provider.  
+- **Universal fee abstraction** → Let users pay gas in their **native tokens** (e.g. ETH/SOL) while your app receives funds on Push Chain.
+
+> Result: You don't exclude users by their wallet or chain, just like Stripe doesn't exclude card networks.
+
+## What you'll build
+
+A minimal React + Vite app where users:
+
+1) Connect with **Push Universal Wallet** (MetaMask, Phantom, email, etc.)  
+2) Pick between **3 preset amounts** (1 PC, 5 PC, or 10 PC) or **enter a custom amount**  
+3) **Send** to your Push wallet address  
+4) See the **transaction hash** with an **Explorer link**
+
+## 1) Create the project
+
+First, create a new Vite TypeScript React project:
+
+```bash
+npm create vite@latest universal-payment-gateway -- --template "react-ts"
+```
+
+This will create a new directory called `universal-payment-gateway` with a basic React + TypeScript setup.
+
+Now install the required Push Chain packages:
+
+```bash
+npm install @pushchain/ui-kit
+```
+
+## 2) Wrap your app with Push Universal Wallet
+
+Open **`main.tsx`** and wrap your app with `PushUniversalWalletProvider`. You can also supply per‑chain RPCs (optional).
+
+> For more detailed information about Push Universal Wallet integration, see [Integrate Push Universal Wallet](/docs/chain/ui-kit/integrate-push-universal-wallet).
+
+```tsx title="src/main.tsx"
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+// Import Push Chain UI Kit
+import { PushUniversalWalletProvider, PushUI } from '@pushchain/ui-kit';
+
+// Add Wallet Config
+const walletConfig = {
+  network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET,
+};
+
+createRoot(document.getElementById('root')!).render(
+  <PushUniversalWalletProvider config={walletConfig}>
+    <StrictMode>
+      <App />
+    </StrictMode>
+  </PushUniversalWalletProvider>
+);
+```
+
+> **Note:** You can remove the `import './index.css'` line from the generated `main.tsx` file since we won't be using the default Vite styles for this tutorial.
+
+
+## 3) Build the Universal Payment UI
+
+### 3.1) Hooks you'll use
+
+- `usePushWalletContext()` → wallet connection state (e.g., connectionStatus).
+- `usePushChainClient()` → the initialized pushChainClient used to send universal transactions.
+- `usePushChain()` → PushChain class that has helper methods for parsing units, etc.
+
+```tsx title="src/App.tsx"
+import { usePushWalletContext, usePushChainClient, usePushChain } from '@pushchain/ui-kit';
+
+const { connectionStatus } = usePushWalletContext();
+const { pushChainClient } = usePushChainClient();
+const { PushChain } = usePushChain();
+```
+
+### 3.2) Local state & derived amount
+
+We store the selected preset amount (1 PC, 5 PC, 10 PC, or custom), the recipient, and tx state.
+
+```tsx title="src/App.tsx"
+type PresetAmount = 1 | 5 | 10 | 'custom';
+
+const [recipient, setRecipient] = useState('');
+const [preset, setPreset] = useState<Preset>(1);
+const [custom, setCustom] = useState('');
+const [sending, setSending] = useState(false);
+const [hash, setHash] = useState<string | null>(null);
+
+const amount = preset === 'custom' ? Number(custom) || 0 : preset;
+const validAddr = /^0x[a-fA-F0-9]{40}$/.test(recipient.trim());
+const canSend = connected && validAddr && amount > 0 && !sending;
+```
+
+### 3.3) Send transaction
+
+The `handleSend` function uses client from the `usePushChainClient` hook to send the transaction.
+
+```tsx title="src/App.tsx"
+import { usePushChainClient, usePushChain } from '@pushchain/ui-kit';
+
+const { pushChainClient } = usePushChainClient();
+const { PushChain } = usePushChain();
+
+async function send() {
+  if (!pushChainClient || !canSend) return;
+  setSending(true);
+  setHash(null);
+  try {
+    const value = PushChain.utils.helpers.parseUnits(String(amount), 18);
+    const res = await pushChainClient.universal.sendTransaction({
+      to: recipient.trim(),
+      value,
+    });
+    setHash(res.hash);
+  } finally {
+    setSending(false);
+  }
+}
+```
+
+### 3.4) Connect Account Button and check connection status
+
+The `PushUniversalAccountButton` component is used to connect the account.
+
+The `connectionStatus` is checked to ensure the user is connected before displaying the payment form.
+
+```tsx title="src/App.tsx"
+...
+<PushUniversalAccountButton />
+
+{connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED && (
+  <div>
+    {/* Payment form goes here */}
+  </div>
+)}
+...
+```
+
+### 3.5) Display Block Explorer URL
+
+After success, show the tx hash with a link from the client’s explorer helper by using the `pushChainClient.explorer.getTransactionUrl` method.
+
+```tsx title="src/App.tsx"
+...
+{hash && (
+  <div style={{ marginTop: 12, fontSize: 14 }}>
+    Txn: <code>{hash}</code>{' '}
+    <a href={pushChainClient?.explorer.getTransactionUrl(hash)} target="_blank" rel="noreferrer noopener">
+      View
+    </a>
+  </div>
+)}
+...
+```
+
+### 3.6) Complete code
+
+```jsx live
+import { useState } from 'react';
+import { PushUniversalAccountButton, usePushWalletContext, usePushChainClient, PushUI, usePushChain } from '@pushchain/ui-kit';
+
+function App() {
+  function PaymentGateway() {
+    const { connectionStatus } = usePushWalletContext();
+    const { pushChainClient } = usePushChainClient();
+    const { PushChain } = usePushChain();
+
+    const connected = connectionStatus === PushUI.CONSTANTS.CONNECTION.STATUS.CONNECTED;
+
+    const [recipient, setRecipient] = useState('');
+    const [preset, setPreset] = useState(1);
+    const [custom, setCustom] = useState('');
+    const [sending, setSending] = useState(false);
+    const [hash, setHash] = useState(null);
+
+    const amount = preset === 'custom' ? Number(custom) || 0 : preset;
+    const validAddr = /^0x[a-fA-F0-9]{40}$/.test(recipient.trim());
+    const canSend = connected && validAddr && amount > 0 && !sending;
+
+    async function send() {
+      if (!pushChainClient || !canSend) return;
+      setSending(true);
+      setHash(null);
+      try {
+        const value = PushChain.utils.helpers.parseUnits(String(amount), 18);
+        const res = await pushChainClient.universal.sendTransaction({
+          to: recipient.trim(),
+          value,
+        });
+        setHash(res.hash);
+      } finally {
+        setSending(false);
+      }
+    }
+
+    return (
+      <div style={{ maxWidth: 520, margin: '24px auto', padding: 16, fontFamily: 'system-ui' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <PushUniversalAccountButton />
+        </div>
+
+        <h2 style={{ marginTop: 16 }}>Universal Payment Gateway</h2>
+        <p style={{ marginTop: 6, color: '#666' }}>
+          Pay a Push address from Ethereum or Solana—no manual network switching.
+        </p>
+
+        <label style={{ display: 'block', fontWeight: 600, marginTop: 16 }}>Recipient (Push EVM address)</label>
+        <input
+          value={recipient}
+          onChange={(e) => setRecipient(e.target.value)}
+          placeholder="0x..."
+          style={{ width: '100%', padding: 10, borderRadius: 10, border: '1px solid #ccc' }}
+        />
+        {!validAddr && recipient.trim() !== '' && (
+          <div style={{ color: '#b00020', fontSize: 12, marginTop: 6 }}>Enter a valid 0x address</div>
+        )}
+
+        <div style={{ fontWeight: 600, marginTop: 16 }}>Amount (PC)</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+          {[1, 5, 10].map((a) => (
+            <button
+              key={a}
+              onClick={() => setPreset(a)}
+              disabled={sending}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 10,
+                border: '1px solid #111',
+                background: preset === a ? '#111' : 'transparent',
+                color: preset === a ? '#fff' : '#111',
+                cursor: 'pointer',
+              }}
+            >
+              {a} PC
+            </button>
+          ))}
+          <button
+            onClick={() => setPreset('custom')}
+            disabled={sending}
+            style={{
+              padding: '8px 12px',
+              borderRadius: 10,
+              border: '1px solid #111',
+              background: preset === 'custom' ? '#111' : 'transparent',
+              color: preset === 'custom' ? '#fff' : '#111',
+              cursor: 'pointer',
+            }}
+          >
+            Custom
+          </button>
+        </div>
+
+        {preset === 'custom' && (
+          <input
+            type="number"
+            min={0}
+            step={0.000001}
+            placeholder="Enter PC amount"
+            value={custom}
+            onChange={(e) => setCustom(e.target.value)}
+            style={{
+              width: '100%',
+              padding: 10,
+              borderRadius: 10,
+              border: '1px solid #ccc',
+              marginTop: 8,
+            }}
+          />
+        )}
+
+        <button
+          onClick={send}
+          disabled={!canSend}
+          style={{
+            width: '100%',
+            marginTop: 16,
+            padding: '12px 16px',
+            borderRadius: 10,
+            border: '1px solid #111',
+            background: canSend ? '#111' : '#999',
+            color: '#fff',
+            cursor: canSend ? 'pointer' : 'not-allowed',
+          }}
+        >
+          {sending ? 'Sending…' : `Send ${amount || ''} PC`}
+        </button>
+
+        {hash && (
+          <div style={{ marginTop: 12, fontSize: 14 }}>
+            Txn: <code>{hash}</code>{' '}
+            <a href={pushChainClient?.explorer.getTransactionUrl(hash)} target="_blank" rel="noreferrer noopener">
+              View
+            </a>
+          </div>
+        )}
+
+        {!connected && <div style={{ color: '#555', marginTop: 8, fontSize: 12 }}>Connect your wallet to send.</div>}
+      </div>
+    );
+  }
+
+  return (
+    <PushUniversalWalletProvider config={{ network: PushUI.CONSTANTS.PUSH_NETWORK.TESTNET }}>
+      <PaymentGateway />
+    </PushUniversalWalletProvider>
+  );
+}
+```
+
+## How this enables “Stripe‑like” payments
+
+- **Connect with anything** (MetaMask, Phantom, email, etc.) using one provider and button.
+- **Users stay on their chain** and still pay your **Push** address—no manual bridges.
+- **Gas in native tokens**—your users can pay fees in ETH/SOL while you receive on Push.
+
+## Notes & tips
+
+- Amounts are in **PC** (18 decimals). Use `PushChain.utils.helpers.parseUnits(amount, 18)` when building the transaction.
+- The connect modal can be customized (login methods, layouts, app preview, etc.).
+- You can supply custom RPCs per chain via `chainConfig.rpcUrls` in the provider `config`.
+
+---
+
+Happy building!
